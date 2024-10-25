@@ -12,14 +12,14 @@ theme:
     - content.code.select
     - content.code.copy
     - content.tabs.link
-    - content.code.select
-    - content.code.copy
     - navigation.indexes
-    - navigation.sections
+  # - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.path
     - navigation.tracking
+    - content.code.select
+    - content.code.copy
     - search.highlight
     - search.share
     - search.suggest

@@ -11,6 +11,8 @@ categories:
 This guide includes key components to consider when aiming for reproducible research, specifically focusing on documenting code and
 computational environment, making a README file, documenting inputs and expected outputs, and providing clear instructions for replicating results.
 
+<!-- more -->
+
 ## Documenting Fixed Inputs and Expected Outputs
 
 * **Input Data**: Describe the data your code expects. Include format, structure, and examples. Mention any pre-processing steps required.

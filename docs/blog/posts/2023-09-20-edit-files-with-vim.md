@@ -12,10 +12,12 @@ However, it is sometimes more convenient and faster to edit files directly from 
 
 In this post, we will illustrate how you can do this using the Vim text editor that comes with Linux distributions and can be used on any HPC system or server. As a specific example, we will make small changes to a Python script from the command line.
 
+<!-- more -->
 To start, Vim has several modes:
 
- - **Command mode**: This is the mode you will be in when you first enter Vim. The user issues commands such as search, replace, block deletion and so on, but cannot type new content directly. It is in this mode where you can also save the edited file.
+- **Command mode**: This is the mode you will be in when you first enter Vim. The user issues commands such as search, replace, block deletion and so on, but cannot type new content directly. It is in this mode where you can also save the edited file.
 - **Insert mode**: The user types in content edits to files. We can switch from **Command mode** to this mode by pressing the `i` key. When you are in **Insert mode**, the bottom of the editor displays `-- INSERT --`. Switch back to **Command mode** by pressing the `esc` key. 
+
 
 Let's open up a test file and edit it:
 ```title="Terminal Command"
