@@ -96,17 +96,17 @@ nav:
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
           - Best Practices in R: _user_guide/best_practices_r.md
-      - Julia:
-          - Running Julia Interactively: _user_guide/julia.md
-      - Optimization Software:
-          - Optimization: _user_guide/best_practices_optimization.md
+      - Julia: _user_guide/julia.md
+      - SAS: _user_guide/sas.md          
+      - Optimization Software: _user_guide/best_practices_optimization.md
+      - Data:
+          - Storage: _user_guide/storage.md
+          - Data Transfer: _user_guide/data_transfer.md      
       - Troubleshooting:
           - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
           - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
-          - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
-      - Data:
-          - Storage: _user_guide/storage.md
-          - Data Transfer: _user_guide/data_transfer.md
+      - Beyond the Yens:
+          - Sherlock: _user_guide/sherlock.md
   - Blog:
       - blog/index.md
       # - Run Jobs on Yen's GPU Node: blog/posts/2024-04-25-yen_gpu.md
@@ -125,7 +125,6 @@ nav:
       # - How Do I Access SEC Documents?: blog/posts/2021-09-22-how_access_SEC.md 
       # - How Do I Install Stata on JupyterHub?: blog/posts/2022-02-24-install-stata-on-jupyter.md
       # - What is a man-in-the-middle warning?: blog/posts/2020-03-13-man_in_middle.md
-
 #extra:
 
 extra_css:
