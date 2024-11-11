@@ -4,8 +4,8 @@
 
 You can request a SUNet ID for a collaborator external to the GSB. In particular, this is a prerequisite for non-GSB collaborators to access the [Yen servers](/_getting_started/yen-servers){:target="_blank"}. SUNet ID sponsorship is managed by University IT. If they do not have one, you will need to [request one for them](https://uit.stanford.edu/service/sponsorship){:target="_blank"}.
 
-!!! Important
-    The collaborator you are sponsoring will need a valid SUNet ID to access the Yens. Users with valid SUNet IDs will have access to the Yens; however, they will require full sponsorship, which includes email service, to access [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
+!!! Warning
+    To access the Yens, the sponsored collaborator will need a valid SUNet ID. While users with a valid SUNet ID can access the Yens, they must have full sponsorship, including email service, to use [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
 
 ## Yen Access for External Collaborators
 
