@@ -130,7 +130,6 @@ You can transfer files to and from AFS using [OpenAFS](https://uit.stanford.edu/
 
     WebAFS has been retired and is no longer available to use. For its alternatives, visit this [page](https://afs.stanford.edu/){:target="_blank"}.
 
-
 ## How to Check ZFS Space Quota
 
 To determine how much of your quota you have used in your home direcotry `/home/users/<SUNet ID>/`, you can simply type:
@@ -155,7 +154,6 @@ gsbquota /zfs/projects/students/<my-project-dir>/
 !!! Tip
     Please report any issues with `gsbquota` to the [DARC team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"}.
 
-
 ## How Do I Recover ZFS Files
 
 Files on ZFS are backed up in **snapshots** for some amount of time, so if you need to recover something you accidentally deleted, luckily you can still access it! Please email the [DARC](mailto:gsb_darcresearch@stanford.edu) team for help.
@@ -178,5 +176,6 @@ Note that snapshots are taken every 10 minutes and retained according to specifi
 * <u>Weekly</u> --- retain 1 month of weekly snapshots
 * <u>Monthly</u> --- retain 1 year of monthly snapshots
 
-Please email [DARC](mailto:gsb_darcresearch@stanford.edu) for help recovering files from snapshots.
+!!! Tip
+    Please email [DARC](mailto:gsb_darcresearch@stanford.edu) for help recovering files from snapshots.
 
