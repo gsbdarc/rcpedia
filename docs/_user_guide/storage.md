@@ -66,8 +66,8 @@ The `echo` command prints out the environment variable `$HOME` which stores the 
 /home/users/<SUNetID>
 ```
 
-!!! Note
-    The home directory is not for storing or outputting large files while working on a project. It is a good place to store small files like scripts and text files. Your home directory storage space is capped at 50 GB. If your home directory is full, you won't be able to access [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.  
+!!! Important
+    The home directory is **not** for storing or outputting large files while working on a project. It is a good place to store small files like scripts and text files. Your home directory storage space is capped at 50 GB. If your home directory is full, you won't be able to access [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.  
 
 ### Project Directory
 
@@ -113,7 +113,7 @@ There is a large ZFS based scratch space, accessible from any Yen, at ```/scratc
 On each Yen machine, there is local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need.
 
 !!! Warning
-    Note that ```/scratch``` and ```/tmp``` space on all Yens is cleared during system reboots, and is subject to intermittent purging as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best only for temporary files.
+    Note that ```/scratch``` and ```/tmp``` space on all Yens is cleared during system reboots, and is subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best only for temporary files.
 
 ### AFS Volumes
 
@@ -125,7 +125,7 @@ You may have access to other AFS volumes set up for specific projects, or other 
 
 You can transfer files to and from AFS using [OpenAFS](https://uit.stanford.edu/software/afs){:target="_blank"} using your desktop, a free download available from Stanford. This software will mount your AFS directory so that you can access it using an Explorer (Windows) or Finder (Mac) window as you do with other files.
 
-!!! Tips
+!!! Note
     AFS is no longer mounted on the Yens. If you still wish to access your AFS space (afs-home), you can SSH into SRC's [rice nodes](https://srcc.stanford.edu/farmshare/connecting){:target="_blank"}. These nodes are part of the University's FarmShare system and you can access them with `ssh <SUnetID>@rice.stanford.edu`.
 
     WebAFS has been retired and is no longer available to use. For its alternatives, visit this [page](https://afs.stanford.edu/){:target="_blank"}.
@@ -152,7 +152,7 @@ gsbquota /zfs/projects/students/<my-project-dir>/
 /zfs/projects/students/<my-project-dir>/: currently using 39% (78G) of 200G available
 ```
 
-!!! Tips
+!!! Tip
     Please report any issues with `gsbquota` to the [DARC team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"}.
 
 
@@ -170,7 +170,7 @@ rm /zfs/projects/faculty/hello-world/results.csv
 
 - Oops, you accidentally deleted the file you wanted to keep! Only `results_temp.csv` remains. Luckily, since you made the files yesterday, there are likely snapshots available.
 
-Note that snapshots are taken every 10 minutes and retained at very set frequencies. The current snapshot retainment policy is as follows:
+Note that snapshots are taken every 10 minutes and retained according to specific intervals. The current snapshot retainment policy is as follows:
 
 * <u>10-minute</u> --- retain most recent hour's worth of snapshots
 * <u>Hourly</u> --- retain 1 day of hourly snapshots
