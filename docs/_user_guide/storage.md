@@ -117,7 +117,7 @@ On each Yen machine, there is local disk space mounted at ```/tmp```, which is o
 
 ### AFS Volumes
 
-You have a personal AFS volume that is named according to your SUNetID. For example If your SUNetID is johndoe13, then the path to your AFS directory is: ``` /afs/ir/users/j/o/johndoe13```. The two individual letters are the first two letters of the SUNetID.
+You may have a personal AFS volume that is named according to your SUNetID. For example If your SUNetID is johndoe13, then the path to your AFS directory is: ``` /afs/ir/users/j/o/johndoe13```. The two individual letters are the first two letters of the SUNetID.
 
 You may have access to other AFS volumes set up for specific projects, or other people may give you access to a specific directory in their AFS volume. To access other AFS volumes, you need to know what the path is. For example, the path might be something like ```/afs/ir/data/gsb/nameofyourdirectory```.
 
