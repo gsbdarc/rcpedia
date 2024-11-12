@@ -168,12 +168,11 @@ rm /zfs/projects/faculty/hello-world/results.csv
 
 - Oops, you accidentally deleted the file you wanted to keep! Only `results_temp.csv` remains. Luckily, since you made the files yesterday, there are likely snapshots available.
 
-Note that snapshots are taken every 10 minutes and retained according to specific intervals. The current snapshot retainment policy is as follows:
+Note that snapshots are retained according to specific intervals. The current snapshot retainment policy is as follows:
 
-* <u>10-minute</u> --- retain most recent hour's worth of snapshots
 * <u>Hourly</u> --- retain 1 day of hourly snapshots
 * <u>Daily</u> --- retain 1 week of daily snapshots
-* <u>Weekly</u> --- retain 1 month of weekly snapshots
+* <u>Weekly</u> --- retain 2 months of weekly snapshots
 * <u>Monthly</u> --- retain 1 year of monthly snapshots
 
 !!! Tip
