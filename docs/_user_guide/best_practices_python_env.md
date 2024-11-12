@@ -5,7 +5,7 @@ Python environments are a foundational aspect of professional Python development
 Managing Python virtual environments can be achieved through various tools, each offering unique features and benefits. The most commonly used tools include:
 
 * `venv`: built into Python 3.3 and later,
-* `Virtualenv`: third-party tool that supports both newer and older Python versions, 
+* `Virtualenv`: third-party tool that supports both newer and older Python versions,
 * [Anaconda](https://www.anaconda.com/products/distribution){:target="_blank"}: third-party tool popular in data science,
 * `Pipenv`: third-party tool that combines package management with virtual environment management.
 
@@ -35,7 +35,7 @@ We highly recommend using `venv`, Python’s built-in tool for creating virtual 
 
 ## Creating a New Virtual Environment with `venv`
 
-To make the virtual environment sharable, we make it in a shared location on the Yens such as a faculty project directory, and not in user's home. The virtual environment needs to be created once and all team members with access to the project directory will able to activate and use it. 
+To make the virtual environment sharable, we make it in a shared location on the Yens such as a faculty project directory, and not in user's home. The virtual environment needs to be created once and all team members with access to the project directory will able to activate and use it.
 
 Let's navigate to the shared project directory:
 
@@ -49,9 +49,9 @@ Create a new virtual environment:
 ```title="Terminal Command"
 /usr/bin/python3  -m venv .venv
 ```
-where we make a hidden directory `.venv` inside the project directory. 
+where we make a hidden directory `.venv` inside the project directory.
 
-## Activating a New Virtual Environment 
+## Activating a New Virtual Environment
 
 Next, we activate the virtual environment:
 
@@ -59,10 +59,10 @@ Next, we activate the virtual environment:
 source .venv/bin/activate
 ```
 
-You should see `(.venv):` prepended to the prompt: 
+You should see `(.venv):` prepended to the prompt:
 
 ```{ .yaml .no-copy }
-(.venv): 
+(.venv):
 ```
 
 Check Python version:
@@ -83,7 +83,7 @@ pip install <package>
 
 where `<package>` is a Python package (or list) to install, such as `numpy`, `pandas`, etc.
 
-## Making the Virtual Environment into a JupyterHub Kernel 
+## Making the Virtual Environment into a JupyterHub Kernel
 Install `ipykernel` package before installing the new environment as a kernel on JupyterHub:
 
 ```title="Terminal Command"
@@ -101,7 +101,7 @@ where `<kernel-name>` is the name of the kernel on JupyterHub.
 Using your environment is very simple - as long as your environment is activated, you can run python normally:
 
 ```title="Terminal Command (.venv)"
-USER@yenX:$ python <my_script.py> 
+USER@yenX:$ python <my_script.py>
 ```
 where `<my_script.py>` is your Python script.
 
@@ -115,7 +115,7 @@ which python
 ```
 where `/path/to/env/bin/python` is the path to the Python in your environment.
 
-## Activating a Shared Virtual Environment That Has Already Been Created 
+## Activating a Shared Virtual Environment That Has Already Been Created
 Simply navigate to the shared project directory and activate the environment:
 
 ```title="Terminal Command"
@@ -157,7 +157,7 @@ deactivate
 ```
 
 ### Removing the Virtual Environment
-If you would like to delete the previouly created virtual enviroment, simply delete the environment directory since `venv` environment is essentially a directory containing files and folders. 
+If you would like to delete the previouly created virtual enviroment, simply delete the environment directory since `venv` environment is essentially a directory containing files and folders.
 
 ```title="Terminal Command"
 rm -rf .venv
