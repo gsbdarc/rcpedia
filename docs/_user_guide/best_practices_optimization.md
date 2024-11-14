@@ -51,13 +51,13 @@ source opt/bin/activate
 
 You should see `(opt):` prepended to the prompt: 
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 (opt): $
 ```
 
 Finally, install required Python packages with `pip` (this step will take awhile):
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 pip install numpy pandas ipykernel threadpoolctl scipy gurobipy
 ```
 
@@ -65,12 +65,12 @@ The `ipykernel` module is needed to turn this virtual environment into a Jupyter
 the `threadpoolctl` and `scipy` packages are used in the example, and [`gurobipy`](https://pypi.org/project/gurobipy/){:target="_blank"} is a Python interface to Gurobi. 
 
 After the packages are installed, start the Python REPL by typing `python`:
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 python
 ```
 
 This will display:
-```{ .yaml .no-copy } 
+```{ .yaml .no-copy title="Terminal Output" } 
 Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
@@ -112,7 +112,7 @@ List loaded modules:
 ```title="Terminal Command"
  ml 
 ``` 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Currently Loaded Modules:
   1) gurobi/10.0.0   2) rstudio/2022.07.2+576   3) R/4.3.0
 ```
@@ -124,7 +124,7 @@ Launch interactive R:
 
 Then you can load the `gurobi` R package:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 R version 4.3.0 (2023-04-21) -- "Already Tomorrow"
 Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -147,7 +147,7 @@ Type 'q()' to quit R.
 ```title="Terminal Command"
 library('gurobi')
 ```
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Loading required package: slam
 >
 ```
@@ -178,7 +178,7 @@ Then install a personal `gurobi` package that links to Gurobi 9:
 ```title="Terminal Command"
 install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz", repos=NULL)
 ```
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Installing package into ‘/home/users/$USER/R/x86_64-pc-linux-gnu-library/4.2’
 (as ‘lib’ is unspecified)
 * installing *binary* package ‘gurobi’ ...
@@ -188,7 +188,7 @@ Installing package into ‘/home/users/$USER/R/x86_64-pc-linux-gnu-library/4.2�
 ```title="Terminal Command"
 library("gurobi")
 ```
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Loading required package: slam
 >
 ```
@@ -213,7 +213,7 @@ You can check currently loaded modules with:
 ```title="Terminal Command"
 ml
 ```
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Currently Loaded Modules:
   1) ampl/20231031   2) knitro/14.0.0
 ```
@@ -225,7 +225,7 @@ ml show knitro
 ```
 which shows you useful details about `PATH` modifications when the module is loaded:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 ---------------------------------------------------------------------------------------------------------------------
    /software/modules/Core/knitro/14.0.0.lua:
 ---------------------------------------------------------------------------------------------------------------------
@@ -269,13 +269,13 @@ source opt/bin/activate
 ```
 
 You should see `(opt):` prepended to the prompt: 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 (opt): $
 ```
 
 Finally, install required python packages with `pip` (this step will take awhile):
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 pip install numpy pandas ipykernel amplpy
 ```
 
@@ -286,13 +286,13 @@ We can now use both AMPL and Knitro on interactive Yen nodes.
 
 After the packages are installed, start the Python REPL by typing `python`:
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 python
 ```
 
 Test that you can import `amplpy` and that it is using the network license:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 Python 3.10.12 (main, Nov 20 2023, 15:14:05) [GCC 11.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>> 
@@ -335,7 +335,7 @@ We point to the AMPL floating network license with `AMPL(Environment("/software/
 
 The `ampl.eval()` call should indicate that we have checked out the license:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 option version 'AMPL Development Version 20231213 (Linux-5.15.0-1052-azure, 64-bit)\
 Licensed to Stanford University, Natalya Rapstine <nrapstin@stanford.edu> (srcc-license-srcf).\
 Temporary license expires 20250131.\
@@ -351,7 +351,7 @@ We also point to the Yen's Knitro licence with `ampl.setOption()` call.
 
 After defining the problem, the `ampl.solve()` call should print out the Knitro license information and the problem solution.
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 =======================================
            Academic License
        (NOT FOR COMMERCIAL USE)
@@ -400,7 +400,7 @@ source opt/bin/activate
 
 Then, we add the **active** `opt` virtual environment as a new JupyterHub kernel:
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 python -m ipykernel install --user --name=gurobipy \
 --env GUROBI_HOME /software/non-free/Gurobi/gurobi1000/linux64 \
 --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1000/linux64/gurobi.lic \
@@ -413,13 +413,13 @@ can find the software.
 
 List all of your Jupyter kernels:
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 jupyter kernelspec list
 ```
 
 To remove a kernel, run:
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 jupyter kernelspec uninstall <kernel-name>
 ```
 where `<kernel-name>` is the name of the kernel you want to uninstall from JupyterHub.
@@ -474,7 +474,7 @@ environment and Jupyter kernel. After loading `gurobipy3`, `ampl` and `knitro` m
  
 You can then make that active virtual environment into a new Jupyter kernel combining the environment variables we used previously:
 
-```title="Terminal Command (opt)"
+```title="Terminal Command"
 python -m ipykernel install --user --name=opt \
 --env GUROBI_HOME /software/non-free/Gurobi/gurobi1000/linux64 \
 --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1000/linux64/gurobi.lic \
