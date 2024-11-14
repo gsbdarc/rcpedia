@@ -44,7 +44,7 @@ pwd
 
 This will print your working directory (where `<SUNetID>` is your SUNet ID):
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 /home/users/<SUNetID>
 ```
 
@@ -62,7 +62,7 @@ echo $HOME
 
 The `echo` command prints out the environment variable `$HOME` which stores the path to your home directory (where `<SUNetID>` is your SUNet ID):
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 /home/users/<SUNetID>
 ```
 
@@ -80,7 +80,7 @@ Schematically, we can visualize the path to the project directory as follows:
 
 The absolute path to your project space would look something like this:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 /zfs/projects/students/<your-project-dir>
 ```
 
@@ -140,13 +140,13 @@ gsbquota
 
 The resulting output will display the actual percentage and gigabytes used, as shwon below:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 /home/users/<SUNet ID>: currently using 50% (25G) of 50G available
 ```
 
 You can also check size of your project space by passing in a full path to your project space to `gsbquota` command:
 
-```{ .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 gsbquota /zfs/projects/students/<my-project-dir>/
 /zfs/projects/students/<my-project-dir>/: currently using 39% (78G) of 200G available
 ```
