@@ -24,7 +24,7 @@ To use SAS software on the Yens, load the module:
 ```title="Terminal Input"
 ml sas
 ```
-This will load the default `(D)` module. You can also load a specific version of SAS with:
+This will load the default SAS module. You can also load a specific version of SAS with:
 
 ```title="Terminal Input"
 ml sas/9.4

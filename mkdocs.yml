@@ -105,6 +105,7 @@ nav:
       - Troubleshooting:
           - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
           - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
+          - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
       - Beyond the Yens:
           - Sherlock: _user_guide/sherlock.md
   - Blog:
