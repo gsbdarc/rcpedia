@@ -8,7 +8,7 @@ At Stanford Graduate School of Business, we offer several storage options to sup
 ## Preferred Platforms:
 - **ZFS:** The GSB's 1 PB high-performance storage solution. Currently, all Yen users and project directories reside on ZFS. Snapshots are taken of the data and are easily recoverable. ZFS is the ideal solution if you are performing your analysis or computational work on the Yens.
 - **Google Drive:** Available to all users at Stanford. [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"} is approved for low, medium and high risk data. It supports up to 400,000 files and has a daily upload limit of 750 GB, making it ideal for storing audio, video, PDFs, images, and flat files. Google Drive is great for sharing with external collaborators and is also suitable for [archiving research data](/_user_guide/best_practices_archive/){:target="_blank"}
- - **Oak:** Similar to ZFS, [Oak](https://uit.stanford.edu/service/oak-storage){:target="_blank"} is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data. Oak does not support snapshots, so deleted data cannot be recovered. The cost is approximately $45 per 10 TB. If you expect to use [Sherlock](/_policies/sherlock/){:target="_blank"}, you will need to use Oak.
+ - **Oak:** Similar to ZFS, [Oak](https://uit.stanford.edu/service/oak-storage){:target="_blank"} is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data. Oak does not provide local or remote data backup by default, and should be considered as a single copy, but [backups](https://docs.oak.stanford.edu/backups/){:target="_blank"} are available for an additional fee. The monthly cost is approximately $45 per 10 TB. Oak is the preferred storage location for [Sherlock](/_policies/sherlock/){:target="_blank"}, but can be mounted on the Yens by request using a [NFS gateway](https://docs.oak.stanford.edu/gateways/nfs/){:target="_blank"}.
  - **Redivis:** [Redivis](https://redivis.com/){:target="_blank"} allows users to deploy datasets in a web-based environment (GCP backend) and provides a powerful query GUI for users who don't have a strong background in SQL.
 
 ## Other Stanford Platforms
@@ -110,10 +110,10 @@ There is a large ZFS based scratch space, accessible from any Yen, at ```/scratc
 
 ### Local Disk
 
-On each Yen machine, there is local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need.
+On each Yen machine, there is local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need. 
 
 !!! Warning
-    Note that ```/scratch``` and ```/tmp``` space on all Yens is cleared during system reboots, and is subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best only for temporary files.
+    Note that ```/scratch``` and ```/tmp``` spaces on all Yens are cleared during system reboots, and is subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permission set to prevent unauthorized access or manipulation.
 
 ### AFS Volumes
 
