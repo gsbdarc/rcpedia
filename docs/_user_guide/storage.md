@@ -113,11 +113,11 @@ There is a large ZFS based scratch space, accessible from any Yen, at ```/scratc
 On each Yen machine, there is local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need. 
 
 !!! Warning
-    Note that ```/scratch``` and ```/tmp``` spaces on all Yens are cleared during system reboots, and are subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permission set to prevent unauthorized access or manipulation.
+    Note that ```/scratch``` and ```/tmp``` spaces on all Yens are cleared during system reboots, and are subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permissions set to prevent unauthorized access or manipulation.
 
 ### AFS Volumes
 
-You may have a personal AFS volume that is named according to your SUNetID. For example If your SUNetID is johndoe13, then the path to your AFS directory is: ``` /afs/ir/users/j/o/johndoe13```. The two individual letters are the first two letters of the SUNetID.
+You may have a personal AFS volume that is named according to your SUNetID. For example If your SUNetID is johndoe13, then the path to your AFS directory is: ```/afs/ir/users/j/o/johndoe13```. The two individual letters are the first two letters of the SUNetID.
 
 You may have access to other AFS volumes set up for specific projects, or other people may give you access to a specific directory in their AFS volume. To access other AFS volumes, you need to know what the path is. For example, the path might be something like ```/afs/ir/data/gsb/nameofyourdirectory```.
 
