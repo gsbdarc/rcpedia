@@ -113,7 +113,7 @@ There is a large ZFS based scratch space, accessible from any Yen, at ```/scratc
 On each Yen machine, there is local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need. 
 
 !!! Warning
-    Note that ```/scratch``` and ```/tmp``` spaces on all Yens are cleared during system reboots, and is subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permission set to prevent unauthorized access or manipulation.
+    Note that ```/scratch``` and ```/tmp``` spaces on all Yens are cleared during system reboots, and are subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permission set to prevent unauthorized access or manipulation.
 
 ### AFS Volumes
 
