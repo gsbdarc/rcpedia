@@ -1,16 +1,5 @@
 # Run a Job That Continues After Logging Out
 
-Generally speaking, you can use the `screen` command, described in more detail below, to continue having your scripts run on the Yens after logging out, but a very important first question to ask is:
-
-## "Am I accessing anything stored in AFS (`/afs/***` or `/afs-home/***`) space?"
-
-If the answer to that question is "Yes", then you will likely run into authentication issues. Although [AFS space](https://uit.stanford.edu/service/afs){:target="_blank"} is frequently used within the computing infrastructure of the rest of the University, the biggest issue is that it requires Kerberos authentication tokens in order to access files and they time out after 25 hours. See [here](https://uit.stanford.edu/service/afs/learningmore/faq#8){:target="_blank"} for UIT's explanation. If you have jobs that access AFS space and expect to run for longer than that period of time, you will run into a slew of cryptic errors that are very likely related to your token expiring.
-
-!!! Important 
-	Furthermore, please note that AFS is currently being phased out by the university, and will eventually be retired completely. Adequate notice will be provided by University IT prior to any portions of AFS being brought offline.
-
-On the Yen servers, the best storage space for your scripts and data is **ZFS**.
-
 ## How to use screen
 
 [`screen`](https://www.gnu.org/software/screen/manual/screen.html){:target="_blank"} allows you to set up multiple virtual sessions within your terminal session. This can be useful for running multiple processes at the same time, but it can also be used to leave processes running after you log out of any Yens server.
