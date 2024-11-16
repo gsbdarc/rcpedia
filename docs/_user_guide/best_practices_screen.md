@@ -1,5 +1,11 @@
 # Run a Job That Continues After Logging Out
 
+We highly recommend that you first consider using the [Slurm scheduler](/_user_guide/slurm){:target="_blank"} to submit and run your jobs. 
+Slurm offers several benefits over screen, including better resource management, job prioritization, and the ability to queue jobs and monitor their status. 
+It also ensures that jobs are allocated the necessary resources and can run efficiently across multiple nodes. 
+
+However, you can also run a job that continues after logging out by using `screen`.
+
 ## How to use screen
 
 [`screen`](https://www.gnu.org/software/screen/manual/screen.html){:target="_blank"} allows you to set up multiple virtual sessions within your terminal session. This can be useful for running multiple processes at the same time, but it can also be used to leave processes running after you log out of any Yens server.
