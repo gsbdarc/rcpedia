@@ -12,6 +12,8 @@ authors:
 # SEC Filings
 All companies are required to file registration statements, periodic reports, and other forms to the SEC and these filings are popular sources of data for researchers at the GSB. This post covers some of the resources available to facilitate research using these filings and a few sample workflows.
 
+<!-- more -->
+
 !!! note
     We gave a presentation on "Using SEC Documents at the GSB" on November 16, 2022. Watch the recording and view the slides [here](https://gsbresearchhub.stanford.edu/training-workshops?search=using+sec+documents+at+the+gsb){:target="_blank"}.
 
