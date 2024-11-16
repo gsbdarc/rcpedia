@@ -38,7 +38,7 @@ starting a screen preserves these in the new terminal started by `screen`). So, 
 $ Rscript investment-npv-parallel.R
 ```
 
-Once your script is going, you can exit out of this screen session with the keyboard shortcut `ctrl + a + d`, which will return you to your original terminal. 
+Once your script is going, you can exit out of this screen session with the keyboard shortcut ++ctrl+a+d++, which will return you to your original terminal. 
 
 You should see that the screen was detached:
 
@@ -72,8 +72,8 @@ $ screen -r npv
 ```
 
 If you are actively printing to the console in your script, you may notice that you cannot scroll up through the log of print statements when you are in a screen. 
-In order to activate the "scroll mode", you can use the keyboard shortcut `ctrl + a` and then hit `esc`. 
-In this mode, you can peruse through your print statements with the up and down arrow keys. Once you are finished scrolling, you can exit out of the mode by hitting the `q` or `esc` keys.
+In order to activate the "scroll mode", you can use the keyboard shortcut ++ctrl+a++ and then hit ++esc++. 
+In this mode, you can peruse through your print statements with the up and down arrow keys. Once you are finished scrolling, you can exit out of the mode by hitting the ++q++ or ++esc++ keys.
 
 ## Potential technical issues
 
