@@ -91,7 +91,7 @@ You can also launch a bash terminal from JupyterHub.  This provides access to co
 ----------------------------
 ![](/assets/images/jupyter_upload.png "File Upload")
 
-One very useful feature of JupyterHub is the ability to upload and download files from ZFS/AFS.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.
+One very useful feature of JupyterHub is the ability to upload and download files from ZFS.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.
 
 ![](/assets/images/jupyter_download.png "File Download")
 
@@ -114,7 +114,7 @@ For example, try to navigate to `intro_yens_sep_2023` folder in file brower firs
 
 ### File Access and Storage
 ---------------------------
-The JupyterHub instances will automatically launch from your home directory on the Yens.  Use the `afs-home` and `zfs` directories in your home directory to navigate to your normal file systems.
+The JupyterHub instances will automatically launch from your home directory on the Yens.  Use the `zfs` directory in your home directory to navigate to your normal file systems.
 
 ### Installing Packages
 -----------------------
