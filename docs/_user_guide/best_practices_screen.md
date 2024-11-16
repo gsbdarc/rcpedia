@@ -75,6 +75,8 @@ If you are actively printing to the console in your script, you may notice that 
 In order to activate the "scroll mode", you can use the keyboard shortcut `ctrl + a` and then hit `esc`. 
 In this mode, you can peruse through your print statements with the up and down arrow keys. Once you are finished scrolling, you can exit out of the mode by hitting the `q` or `esc` keys.
 
+## Potential technical issues
+
 You may run into a situation where you are disconnected or timed out from the Yens while you are attached to a screen session. 
 When you log back onto the Yens and try to reconnect to that session again, you may find that you cannot re-attach to the screen, since it's already "attached".
  In order to return to that session, you can just use this command:
@@ -82,8 +84,9 @@ When you log back onto the Yens and try to reconnect to that session again, you 
 ```title="Terminal Command"
 $ screen -dr <session_name>
 ```
-
 This detaches the previous connection to that screen session and then returns you to the screen.
+
+## How to exit `screen`
 
 Finally, once you are finished with a screen session, all you have to do is type:
 ```title="Terminal Command"
