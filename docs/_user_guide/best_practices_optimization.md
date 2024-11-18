@@ -506,7 +506,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 !!! Note
     Since we already have a Jupyter kernel named `opt`, we chose a different name for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
 
-## Running Software on SLURM
+## Running Software on Slurm
 
 ### Running Batch Jobs 
 
