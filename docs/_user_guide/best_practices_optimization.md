@@ -13,13 +13,13 @@ nonlinear optimization problems. It is designed to express complex problems with
 
 ## Running Software Interactively on the Yens
 
-### **Gurobi**
+### Gurobi
 
-### Running Gurobi in Python
+#### Running Gurobi in Python
 
 Because the Yens already have Gurobi software and Gurobi Python interface installed, we simply need to access them by loading the `gurobipy3` [module](/_getting_started/modules/){:target="_blank"}.
 
-#### Environment Setup
+###### Environment Setup
 
 Load Gurobi module:
 ```title="Terminal Command"
@@ -72,7 +72,7 @@ python
 
 This will display:
 
-```{ .yaml .no-copy title="Python" }
+```{ .yaml .no-copy title="Terminal Output" }
 Python 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
@@ -80,13 +80,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Ensure that you can import `gurobipy`by running the following command:
 
-```title="Python"
+```title="Terminal Command"
 from gurobipy import *
 ```
 
 To exit the REPL, type:
 
-```title="Python"
+```title="Terminal Command"
 exit()
 ```
 
@@ -102,11 +102,11 @@ The environment is now set up to run your Python scripts that import `gurobipy` 
 !!! Important
     You need to load the `gurobipy3` module and activate your `venv` environment every time you login to the Yens before running the interactive Python scripts that use the `gurobipy` package.
 
-### Running Gurobi in R
+#### Running Gurobi in R
 
 Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.
 
-#### Environment Setup
+##### Environment Setup
 
 To use Gurobi software with R, simply load both modules:
 
@@ -152,7 +152,7 @@ Type 'q()' to quit R.
 >
 ```
 
-```title="R"
+```title="Terminal Command"
 library('gurobi')
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
@@ -211,13 +211,13 @@ Loading required package: slam
 Quit R. You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
 
 
-### **AMPL with Knitro Solver**
+### AMPL with Knitro Solver
 
-### Running AMPL with Knitro Solver in Python
+#### Running AMPL with Knitro Solver in Python
 
 Because the Yens already have Knitro and AMPL software installed, we simply need to load the appropriate [modules](/_getting_started/modules/){:target="_blank"}.
 
-#### Environment Setup
+##### Environment Setup
 
 Load both modules:
 
@@ -307,7 +307,7 @@ python
 
 This will display:
 
-```{ .yaml .no-copy title="Python" }
+```{ .yaml .no-copy title="Terminal Output" }
 Python 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0] on linux
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
@@ -315,7 +315,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Ensure that you can import `amplpy` and verify that AMPL is accessible and the license is a network floating license by running the following code. You can save it to `knitro_test.py`and run it in the terminal:
 
-```title="Python"
+```python linenums="1" title="knitro_test.py"
 import os, sys
 from amplpy import AMPL, Environment
 
@@ -350,7 +350,7 @@ We point to the AMPL floating network license with `AMPL(Environment("/software/
 
 The `ampl.eval()` call should indicate that we have checked out the license:
 
-```{ .yaml .no-copy title="Python" }
+```{ .yaml .no-copy title="Terminal Output" }
 option version 'AMPL Development Version 20231213 (Linux-5.15.0-1052-azure, 64-bit)\
 Licensed to Stanford University, Natalya Rapstine <nrapstin@stanford.edu> (srcc-license-srcf).\
 Temporary license expires 20250131.\
@@ -366,7 +366,7 @@ We also point to the Yen's Knitro licence with `ampl.setOption()` call.
 
 After defining the problem, the `ampl.solve()` call should print out the Knitro license information and the problem solution.
 
-```{ .yaml .no-copy title="Python" }
+```{ .yaml .no-copy title="Terminal Output" }
 =======================================
            Academic License
        (NOT FOR COMMERCIAL USE)
@@ -385,7 +385,7 @@ The problem is identified as an LP.
 
 To exit the REPL, type:
 
-```title="Python"
+```title="Terminal Command"
 exit()
 ```
 
@@ -517,9 +517,9 @@ The Yen-Slurm cluster is comprised of 7 shared compute nodes that use [Slurm](ht
 We can use the same `gurobipy` virtual environment to run python code on the Slurm nodes.
 
 We load the optimization software modules, activate the virtual python environment before calling `python` in
-the slurm script. Let's save this slurm script to a file named `test-opt.slurm`:
+the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
 
-```title="Bash"
+```bash linenums="1" title="opt_test.slurm"
 #!/bin/bash
 
 # Example of running Gurobi, AMPL and Knitro on Yens
@@ -543,7 +543,7 @@ module load gurobipy3 ampl knitro
 source /zfs/projects/<your-project>/opt/bin/activate
 
 # Run python script
-python <your-script.py>
+python <my_script.py>
 ```
 
 In this example, we load all three optimization software, but you can omit the ones you don't need.
@@ -551,7 +551,7 @@ In this example, we load all three optimization software, but you can omit the o
 Submit to test:
 
 ```title="Terminal Command"
-sbatch test-opt.slurm
+sbatch opt_test.slurm
 ```
 
 See your job in the queue:
@@ -578,9 +578,10 @@ This script formulates and solves a simple Mixed Integer Programming (MIP) model
 
 ![](/assets/images/gurobi-eq.png)
 
-Save this Python script to a new file called `gurobi_example.py`.
+Save this Python script to a new file called `gurobi_test.py`.
 
-```title="Python"
+```python linenums="1" title="gurobi_test.py"
+
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -645,12 +646,12 @@ except AttributeError:
     print(f"Encountered an attribute error")
 ```
 
-This python script can be run with `python gurobi_example.py` with no command line argument (`a` is set to 0 by default).
+This python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default).
 However, we will run it via the scheduler on the Yen-Slurm cluster.
 
-Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_example.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
+Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_test.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
 
-```title="Bash"
+```bash linenums="1" title="gurobi_test.slurm"
 #!/bin/bash
 
 # Example of running a single Gurobi run for sensitivity analysis
@@ -675,7 +676,7 @@ source /zfs/projects/<your-project>/opt/bin/activate
 
 # Run python script
 # with no command line arg: a = 0 in the script
-python gurobi_example.py
+python gurobi_test.py
 ```
 
 You will need to modify the path to your `venv` enviroment as well as your email address. After that, you can submit the script to run with `sbatch sensitivity_analysis.slurm`
@@ -696,7 +697,8 @@ __gurobi_threads = 1
 
 Now, our Slurm script should look like below (save this to `sensitivity_analysis_array.slurm`):
 
-```title="Bash"
+```bash linenums="1" title="sensitivity_analysis_array.slurm"
+
 #!/bin/bash
 
 # Example of running a job array to run Gurobi python script for sensitivity analysis.
@@ -722,7 +724,7 @@ source /zfs/projects/<your-project>/opt/bin/activate
 
 # Run python script with a command line arg from --array option
 # It will be an input index from 0 to 31
-python gurobi_example.py $SLURM_ARRAY_TASK_ID
+python gurobi_test.py $SLURM_ARRAY_TASK_ID
 ```
 
 Again, you will have to modify the script to use your `venv` environment and your email.
