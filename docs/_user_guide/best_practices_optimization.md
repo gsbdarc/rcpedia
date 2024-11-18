@@ -111,7 +111,7 @@ Similar to running Gurobi in Python, Gurobi R package is also installed and avai
 To use Gurobi software with R, simply load both modules:
 
 ```title="Terminal Command"
-ml gurobi R
+ml R gurobi
 ```
 
 To list the currently loaded modules, use:
@@ -162,6 +162,9 @@ Loading required package: slam
 
 You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
 
+!!! Warning
+    If you would like to use an older version of Gurobi, you must also load an older version of R, as only certain Gurobi versions are compatible with specific R versions, as outlined [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). For example, if you are using Gurobi 10, you must load R 4.2 by running `ml gurobi/10.0.0 R/4.2`, instead of using the default Gurobi 11 and R 4.3, to ensure compatibility.
+
 !!! Important
     You need to load the `gurobi` and `R` modules every time you login to the Yens before running the interactive R scripts that use `gurobi` R package.
 
@@ -171,7 +174,7 @@ Load R and the older Gurobi module:
 
 ```title="Terminal Command"
 module purge
-ml R gurobi/9.5.2
+ml R/4.2 gurobi/9.5.2
 ```
 
 Start R by typing `R`:
@@ -186,8 +189,13 @@ Then install a personal `gurobi` package that links to Gurobi 9:
 install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz", repos=NULL)
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
-Installing package into ‘/home/users/$USER/R/x86_64-pc-linux-gnu-library/4.2’
-(as ‘lib’ is unspecified)
+> install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz", repos=NULL)
+Warning in install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz",  :
+  'lib = "/software/free/R/R-4.2.1/lib/R/library"' is not writable
+Would you like to use a personal library instead? (yes/No/cancel) yes
+Would you like to create a personal library
+‘/zfs/home/users/wolee/R/x86_64-pc-linux-gnu-library/4.2’
+to install packages into? (yes/No/cancel) yes
 * installing *binary* package ‘gurobi’ ...
 * DONE (gurobi)
 ```
@@ -310,12 +318,6 @@ Ensure that you can import `amplpy` and verify that AMPL is accessible and the l
 ```title="Python"
 import os, sys
 from amplpy import AMPL, Environment
-
-# Set environment variables for Knitro
-os.environ['KNITRODIR'] = '/software/non-free/knitro/14.0.0'
-os.environ['ARTELYS_LICENSE_NETWORK_ADDR'] = 'srcc-license-srcf.stanford.edu'
-os.environ['LD_LIBRARY_PATH'] = f'/software/non-free/knitro/14.0.0/lib:{os.environ.get("LD_LIBRARY_PATH", "")}'
-os.environ['PYTHONPATH'] = f'/software/non-free/knitro/14.0.0/examples/Python:{os.environ.get("PYTHONPATH", "")}'
 
 # Initialize the AMPL instance with an AMPL license
 ampl = AMPL(Environment("/software/non-free/ampl/20231031/"))
@@ -488,10 +490,10 @@ Notice the extra `--env` arguments to add necessary Knitro and AMPL environment 
 
 Consider combining the instructions for Gurobi and AMPL/Knitro to make a single "optimization" virtual environment and Jupyter kernel. After loading `gurobipy3`, `ampl` and `knitro` modules, make the virtual environment, activate it, then `pip install` all the required packages - `numpy pandas ipykernel threadpoolctl scipy gurobipy amplpy`.
 
-You can then make that active virtual environment into a new Jupyter kernel combining the environment variables we used previously and name it as `opt_comb`:
+You can then make that active virtual environment into a new Jupyter kernel combining the environment variables we used previously and name it as `opt_combined`:
 
 ```title="Terminal Command"
-python -m ipykernel install --user --name=opt_comb \
+python -m ipykernel install --user --name=opt_combined \
 --env GUROBI_HOME /software/non-free/Gurobi/gurobi1000/linux64 \
 --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1000/linux64/gurobi.lic \
 --env KNITRODIR /software/non-free/knitro/14.0.0 \
@@ -504,7 +506,7 @@ python -m ipykernel install --user --name=opt_comb \
 On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `opt` kernel and test the package imports for `amplpy`, `gurobipy` and all other previous imports.
 
 !!! Note
-    Since we already have a Jupyter kernel named `opt`, we chose a different name for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
+    Since we already have a Jupyter kernel named `opt`, we chose a different name `opt_opt_combined` for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
 
 ## Running Software on Slurm
 
