@@ -564,7 +564,7 @@ Display the `.out` file once the job is done.
 cat *.out
 ```
 
-### Running Job Arrays with Slurm
+### Running Job Arrays
 
 A Slurm job array is a way to launch multiple jobs in parallel. One use case is when you want to change input parameters in your script (such as a Python, Julia, or R script). Instead of manually changing the input parameters and rerunning the script multiple times, you can achieve this with a single job array.
 
