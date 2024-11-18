@@ -44,7 +44,7 @@ where `<path/to/project>` is the shared project location on ZFS.
 Create a new virtual environment using the system Python path named `my_env` where we make a directory `my_env` inside the project directory.:
 
 ```title="Terminal Command"
-/usr/bin/Python3  -m venv my_env
+/usr/bin/python3  -m venv my_env
 ```
 
 ## Activating a New Virtual Environment
@@ -64,7 +64,7 @@ You should see `(my_env):` prepended to the prompt:
 Check Python version:
 
 ```title="Terminal Command"
-python3 --version
+python --version
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
 python 3.10.12
@@ -85,19 +85,19 @@ where `<package>` is a Python package (or list) to install, such as `numpy` or `
 Using your environment is straightforward—as long as your environment is activated, you can run Python as usual:
 
 ```title="Terminal Command"
-python3 <my_script.py>
+python <my_script.py>
 ```
 where `<my_script.py>` is your Python script.
 
 The Python executabled will be specific to your environment. You can troubleshoot this with the `which` command:
 
 ```title="Terminal Command"
-which python3
+which python
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
-/path/to/env/bin/python3
+/path/to/env/bin/python
 ```
-where `/path/to/env/bin/python3` is the path to the system Python in your environment.
+where `/path/to/env/bin/python` is the path to the system Python in your environment.
 
 ## Making the Virtual Environment into a JupyterHub Kernel
 
@@ -110,7 +110,7 @@ pip install ipykernel
 To add the **active** virtual environment as a kernel, run:
 
 ```title="Terminal Command"
-Python3 -m ipykernel install --user --name=<kernel-name>
+Python -m ipykernel install --user --name=<kernel-name>
 ```
 
 where `<kernel-name>` is the name of the kernel on JupyterHub.
@@ -159,7 +159,7 @@ You can deactivate the virtual environment with:
 deactivate
 ```
 
-### Removing the Virtual Environment
+## Removing the Virtual Environment
 
 If you would like to delete a previously created virtual environment, simply delete the environment directory. Since a `venv` environment is essentially a directory containing files and folders, removing it is as simple as deleting the directory.
 

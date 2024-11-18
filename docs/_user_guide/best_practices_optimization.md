@@ -517,7 +517,7 @@ We can use the same `gurobipy` virtual environment to run python code on the Slu
 We load the optimization software modules, activate the virtual python environment before calling `python` in
 the slurm script. Let's save this slurm script to a file named `test-opt.slurm`:
 
-```title="Terminal Command"
+```title="Bash"
 #!/bin/bash
 
 # Example of running Gurobi, AMPL and Knitro on Yens
@@ -578,7 +578,7 @@ This script formulates and solves a simple Mixed Integer Programming (MIP) model
 
 Save this Python script to a new file called `gurobi_example.py`.
 
-```title="Terminal Command"
+```title="Python"
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -648,7 +648,7 @@ However, we will run it via the scheduler on the Yen-Slurm cluster.
 
 Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_example.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
 
-```title="Terminal Command"
+```title="Bash"
 #!/bin/bash
 
 # Example of running a single Gurobi run for sensitivity analysis
@@ -694,7 +694,7 @@ __gurobi_threads = 1
 
 Now, our Slurm script should look like below (save this to `sensitivity_analysis_array.slurm`):
 
-```title="Terminal Command"
+```title="Bash"
 #!/bin/bash
 
 # Example of running a job array to run Gurobi python script for sensitivity analysis.
