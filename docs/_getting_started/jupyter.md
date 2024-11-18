@@ -63,10 +63,10 @@ RStudio is also available! Clicking this link will bring up a new tab with a web
 
 There are a few preliminary steps that need to be taken before SAS can be used on Yens/notebooks.
 
-* Log into the Yens
+* Log into the Yens by ssh via a local terminal or shell
 * Install the [SAS kernel for Jupyter](https://github.com/sassoftware/sas_kernel) by running `pip3 install sas_kernel`
-* Confirm that you see the newly installed SAS kernel by running `jupyter kernelspec list`
-* Find the location where this new kernel is installed by running `pip3 show saspy` (it will probably be something like `/home/users/{SUNetID}/.local/lib/python3.6/site-packages/saspy`)
+* Confirm that you see the newly installed SAS kernel by running `jupyter kernelspec list` (You may need to have an environment that already has jupyter installed)
+* Find the location where this new kernel is installed by running `pip3 show saspy` (it will probably be something like `/home/users/{SUNetID}/.local/lib/python3.10/site-packages/saspy`)
 * Edit the default SAS path in the `sascfg.py` file within that directory to be `/software/non-free/SAS-langsup/SAS9.4/software/SASFoundation/9.4/sas`
 * Restart JupyterHub and start a new notebook with the SAS kernel. After running your first cell, the output should show a successful connection to SAS.
 
