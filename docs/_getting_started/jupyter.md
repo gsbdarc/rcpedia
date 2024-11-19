@@ -205,7 +205,7 @@ updateDate: 2023-12-18
 ------------
 To make an active `venv` into a kernel in your JupyterHub, make sure you have an active `venv`:
 
-```bash
+```title="Terminal Command"
 $ source /zfs/gsb/intermediate-yens/venv/bin/activate
 ```
 and that environment has `ipykernel` package installed.
@@ -213,7 +213,7 @@ and that environment has `ipykernel` package installed.
 #### Setup Active `venv` Environment as a Kernel in JupyterHub
 The following command should install the active `venv` environment as a kernel in your JupyterHub:
 
-```bash
+```title="Terminal Command"
 $ python -m ipykernel install --user --name=interm-yens
 ```
 
@@ -221,7 +221,7 @@ $ python -m ipykernel install --user --name=interm-yens
 
 If installed correctly, you should see:
 
-``` { .yaml .select }
+```{ .yaml .no-copy }
 Installed kernelspec interm-yens in /home/users/$USER/.local/share/jupyter/kernels/interm-yens
 ```
 where `$USER` is your username.
@@ -254,7 +254,7 @@ Try running your JupyterHub notebook using the `venv` kernel -- `interm-yens`, y
 Make sure you can import the required python packages in the notebook cell.
 
 Copy and paste the following to test the import statements for python packages we will use:
-```python
+```bash linenums="1" hl_lines="4-4" title="python"
 import time
 import numpy as np
 import pandas as pd
@@ -266,7 +266,7 @@ Kernel should indicate your `venv` environment name `interm-yens` (or whatever n
 
 In case you need to uninstall a kernel from JupyterHub, use:
 
-```bash
+```title="Terminal Command"
 $ source /zfs/gsb/intermediate-yens/venv/bin/activate 
 $ jupyter kernelspec list
 $ jupyter kernelspec uninstall <kernel-name>
