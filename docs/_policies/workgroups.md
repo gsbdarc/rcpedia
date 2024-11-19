@@ -17,6 +17,6 @@ For instructions on how to perform these operations, refer to this [helpful page
 !!! Warning
     Administrators of a workgroup have the power to add other users. Please be cautious about whom you grant Administrator privileges to, as it is **your responsibility** to audit both the Administrators and Members of your workgroup.
 
-### How to Add a Collaborator to Your Yen Project Space?
+## How to Add a Collaborator to Your Yen Project Space?
 
 Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators.md){:target="_blank"}.
