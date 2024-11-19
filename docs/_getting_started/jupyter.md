@@ -138,6 +138,9 @@ You can also launch interactive consoles from JupyterHub.  These will behave ver
 
 You can also launch a bash terminal from JupyterHub.  This provides access to commands you would normally run on the Yens, but through the web browser.
 
+!!! warning
+    This is not the same as the log in terminal via ssh.  You should not do the following: ssh, installing software, and evaluating the contents of /tmp
+
 ### File Upload and Download
 ----------------------------
 ![](/assets/images/jupyter_upload.png "File Upload")
