@@ -58,7 +58,7 @@ In this example, the `title` column provides meaningful metadata about each arti
 By adopting index files, you combine the ease of data processing with the flexibility and efficiency of a well-organized directory structure. This approach ensures your project remains scalable and maintainable as your dataset grows.
 
 ## Compress or Remove Large, Unused Directories
-Large directories from completed projects are often forgotten and left behind, creating unnecessary burdens on backup and auditing tools and complicating future file transfers to other systems. To prevent these issues, it’s essential to take deliberate action once you’ve finished with a project:
+Large directories from completed projects are often forgotten and left behind, creating unnecessary burdens on backup and auditing tools and complicating future file transfers to other systems. To prevent these issues, it’s essential to take deliberate action once you’ve finished a project:
 
 - **If you’re certain you won’t need the files again**, delete the large directories to free up valuable storage space for other researchers or team members.
 
