@@ -128,6 +128,84 @@ Threads.nthreads()
 
 The output of `Threads.nthreads()` should be equal to the number of threads you used to create the kernel.
 
+### Stata
+---------
+#### Step 1: Log onto the Yens via ssh
+
+#### Step 2: Install Miniconda
+We are going to use a personal installation of miniconda because Anaconda3 module conda version has a known bug.
+
+```title="Terminal Command"
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x Miniconda3-latest-Linux-x86_64.sh
+./Miniconda3-latest-Linux-x86_64.sh
+conda config --set auto_activate_base false 
+```
+
+Now that miniconda is installed, add path to miniconda to your bash profile:
+
+```title="Terminal Command"
+echo 'export PATH=$HOME/miniconda3/bin:$PATH' >> ~/.bash_profile
+source ~/.bash_profile
+```
+
+
+#### Step 3: Load Stata and Anaconda modules
+
+```title="Terminal Command"
+# loading stata module adds correct path to stata bin
+ml statamp/17
+```
+
+#### Step 4: Make a new conda environment
+
+```title="Terminal Command"
+# create a new conda env for the stata kernel and install necessary packages
+conda create -n stata_kernel 
+
+# activate env
+source activate stata_kernel
+
+# install stata kernel and jupyter
+conda install -c conda-forge -c defaults stata_kernel jupyter 
+
+# install Stata kernel to Jupyter
+python -m stata_kernel.install
+```
+
+Before you test JupyterHub, it's important to make sure the Stata kernel is using the correct Stata executable.  
+
+```title="Terminal Command"
+cat ~/.stata_kernel.conf
+
+[stata_kernel]
+
+# Path to stata executable. If you type this in your terminal, it should
+# start the Stata console
+stata_path = /software/non-free/stata17/stata-mp
+```
+If you don't see `stata_path= /software/non-free/stata17/stata-mp`, or it goes to a different path, edit the `.stata_kernel.conf` file so that it points to the path listed above.
+
+#### Step 5: Start JupyterHub
+
+You should now see Stata kernel under Notebooks:
+
+![](/assets/images/stata-kernel.png)
+
+Let's test that Stata works. Open a new Stata notebook and run:
+
+![](assets/images/test-stata-kernel.png)
+
+If you need to uninstall a particular Jupyter kernel, run:
+
+```title="Terminal Command"
+# to list kernels
+jupyter kernelspec list 
+
+# to uninstall kernel called mykernel
+jupyter kernelspec uninstall mykernel
+```
+
 ### Consoles and Terminal
 -------------------------
 ![](/assets/images/jupyter_consoles.png "Consoles")
