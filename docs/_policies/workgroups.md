@@ -2,9 +2,9 @@
 
 ## What is a Workgroup?
 
-The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that gives Stanford community members a place to define a group of other community members based on their SUNet IDs for use in various applications. A workgroup is given a name that uniquely identifies it and succintly describes its purpose. Relevant to the Yens, the Workgroup Manager helps control access to individual [project space](/services/newProject.html){:target="_blank"}, on ZFS (ex: `gsb-rc:[faculty-SUNet]-[projectname]`). 
+The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succintly describes its purpose. 
 
-For example, if your project is stored at `/zfs/projects/faculty/jdoe-housing`, there will be a corresponding workgroup called `gsb-rc:jdoe-housing`.
+Relevant to the Yens, the Workgroup Manager helps control access to individual [project space](/_policies/services){:target="_blank"} on ZFS (e.g., gsb-rc:[faculty-SUNet]-[projectname]). For example, if your project is stored at `/zfs/projects/faculty/jdoe-housing`, there will be a corresponding workgroup named `gsb-rc:jdoe-housing`.
 
 ## How to Add or Remove Users to Your Workgroup?
 
@@ -19,4 +19,4 @@ For instructions on how to perform these operations, refer to this [helpful page
 
 ## How to Add a Collaborator to Your Yen Project Space?
 
-Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators.md){:target="_blank"}.
+Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators){:target="_blank"}.
