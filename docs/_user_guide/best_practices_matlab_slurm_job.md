@@ -39,7 +39,7 @@ Here is an example Slurm script that loads matlab module and runs the `hello_wor
 ##SBATCH --mem=1gb
 #SBATCH -o hello-%j.out
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=<your_email@stanford.edu>
+#SBATCH --mail-user=your_email@stanford.edu
 
 # Load software (Matlab default is R2019b)
 module load matlab
