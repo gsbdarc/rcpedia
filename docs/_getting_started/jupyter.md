@@ -172,7 +172,7 @@ The JupyterHub instances will automatically launch from your home directory on t
 
 ### Installing Packages
 -----------------------
-JupyterHub will load packages found in your `~/.local/` directory.  If you wish to install Python packages from a JupyterHub notebook, run `!pip3 install --user <package_name>` in a cell.  We recommend using similar user-based installs for other package managers.
+JupyterHub will load packages found in your `~/.local/` directory.  We recommend using enviornments to install packages.  You can review the [User Guide](/_user_guide/best_practices_python_env.md/) for pythong packages and install R packages via R in a ssh session.
 
 ### Technical Limits
 ------------
