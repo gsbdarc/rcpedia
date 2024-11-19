@@ -22,7 +22,6 @@ Even if you’re not explicitly running parallel code, some packages may use par
 Let's consider the following function, which determins how many rolls of 5 dice are needed to achieve a "Yahtzee" (all dice showing the same value):
 
 ```R title="R"
-
 # Create a function to simulate dice rolls for Yahtzee
 getRolls <- function(x) {
   dice = 1:6
@@ -43,7 +42,6 @@ getRolls <- function(x) {
 We aim to sample from the distribution 100 times to determine how many rolls it takes to achieve a Yahtzee. To accomplish this, we use the `parallel` package, and a distributed apply call `mclapply`:
 
 ```R hl_lines="5" title="R"
-
 # Load library
 library(parallel)
 
