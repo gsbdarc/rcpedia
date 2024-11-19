@@ -1,33 +1,33 @@
 ## Matlab Example Slurm Script
 The simplest Matlab script looks like:
 
-```matlab
+```matlab title="Matlab Code"
 disp('Hello world')
 ```
 
 Save this line to a new file called `hello_world.m`. 
 
-## Available Matlab versions on Yen10
+## Available Matlab versions on `Yen10`
 Several version of Matlab are installed on the yens and the default version is designated with `(D)`:
 
-```bash
+```bash title="Terminal Command"
 module avail matlab
 ```
 
 Load the version you want:
 
-```bash
+```bash title="Terminal Command"
 module load matlab
 ```
 
 If you do not specify the version, `matlab/R2019b` will be loaded by default.
 
 This one-liner script can be run with `matlab -nodesktop < hello_world.m`. 
-However, we will run it via the Slurm scheduler on the Yen10 server. 
-Here is an example Slurm script that loads matlab module and runs hello world script.
+However, we will run it via the Slurm scheduler on the `Yen10` server. 
+Here is an example Slurm script that loads matlab module and runs the `hello_world.m` script.
 
 
-```bash
+```bash title="Terminal Command"
 #!/bin/bash
 
 # Hello world Matlab script with Slurm
@@ -39,7 +39,7 @@ Here is an example Slurm script that loads matlab module and runs hello world sc
 ##SBATCH --mem=1gb
 #SBATCH -o hello-%j.out
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=your_email@stanford.edu
+#SBATCH --mail-user=<your_email@stanford.edu>
 
 # Load software (Matlab default is R2019b)
 module load matlab
@@ -52,7 +52,7 @@ srun matlab -nodesktop < hello_world.m
 Save this Slurm script to `hello.slurm`.
 Then run it by submitting the job to the Slurm scheduler with:
 
-```bash
+```bash title="Terminal Command"
 sbatch hello.slurm
 ```
 
