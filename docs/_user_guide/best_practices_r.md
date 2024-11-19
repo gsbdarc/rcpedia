@@ -1,4 +1,4 @@
-# Best Prsctices in R 
+# Best Practices in R 
 
 ## Tips for Being a Good Citizen
 
@@ -8,8 +8,10 @@ Many parallel packages in R require you to create a "cluster" of workers executi
 😱 cluster_fork <- makeForkCluster(detectCores()) 😱
 ```
 
-Don't use `detectCores`. Using it asks the machine how many cores are available and then attempts to use all of them—**this is not appropriate in a shared environment**. Instead, replace `detectCores()` with a fixed number, such as 4, or another reasonably scaled allocation of resources.  It's also a good practice to benchmark your code first before scaling up. Consider [this guide](https://jstaf.github.io/hpc-r/parallel/){:target="_blank"} or [this one](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html){:target="_blank"} to understand how your code might benefit from parallelization.
+Don't use `detectCores`. It checks the machine for the total number of available cores and attempts to use all of them. Instead, replace `detectCores()` with a fixed number, such as 4, or another reasonably scaled allocation of resources. It's also a good practice to benchmark your code first before scaling up. Consider [this guide](https://jstaf.github.io/hpc-r/parallel/){:target="_blank"} or [this one](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html){:target="_blank"} to understand how your code might benefit from parallelization.
 
+!!! Warning
+    Using all available cores with `detectCores` can overwhelm shared systems, degrade performance for other users, and potentially lead to resource throttling or job termination. Always limit the number of cores to a reasonable amount, especially in shared or high-performance computing environments. Failing to do so may negatively impact both your work and the system's overall efficiency.
 
 ## Parallelization Under the Hood
 
@@ -40,7 +42,7 @@ getRolls <- function(x) {
 
 We aim to sample from the distribution 100 times to determine how many rolls it takes to achieve a Yahtzee. To accomplish this, we use the `parallel` package, and a distributed apply call `mclapply`:
 
-```R title="R"
+```R hl_lines="5" title="R"
 
 # Load library
 library(parallel)
