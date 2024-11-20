@@ -506,7 +506,7 @@ python -m ipykernel install --user --name=opt_combined \
 On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `opt` kernel and test the package imports for `amplpy`, `gurobipy` and all other previous imports.
 
 !!! Note
-    Since we already have a Jupyter kernel named `opt`, we chose a different name `opt_opt_combined` for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
+    Since we already have a Jupyter kernel named `opt`, we chose a different name `opt_combined` for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
 
 ## Running Software on Slurm
 
