@@ -507,7 +507,7 @@ python -m ipykernel install --user --name=opt_combined \
 --env PYTHONPATH '/software/non-free/knitro/14.0.0/examples/Python:${PYTHONPATH}'
 ```
 
-On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `opt` kernel and test the package imports for `amplpy`, `gurobipy` and all other previous imports.
+On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `opt_combined` kernel and test the package imports for `amplpy`, `gurobipy` and all other previous imports.
 
 !!! Note
     Since we already have a Jupyter kernel named `opt`, we chose a different name `opt_combined` for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name `opt`, the `opt` kernel will be overwritten to reference the latest kernel install from the active environment.
@@ -516,12 +516,9 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 ### Running Batch Jobs 
 
-The Yen-Slurm cluster is comprised of 7 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resouces available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
+The Yen-Slurm cluster is comprised of 11 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resouces available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
 
-We can use the same `gurobi_env` virtual environment to run python code on the Slurm nodes.
-
-We load the optimization software modules, activate the virtual python environment before calling `python` in
-the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
+First, We load the optimization software modules, and then activate the virtual Python environment before calling `python` in the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
 
 ```bash linenums="1" title="opt_test.slurm"
 #!/bin/bash
@@ -544,15 +541,13 @@ module purge
 module load gurobipy3 ampl knitro
 
 # Activate venv (can either be a global or relative path)
-source /zfs/projects/<your-project>/opt/bin/activate
+source /zfs/projects/<your-project>/opt_combined/bin/activate
 
 # Run Python script
 python <my_script.py>
 ```
 
-In this example, we load all three optimization software, but you can omit the ones you don't need.
-
-Submit to test:
+Submit this Slurm script to test:
 
 ```title="Terminal Command"
 sbatch opt_test.slurm
@@ -673,7 +668,7 @@ module purge
 module load gurobipy3
 
 # Activate venv (can either be a global or relative path)
-source /zfs/projects/<your-project>/opt/bin/activate
+source /zfs/projects/<your-project>/opt_combined/bin/activate
 
 # Run Python script
 # With no command line argument: a = 0 in the script
@@ -698,7 +693,7 @@ __gurobi_threads = 1
 
 Now, our Slurm script should look like below (save this to `sensitivity_analysis_array.slurm`):
 
-```bash linenums="1" title="sensitivity_analysis_array.slurm"
+```bash linenums="1" hl_lines="26" title="sensitivity_analysis_array.slurm"
 
 #!/bin/bash
 
@@ -721,7 +716,7 @@ module purge
 module load gurobipy3
 
 # Activate venv (can either be a global or relative path)
-source /zfs/projects/<your-project>/opt/bin/activate
+source /zfs/projects/<your-project>/opt_combined/bin/activate
 
 # Run Python script with a command line arg from --array option
 # It will be an input index from 0 to 31
