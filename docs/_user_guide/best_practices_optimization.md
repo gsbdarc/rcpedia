@@ -518,7 +518,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 The Yen-Slurm cluster is comprised of 11 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resouces available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
 
-First, We load the optimization software modules, and then activate the virtual Python environment before calling `python` in the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
+We need to load the optimization software modules, and then activate the virtual Python environment before calling `python` in the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
 
 ```bash linenums="1" title="opt_test.slurm"
 #!/bin/bash
