@@ -1,4 +1,3 @@
-## Matlab Example Slurm Script
 The simplest Matlab script looks like:
 
 ```matlab title="Matlab Code"
@@ -7,7 +6,6 @@ disp('Hello world')
 
 Save this line to a new file called `hello_world.m`. 
 
-## Available Matlab versions on `Yen10`
 Several version of Matlab are installed on the yens and the default version is designated with `(D)`:
 
 ```bash title="Terminal Command"
