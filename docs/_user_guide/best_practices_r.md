@@ -57,4 +57,4 @@ hist(unlist(res))
 
 This uses 4 cores on your local machine to apply this function. If you display or save the results as a histogrm (e.g., `yahtzee_histogram.png`), it will look similar to this:
 
-![](/assets/images/yahtzee_histogram.png)
+![yahtzee histogram image](/assets/images/yahtzee_histogram.png)
