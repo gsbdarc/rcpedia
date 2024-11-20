@@ -1,7 +1,14 @@
-# Running Julia on Yen-Slurm 
+# Running Julia on Yen Slurm 
 
-## Single-threaded Julia on Yen-Slurm
-Similar to running Julia interactively, we will load Julia module but run the script using Slurm scheduler so that the script is executed on the Yen-Slurm nodes.
+## Single-threaded Julia on Yen Slurm
+Similar to running Julia interactively, we will load Julia module but run the script using Slurm scheduler so that the script is executed on the Yen Slurm nodes.
+
+### Example Script
+```julia title="hello.jl"
+println("Hello!")
+```
+
+This one-liner script can be run with `julia hello.jl`.
 
 ```bash linenums="1"  title="hello.slurm"
 #!/bin/bash
@@ -27,7 +34,7 @@ Then run it by submitting the job to the Slurm scheduler with:
 sbatch hello.slurm
 ```
 
-## Multi-threaded Julia on Yen-Slurm
+## Multi-threaded Julia on Yen Slurm
 If you want to use multiple threads, set the number of cores and the environment variable to match it:
 ```bash linenums="1"  title="hello-multithreaded.slurm"
 #!/bin/bash
