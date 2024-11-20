@@ -269,7 +269,7 @@ squeue
 
 ## Best Practices
 
-### Using PythonVirtual Environment In Slurm Scripts
+### Using Python Virtual Environment In Slurm Scripts
 We can also employ a virtual Python enviuronment using `venv` instead of the system's `python3` when running scripts via Slurm.
 
 For example, let's say you've created a virtual Python environment using the process described on [this page](/_user_guide/best_practices_python_env/){:target="_blank"} that is located in your home directory at `/zfs/home/users/SUNetID/venv/`. You can modify your Slurm script to use this `venv` environment:
