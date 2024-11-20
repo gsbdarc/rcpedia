@@ -573,15 +573,15 @@ A Slurm job array is a way to launch multiple jobs in parallel. One use case is 
 
 #### Gurobi Example
 
-We will work with the following Python script that was modified from [Gurobi documentation](https://www.gurobi.com/documentation){:target="_blank"}.
+We will work with the following Python script that was modified from [Gurobi documentation](https://www.gurobi.com/documentation){:target="_blank"} that performs sensitivity analysis using the Gurobi optimization library.
 
-This script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:
+Specifically, this script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:
 
 ![gurobi equation image](/assets/images/gurobi-eq.png)
 
-Save this Python script to a new file called `gurobi_test.py`.
+Save this Python script to a new file named `gurobi_sensitivity.py`.
 
-```python linenums="1" hl_lines="8-12" title="gurobi_test.py"
+```python linenums="1" hl_lines="8-12" title="gurobi_sensitivity.py"
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -645,11 +645,11 @@ except AttributeError:
     print(f"Encountered an attribute error")
 ```
 
-This Python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen-Slurm cluster.
+This Python script can be run with `python gurobi_sensitivity.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen-Slurm cluster.
 
-Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_test.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
+Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_sensitivity.py` script. Save this Slurm script to a file named `sensitivity_analysis.slurm`:
 
-```bash linenums="1" title="gurobi_test.slurm"
+```bash linenums="1" title="sensitivity_analysis.slurm"
 #!/bin/bash
 
 # Example of running a single Gurobi run for sensitivity analysis
@@ -674,7 +674,7 @@ source /zfs/projects/<your-project>/opt_combined/bin/activate
 
 # Run Python script
 # With no command line argument: a = 0 in the script
-python gurobi_test.py
+python gurobi_sensitivity.py
 ```
 
 You will need to modify the path to your `venv` enviroment as well as your email address. After that, you can submit the script to run with `sbatch sensitivity_analysis.slurm`
@@ -685,7 +685,7 @@ We will pass an index as a command line argument to the Python script, which per
 
 We also want to ensure that we limit the threads to 1 in both `numpy` and `gurobi` since we will be launching one task per CPU core. The following lines in the Python script accomplish this:
 
-```python linenums="8" title="gurobi_test.py"
+```python linenums="8" title="gurobi_sensitivity.py"
 # Limits the number of cores for numpy BLAS
 threadpool_limits(limits = 1, user_api = 'blas')
 
@@ -693,7 +693,7 @@ threadpool_limits(limits = 1, user_api = 'blas')
 __gurobi_threads = 1
 ```
 
-Now, our Slurm script should look like below (save this to `sensitivity_analysis_array.slurm`):
+Now, our Slurm script should look like below. Save this to `sensitivity_analysis_array.slurm`:
 
 ```bash linenums="1" hl_lines="26" title="sensitivity_analysis_array.slurm"
 
@@ -722,7 +722,7 @@ source /zfs/projects/<your-project>/opt_combined/bin/activate
 
 # Run Python script with a command line arg from --array option
 # It will be an input index from 0 to 31
-python gurobi_test.py $SLURM_ARRAY_TASK_ID
+python gurobi_sensitivity.py $SLURM_ARRAY_TASK_ID
 ```
 
 Again, you will have to modify the script to use your `venv` environment and your email.
