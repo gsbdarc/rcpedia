@@ -12,6 +12,18 @@ Several versions of Matlab are installed on the Yens and the default version is 
 module avail matlab
 ```
 
+```{.yaml .no-copy title="Terminal Output"}
+-------------------------------- Global Aliases --------------------------------
+
+
+---------------------------- /software/modules/Core ----------------------------
+   matlab/R2018a    matlab/R2019b    matlab/R2022a        matlab/R2024a
+   matlab/R2018b    matlab/R2021b    matlab/R2022b (D)
+
+  Where:
+   D:  Default Module
+```
+
 Load the version you want:
 
 ```bash title="Terminal Command"
