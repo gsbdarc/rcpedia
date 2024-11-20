@@ -97,6 +97,8 @@ nav:
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
           - Best Practices in R: _user_guide/best_practices_r.md
+      - Matlab:
+          - Slurm Jobs:  _user_guide/matlab_slurm.md
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
       - Optimization Software: _user_guide/best_practices_optimization.md
