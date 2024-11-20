@@ -547,6 +547,8 @@ source /zfs/projects/<your-project>/opt_combined/bin/activate
 python <my_script.py>
 ```
 
+In this example, we load all three optimization software, but you can omit the ones you don't need.
+
 Submit this Slurm script to test:
 
 ```title="Terminal Command"
