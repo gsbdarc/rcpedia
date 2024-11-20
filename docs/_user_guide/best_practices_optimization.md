@@ -514,7 +514,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 The Yen-Slurm cluster is comprised of 7 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resouces available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
 
-We can use the same `gurobipy` virtual environment to run python code on the Slurm nodes.
+We can use the same `gurobi_env` virtual environment to run python code on the Slurm nodes.
 
 We load the optimization software modules, activate the virtual python environment before calling `python` in
 the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
