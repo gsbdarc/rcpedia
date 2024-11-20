@@ -27,17 +27,18 @@ module avail matlab
 Load the version you want:
 
 ```bash title="Terminal Command"
-module load matlab
+module load matlab/R2021b
 ```
 
-If you do not specify the version, `matlab/R2019b` will be loaded by default.
+If you do not specify the version (`module load matlab`), the version marked with `(D)` will be loaded by default.
 
-This one-liner script can be run with `matlab -nodesktop < hello_world.m`. 
-However, we will run it via the Slurm scheduler on the `Yen10` server. 
-Here is an example Slurm script that loads matlab module and runs the `hello_world.m` script.
+This one-liner script can be run on the interactive Yens with `matlab -nodesktop < hello_world.m`. 
+However, if you want to run it on the [Yen Slurm cluster](/_user_guide/slurm){:target="_blank"} via the scheduler, you must write a Slurm script.
+
+Here is an example Slurm script that loads `matlab` module and runs the `hello_world.m` script.
 
 
-```bash title="Terminal Command"
+```bash title="hello.slurm"
 #!/bin/bash
 
 # Hello world Matlab script with Slurm
