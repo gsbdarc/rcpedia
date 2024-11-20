@@ -319,15 +319,15 @@ Ensure that you can import `amplpy` and verify that AMPL is accessible and the l
 import os, sys
 from amplpy import AMPL, Environment
 
-# Initialize the AMPL instance with an AMPL license
+# Initialize the AMPL instance with a specific AMPL license
 ampl = AMPL(Environment("/software/non-free/ampl/20231031/"))
 
 try:
-    # Execute your AMPL commands here
+    # Execute an AMPL command to check the version
     ampl.eval("option version;")    
-    # Set Knitro as the solver
+    # Set Knitro as the solver for an optimization problem
     ampl.setOption('solver', "/software/non-free/knitro/14.0.0/knitroampl/knitroampl")
-    # Define and solve your optimization problem
+    # Define and solve an optimization problem
     ampl.eval('''
     # Simple Linear Optimization Problem
     var x >= 0;   # Decision variable x
@@ -335,13 +335,14 @@ try:
     maximize objective: x + 2 * y;  # Objective function
     subject to Constraint1: 3 * x + 4 * y <= 24;  # Constraint 1
     ''')
+    # Solve the defined optimization problem
     ampl.solve()
 finally:
-    # Output the results
+    # Output the results of the optimization
     print(f"Objective value: {ampl.getObjective('objective').value()}")
     print(f"x = {ampl.getVariable('x').value()}")
     print(f"y = {ampl.getVariable('y').value()}")
-    # Properly close the AMPL instance
+    # Properly close the AMPL instance to free resources
     ampl.close()
 
 ```
@@ -402,7 +403,6 @@ The environment is now set up to run your Python scripts that use AMPL and Knitr
     You need to load the `ampl` and `knitro` modules and activate your `venv` environment every time you log in to the Yens
     before running the interactive Python scripts that use AMPL and Knitro.
 
-
 ## Integrating with Jupyter Notebooks
 
 ### Running Gurobi in Jupyter Notebooks
@@ -445,10 +445,10 @@ jupyter kernelspec uninstall <kernel-name>
 
 where `<kernel-name>` is the name of the kernel you want to uninstall from JupyterHub.
 
-On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `gurobipy` kernel and test the package imports:
+On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `gurobi_env` kernel and test the package imports:
 <br>
 
-![](/assets/images/gurobi-kernel.png)
+![gurobi kernel image](/assets/images/gurobi-kernel.png)
 
 ### Running AMPL/Knitro in Jupyter Notebooks
 
@@ -481,10 +481,10 @@ python -m ipykernel install --user --name=opt \
 Notice the extra `--env` arguments to add necessary Knitro and AMPL environment variables so that Jupyter kernel can find the licenses. Launch the new `opt` kernel and test the `ampl` and `knitro` imports.
 <br>
 
-![](/assets/images/opt_kernel.png)
+![knitro jupyter kernel image](/assets/images/opt_kernel.png)
 <br>
 <br>
-![](/assets/images/opt_kernel-2.png)
+![knitro license info image](/assets/images/opt_kernel-2.png)
 
 ### Combining Gurobi, Knitro, and AMPL in a Single Kernel
 
@@ -576,7 +576,7 @@ We will work with the following python script that was modified from [Gurobi doc
 
 This script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:
 
-![](/assets/images/gurobi-eq.png)
+![gurobi equation image](/assets/images/gurobi-eq.png)
 
 Save this Python script to a new file called `gurobi_test.py`.
 
