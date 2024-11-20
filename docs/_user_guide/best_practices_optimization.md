@@ -584,7 +584,7 @@ This script formulates and solves a simple Mixed Integer Programming (MIP) model
 
 Save this Python script to a new file called `gurobi_test.py`.
 
-```python linenums="1" title="gurobi_test.py"
+```python linenums="1" hl_lines="8-12" title="gurobi_test.py"
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -648,8 +648,7 @@ except AttributeError:
     print(f"Encountered an attribute error")
 ```
 
-This Python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default).
-However, we will run it via the scheduler on the Yen-Slurm cluster.
+This Python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen-Slurm cluster.
 
 Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_test.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
 
@@ -689,7 +688,7 @@ We will pass an index as a command line argument to the Python script, which per
 
 We also want to ensure that we limit the threads to 1 in both `numpy` and `gurobi` since we will be launching one task per CPU core. The following lines in the Python script accomplish this:
 
-```title="Terminal Command"
+```python linenums="8" title="gurobi_test.py"
 # Limits the number of cores for numpy BLAS
 threadpool_limits(limits = 1, user_api = 'blas')
 
