@@ -19,7 +19,7 @@ You need to access data from a zip file, but you don’t want to copy the zip fi
 Here is an example of a directory containing zip files and other files. It includes two notebooks, a sample zip file, and its unzipped contents stored in the `zipcontents` folder.
 
 ```bash title="Terminal Command"
-$ tree
+tree
 ```
 
 ```{.yaml .no-copy title="Terminal Output"}
@@ -45,7 +45,7 @@ Let’s examine the size differences between the original zip file, `2022_04_not
 
 
 ```bash title="Terminal Command"
-$ du -sh 2022_04_notes.zip
+du -sh 2022_04_notes.zip
 ```
 
 ```{.yaml .no-copy title="Terminal Output"}
@@ -53,7 +53,7 @@ $ du -sh 2022_04_notes.zip
 ```
 
 ```bash title="Terminal Command"
-$ du -sh zipcontents
+du -sh zipcontents
 ```
 
 ```{.yaml .no-copy title="Terminal Output"}
@@ -73,7 +73,7 @@ The powerful Python package [`zipfile`](https://docs.python.org/3/library/zipfil
 ### Installation
 To use the library, install it as shown below:
 ``` bash title="Terminal Command"
-$ pip install zipfile
+pip install zipfile
 ```
 
 ### Viewing the Contents of a Zip File
