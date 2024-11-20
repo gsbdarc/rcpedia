@@ -1,12 +1,12 @@
 The simplest Matlab script looks like:
 
-```matlab title="Matlab Code"
+```matlab title="hello_world.m"
 disp('Hello world')
 ```
 
 Save this line to a new file called `hello_world.m`. 
 
-Several version of Matlab are installed on the yens and the default version is designated with `(D)`:
+Several versions of Matlab are installed on the Yens and the default version is designated with `(D)`:
 
 ```bash title="Terminal Command"
 module avail matlab
