@@ -735,4 +735,4 @@ After modifying the path to your `venv` environment, submit the `sensitivity_ana
 sbatch sensitivity_analysis_array.slurm
 ```
 
-Monitor your jobs with `watch squeue -u $USER` where `$USER` is your SUNet ID. Check which job array tasks failed. Rerun those by setting `--array=` only to failed indices.
+Monitor your jobs with `watch squeue -u $USER` where `$USER` is your SUNet ID. Identify any failed job array tasks and rerun them by setting `--array=` to include only the failed indices. For more information on using Yen Slurm, visit [this page](/_user_guide/slurm/){:target="_blank"}.
