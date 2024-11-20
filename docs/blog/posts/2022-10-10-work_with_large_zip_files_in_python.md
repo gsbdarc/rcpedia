@@ -1,11 +1,10 @@
 ---
 date:
   created: 2022-10-10
-  updated: 2024-11-19
 categories:
     - zip
 authors:
-    - kevin128
+    - jeffotter
 subtitle: Working with Large Zip Files in Python
 ---
 
