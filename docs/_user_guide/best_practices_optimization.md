@@ -316,7 +316,8 @@ Type "help", "copyright", "credits" or "license" for more information.
 Ensure that you can import `amplpy` and verify that AMPL is accessible and the license is a network floating license by running the following code. You can save it to `knitro_test.py`and run it in the terminal:
 
 ```python linenums="1" title="knitro_test.py"
-import os, sys
+import os
+import sys
 from amplpy import AMPL, Environment
 
 # Initialize the AMPL instance with a specific AMPL license
@@ -325,8 +326,10 @@ ampl = AMPL(Environment("/software/non-free/ampl/20231031/"))
 try:
     # Execute an AMPL command to check the version
     ampl.eval("option version;")    
+    
     # Set Knitro as the solver for an optimization problem
     ampl.setOption('solver', "/software/non-free/knitro/14.0.0/knitroampl/knitroampl")
+    
     # Define and solve an optimization problem
     ampl.eval('''
     # Simple Linear Optimization Problem
@@ -335,13 +338,16 @@ try:
     maximize objective: x + 2 * y;  # Objective function
     subject to Constraint1: 3 * x + 4 * y <= 24;  # Constraint 1
     ''')
+   
     # Solve the defined optimization problem
     ampl.solve()
+
 finally:
     # Output the results of the optimization
     print(f"Objective value: {ampl.getObjective('objective').value()}")
     print(f"x = {ampl.getVariable('x').value()}")
     print(f"y = {ampl.getVariable('y').value()}")
+    
     # Properly close the AMPL instance to free resources
     ampl.close()
 
@@ -360,8 +366,7 @@ Using license file "/software/non-free/ampl/20231031/ampl.lic".\
 ```
 
 !!! Note
-    To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions),
-    we must properly close `ampl` instance. The `try` and `finally` logic does that in which we release the AMPL license with `ampl.close()` call.
+    To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions), we must properly close `ampl` instance. The `try` and `finally` logic does that in which we release the AMPL license with `ampl.close()` call.
 
 We also point to the Yen's Knitro licence with `ampl.setOption()` call.
 
@@ -400,8 +405,7 @@ module purge
 The environment is now set up to run your Python scripts that use AMPL and Knitro on the interactive Yen nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
 
 !!! Important
-    You need to load the `ampl` and `knitro` modules and activate your `venv` environment every time you log in to the Yens
-    before running the interactive Python scripts that use AMPL and Knitro.
+    You need to load the `ampl` and `knitro` modules and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use AMPL and Knitro.
 
 ## Integrating with Jupyter Notebooks
 
@@ -526,9 +530,9 @@ the slurm script. Let's save this slurm script to a file named `opt_test.slurm`:
 
 #SBATCH -J opt
 #SBATCH -p normal
-#SBATCH -c 1                         # one core per task
+#SBATCH -c 1                    # one core per task
 #SBATCH -t 1:00:00
-##SBATCH --mem=1gb                   # uncomment/set to request total RAM need
+##SBATCH --mem=1gb              # uncomment/set to request total RAM need
 #SBATCH -o opt-%j.out
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=your_email@stanford.edu
@@ -542,7 +546,7 @@ module load gurobipy3 ampl knitro
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt/bin/activate
 
-# Run python script
+# Run Python script
 python <my_script.py>
 ```
 
@@ -572,7 +576,7 @@ A Slurm job array is a way to launch multiple jobs in parallel. One use case is 
 
 #### Gurobi Example
 
-We will work with the following python script that was modified from [Gurobi documentation](https://www.gurobi.com/documentation){:target="_blank"}.
+We will work with the following Python script that was modified from [Gurobi documentation](https://www.gurobi.com/documentation){:target="_blank"}.
 
 This script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:
 
@@ -581,7 +585,6 @@ This script formulates and solves a simple Mixed Integer Programming (MIP) model
 Save this Python script to a new file called `gurobi_test.py`.
 
 ```python linenums="1" title="gurobi_test.py"
-
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -596,7 +599,6 @@ threadpool_limits(limits = 1, user_api = 'blas')
 __gurobi_threads = 1
 
 try:
-
     # Define the coefficients to run sensitivity analysis
     capacity_coefficients = np.linspace(1, 10, num=32)
 
@@ -646,7 +648,7 @@ except AttributeError:
     print(f"Encountered an attribute error")
 ```
 
-This python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default).
+This Python script can be run with `python gurobi_test.py` with no command line argument (`a` is set to 0 by default).
 However, we will run it via the scheduler on the Yen-Slurm cluster.
 
 Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_test.py` script. Save this Slurm script to a file named sensitivity_analysis.slurm:
@@ -658,7 +660,7 @@ Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`
 
 #SBATCH -J gurobi
 #SBATCH -p normal
-#SBATCH -c 1                              # one core per task
+#SBATCH -c 1                     # one core per task
 #SBATCH -t 1:00:00
 ##SBATCH --mem=1gb
 #SBATCH -o gurobi-%j.out
@@ -674,8 +676,8 @@ module load gurobipy3
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt/bin/activate
 
-# Run python script
-# with no command line arg: a = 0 in the script
+# Run Python script
+# With no command line argument: a = 0 in the script
 python gurobi_test.py
 ```
 
@@ -703,10 +705,10 @@ Now, our Slurm script should look like below (save this to `sensitivity_analysis
 
 # Example of running a job array to run Gurobi python script for sensitivity analysis.
 
-#SBATCH --array=0-31              # there is a max array size - 512 tasks
+#SBATCH --array=0-31        # there is a max array size - 512 tasks
 #SBATCH -J gurobi
 #SBATCH -p normal
-#SBATCH -c 1                      # one core per task
+#SBATCH -c 1                # one core per task
 #SBATCH -t 1:00:00
 ##SBATCH --mem=1gb
 #SBATCH -o gurobi-%A-%a.out
@@ -722,7 +724,7 @@ module load gurobipy3
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt/bin/activate
 
-# Run python script with a command line arg from --array option
+# Run Python script with a command line arg from --array option
 # It will be an input index from 0 to 31
 python gurobi_test.py $SLURM_ARRAY_TASK_ID
 ```
