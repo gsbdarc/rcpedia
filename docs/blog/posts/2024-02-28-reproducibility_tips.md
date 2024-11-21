@@ -19,6 +19,8 @@ This guide provides the foundational components needed to ensure reproducibility
 - Summary with additional resources
 - Advanced topics
 
+<!-- more -->
+
 There is also a **Research Computing and Reproducible Research** presentation available in the [Research Hub Training & Workshops](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"}. You can search for it, and you will find a one-hour video, presentation slides, and a code link.
 
 ## Documenting Fixed Inputs and Expected Outputs
@@ -90,7 +92,8 @@ Investing in thorough documentation and environment management pays off by makin
 
 Taking these steps ensures your research can be understood, validated, and built upon for years to come, significantly enhancing its impact.
 
-### Additional Resources
+## Additional Resources
+
 - [Guide to Project Management](https://experimentology.io/013-management.html){target="_blank"}:<br>
 Strategies for data organization, FAIR principles, and ethical constraints in sharing research materials.
 
