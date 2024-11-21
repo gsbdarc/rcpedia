@@ -96,6 +96,7 @@ nav:
           - Python Virtual Environments: _user_guide/best_practices_python_env.md
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
+          - Running R Interactively: _user_guide/r.md
           - Best Practices in R: _user_guide/best_practices_r.md
       - Matlab:
           - Slurm Jobs:  _user_guide/matlab_slurm.md
