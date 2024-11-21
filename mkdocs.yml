@@ -65,7 +65,9 @@ markdown_extensions:
         alternate_style: true
 
 nav:
-  - Home: index.md
+  - Home:
+      - Home: index.md
+      - Services: _policies/services.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
       - Access the Yens: _getting_started/how_access_yens.md
@@ -73,7 +75,6 @@ nav:
       - Modules: _getting_started/modules.md
   - Policies: 
       - User Limits: _policies/user_limits.md
-      - Services: _policies/services.md
       - Collaborators: _policies/collaborators.md
       - Workgroups: _policies/workgroups.md
       - Security: _policies/security.md
