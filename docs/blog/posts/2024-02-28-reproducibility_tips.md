@@ -1,15 +1,14 @@
 ---
 date:
   created: 2024-02-28
-  updated: 2024-11-18
 categories:
     - Reproducibility
     - Research
 authors:
-    - kevin128
+    - nrapstin
 subtitle: Reproducible Research Essentials
-
 ---
+
 # Reproducible Research Essentials
 
 This guide provides the foundational components needed to ensure reproducibility in your research. It focuses on:
@@ -19,6 +18,8 @@ This guide provides the foundational components needed to ensure reproducibility
 - Managing computational environments
 - Summary with additional resources
 - Advanced topics
+
+There is also a **Research Computing and Reproducible Research** presentation available in the [Research Hub Training & Workshops](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"}. You can search for it, and you will find a one-hour video, presentation slides, and a code link.
 
 ## Documenting Fixed Inputs and Expected Outputs
 
