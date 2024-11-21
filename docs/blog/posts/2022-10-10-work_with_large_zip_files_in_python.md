@@ -17,6 +17,8 @@ You need to access data from a zip file, but you don’t want to copy the zip fi
 
 Here is an example of a directory containing zip files and other files. It includes two notebooks, a sample zip file, and its unzipped contents stored in the `zipcontents` folder.
 
+<!-- more -->
+
 ```bash title="Terminal Command"
 tree
 ```
