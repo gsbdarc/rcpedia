@@ -456,8 +456,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `g
 
 ### Running AMPL/Knitro in Jupyter Notebooks
 
-To make AMPL/Knitro Python interface work on the Yen's JupyterHub, we can take our `opt` virtual environment and
-make it into a Jupyter kernel.
+To make AMPL/Knitro Python interface work on the Yen's JupyterHub, we can take our `opt` virtual environment and make it into a Jupyter kernel.
 
 Load AMPL and Knitro modules:
 
@@ -486,8 +485,6 @@ Notice the extra `--env` arguments to add necessary Knitro and AMPL environment 
 <br>
 
 ![knitro jupyter kernel image](/assets/images/opt_kernel.png)
-<br>
-<br>
 ![knitro license info image](/assets/images/opt_kernel-2.png)
 
 ### Combining Gurobi, Knitro, and AMPL in a Single Kernel
