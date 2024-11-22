@@ -21,14 +21,14 @@ By adhering to these practices, developers can maximize the benefits of Python v
 
 ## Best Practices on the Yens
 
-!!! Recommendation
-    Utilize `venv` for Python Environment Management
-
 We highly recommend using `venv`, Python’s built-in tool for creating virtual environments, especially in shared systems like the Yens. This recommendation is rooted in several key advantages that `venv` offers over other tools like `conda`:
 
 * **Built-in and Simple**: `venv` is included in Python's standard library, eliminating the need for third-party installations and making it straightforward to use, especially beneficial in shared systems where ease of setup and simplicity are crucial.
 * **Fast and Resource-Efficient**: `venv` offers quicker environment creation and is more lightweight compared to tools like `conda`, making it ideal for shared systems where speed and efficient use of resources are important.
 * **Ease of Reproducibility**: `venv` allows for easy replication of environments by using a `requirements.txt` file, ensuring that the code remains reproducible and consistent regardless of the platform.
+
+!!!Tip
+    Utilize `venv` for Python Environment Management to create isolated environments, ensuring simplicity and avoiding conflicts between project dependencies.
 
 ## Creating a New Virtual Environment with `venv`
 
