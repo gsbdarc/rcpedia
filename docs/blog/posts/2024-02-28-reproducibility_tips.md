@@ -4,74 +4,76 @@ date:
 categories:
     - Reproducibility
     - Research
+authors:
+    - nrapstin
+subtitle: Reproducible Research Essentials
 ---
+
 # Reproducible Research Essentials
 
+This guide provides the foundational components needed to ensure reproducibility in your research. It focuses on:
 
-This guide includes key components to consider when aiming for reproducible research, specifically focusing on documenting code and
-computational environment, making a README file, documenting inputs and expected outputs, and providing clear instructions for replicating results.
+- Documentating fixed inputs and expected outputs
+- Making a README file
+- Managing computational environments
+- Summary with additional resources
+- Advanced topics
 
 <!-- more -->
 
+There is also a **Research Computing and Reproducible Research** presentation available in the [Research Hub Training & Workshops](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"}. You can search for it, and you will find a one-hour video, presentation slides, and a code link.
+
 ## Documenting Fixed Inputs and Expected Outputs
 
-* **Input Data**: Describe the data your code expects. Include format, structure, and examples. Mention any pre-processing steps required.
-* **Expected Outputs**: Clearly define what outputs your code generates, including their formats and how to interpret them.
-* **Data Sources**: If your research relies on specific datasets, provide information on how these can be accessed or obtained.
-* **Test Cases**: Include test cases with known outputs to help users verify that the system is working correctly after setup.
+- **Input Data**:
+Clearly describe the data your code expects, including its format, structure, and examples. Highlight any preprocessing steps required.
 
+- **Expected Outputs**:
+Define the outputs your code generates, specifying their formats and how they should be interpreted.
 
-## Code Documentation
-Thorough documentation of your code is critical. Well-documented code allows researchers to adapt and run it on their systems, 
-even if they do not use the same research computing environment (i.e. the Yens).
+- **Data Sources**:
+For external datasets, provide details on how to access or obtain them.
 
-* **Purpose and Overview**: Begin by explaining the purpose of the code, the problem it solves, and how it fits into the broader research project. 
-This gives context to potential users.
-* **Dependencies**: List all external libraries or packages that your code depends on. This includes versions to avoid compatibility issues.
-* **Code Structure**: Describe the structure of your codebase. If your project contains multiple modules or scripts, explain what each one does.
-* **Function Documentation**: For each function or class, provide a short description, its inputs, outputs, and any side effects. Include examples if possible.
-* **Version Control**: It is recommended to use version control systems like Git and to host the code repository on platforms like GitHub / GitLab. 
+- **Test Cases**:
+Include sample test cases with known outputs, enabling users to verify the functionality of your system after setup.
 
-### Making a README File
-README files provide a high-level overview, setup instructions, and usage examples. 
+## Making a README File
+A README file serves as the central guide to your project, offering an overview, setup instructions, and usage examples.
 
-* **Installation Instructions**: Step-by-step guide to set up the environment. Include commands for installing dependencies.
-* **Usage**: Explain how to run your code, including any command-line arguments or configurations needed.
-* **Examples**: Provide examples that demonstrate how to use your project. Include both simple examples and more complex use cases if applicable.
-* **License**: State the project's license, making it clear under what terms others can use, modify, or distribute your work.
+- **Installation Instructions**:
+Provide step-by-step setup instructions, including commands for installing dependencies.
 
-Be transparent about the memory and compute requirements of your analysis. If the requirements are substantial, it might
- be unrealistic for individuals to replicate the study on a personal machine. In such cases, access to a similar HPC environment 
- would be necessary. <a href="/gettingStarted/3_intro_to_yens.html" target="_blank">Describing</a> the research computing 
- environment such as the Yens in your README can be a big help.
- 
-## Computational Environment Management
-Effective environment management ensures that your research is reproducible by maintaining consistency across 
-computational environments. This section covers the best practices for Python and R.
+- **Usage**:
+Explain how to run your code, detailing command-line arguments or configuration files as needed.
+
+- **Examples**:
+Share illustrative examples, ranging from simple cases to complex scenarios.
+
+- **License**:
+Clearly state the license governing the use, modification, and distribution of your project.
+
+Additionally, include information about the memory and compute requirements of your analysis. For resource-intensive projects, note the necessity of high-performance computing environments, like the [Yens](/_getting_started/yen-servers){:target="_blank"}, and provide a description of these environments if applicable.
+
+## Managing Computational Environment
+
+Maintaining consistent computational environments is critical for reproducibility.
 
 ### Python
+- **Virtual Environments**:
+Use tools like `venv` to create isolated environments for managing dependencies. Save these configurations using `pip freeze > requirements.txt`.
 
-* **Virtual Environments**: Virtual environments are isolated spaces that allow you to manage project-specific 
-dependencies without affecting the global Python setup. Tools like <a href="/topicGuides/pythonEnv.html" target="_blank">`venv`</a> 
-are essential for creating these environments. 
+- **Environment Files**:
+Include environment specifications in your repository. While `requirements.txt` may contain superfluous libraries, it provides a starting point for replication.
 
-
-It's crucial to save your environment, including all packages and their versions. This step is essential for anyone
- attempting to replicate your work. Ensuring that your environment is accurately documented and easily recreatable 
- will significantly aid in the replication process. This can also be achieved with a `pip freeze > requirements.txt` 
- command if you didn't explicitly use environments in your code. This `requirements.txt` can be then made into an environment, 
- but it may contain superfluous libraries. 
+- For more details, please refer to the [Python Virtual Environment Page](/_user_guide/best_practices_python_env){:target="_blank"}
 
 ### R
+- **RStudio and Projects**:
+Leverage RStudio's project-based setup to isolate workspace settings and library paths.
 
-* **RStudio and R Projects**: RStudio supports project-based management and package installation. Using R projects helps 
-isolate workspace settings and library paths.
-
-* **Package Management with `renv`**: The `renv` package in R is designed to create reproducible environments by 
-capturing the state of all packages used in a project. `renv` automatically generates a lockfile (`renv.lock`) 
-that details package versions and sources, which can be used to recreate the environment. 
+- **`renv` for Package Management**:
+Use the `renv` package to capture project-specific package states. Share the resulting `renv.lock` file to enable seamless environment recreation.<br>
 Initialize `renv` in your project with:
-
 ```R
 renv::init()
 ```
@@ -79,45 +81,33 @@ Share your project by including the `renv.lock` file in your code repo, so other
 
 ### Best Practices for Environment Management
 
-* Document the setup and management of your environment in a README file, including how to install 
+- Document the setup and management of your environment in a README file, including how to install 
 dependencies and any necessary configuration steps. 
-* Include environment files like `requirements.txt` or `renv.lock` in your code repository 
+- Include environment files like `requirements.txt` or `renv.lock` in your code repository 
 to ensure that others can easily set up identical environments.
 
 
-## Conclusions
-In summary, focus on documentation of your code and computational environment, and be clear about the resource requirements. 
-Utilizing a resource like GitHub can centralize all this information, allowing you to test the replicability of your work on different computers. 
+## Summary
+Investing in thorough documentation and environment management pays off by making your research more accessible and reproducible. Host your work on platforms like GitHub, test replicability on various systems, and include detailed README files to guide users.
 
-All in all, reproducing code years later can be challenging, and the steps you take now can significantly enhance the reach and longevity of your paper. 
-This approach will not only aid in ensuring the reproducibility of your work but also make it more accessible to others in the academic community. 
+Taking these steps ensures your research can be understood, validated, and built upon for years to come, significantly enhancing its impact.
 
-### Resources
-Here are several valuable resources for researchers interested in making their research more reproducible:
-* A <a href="https://experimentology.io/013-management.html" target="_blank">Guide</a> to project management.
-It covers strategies for data organization, the sharing of research products (ensuring they adhere to the FAIR principles), 
-and discusses the potential ethical constraints on sharing research materials. 
+## Additional Resources
 
-* Software Carpentry Guide to <a href="https://swcarpentry.github.io/git-novice/aio.html" target="_blank">Git</a>: the
-class on version control using Git covering basic Git topics, setup and more advanced details. 
+- [Guide to Project Management](https://experimentology.io/013-management.html){target="_blank"}:<br>
+Strategies for data organization, FAIR principles, and ethical constraints in sharing research materials.
 
-* The <a href="https://dataverse.org" target="_blank">Dataverse Project</a>: is an open-source research data repository 
-software aimed at enhancing research data management and sharing. It offers researchers full control over their data, 
-promotes increased visibility and citation counts, and supports the fulfillment of data management plans. 
+- [Software Carpentry Git Guide](https://swcarpentry.github.io/git-novice/aio.html){target="_blank"}:<br>
+Introductory and advanced topics on version control with Git.
+
+- [The Dataverse Project](https://dataverse.org/){target="_blank"}:<br>
+Open-source repository software for research data management and sharing.
 
 ## Advanced Topics 
-* Consider more comprehensive documentation with specialized tools like Sphinx for Python projects 
-to generate detailed documentation websites from docstrings in the code, making it easier for others to understand and use your work.
-* Continuous Integration (CI) and Testing: CI services, like GitHub Actions or GitLab CI, automatically run tests and enforce code quality checks upon each commit or pull request. 
-This automated workflow helps maintain high standards of code quality and ensures that contributions do not introduce errors.
-* Publishing and Sharing: Obtaining a Digital Object Identifier (DOI) for your research software through platforms like Zenodo makes your software easily citable, 
-enhancing its visibility and academic impact. This practice acknowledges software as a critical output of research efforts.
-* Data Management: consider integrating Data Version Control (DVC) into your project.
-* Open Access Repositories: platforms like arXiv, and Zenodo allow researchers to share preprints, datasets, and software, promoting open access to research findings. 
-* Preregister your study: platforms like <a href="https://www.cos.io/initiatives/prereg" target="_blank">Center for Open Science</a> allow you to preregister 
-your experiment before you conduct the analysis. 
-* Containers: using containers like Podman, Docker and Singularity helps to encapsulate the 
-entire runtime environment required for an application or analysis, including the software, libraries, and dependencies, 
-in a way that is portable and consistent across different computing environments.
-
-
+- **Comprehensive Documentation**: Use tools like Sphinx for Python projects to create detailed documentation websites from code docstrings.
+- **Continuous Integration (CI)**: Automate testing and code quality checks with CI tools like GitHub Actions or GitLab CI.
+- **Publishing and Sharing**: Obtain DOIs for your research software on platforms like Zenodo.
+- **Data Version Control (DVC)**: Integrate DVC to manage data and model versions.
+- **Open Access Repositories**: Share research outputs on platforms like arXiv or Zenodo.
+- **Preregistration**: Use platforms like the Center for Open Science to preregister your experiments.
+- **Containers**: Employ Docker, Podman, or Singularity to encapsulate your runtime environment, ensuring portability across systems.
