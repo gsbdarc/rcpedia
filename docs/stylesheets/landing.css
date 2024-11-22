@@ -1,0 +1,29 @@
+/* CSS for the site landing page */
+
+body {
+    background-color: #f2f2f2; 
+}
+
+#searchForm1 {
+    background-color: #c4c4c4;
+    position: absolute; 
+    z-index: 9999; 
+    color: black;
+}
+
+#titleHeader {
+    font-size: 35px;
+    text-align: center; 
+    padding-bottom: 2%;
+
+}
+
+#results-scroll-wrapper {
+    border-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+}
+
+.hidden {
+    display: none;
+}
