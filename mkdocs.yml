@@ -12,14 +12,14 @@ theme:
     - content.code.select
     - content.code.copy
     - content.tabs.link
-    - content.code.select
-    - content.code.copy
     - navigation.indexes
-    - navigation.sections
+  # - navigation.sections
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.path
     - navigation.tracking
+    - content.code.select
+    - content.code.copy
     - search.highlight
     - search.share
     - search.suggest
@@ -60,6 +60,7 @@ markdown_extensions:
     - pymdownx.emoji
     - pymdownx.superfences  
     - pymdownx.details
+    - pymdownx.keys
     - pymdownx.tabbed:
         alternate_style: true
 
@@ -96,37 +97,20 @@ nav:
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
           - Best Practices in R: _user_guide/best_practices_r.md
-      - Julia:
-          - Running Julia Interactively: _user_guide/julia.md
-      - Optimization Software:
-          - Optimization: _user_guide/best_practices_optimization.md
+      - Julia: _user_guide/julia.md
+      - SAS: _user_guide/sas.md          
+      - Optimization Software: _user_guide/best_practices_optimization.md
+      - Data:
+          - Storage: _user_guide/storage.md
+          - Data Transfer: _user_guide/data_transfer.md      
       - Troubleshooting:
           - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
           - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
           - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
-      - Data:
-          - Storage: _user_guide/storage.md
-          - Data Transfer: _user_guide/data_transfer.md
+      - Beyond the Yens:
+          - Sherlock: _user_guide/sherlock.md
   - Blog:
       - blog/index.md
-      # - Run Jobs on Yen's GPU Node: blog/posts/2024-04-25-yen_gpu.md
-      # - Train BERT model on Yen GPU's: blog/posts/2024-03-28-finBERT.md 
-      # - Run on GPU: blog/posts/2024-03-28-run-gpu.md
-      # - Reproducible Research Essentials: blog/posts/2024-02-28-reproducibility_tips.md 
-      # - Edit Files on Command Line: blog/posts/2023-09-20-edit-files-with-vim.md
-      # - How to use Rclone: blog/posts/2023-09-18-rclone.md
-      # - How do I export my R environment to JupyterHub?: blog/posts/2023-08-23-howRenvJupyterKernel.md
-      # - How do I extract compressed files?: blog/posts/2023-08-18-how_to_uncompress.md
-      # - Using Twarc Python Package to Scrape Twitter: blog/posts/2023-08-08-using_twarc.md
-      # - SEC Filings: blog/posts/2023-05-16-EDGARmirror.md
-      # - Merging Datasets in Dask: blog/posts/2023-02-09-merging_data_sets_dask.md
-      # - Installing Software on the Yens: blog/posts/2022-11-14_installing_software.md
-      # - Working with Large Zip Files in Python: blog/posts/2022-10-10_zipfile_guide.md
-      # - How Do I Access SEC Documents?: blog/posts/2021-09-22-how_access_SEC.md 
-      # - How Do I Install Stata on JupyterHub?: blog/posts/2022-02-24-install-stata-on-jupyter.md
-      # - What is a man-in-the-middle warning?: blog/posts/2020-03-13-man_in_middle.md
-
-#extra:
 
 extra_css:
   - stylesheets/output.css # This is the decanter css tailwind output
