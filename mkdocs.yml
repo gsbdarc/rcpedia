@@ -81,6 +81,7 @@ nav:
       - Acknowledgements: _policies/acknowledgements.md
       - Leaving GSB: _policies/leavingGSB.md
   - User Guide: 
+      - Home: _user_guide/index.md
       - General Practices:
           - Archive: _user_guide/best_practices_archive.md
           - File Management: _user_guide/best_practices_file_management.md
