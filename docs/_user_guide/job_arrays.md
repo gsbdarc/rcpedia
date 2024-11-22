@@ -3,7 +3,7 @@
 
 ## Example Job Array
 
-We will take the [slurm job](/_user_guide/slurm){:target="_blank"} script and modify it to run as a job array. 
+We will take the [slurm job](/_user_guide/slurm/#example-script){:target="_blank"} script and modify it to run as a job array. 
 Each task in a job array will run the same script and print 'Hello!' and the job array task ID. We are going to do this by passing the job array task ID as a **command line argument** to the script. The script accepts the command line argument and prints 'Hello!' and the task ID passed to it. 
 
 
