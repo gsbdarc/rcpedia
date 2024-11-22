@@ -134,6 +134,9 @@ If you want to quit R, type:
 > q()
 ```
 
+!!! danger
+    Do **not** install packages directly from RStudio on JupyterHub. Instead, use the terminal and run `R` to install packages. This ensures compatibility with the Yen environment. 
+
 ## Run R Code Interactively
 After loading the version of R you need, to execute a R script at the terminal, run:
 ```bash title="Terminal Input"
