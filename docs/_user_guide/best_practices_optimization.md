@@ -111,7 +111,7 @@ Similar to running Gurobi in Python, Gurobi R package is also installed and avai
 To use Gurobi software with R, simply load both modules:
 
 ```title="Terminal Command"
-ml R gurobi
+ml gurobi R/4.2
 ```
 
 To list the currently loaded modules, use:
@@ -121,7 +121,7 @@ To list the currently loaded modules, use:
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
 Currently Loaded Modules:
-  1) gurobi/10.0.0   2) R/4.3.0
+  1) gurobi/10.0.0   2) R/4.2.0
 ```
 
 Launch interactive R:
@@ -163,7 +163,7 @@ Loading required package: slam
 You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
 
 !!! Warning
-    If you would like to use an older version of Gurobi, you must also load an older version of R, as only certain Gurobi versions are compatible with specific R versions, as outlined [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). For example, if you are using Gurobi 10, you must load R 4.2 by running `ml gurobi/10.0.0 R/4.2`, instead of using the default Gurobi 11 and R 4.3, to ensure compatibility.
+    The default Gurobi 10 version is not compatible with the defautl R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
 
 !!! Important
     You need to load the `gurobi` and `R` modules every time you login to the Yens before running the interactive R scripts that use `gurobi` R package.
