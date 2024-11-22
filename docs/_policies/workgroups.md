@@ -10,12 +10,12 @@ Relevant to the Yens, the Workgroup Manager helps control access to individual [
 
 If you are an Administrator of a workgroup, you can use the Stanford Workgroup Manager to easily add users to and remove users from that workgroup. Adding users to a workgroup immediately grants them permissions to whatever resource that workgroup controls access to. Likewise, removing users revokes those permissions. You might want to do this if you no longer want someone to have access to your project space or as part of regular auditing of external collaborators you have sponsored access to the Yens for.
 
-Users can be added as Members and/or Administrators of a workgroup. While Members are simply granted permission to the resource controlled by the workgroup, Administrators have the power to add *other* users as Members/Administrators to the workgroup.
+Users can be added as Members and/or Administrators of a workgroup. While Members are simply granted permission to the resource controlled by the workgroup, Administrators have the power to add other users as Members/Administrators to the workgroup.
 
 For instructions on how to perform these operations, refer to this [helpful page](https://uit.stanford.edu/service/workgroup/add-remove-members){:target="_blank"}, created by Stanford UIT. which illustrates these processes with detailed screenshots.
 
 !!! Warning
-    Administrators of a workgroup have the power to add other users. Please be cautious about whom you grant Administrator privileges to, as it is **your responsibility** to audit both the Administrators and Members of your workgroup.
+    Administrators of a workgroup have the power to add **other** users. Please be cautious about whom you grant Administrator privileges to, as it is **your responsibility** to audit both the Administrators and Members of your workgroup.
 
 ## How to Add a Collaborator to Your Yen Project Space?
 
