@@ -163,12 +163,12 @@ Loading required package: slam
 You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
 
 !!! Warning
-    The default Gurobi 10 version is not compatible with the defautl R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
+    The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
 
 !!! Important
     You need to load the `gurobi` and `R` modules every time you login to the Yens before running the interactive R scripts that use `gurobi` R package.
 
-Note, that if you want to use an older Gurobi version, you will need to install `gurobi` R package to your user R library.
+Note that if you want to use an older Gurobi version, you will need to install `gurobi` R package to your user R library.
 
 Load R and the older Gurobi module:
 
