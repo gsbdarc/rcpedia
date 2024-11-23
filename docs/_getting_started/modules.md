@@ -1,6 +1,6 @@
 # Software on Yen Servers
 
-##  Overview
+## Overview
 
 The Yen servers host a variety of software packages for research and computing needs. This guide provides information on available software, how to load specific versions, and how to manage software modules on the Yen servers.
 
@@ -38,7 +38,7 @@ Here's a list of software packages currently available on the Yen servers:
 - SAS
 - Singularity
 - Stata
-- Tensorflow
+- TensorFlow
 - Tomlab
 
 To check the current list of available software and versions, use the following command:
@@ -90,7 +90,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 
 ```
 
-The `(D)` stands for the default module. These will be loaded when the version is not specified. The `(g)` means these module were built with GPU support, meaning they will support use with our GPU nodes.
+The `(D)` stands for the default module. These will be loaded when the version is not specified. The `(g)` means these modules were built with GPU support, meaning they will support use with our GPU nodes.
 
 You can filter `module avail` for a specific software with the command: 
 
