@@ -1,6 +1,7 @@
 # Software on Yen Servers
 
 ##  Overview
+
 The Yen servers host a variety of software packages for research and computing needs. This guide provides information on available software, how to load specific versions, and how to manage software modules on the Yen servers.
 
 ## Available Software
@@ -14,7 +15,7 @@ Here's a list of software packages currently available on the Yen servers:
 - Bbcp
 - Dotnet
 - Emacs
-- Goold Cloud
+- Google Cloud
 - Google Drive
 - Go
 - GSL
@@ -22,7 +23,7 @@ Here's a list of software packages currently available on the Yen servers:
 - HDF5
 - Intel-python
 - Julia
-- KNitro
+- Knitro
 - Ludwig
 - Mathematica
 - Matlab
@@ -91,7 +92,7 @@ Use "module keyword key1 key2 ..." to search for all possible modules matching a
 
 The `(D)` stands for the default module. These will be loaded when the version is not specified. The `(g)` means these module were built with GPU support, meaning they will support use with our GPU nodes.
 
-You can filter module avail for a specific software with the command: 
+You can filter `module avail` for a specific software with the command: 
 
 ```title="Terminal Command"
 module avail R/
@@ -236,7 +237,7 @@ prepend_path("PATH","/software/free/R/R-4.2.1/bin")
 
     Do not use RStudio to install packages. Instead, always install packages from a terminal, and avoid using the JupyterHub terminal for this purpose.
 
-Linux modules only modify your current working environment. This means that if you lose connection to the Yens server or close your terminal window, you will need to reload the modules. However, all the libraries or packages you have installed as a user will persist and only need to be installed once.
+Linux modules modify only your current working environment. This means that if you lose connection to the Yens server or close your terminal window, you will need to reload the modules. However, all the libraries or packages you have installed as a user will persist and only need to be installed once.
 
 Once the software you want to use is loaded, the binary becomes available for use from the command line.
 For example, to install R packages or run the interactive R console, type:
@@ -265,7 +266,7 @@ Type 'demo()' for some demos, 'help()' for on-line help, or
 Type 'q()' to quit R.
 ```
 
-Type `q()` to exit out of R:
+Type `q()` to exit the interactive R console:
 
 ```title="Terminal Command"
 q()
