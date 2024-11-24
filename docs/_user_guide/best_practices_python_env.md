@@ -41,7 +41,7 @@ cd <path/to/project>
 ```
 where `<path/to/project>` is the shared project location on ZFS.
 
-Create a new virtual environment using the system Python path named `my_env` where we make a directory `my_env` inside the project directory:
+Create a new virtual environment named `my_env` using the system Python path. This will create a directory called `my_env` inside the project directory:
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv my_env
@@ -107,7 +107,7 @@ Install `ipykernel` package before installing the new environment as a kernel on
 pip install ipykernel
 ```
 
-To add the **active** virtual environment as a kernel, run:
+To add the currently **active** virtual environment as a JupyterHub kernel, run:
 
 ```title="Terminal Command"
 python -m ipykernel install --user --name=<kernel-name>
