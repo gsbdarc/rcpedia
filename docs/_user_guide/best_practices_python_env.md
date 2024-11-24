@@ -32,7 +32,7 @@ We highly recommend using `venv`, Python’s built-in tool for creating virtual 
 
 ## Creating a New Virtual Environment with `venv`
 
-To ensure the virtual environment is sharable, create it in a shared location on the Yen system, such as a faculty project directory, rather than in a user’s home directory. The virtual environment only needs to be created once, and all team members with access to the project directory will be able to activate and use it.
+To ensure the virtual environment is shareable, create it in a shared location on the Yen system, such as a faculty project directory, rather than in a user’s home directory. The virtual environment only needs to be created once, and all team members with access to the project directory will be able to activate and use it.
 
 Let's navigate to the shared project directory:
 
@@ -41,7 +41,7 @@ cd <path/to/project>
 ```
 where `<path/to/project>` is the shared project location on ZFS.
 
-Create a new virtual environment using the system Python path named `my_env` where we make a directory `my_env` inside the project directory.:
+Create a new virtual environment using the system Python path named `my_env` where we make a directory `my_env` inside the project directory:
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv my_env
@@ -89,7 +89,7 @@ python <my_script.py>
 ```
 where `<my_script.py>` is your Python script.
 
-The Python executabled will be specific to your environment. You can troubleshoot this with the `which` command:
+The Python executable will be specific to your environment. You can troubleshoot this with the `which` command:
 
 ```title="Terminal Command"
 which python
@@ -110,14 +110,14 @@ pip install ipykernel
 To add the **active** virtual environment as a kernel, run:
 
 ```title="Terminal Command"
-Python -m ipykernel install --user --name=<kernel-name>
+python -m ipykernel install --user --name=<kernel-name>
 ```
 
 where `<kernel-name>` is the name of the kernel on JupyterHub.
 
 ## Saving and Sharing Virtual Environment
 
-One of the major advantages of virtual environments is the ability to share their setup with others. This is achieved by saving the environment’s dependencies to a file (e.g., `requirements.txt`), which allows others to recreate the same environment on thier own system.
+One of the major advantages of virtual environments is the ability to share their setup with others. This is achieved by saving the environment’s dependencies to a file (e.g., `requirements.txt`), which allows others to recreate the same environment on their own system.
 
 The tool we will use for this is called `pipreqs` and it can be installed using `pip`:
 
@@ -125,7 +125,7 @@ The tool we will use for this is called `pipreqs` and it can be installed using 
 pip install pipreqs
 ```
 
-Next, we use `pipreqs` to generate a `requirements.txt` file that captures all the package dependencies required to recreate the virtual environment. If all the Python scripts reside in `src` directory, `pipreqs` will identify all the packages used in those scripts:
+Next, we use `pipreqs` to generate a `requirements.txt` file that captures all the package dependencies required to recreate the virtual environment. If all the Python scripts reside in the `src` directory, `pipreqs` will identify all the packages used in those scripts:
 
 ```title="Terminal Command"
 pipreqs <path/to/project/src>
