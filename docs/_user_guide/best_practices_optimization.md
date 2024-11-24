@@ -100,7 +100,7 @@ module purge
 The environment is now set up to run your Python scripts that import `gurobipy` on the interactive Yen nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
 
 !!! Important
-    You need to load the `gurobipy3` module and activate your `venv` environment every time you login to the Yens before running the interactive Python scripts that use the `gurobipy` package.
+    You need to load the `gurobipy3` module and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use the `gurobipy` package.
 
 #### Running Gurobi in R
 
@@ -166,7 +166,7 @@ You can now run the R scripts to solve the optimization problem using Gurobi on 
     The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
 
 !!! Important
-    You need to load the `gurobi` and `R` modules every time you login to the Yens before running the interactive R scripts that use `gurobi` R package.
+    You need to load the `gurobi` and `R` modules every time you log in to the Yens before running the interactive R scripts that use `gurobi` R package.
 
 Note that if you want to use an older Gurobi version, you will need to install `gurobi` R package to your user R library.
 
@@ -241,7 +241,7 @@ You can get details about a specific module with:
 ml show knitro
 ```
 
-which displayes useful details about `PATH` modifications when the module is loaded:
+which displays useful details about `PATH` modifications when the module is loaded:
 
 ```{ .yaml .no-copy title="Terminal Output" }
 ---------------------------------------------------------------------------------------------------------------------
@@ -513,7 +513,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 ### Running Batch Jobs 
 
-The Yen-Slurm cluster is comprised of 11 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resouces available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
+The Yen-Slurm cluster is comprised of 11 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resources available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
 
 To use the optimization software, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named `opt_test.slurm`:
 
