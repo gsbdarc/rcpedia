@@ -79,15 +79,6 @@ You should see the following:
   Where:
    g:  built for GPU
    D:  Default Module
-
-If the avail list is too long consider trying:
-
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-
 ```
 
 The `(D)` stands for the default module. These will be loaded when the version is not specified. The `(g)` means these modules were built with GPU support, meaning they will support use with our GPU nodes.
@@ -105,14 +96,6 @@ module avail R/
  
   Where:
    D:  Default Module
-
-If the avail list is too long consider trying:
-"module --default avail" or "ml -d av" to just list the default modules.
-"module overview" or "ml ov" to display the number of modules for each name.
-
-Use "module spider" to find all possible modules and extensions.
-Use "module keyword key1 key2 ..." to search for all possible modules matching any of the "keys".
-
 ```
 
 ## Loading Software Modules
@@ -231,11 +214,6 @@ family("R")
 load("rstudio")
 prepend_path("PATH","/software/free/R/R-4.2.1/bin")
 ```
-
-!!! Important
-    R uses separate libraries for each major version, so you will need to reinstall packages whenever you upgrade your R version. Note that RStudio supports only one R version at a time, and currently, this version is 4.3. If you are an RStudio user, you will need to install packages specifically for this version.
-
-    Do not use RStudio to install packages. Instead, always install packages from a terminal, and avoid using the JupyterHub terminal for this purpose.
 
 Linux modules modify only your current working environment. This means that if you lose connection to the Yens server or close your terminal window, you will need to reload the modules. However, all the libraries or packages you have installed as a user will persist and only need to be installed once.
 
