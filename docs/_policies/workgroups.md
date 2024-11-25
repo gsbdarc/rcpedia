@@ -4,7 +4,7 @@
 
 The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succintly describes its purpose. 
 
-Relevant to the Yens, the Workgroup Manager helps control access to individual [project space](/_policies/services){:target="_blank"} on ZFS (e.g., gsb-rc:[faculty-SUNet]-[projectname]). For example, if your project is stored at `/zfs/projects/faculty/jdoe-housing`, there will be a corresponding workgroup named `gsb-rc:jdoe-housing`.
+Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/services){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
 
 ## How to Add or Remove Users to Your Workgroup?
 
