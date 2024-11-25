@@ -113,6 +113,7 @@ nav:
           - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
       - Beyond the Yens:
           - Sherlock: _user_guide/sherlock.md
+          - Redivis: _user_guide/redivis.md
   - Blog:
       - blog/index.md
 
