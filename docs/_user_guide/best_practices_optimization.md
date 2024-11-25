@@ -15,11 +15,11 @@ nonlinear optimization problems. It is designed to express complex problems with
 
 ### Gurobi
 
-#### Running Gurobi in Python
+### Running Gurobi in Python
 
 Because the Yens already have Gurobi software and Gurobi Python interface installed, we simply need to access them by loading the `gurobipy3` [module](/_getting_started/modules/){:target="_blank"}.
 
-###### Environment Setup
+**Environment Setup**
 
 Load Gurobi module:
 ```title="Terminal Command"
@@ -106,7 +106,7 @@ The environment is now set up to run your Python scripts that import `gurobipy` 
 
 Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.
 
-##### Environment Setup
+**Environment Setup**
 
 To use Gurobi software with R, simply load both modules:
 
@@ -217,7 +217,7 @@ Quit R. You can now run the R scripts to solve the optimization problem using Gu
 
 Because the Yens already have Knitro and AMPL software installed, we simply need to load the appropriate [modules](/_getting_started/modules/){:target="_blank"}.
 
-##### Environment Setup
+**Environment Setup**
 
 Load both modules:
 
@@ -513,9 +513,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 ### Running Batch Jobs 
 
-The Yen-Slurm cluster is comprised of 11 shared compute nodes that use [Slurm](https://slurm.schedmd.com/documentation.html){:target="_blank"} to schedule jobs and manage a queue of resources (if there are more requests than resources available). It is a batch submission environment like the [Sherlock HPC](https://www.sherlock.stanford.edu){:target="_blank"} cluster.
-
-To use the optimization software, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named `opt_test.slurm`:
+To use the optimization software on the [Yen-Slurm cluster](/_user_guide/slurm/){:target="_blank"}, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named `opt_test.slurm`:
 
 ```bash linenums="1" title="opt_test.slurm"
 #!/bin/bash
@@ -578,7 +576,7 @@ Specifically, this script formulates and solves a simple Mixed Integer Programmi
 
 Save this Python script to a new file named `gurobi_sensitivity.py`.
 
-```python linenums="1" hl_lines="8-12" title="gurobi_sensitivity.py"
+```python linenums="1" title="gurobi_sensitivity.py"
 import numpy as np
 import scipy.sparse as sp
 import gurobipy as gp
@@ -732,4 +730,4 @@ After modifying the path to your `venv` environment, submit the `sensitivity_ana
 sbatch sensitivity_analysis_array.slurm
 ```
 
-Monitor your jobs with `watch squeue -u $USER` where `$USER` is your SUNet ID. Identify any failed job array tasks and rerun them by setting `--array=` to include only the failed indices. For more information on using Yen Slurm, visit [this page](/_user_guide/slurm/){:target="_blank"}.
+Monitor your jobs with `watch squeue -u $USER` where `$USER` is your SUNet ID. Identify any failed job array tasks and rerun them by setting `--array=` to include only the failed indices.
