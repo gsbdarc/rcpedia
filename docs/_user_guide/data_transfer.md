@@ -1,3 +1,38 @@
+# Data Transfer on the Yens
+
+The yens are a shared systems with a finite amount of storage, and more importantly, **a finite amount of bandwidth**.  This means that we need to be careful about how we transfer data to and from the yens.  This page will cover some of the best practices for transferring data to and from the yens.
+
+### General Guidelines
+1. **Files less than 1 GB**:
+
+    * *Recommended Methods*: Upload via JupyterHub or use scp.
+    * *Explanation*: For small files, simple methods like uploading directly through JupyterHub or using scp (Secure Copy Protocol) are quick, straightforward, and efficient.
+
+2. **Files between 1 GB and 10 GB**:
+    - *Recommended Methods*: Use scp over the Data Transfer Node (yen-transfer).
+    - *Explanation*: As file sizes increase, transferring directly to the Data Transfer Node ensures faster speeds and reduces load on the interactive nodes. scp remains effective for these moderately sized files.
+
+3. **Files between 10 GB and 100 GB**:
+    - *Recommended Methods*: Use rsync over the Data Transfer Node or scp with the -C (compression) option.
+    - *Explanation*: rsync is more efficient for larger datasets because it can resume interrupted transfers and only copies changed parts of files. Using scp -C enables compression during transfer, speeding up the process.
+4. **Files between 100 GB and 1 TB**:
+
+    - *Recommended Methods*: Use Globus or rsync over the Data Transfer Node.
+    - *Explanation*: Globus is designed for transferring large datasets reliably and efficiently. It handles network interruptions gracefully and can optimize transfer settings for large files.
+5. **Files larger than 1 TB**:
+
+    - *Recommended Methods*: Use Globus.
+    - *Explanation*: For very large datasets, Globus provides high-performance, secure transfers with features like parallelism and checkpointing, which are essential for handling transfers of this scale.
+6. **Archiving Data or Cloud Transfers**:
+    - *Recommended Methods*:
+        - Use RClone with Google Drive for archiving.
+        - Use AWS CLI or RClone for transfers to AWS S3.
+        - Explanation: RClone efficiently syncs data to cloud storage providers, making it suitable for archiving or cloud backups. AWS CLI is specifically tailored for interactions with AWS services.
+7. **Transferring Data from FTP Servers**:
+    - *Recommended Methods*: Use LFTP.
+    - *Explanation*: LFTP is a sophisticated file transfer program that supports various protocols, including FTP and SFTP, making it ideal for transfers from FTP servers.
+
+
 # Globus
 
 [Globus](https://www.globus.org/) lets you transfer large amounts of data to the Yens from different endpoints 
