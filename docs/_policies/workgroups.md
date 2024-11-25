@@ -6,6 +6,9 @@ The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blan
 
 Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/services){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
 
+!!! Warning
+    It may take up to 24 hours for a workgroup membership to propagate to the Yens.
+
 ## How to Add or Remove Users to Your Workgroup?
 
 If you are an Administrator of a workgroup, you can use the Stanford Workgroup Manager to easily add users to and remove users from that workgroup. Adding users to a workgroup immediately grants them permissions to whatever resource that workgroup controls access to. Likewise, removing users revokes those permissions. You might want to do this if you no longer want someone to have access to your project space or as part of regular auditing of external collaborators you have sponsored access to the Yens for.
