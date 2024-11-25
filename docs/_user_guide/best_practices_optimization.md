@@ -366,7 +366,7 @@ Using license file "/software/non-free/ampl/20231031/ampl.lic".\
 ```
 
 !!! Warning
-    To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions), we must properly close `ampl` instance. The `try` and `finally` logic does that in which we release the AMPL license with `ampl.close()` call. Always shut down the Jupyter kernel since there is only one floating license for AMPL. 
+    To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions), we must properly close `ampl` instance. The `try` and `finally` logic does that in which we release the AMPL license with `ampl.close()` call. Be sure to shut down the Jupyter kernel when using AMPL in a Jupyter notebook, as only one floating license is available.
 
 We also point to the Yen's Knitro licence with `ampl.setOption()` call.
 
