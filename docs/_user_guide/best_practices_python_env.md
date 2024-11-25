@@ -97,7 +97,7 @@ which python
 ```{ .yaml .no-copy title="Terminal Output" }
 /path/to/env/bin/python
 ```
-where `/path/to/env/bin/python` is the path to the system Python in your environment.
+where `/path/to/env/bin/python` is the path to the Python in your environment.
 
 ## Making the Virtual Environment into a JupyterHub Kernel
 
