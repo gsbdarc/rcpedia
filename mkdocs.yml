@@ -99,8 +99,7 @@ nav:
       - R:
           - Running R Interactively: _user_guide/r.md
           - Best Practices in R: _user_guide/best_practices_r.md
-      - Matlab:
-          - Slurm Jobs:  _user_guide/matlab_slurm.md
+      #- Matlab:
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
       - Optimization Software: _user_guide/best_practices_optimization.md
