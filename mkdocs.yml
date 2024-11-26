@@ -94,6 +94,7 @@ nav:
           - Job Arrays: _user_guide/job_arrays.md
           - GPU Slurm Jobs: _user_guide/best_practices_gpu.md
       - Python:
+          - Running Python Interactively: _user_guide/python.md
           - Python Virtual Environments: _user_guide/best_practices_python_env.md
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
