@@ -80,7 +80,7 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 Ensure that you can import `gurobipy`by running the following command:
 
-```title="Terminal Command"
+```python title="Terminal Command"
 from gurobipy import *
 ```
 
@@ -155,7 +155,7 @@ Type 'q()' to quit R.
 ```
 
 ```R title="Terminal Command"
-library('gurobi')
+library("gurobi")
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
 Loading required package: slam
