@@ -16,6 +16,8 @@ authors:
 
 Word Embeddings are a method to translate a string of text into an N-dimensional vector of real numbers.  Many computational methods are not capable of accepting text as input.  This is one method of transforming text into a number space that can be used in various computational methods.
 
+<!-- more -->
+
 ## An Example
 
 | Word  | "Royalty" Feature | "Masculinity" Feature |
