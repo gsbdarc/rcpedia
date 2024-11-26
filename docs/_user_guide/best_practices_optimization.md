@@ -37,7 +37,7 @@ Let's navigate to the shared project directory:
 cd <path/to/project>
 ```
 
-Create a new virtual environment, named `gurobi_env` (as an example), using the system Python path:
+Create a new virtual environment, named `gurobi_env` (as an example):
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv gurobi_env
@@ -104,6 +104,9 @@ The environment is now set up to run your Python scripts that import `gurobipy` 
 
 #### Running Gurobi in R
 
+!!! Warning
+    The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
+    
 Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.
 
 **Environment Setup**
@@ -121,7 +124,7 @@ To list the currently loaded modules, use:
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
 Currently Loaded Modules:
-  1) gurobi/10.0.0   2) R/4.2.0
+  1) gurobi/10.0.0   2) R/4.2.1
 ```
 
 Launch interactive R:
@@ -133,8 +136,8 @@ Launch interactive R:
 Then you can load the `gurobi` R package:
 
 ```{ .yaml .no-copy title="Terminal Output" }
-R version 4.3.0 (2023-04-21) -- "Already Tomorrow"
-Copyright (C) 2023 The R Foundation for Statistical Computing
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -147,7 +150,6 @@ Type 'contributors()' for more information and
 
 Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for an HTML browser interface to help.
-
 Type 'q()' to quit R.
 >
 ```
@@ -161,9 +163,6 @@ Loading required package: slam
 ```
 
 You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
-
-!!! Warning
-    The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
 
 !!! Important
     You need to load the `gurobi` and `R` modules every time you log in to the Yens before running the interactive R scripts that use `gurobi` R package.
@@ -273,7 +272,7 @@ Let's navigate to the shared project directory:
 cd <path/to/project>
 ```
 
-Create a new virtual environment, named `opt` (as an example), using the system Python path:
+Create a new virtual environment, named `opt` (as an example):
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv opt
