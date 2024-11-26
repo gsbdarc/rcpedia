@@ -187,13 +187,13 @@ Then install a personal `gurobi` package that links to Gurobi 9:
 ```title="Terminal Command"
 install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz", repos=NULL)
 ```
-```{ .yaml .no-copy title="Terminal Output" }
+```{.r .yaml .no-copy title="Terminal Output" }
 > install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz", repos=NULL)
 Warning in install.packages("/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz",  :
   'lib = "/software/free/R/R-4.2.1/lib/R/library"' is not writable
 Would you like to use a personal library instead? (yes/No/cancel) yes
 Would you like to create a personal library
-‘/zfs/home/users/wolee/R/x86_64-pc-linux-gnu-library/4.2’
+‘/home/users/$USER/R/x86_64-pc-linux-gnu-library/4.2’
 to install packages into? (yes/No/cancel) yes
 * installing *binary* package ‘gurobi’ ...
 * DONE (gurobi)
