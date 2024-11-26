@@ -106,7 +106,7 @@ The environment is now set up to run your Python scripts that import `gurobipy` 
 
 !!! Warning
     The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
-    
+
 Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.
 
 **Environment Setup**
@@ -154,7 +154,7 @@ Type 'q()' to quit R.
 >
 ```
 
-```title="Terminal Command"
+```R title="Terminal Command"
 library('gurobi')
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
@@ -199,7 +199,7 @@ to install packages into? (yes/No/cancel) yes
 * DONE (gurobi)
 ```
 
-```title="Terminal Command"
+```R title="Terminal Command"
 library("gurobi")
 ```
 ```{ .yaml .no-copy title="Terminal Output" }
