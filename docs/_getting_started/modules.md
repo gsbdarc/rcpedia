@@ -226,7 +226,7 @@ R
 
 The interactive R console will open with the R version matching the module you have loaded:
 
-```{ .yaml .no-copy title="Terminal Output"}
+```{.r .yaml .no-copy title="Terminal Output"}
 R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
 Copyright (C) 2022 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
@@ -246,12 +246,12 @@ Type 'q()' to quit R.
 
 Type `q()` to exit the interactive R console:
 
-```title="Terminal Command"
+```R title="Terminal Command"
 q()
 ```
 
 Type `n` when prompted to save the workspace. This is generally recommended to prevent clutter from unwanted saved objects and to provide a clean start for your next session:
 
-```{ .yaml .no-copy title="Terminal Output"}
+```{.r .yaml .no-copy title="Terminal Output"}
 Save workspace image? [y/n/c]: n
 ```
