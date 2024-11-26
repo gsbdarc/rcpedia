@@ -4,7 +4,7 @@
 
 Many parallel packages in R require you to create a "cluster" of workers executing tasks in parallel. If you copy code from the internet, it might look like this:
 
-```{ .yaml .no-copy }
+```{ .r .yaml .no-copy }
 😱 cluster_fork <- makeForkCluster(detectCores()) 😱
 ```
 
