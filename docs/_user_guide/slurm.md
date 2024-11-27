@@ -25,7 +25,7 @@ The downside of this system is that resources can be eaten up rather quickly by 
     <div class="col col-md-2"></div>
   </div>
 
-The `yen-slurm` cluster has 11 nodes (including 3 GPU nodes) with a total of 1568 available CPU cores, 10.25 TB of memory, and 12 NVIDIA GPU's.
+The `yen-slurm` cluster has 12 nodes (including 3 GPU nodes) with a total of 2080 available CPU cores, 11.75 TB of memory, and 12 NVIDIA GPU's.
 
 ## What Is A Scheduler?
 
@@ -87,72 +87,173 @@ Jobs with state (ST) R are running, and PD are pending. Your job will run based 
 
 ## Submit Your First Job To Run On Yen Slurm
 
-Let's walk through the submission of a Python script to Yen Slurm.
+### Example Script
 
-### Running Python Script On The Command Line 
-Let's start by running a simple Python script `flip-coin.py` on the command line. This script flips a coin 5 million times and prints the final distribution at the end.
+=== "R"
+    ```R linenums="1" title="hello.R"
+    print('Hello!')
+    ```
 
-```python title="flip-coin.py"
-import time
-from random import randint
+    This one-liner script can be run with `Rscript hello.R`.
 
-num_flips = 5000000
+=== "Python"
+    ```py linenums="1" title="hello.py"
+    print('Hello!')
+    ```
 
-start_time = time.time()
+    This one-liner script can be run with `python hello.py`.
 
-results = {'Heads': 0, 'Tails': 0} # counter for coin results
-for i in range(num_flips):
-    result = randint(1,2) # randomly choose the integer 1 or 2
-    if result==1: # 1 represents heads
-        results['Heads']+=1
-    elif result==2: # 2 represents tails
-        results['Tails']+=1
+=== "Julia"
+    ```julia linenums="1"  title="hello.jl"
+    println("Hello!")
+    ```
 
-end_time = time.time()
-elapsed_time = end_time - start_time
+    This one-liner script can be run with `julia hello.jl`.
 
-print(f"Elapsed time: {elapsed_time:.2f} seconds")
+=== "Matlab"
+    ```matlab linenums="1"  title="hello.m"
+    function hello()
+        fprintf('Hello!');
+    end
+    ```
 
-for face in results:
-    print(f'{face} -- {results[face]} times')
-```
+=== "SAS"
+    ```sas linenums="1" title="hello.sas"
+    %put Hello!;
+    ```
 
-We can call the function like this:
-```bash title="Terminal Command"
-python3 flip-coin.py
-```
+=== "Stata"
+    ```stata linenums="1" title="hello.do"
+    display "Hello!"
+    ```
 
-The output should look like:
-```{.yaml .no-copy title="Terminal Output"}
-Elapsed time: 2.53 seconds
-Heads -- 2499005 times
-Tails -- 2500995 times
-```
+However, we will run it via the Slurm scheduler on the yen-slurm cluster.
 
-### Submitting Script To The Scheduler
-Next, we'll prepare a submit script called `flip-coin.slurm` and submit it to the scheduler. This will run `flip-coin.py` on Yen Slurm. Edit the Slurm script to include your email address.
+=== "R"
+    ```bash linenums="1" title="hello.slurm"
+    #!/bin/bash
 
-```slurm title="flip-coin.slurm"
-#!/bin/bash
+    # Example of running R script in a batch mode
 
-# Example of running python script
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                            # one CPU core
+    #SBATCH -t 10:00
+    #SBATCH -o hello-%j.out
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
 
-#SBATCH -J flip-coin
-#SBATCH -p normal,dev
-#SBATCH -c 1                            # CPU cores (up to 256 on normal partition)
-#SBATCH -t 5:00
-#SBATCH -o flip-coin-%j.out
-#SBATCH --mail-type=ALL
-#SBATCH --mail-user=your_email@stanford.edu
+    # Load software
+    module load R
 
-# Run python script
-python3 flip-coin.py
-```
+    # Run R script
+    Rscript hello.R
+    ```
 
-Then submit the script:
+=== "Python"
+    ```bash linenums="1" title="hello.slurm"
+    #!/bin/bash
 
-```bash title="Terminal Command"
-sbatch flip-coin.slurm
+    # Example of running python script in a batch mode
+
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                            # one CPU core
+    #SBATCH -t 10:00
+    #SBATCH -o hello-%j.out
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
+
+    # Run python script
+    python3 hello.py
+    ```
+
+=== "Julia"
+    ```bash linenums="1"  title="hello.slurm"
+    #!/bin/bash
+
+    # Example of running a single Julia run
+
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                              # one core per task
+    #SBATCH -t 1:00:00
+    #SBATCH -o hello-%j.out
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
+
+    # Load software
+    module load julia
+
+    # Run Julia script
+    julia hello.jl
+    ```
+=== "Matlab"
+    ```bash linenums="1" title="hello.slurm"
+    #!/bin/bash
+
+    # Hello world Matlab script with Slurm
+
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                              # one core per task
+    #SBATCH -t 1:00:00
+    #SBATCH -o hello-%j.out
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
+
+    # Load software
+    module load matlab
+
+    # Run hello world script
+    matlab -batch "hello()"
+    ```
+
+=== "SAS"
+    ```bash linenums="1" title="hello.slurm"
+    #!/bin/bash
+    
+    # Hello world SAS script with Slurm
+    
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                              # one core per task
+    #SBATCH -t 1:00:00
+    #SBATCH -o hello.log
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
+    
+    # Load software
+    module load sas
+    
+    # Run hello world script
+    sas hello.sas
+    ```
+
+=== "Stata"
+    ```bash linenums="1" title="hello.slurm"
+    #!/bin/bash
+
+    # Hello world Stata script with Slurm
+
+    #SBATCH -J hello
+    #SBATCH -p normal
+    #SBATCH -c 1                              # one core per task
+    #SBATCH -t 1:00:00
+    #SBATCH -o hello.log
+    #SBATCH --mail-type=ALL
+    #SBATCH --mail-user=your_email@stanford.edu
+
+    # Load software
+    module load stata
+
+    # Run hello world script
+    stata -b do hello.do
+    ```
+
+Then run it by submitting the job to the Slurm scheduler with:
+```title="Terminal Command"
+sbatch hello.slurm
 ```
 
 You should see a similar output:
@@ -166,36 +267,34 @@ Monitor your job:
 squeue
 ```
 
-The script should take less than 1 minute to complete. Look at the Slurm emails after the job is finished. You can also review the output file `flip-coin-%j.out`.
+## Best Practices
 
-### Using Virtual Environment In Slurm Scripts
+### Using Python Virtual Environment In Slurm Scripts
 We can also employ a virtual Python enviuronment using `venv` instead of the system's `python3` when running scripts via Slurm.
 
-For example, let's say you've created a virtual Python environment using the process described on [this page](/_user_guide/best_practices_python_env/){:target="_blank"} that is located in your home directory at `/zfs/home/users/SUNetID/flip_coin_venv/`. You can modify your Slurm script to use this `venv` environment:
+For example, let's say you've created a virtual Python environment using the process described on [this page](/_user_guide/best_practices_python_env/){:target="_blank"} that is located in your home directory at `/zfs/home/users/SUNetID/venv/`. You can modify your Slurm script to use this `venv` environment:
 
-```slurm title="flip-coin_with-venv.slurm"
+```slurm title="python-job-venv.slurm"
 #!/bin/bash
 
 # Example of running python script
 
-#SBATCH -J flip-coin
+#SBATCH -J my-job
 #SBATCH -p normal,dev
 #SBATCH -c 1                            # CPU cores (up to 256 on normal partition)
 #SBATCH -t 5:00
-#SBATCH -o flip-coin-%j.out
+#SBATCH -o output-%j.out
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=your_email@stanford.edu
 
 # Activate venv 
-source /zfs/home/users/SUNetID/flip_coin_venv/bin/activate
+source /zfs/home/users/SUNetID/venv/bin/activate
 
 # Run python script
-python flip-coin.py
+python myscript.py
 ``` 
 
 In the above Slurm script, we first activate the `venv` environment and then execute the python script using `python` in the active environment. You can [create your own `venv` environment](/_user_guide/best_practices_python_env/){:target="_blank"} and then activate it within your Slurm script in the same manner.
-
-## Best Practices
 
 ### Use All Of The Resources You Request
 
@@ -214,9 +313,9 @@ Run `sinfo -o "%P %D %N"` in a terminal to see available partitions:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo -o "%P %D %N"
 PARTITION NODES NODELIST
-normal* 8 yen[11-18]
-dev 8 yen[11-18]
-long 8 yen[11-18]
+normal* 9 yen[11-19]
+dev 8 yen[11-19]
+long 8 yen[11-19]
 gpu 3 yen-gpu[1-3]
 ```
 
@@ -304,7 +403,7 @@ as a GPU. These features can be viewed as follows:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo -o "%10N  %5c  %5m  %64f  %10G"
 NODELIST    CPUS   MEMOR  AVAIL_FEATURES                                                    GRES      
-yen[11-18]  32+    10315  (null)                                                            (null)    
+yen[11-19]  32+    10315  (null)                                                            (null)    
 yen-gpu1    64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A30,GPU_MEMORY:24GiB  gpu:4     
 yen-gpu[2-  64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A40,GPU_MEMORY:48GiB  gpu:4
 ```
