@@ -42,6 +42,16 @@ We recommend taking a look at the [official documentation](https://jupyter-noteb
 
 Notebooks allow you to write code and execute it within a web browser.  Code is written into cells, which can be run in any order, on demand.  You can also include text, images, and plots to make your code read like a lab notebook.  As of March 2020, the above coding languages are supported. Contact the [DARC team](mailto:gsb_darcresearch@stanford.edu) if you have a language you would like installed
 
+### Text File Editor
+-------------------------
+![](/assets/images/intro_to_yens/editor.png)
+
+Finally, you can also edit text files like R scripts directly on JupyterHub. Clicking on Text File icon will open a new file that you can edit. Similarly, clicking on Python File will create an empty `.py` file and clicking on R File will create an empty `.r` file.
+You can also navigate to a directory that has the scripts you want to edit and double click on the script name to open it up in the Text Editor.
+
+For example, navigate to `intro_yens_sep_2023` folder in file brower first then double click on `investment-npv-parallel.R` file to open it in the text editor:
+![](/images/intro_to_yens/edit-r-script.png)
+
 ### RStudio
 -----------
 ![](/images/jupyter_rstudio.png "RStudio")
@@ -344,17 +354,6 @@ JupyterHub instance will shut down after 3 hours idle (no notebooks actively run
 {% include warning.html content="Idle servers shut down will not retain any local packages or variables in the notebooks.  Please save your output." %}
 
 If your processes require more than these limits, reach out to the <a href="/services/researchSupportRequest.html" target="_blank">DARC team</a> for support.
-
-
-### Text File Editor
--------------------------
-![](/images/intro_to_yens/editor.png)
-
-Finally, you can also edit text files like R scripts directly on JupyterHub. Clicking on Text File icon will open a new file that you can edit. Similarly, clicking on Python File will create an empty `.py` file and clicking on R File will create an empty `.r` file.
-You can also navigate to a directory that has the scripts you want to edit and double click on the script name to open it up in the Text Editor.
-
-For example, navigate to `intro_yens_sep_2023` folder in file brower first then double click on `investment-npv-parallel.R` file to open it in the text editor:
-![](/images/intro_to_yens/edit-r-script.png)
 
 ---
 <a href="/gettingStarted/7_transfer_files.html"><span class="glyphicon glyphicon-menu-left fa-lg" style="float: left;"/></a> <a href="/gettingStarted/9_run_jobs.html"><span class="glyphicon glyphicon-menu-right fa-lg" style="float: right;"/></a>
