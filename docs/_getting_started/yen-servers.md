@@ -15,7 +15,7 @@ These Linux research servers are useful for a variety of tasks, including when y
 - Save files in a place where multiple people can access and work with them
 
 !!! danger
-    The `yen` servers are **not** designed for teaching or **high risk data**.
+    The `Yen` servers are **NOT** designed for **teaching** or **high risk data**.
 
 ## Overview of the Yen Computing Infrastructure
 ![](/assets/images/yen-computing-infrastructure.png)
@@ -50,7 +50,7 @@ Together, the yen-slurm cluster of 11 nodes has over 1,500 CPU cores, 10 TB of R
     <div class="col col-md-2"></div>
   </div>
 
-## How to connect
+## How to Connect
 !!! tip
     New to using a research server?  Learn about [Getting Started](/_getting_started/how_access_yens){:target="_blank"}
 
@@ -65,7 +65,7 @@ When you SSH in to `yen.stanford.edu`, a load-balancer will assign you to `yen1`
 !!! tip
     Any work running on an interactive server (`yen[1-5]`) can only be started or stopped from that server.
 
-## Why use the `yen` servers?
+## Why Use the `Yen` Servers?
 
 These servers offer you several advantages over using a laptop or desktop computers.
 
