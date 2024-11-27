@@ -2,7 +2,7 @@
 
 ## What is a Workgroup?
 
-The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succintly describes its purpose. 
+The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succinctly describes its purpose. 
 
 Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/services){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
 
