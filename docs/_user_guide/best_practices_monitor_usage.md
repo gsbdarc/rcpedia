@@ -1,6 +1,7 @@
 # How Do I Check My Resource Usage on the Yens?
 If you would like to check your resource usage on the Yens, there are a few tools available.
 
+- **`userload`** allows you to monitor CPU and RAM usage.
 - **`htop`** allows you to get an overview of the activity on the whole system that you are logged into. Furthermore, you can inspect your own processes by typing `htop -u <SUNetID>`. A lot more information about how to decipher the information produced with this command can be found on the [Community Guidelines](/_policies/user_limits){target="_blank"}.
 - **`topbyuser`** is another tool written by us that lists out the active users on the Yens you are logged into and the amount of resources they are currently using.
 
@@ -55,40 +56,36 @@ gsbquota /zfs/projects/students/<my-project-dir>/
 /zfs/projects/students/<my-project-dir>/: currently using 39% (78G) of 200G available
 ```
 
-## Example
-We are going to continue using the same R example, `investment-npv-parallel.R`, and experiment running it on multiple cores and monitoring our resource consumption.
+## Multiple CPU Cores Example
+We are going to use an example with R, `investment-npv-parallel.R`, and experiment running it on multiple cores and monitoring our resource consumption.
 
-To monitor the resource usage while running a program, we will need three terminal windows that are all connected to the **same** yen server.
+To monitor the resource usage while running a program, we will need three terminal windows that are all connected to the **same** Yen server.
 
-Check what yen you are connected to in the first terminal:
+`ssh` to `yen3` in the first terminal windows.
 
-`$ hostname`
+```bash title="Terminal Command"
+ssh yen3.stanford.edu
+```
 
-Then `ssh` to the same yen in the second and third terminal windows. So if I am on `yen3`, I would open two new terminals and `ssh` to the `yen3` in both so I can monitor my resources when I start running the R program on `yen3`.
+Check what Yen you are connected to in the first terminal:
 
-`$ ssh yen3.stanford.edu`
+```bash title="Terminal Command"
+hostname
+```
 
-Once you have three terminal windows connected to the same yen, run the `investment-npv-parallel.R` program after loading the R module in one of the terminals:
+```{.yaml .no-copy title="Terminal Output"}
+yen3
+```
 
-`$ ml R`
-`$ Rscript investment-npv-parallel.R`
+Then `ssh` to the same Yen in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
 
-Once the program is running, monitor your usage with `userload` command in the second window:
+```bash title="Terminal Command"
+ssh yen3.stanford.edu
+```
 
-`$ userload`
+Create an `investment-npv-parallel.R` file below and save it in your desired directory.
 
-Run `htop -u $USER` in the third window, where `$USER` is your SUNet:
-
-`$ htop -u $USER`
-
-While the program is running you should see about 1 CPU core is being utilized in `userload` output and one R process is running in `htop` output because we specified 1 core in our R program.
-
-`$ userload`
-`nrapstin         | 0.99 Cores | 0.00% Mem on yen3.stanford.edu`
-
-Let's modify the number of cores to 8:
-
-```R
+```R title="investment-npv-parallel.R"
 # In the context of economics and finance, Net Present Value (NPV) is used to assess
 # the profitability of investment projects or business decisions.
 # This code performs a Monte Carlo simulation of Net Present Value (NPV) with 500,000 trials in parallel,
@@ -141,106 +138,48 @@ summary(results)
 hist(results, main = 'NPV distribution')
 ```
 
-Then rerun:
+Once you have three terminal windows connected to the same Yen, run the `investment-npv-parallel.R` program after loading the R module in one of the terminals:
 
-`$ Rscript investment-npv-parallel.R`
-
-You should see:
-
-`Loading required package: iterators`
-`Loading required package: parallel`
-`   user  system elapsed`
-`297.135   1.781 123.176`
-`Parallel NPV Calculation (using 8 cores):`
-`       V1`
-` Min.   :-709.5883`
-` 1st Qu.: -96.3171`
-` Median :   0.2777`
-` Mean   :   0.1964`
-` 3rd Qu.:  96.8101`
-` Max.   : 754.5522`
-
-While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program and about 8 CPU cores being utilized in `userload` output. The program will run faster since we are using 8 cores instead of 1 but does not get you 8X speedup because of parallelization overhead.
-
-![Resource monitoring during parallel run](/assets/images/monitor-2.png)
-
-The last modification we are going to make is to pass the number of cores as a command line argument to our R script. Save the following to a new script called `investment-npv-parallel-args.R`.
-
-```R
-#!/usr/bin/env Rscript
-############################################
-# This script accepts a user-specified argument to set the number of cores to run on
-# Run from the command line:
-#
-#      Rscript investment-npv-parallel-args.R 8
-#
-# this will execute on 8 cores
-###########################################
-# accept command line arguments and save them in a list called args
-args = commandArgs(trailingOnly=TRUE)
-library(foreach)
-library(doParallel)
-
-options(warn=-1)
-# set the number of cores here from the command line. Avoid using detectCores() function.
-ncore <- as.integer(args[1])
-
-# register parallel backend to limit threads to the value specified in ncore variable
-registerDoParallel(ncore)
-
-# define function for NPV calculation
-npv_calculation <- function(cashflows, discount_rate) {
-  # inputs: cashflows (a vector of cash flows over time) and discount_rate (the discount rate).
-  npv <- sum(cashflows / (1 + discount_rate)^(0:length(cashflows)))
-  return(npv)
-}
-
-# number of trials
-num_trials <- 500000
-
-# measure the execution time of the Monte Carlo simulation
-system.time({
-  # use the foreach package to loop through the specified number of trials (num_trials) in parallel
-  # within each parallel task, random values for input parameters (cash flows and discount rate) are generated for each trial
-  # these random input values represent different possible scenarios
-  results <- foreach(i = 1:num_trials, .combine = rbind) %dopar% {
-    # randomly generate input values for each trial
-    cashflows <- runif(10000, min = -100, max = 100)  # random cash flow vector over 10,000 time periods.
-    # these cash flows can represent costs (e.g., initial investment) and benefits (e.g., revenue or savings) associated with the project
-    discount_rate <- runif(1, min = 0.05, max = 0.15)  # random discount rate at which future cash flows are discounted
-
-    # calculate NPV for the trial
-    npv <- npv_calculation(cashflows, discount_rate)
-  }
-})
-cat("Parallel NPV Calculation (using", ncore, "cores):
-")
-# print summary statistics for NPV and plot a histogram of the results
-# positive NPV indicates that the project is expected to generate a profit (the benefits outweigh the costs),
-# making it an economically sound decision. If the NPV is negative, it suggests that the project may not be financially viable.
-summary(results)
-hist(results, main = 'NPV distribution')
+```bash title="Terminal Command"
+ml R
+Rscript investment-npv-parallel.R
 ```
 
-Now, we can run this script with a varying number of cores. We will still limit the number of cores to 48 on yen[2-5] and to 12 cores on yen1 per [Community Guidelines](/yen/community.html){target="_blank"}.
+!!! Notes
+    If you have not installed `foreach` and `doParallel` packages. You have to run these commands after loading `r`: `install.packages("foreach")` and `install.packages("doParallel")`
 
-For example, to run with 12 cores:
+Once the program is running, monitor your usage with `userload` command in the second window:
 
-`$ Rscript investment-npv-parallel-args.R 12`
+```bash title="Terminal Command"
+watch -n 1 userload
+```
 
-You should see:
+While the program is running, you should see about 8 CPU cores being utilized in `userload` output. Note that the `watch` command allows you to see the real time CPU cores count every 1 second.
 
-`Loading required package: iterators`
-`Loading required package: parallel`
-`   user  system elapsed`
-`302.366   2.344 116.261`
-`Parallel NPV Calculation (using 12 cores):`
-`       V1`
-` Min.   :-682.9972`
-` 1st Qu.: -96.5376`
-` Median :  -0.2428`
-` Mean   :  -0.2369`
-` 3rd Qu.:  96.1112`
-` Max.   : 720.2979`
+![Resource monitoring during parallel run](/assets/images/monitor_userload_r_8_cores.png)
 
-Monitor your CPU usage while the program is running in the other terminal window with `htop` and `userload`.
+Run `htop -u $USER` in the third window, where `$USER` is your SUNetID:
+
+```bash title="Terminal Command"
+htop -u $USER
+```
+
+While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program.
+![Resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
+
+At the end of the program run, you should see the following output.
+
+```{.yaml .no-copy title="Terminal Output"}
+Loading required package: iterators
+Loading required package: parallel
+   user  system elapsed
+349.660   2.311 126.050
+Parallel NPV Calculation (using 8 cores):
+       V1
+ Min.   :-761.0356
+ 1st Qu.: -96.6439
+ Median :  -0.0745
+ Mean   :  -0.1852
+ 3rd Qu.:  96.2920
+ Max.   : 713.7188
+```
