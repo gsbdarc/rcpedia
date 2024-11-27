@@ -3,7 +3,7 @@
 On the Yens, RStudio Server is available via the JupyterHub. You can access your files and scripts and develop R code in a convenient environment.
 
 !!! warning
-    RStudio only has a single version of R. Right now, it is a version R/4.3.0.
+    RStudio only has a single version of R. Right now, it is version R/4.3.0.
 
 Launch RStudio from Launcher JupyterHub interface:
 ![RStudio launch button from Jupyter](/assets/images/jupyter_rstudio.png)
