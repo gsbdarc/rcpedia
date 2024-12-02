@@ -4,7 +4,7 @@
 
 At the GSB, we have a collection of Ubuntu Linux servers (the `Yen` cluster) specifically for doing your research computing work.  If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.  They are administered by the [Stanford Research Computing (SRC)](https://srcc.stanford.edu){:target="_blank"} and located in Stanford's data centers.
 
-![](/assets/images/yens.png)
+![physical Yen servers](/assets/images/yens.png)
 
 ### What Are Some Practical Uses for the `Yen` Servers?
 
@@ -55,7 +55,7 @@ The `yen11`, `yen12`, `yen13`, `yen14`, `yen15`, `yen16`, `yen17`, `yen18`, `yen
     Any work running on an interactive server (`yen[1-5]`) can only be started or stopped from that server.
 
 ## Overview of the Yen Computing Infrastructure
-![](/assets/images/yen-computing-infrastructure.png)
+![Yen computing infrastructure](/assets/images/yen-computing-infrastructure.png)
 
 <div class="row">
     <div class="col-lg-12">
