@@ -6,18 +6,10 @@ At the GSB, we have a collection of Ubuntu Linux servers (the `Yen` cluster) spe
 
 ![physical Yen servers](/assets/images/yens.png)
 
-### What Are Some Practical Uses for the `Yen` Servers?
-
-- Run a program over a long period of time and do not want to leave your personal computer on and running
-- Run a program that will use a lot of memory (such as when analyzing a large data set)
-- Take advantage of parallel processing
-- Access software for which you do not have a personal license
-- Save files in a place where multiple people can access and work with them
-
 !!! danger
     The `Yen` servers are **NOT** designed for **teaching** or **high risk data**.
 
-### Why Use the `Yen` Servers?
+## Why Use the `Yen` Servers?
 
 These servers offer you several advantages over using a laptop or desktop computers.
 
