@@ -2,14 +2,14 @@
 
 ##  Introduction to the Yen Servers
 
-At the GSB, we have a collection of Ubuntu Linux servers (the `Yen` cluster) specifically for doing your research computing work.  If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.  They are administered by the [Stanford Research Computing (SRC)](https://srcc.stanford.edu){:target="_blank"} and located in Stanford's data centers.
+At the GSB, we have a collection of Ubuntu Linux servers (the Yen cluster) specifically for doing your research computing work.  If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.  They are administered by the [Stanford Research Computing (SRC)](https://srcc.stanford.edu){:target="_blank"} and located in Stanford's data centers.
 
 ![physical Yen servers](/assets/images/yens.png)
 
 !!! danger
-    The `Yen` servers are **NOT** designed for **teaching** or **high risk data**.
+    The Yen servers are **NOT** designed for **teaching** or **high risk data**.
 
-## Why Use the `Yen` Servers?
+## Why Use the Yen Servers?
 
 These servers offer you several advantages over using a laptop or desktop computers.
 
@@ -27,13 +27,13 @@ The project files and any large output should live on ZFS file system (not in yo
 
 **Licensed software**
 
-Tools like Matlab and Stata are installed and licensed to use on the `Yen` servers.
+Tools like Matlab and Stata are installed and licensed to use on the Yen servers.
 
 ## How to Connect
 !!! tip
     New to using a research server?  Learn about [Getting Started](/_getting_started/how_access_yens){:target="_blank"}
 
-There are various ways to connect to the `yen` servers.
+There are various ways to connect to the Yen servers.
 
 * SSH in to `yen.stanford.edu`
 * A terminal on [JupyterLab](/_getting_started/jupyter){:target="_blank"}
