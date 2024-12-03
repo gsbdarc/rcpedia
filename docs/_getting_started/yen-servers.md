@@ -31,7 +31,7 @@ The project files and any large output should live on [ZFS file system](/_user_g
 
 ## How to Connect
 !!! tip
-    New to using a research server?  Learn about [Getting Started](/_getting_started/how_access_yens){:target="_blank"}
+    New to using a research server?  Learn about [**Getting Started**](/_getting_started/how_access_yens){:target="_blank"}
 
 There are various ways to connect to the Yen servers.
 
@@ -41,10 +41,10 @@ There are various ways to connect to the Yen servers.
 
 When you SSH in to `yen.stanford.edu`, a load-balancer will assign you to one of the interactive Yen server: `yen1`, `yen2`, `yen3`, `yen4` or `yen5`.  
 
-The `yen11`, `yen12`, `yen13`, `yen14`, `yen15`, `yen16`, `yen17`, `yen18`, `yen-gpu1`, `yen-gpu2`, and `yen-gpu3` servers can only be accessed using the [Slurm scheduler.](/_user_guide/slurm){:target="_blank"}
+The Yen Slurm nodes can only be accessed using the [Slurm scheduler.](/_user_guide/slurm){:target="_blank"}
 
 !!! tip
-    Any work running on an interactive server (`yen[1-5]`) can only be started or stopped from that server.
+    Any work running on an interactive server (**`yen[1-5]`**) can only be **started or stopped from that server**.
 
 ## Overview of the Yen Computing Infrastructure
 ![Yen computing infrastructure](/assets/images/yen-computing-infrastructure.png)
