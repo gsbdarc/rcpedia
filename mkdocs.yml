@@ -1,9 +1,10 @@
-site_name: Research Computing
+site_name: Research Hub
+site_subtitle: Research Computing Resources
 site_url: https://rcpedia-dev.stanford.edu
 theme:
   name: material
   custom_dir: overrides
-  logo: assets/images/gsb-logo-color.webp
+  logo: assets/images/gsb-logo-color.png
   favicon: assets/images/stanford-favicon.png
   features:
     - announce.dismiss

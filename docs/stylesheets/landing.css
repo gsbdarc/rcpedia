@@ -1,4 +1,4 @@
-/* CSS for the site landing page */
+/* CSS for the site home landing page only */
 
 body {
     background-color: #f2f2f2; 
@@ -15,7 +15,6 @@ body {
     font-size: 35px;
     text-align: center; 
     padding-bottom: 2%;
-
 }
 
 #results-scroll-wrapper {
@@ -26,4 +25,62 @@ body {
 
 .hidden {
     display: none;
+}
+
+.md-header__button.md-logo {
+    padding-top: 10px;
+}
+
+#header-vertical-line {
+    border-left: 1px solid rgb(62, 62, 62); 
+    height: 60px; 
+    margin-left: 5px;
+    margin-top: 10px;
+}
+
+#github-button {
+    padding: 10px;
+    color: #646464;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23646464"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
+    background-repeat: no-repeat;
+    background-position: right 1px center; /* Adjust the position as needed */
+    background-size: 15px 15px; /* Set the size of the icon */
+    padding-right: 20px; /* Add padding to prevent text overlay */
+    font-size: 16px;
+}
+#github-button:hover {
+    text-decoration: underline;
+}
+
+#request-services-button {
+    padding: 10px 35px 10px 20px; /* Top, Right, Bottom, Left padding */
+    color: white;
+    background-color: #B1040E;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23FFFFFF"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
+    background-repeat: no-repeat;
+    background-position: calc(100% - 15px) center; /* Position icon 25px from the right */
+    background-size: 15px 15px; /* Icon size */
+    font-size: 16px;
+}
+#request-services-button:hover {
+    text-decoration: underline;
+}
+
+.md-header__topic .md-ellipsis:first-child {
+    line-height: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+
+/* Site title text spacing on mobile */
+@media (max-width: 1220px) {
+    .md-header__topic .md-ellipsis:first-child {
+        line-height: 20px;
+        padding-top: 5px;
+        padding-bottom: 0px;
+    }
+}
+
+[dir=ltr] .md-tabs__list {
+    margin-left: 0 !important;
 }
