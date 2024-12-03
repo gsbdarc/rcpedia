@@ -1,38 +1,53 @@
 # Yen Servers
 
-## Latest Updates
+##  Introduction to the Yen Servers
 
-_Last updated: 2023-05-25_
+At the GSB, we have a collection of Ubuntu Linux servers (the Yen cluster) specifically for doing your research computing work.  If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.  They are administered by the [Stanford Research Computing (SRC)](https://srcc.stanford.edu){:target="_blank"} and located in Stanford's data centers.
 
-## Introduction
+![physical Yen servers](/assets/images/yens.png)
 
-Welcome to the Yen Servers documentation. This site provides information on data, analytics, and research computing.
+!!! danger
+    The Yen servers are **NOT** designed for **teaching** or **high risk data**.
 
-## Data, Analytics, and Research Computing
+## Why Use the Yen Servers?
 
-Explore the various resources and documentation available for Yen Servers.
+These servers offer you several advantages over using a laptop or desktop computers.
 
-At the GSB, we have a collection of Ubuntu Linux servers (the `yen` cluster) specifically for doing your research computing work.  If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.  They are administered by the [Stanford Research Computing (SRC)](https://srcc.stanford.edu) and located in Stanford's data centers.
-
-!!! important
-    The `yen` servers are not designed for teaching or high risk data.
-
-## Why use the `yen` servers?
-
-These servers offer you several advantages over using a laptop or desktop computer.
-
-#### Better Hardware
+**Better Hardware**
 
 Let's use the server `yen2.stanford.edu` as an example: this machine has 256 processing cores and about 1 TB of RAM.  With `yen2`, you are able to complete memory- or CPU-intensive work that would overwhelm even the best personal laptop!
 
-#### Long running jobs
+**Long running jobs**
 
 Even when your laptop is capable of doing the job, you may still want to offload that work to the external server.  The server can free up resources for your laptop to use for other tasks such as browsing web sites, reading PDF files, working with spreadsheets, and so forth. If your laptop crashes, it's very convenient for your compute jobs to continue!
 
-#### Licensed software
+**Storage**
 
-Tools like Matlab and Stata are installed and licensed to use on the `yen` servers.
+The project files and any large output should live on [ZFS file system](/_user_guide/storage/#preferred-platforms){:target="_blank"} (not in your home). The ZFS capacity is nearly 1 PB (petabyte).
 
+**Licensed software**
+
+[Tools like Matlab and Stata](/_getting_started/modules/){:target="_blank"} are installed and licensed to use on the Yen servers.
+
+## How to Connect
+!!! tip
+    New to using a research server?  Learn about [**Getting Started**](/_getting_started/how_access_yens){:target="_blank"}
+
+There are various ways to connect to the Yen servers.
+
+* SSH in to `yen.stanford.edu`
+* A terminal on [JupyterLab](/_getting_started/jupyter){:target="_blank"}
+* [RStudio](/_getting_started/jupyter/#rstudio){:target="_blank"} or Jupyter Notebook on JupyterLab
+
+When you SSH in to `yen.stanford.edu`, a load-balancer will assign you to one of the interactive Yen server: `yen1`, `yen2`, `yen3`, `yen4` or `yen5`.  
+
+The Yen Slurm nodes can only be accessed using the [Slurm scheduler.](/_user_guide/slurm){:target="_blank"}
+
+!!! tip
+    Any work running on an interactive server (**`yen[1-5]`**) can only be **started or stopped from that server**.
+
+## Overview of the Yen Computing Infrastructure
+![Yen computing infrastructure](/assets/images/yen-computing-infrastructure.png)
 
 <div class="row">
     <div class="col-lg-12">
@@ -47,81 +62,6 @@ Tools like Matlab and Stata are installed and licensed to use on the `yen` serve
     <div class="col col-md-2"></div>
   </div>
 
-## How to connect
-!!! tip
-    New to using a research server?  Learn about [Getting Started](../gettingStarted)
-
-There are various ways to connect to the `yen` servers.
-
-* SSH in to `yen.stanford.edu`
-* A terminal on [JupyterLab](webBasedCompute.html)
-* RStudio or Jupyter Notebook on [JupyterLab](webBasedCompute.html)
-
-When you SSH in to `yen.stanford.edu`, a load-balancer will assign you to `yen1`, `yen2`, `yen3`, `yen4` or `yen5`.  The `yen11`, `yen12`, `yen13`, `yen14`, `yen15`, `yen16`, `yen17`, `yen18`, `yen-gpu1`, `yen-gpu2`, and `yen-gpu3` servers can only be accessed using the [scheduler](scheduler.html).
-
-!!! tip
-    Any work running on an interactive server (yen[1-5]) can only be started or stopped from that server.
-
-## Other page
-
-# Overview of the Yen Computing Infrastructure
-![](/images/yen-computing-infrastructure.png)
-
-When you access the yen cluster, you get directed to your home directory on the interactive yen (yen1, yen2, yen3, yen4 or yen5).
-At this point, you can manage your files, get them ready for submission, submit a job that will execute on yen-slurm cluster,
-view the status of pending jobs and so on.
-
-Once you submit your job, it gets queued along with all the other jobs submitted by other yen users.
-We use a scheduler to automatically form a *queue of jobs* with a fair share of common resources like cores and memory.
-When the required amount of resources (CPU cores and/or memory) becomes available, the batch scheduler executes your job.
-We use <A HREF="/training/3_yen_slurm.html" target="_blank">Slurm scheduler</A> as our job scheduler (and so does <a href="https://www.sherlock.stanford.edu/docs/overview/introduction" target="_blank">Sherlock HPC</a> and a lot of other supercomputers
-at various academic institutions and national labs).
-
-Yen-Slurm has 11 nodes - yen[11-18] and yen-gpu[1-3], each with multiple CPU's (processors) containing multiple cores and some with GPU's.
-
-For example, yen11, yen[15-18] have 2 CPU's, each with 128 cores for the total of 256 CPU cores and 1 TB of RAM; yen[12-14] each have 1.5T of RAM and 32 CPU cores; yen-gpu[1-3] nodes have 64 cores, 256 G of RAM and 4 GPU's. Together, yen-slurm cluster of 11 nodes has 1500+ CPU cores, 10 T of RAM and 12 GPU's.
-
-## Other page
-#  Introduction to the Yen Servers
-As a supplement to everything you can do on your own computer, the GSB has several Linux servers that you can use
-for your computing needs. These Linux research servers are useful for a variety of tasks, including when you want or need to:
-
-- Run a program over a long period of time and do not want to leave your personal computer on and running
-- Run a program that will use a lot of memory (such as when analyzing a large data set)
-- Take advantage of parallel processing
-- Access software for which you do not have a personal license
-- Save files in a place where multiple people can access and work with them
-
-## Yen Servers
-
-![](/images/yens.png)
-
-At the GSB, we have a collection of Ubuntu Linux servers (the `yen` cluster) specifically for doing your research computing work.
- If you are a faculty member, PhD student, post-doc or research fellow, by default you should have access to these servers.
-
-## Why use the `yen` servers?
-
-These servers offer you several advantages over using a laptop or desktop computer.
-
-#### Better Hardware
-
-Let's use the server `yen3.stanford.edu` as an example: this machine has 256 processing cores and 1 TB of RAM.
-In comparison, my MacBook Pro has 6 cores (double-threaded so it looks like 12 cores) and 32 GB of RAM. With `yen3`, you are able to complete memory- or CPU-intensive work that would overwhelm even the best personal laptop!
-
-#### Long running jobs
-
-Even when your laptop is capable of doing the job, you may still want to offload that work to the external server.
-The server can free up resources for your laptop to use for other tasks such as browsing web sites, reading PDF files,
-working with spreadsheets, and so forth. If your laptop crashes, it's very convenient for your compute jobs to continue!
-
-#### Licensed software
-
-Tools like Matlab and Stata are installed and licensed to use on the `yen` servers.
-
-
-#### Storage
-
-The project files and any large output should live on ZFS file system (not in your home). The ZFS capacity is nearly 1 PB (petabyte).
-
-!!! danger 
-    The Yen servers are *not* approved for high risk data.
+!!! Important
+     **`yen-gpu1`** has **4** NVIDIA Ampere **A30 GPUs**, each with **24 GB of GPU RAM**<br>
+     **`yen-gpu[2-3]`** each has **4** NVIDIA Ampere **A40 GPUs**, each with **48 GB of GPU RAM**
