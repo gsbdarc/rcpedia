@@ -23,11 +23,11 @@ Even when your laptop is capable of doing the job, you may still want to offload
 
 **Storage**
 
-The project files and any large output should live on ZFS file system (not in your home). The ZFS capacity is nearly 1 PB (petabyte).
+The project files and any large output should live on [ZFS file system](/_user_guide/storage/#preferred-platforms){:target="_blank"} (not in your home). The ZFS capacity is nearly 1 PB (petabyte).
 
 **Licensed software**
 
-Tools like Matlab and Stata are installed and licensed to use on the Yen servers.
+[Tools like Matlab and Stata](/_getting_started/modules/){:target="_blank"} are installed and licensed to use on the Yen servers.
 
 ## How to Connect
 !!! tip
@@ -37,7 +37,7 @@ There are various ways to connect to the Yen servers.
 
 * SSH in to `yen.stanford.edu`
 * A terminal on [JupyterLab](/_getting_started/jupyter){:target="_blank"}
-* RStudio or Jupyter Notebook on [JupyterLab](/_getting_started/jupyter){:target="_blank"}
+* [RStudio](/_getting_started/jupyter/#rstudio){:target="_blank"} or Jupyter Notebook on JupyterLab
 
 When you SSH in to `yen.stanford.edu`, a load-balancer will assign you to one of the interactive Yen server: `yen1`, `yen2`, `yen3`, `yen4` or `yen5`.  
 
