@@ -10,23 +10,26 @@ If you would like to check your resource usage on the Yens, there are a few tool
 
 ## Monitoring Usage
 
-Certain parts of the GSB research computing infrastructure provide environments that are managed by a scheduler (like [Sherlock](/_user_guide/sherlock){target="_blank"} or [Yen Slurm](/_user_guide/slurm){target="_blank"}). In these cases, it is not necessary for individuals to monitor resource usage themselves.
+Certain parts of the GSB research computing infrastructure provide environments that are managed by a scheduler (like [Sherlock](/_user_guide/sherlock){target="_blank"} or [Yen Slurm](/_user_guide/slurm){target="_blank"}).
+In these environments, requested resources are allocated to individual users, and jobs that exceed those resources are automatically killed.
 
-However, when working on systems like the [interactive Yens](/_user_guide/yen){target="_blank"} where resources like **CPU**, **RAM**, and **disk space** are shared among many researchers, it is important that all users should be mindful of how their work impacts the larger community.
+However, when working on systems like the [Yens](/_getting_started/yen-servers/){target="_blank"} where resources like **CPU**, **RAM**, 
+and **disk space** are shared among many researchers, it is important that all users be mindful of how their work impacts the larger community.
 
 !!! tip
     When using interactive Yens, use the `htop` and `userload` commands to monitor CPU and RAM usage. Use the `gsbquota` command to monitor disk quota.
 
 ### CPU & RAM
-Per our [Community Guidelines](/_policies/user_limits){target="_blank"}, CPU usage should always be limited to 48 CPU cores/threads per user at any one time on Yen[2-5] and up to 12 CPU cores on Yen1. Some software (R and RStudio, for example) defaults to claiming all available cores unless told otherwise.
+Per our [Community Guidelines](/_policies/user_limits){target="_blank"}, CPU usage should always be limited to 48 CPU cores/threads per user at any one time on `yen2`, `yen3`, `yen4`, `yen5` and up to 12 CPU cores on `yen1`. Some software (R and RStudio, for example) defaults to claiming all available cores unless told otherwise.
 
-These defaults should always be overwritten when running R code on the Yens. Similarly, when working with multiprocessing code in languages like Python, care must be taken to ensure your code does not grab everything it sees. Please refer to our [Python parallel processing guidelines](/_user_guide/best_practices_parallel_processing_python){target="_blank"} for information about how to limit resource consumption when using common packages.
+These defaults should always be overwritten when running R code on the Yens. Similarly, when working with multiprocessing code in languages like Python, care must be taken to ensure your code does not grab everything it sees. 
+Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} article for information about how to limit resource consumption when using parallel packages in R.
 
 One easy method of getting a quick snapshot of your CPU and memory usage is via the `htop` command line tool. Running `htop` shows usage graphs and a process list that is sortable by user, top CPU, top RAM, and other metrics. Please use this tool liberally to monitor your resource usage, especially if you are running multiprocessing code on shared systems for the first time.
 
 The `htop` console looks like this:
 
-![htop output for well-behaved code](/assets/images/proc_monitoring.png)
+![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
 
 !!! warning
     Note that in certain cases greedy jobs may be terminated automatically to preserve the integrity of the system.
@@ -34,7 +37,10 @@ The `htop` console looks like this:
 The `userload` command will list the total amount of resources (CPU & RAM) all your tasks are consuming on that particular Yen node.
 
 ### Disk
-Unlike personal home directories which have a 50 GB quota, faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much bigger (1T default). However, disk storage is a finite resource so to allow us to continue to provide large project spaces, please always be aware of your disk footprint. This includes compressing files when you are able, and removing intermediate and/or temp files whenever possible. See the [Storage Solution](/_user_guide/storage){target="_blank"} page for more information about file storage options.
+Unlike personal home directories which have a 50 GB quota, faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much bigger (1T default). 
+However, disk storage is a finite resource so to allow us to continue to provide large project spaces, please always be aware of your disk footprint. 
+This includes compressing files when you are able, and removing intermediate and/or temp files whenever possible. 
+See the [Storage Solutions](/_user_guide/storage){target="_blank"} page for more information about file storage options.
 
 Disk quotas on all Yens can be reviewed by using the `gsbquota` command. It produces output like this:
 
@@ -165,7 +171,10 @@ htop -u $USER
 ```
 
 While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program.
-![Resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
+![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
+
+!!! Notes
+    You can zoom in or out of these process trees by clicking the `+` or `-` icons.
 
 At the end of the program run, you should see the following output.
 
