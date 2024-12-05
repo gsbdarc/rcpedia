@@ -67,7 +67,7 @@ markdown_extensions:
 nav:
   - Home:
       - Home: index.md
-      - Services: _policies/services.md
+      - Services: services.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
       - Access the Yens: _getting_started/how_access_yens.md
