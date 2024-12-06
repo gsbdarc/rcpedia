@@ -15,14 +15,14 @@ Large collections of files will often be compressed in order to make them more f
 <!-- more -->
 
 !!! tip
-    See [this page](/_user_guide/best_practices_archive/?h=archive) to learn more about archiving your projects for long-term storage or transfer.
+    See [this page](/_user_guide/best_practices_archive/?h=archive){:target="_blank"} to learn more about archiving your projects for long-term storage or transfer.
 
 ## .zip
 Perhaps one of the more common compression types, you can simply use `unzip`:
 ```title="Terminal Command"
-$ unzip bigfile.zip
+unzip bigfile.zip
 ```
-Additional options for this command can be found [**here**](https://linuxize.com/post/how-to-unzip-files-in-linux/).
+Additional options for this command can be found [**here**](https://linuxize.com/post/how-to-unzip-files-in-linux/){:target="_blank"}.
 
 ## .tar
 `tar` is a Unix utility for collecting files together into one archive file (commonly called a tarball).
@@ -30,37 +30,37 @@ The name tar comes from "tape archive" and was used to archive a series of file 
 
 To untar the tarball (use options `x` to extract, `v` for verbose and `f` to give the name of the tarball you want to untar), run:
 ```title="Terminal Command"
-$ tar -xvf bigfile.tar
+tar -xvf bigfile.tar
 ```
-Additional options for this command and an explanation of the flags can be found [**here**](https://www.geeksforgeeks.org/tar-command-linux-examples/).
+Additional options for this command and an explanation of the flags can be found [**here**](https://www.geeksforgeeks.org/tar-command-linux-examples/){:target="_blank"}.
 
 ## .gz
 This compression format is created by a GNU zip compression algorithm. You can use `gunzip`:
 ```title="Terminal Command"
-$ gunzip bigfile.csv.gz
+gunzip bigfile.csv.gz
 ```
-Additional options for this command can be found [**here**](https://www.geeksforgeeks.org/gunzip-command-in-linux-with-examples/).
+Additional options for this command can be found [**here**](https://www.geeksforgeeks.org/gunzip-command-in-linux-with-examples/){:target="_blank"}.
 
 ## .tar.gz and .tgz
 Commonly, the tarball may also be compressed with gunzip (having an extension `.tar.gz` or `.tgz`) or bzip2 (with `.bz2` extension).
 Then to untar, add the unzip option as well (`-z`). 
 
 ```title="Terminal Command"
-$ tar -zxvf bigfile.tar.gz 
+tar -zxvf bigfile.tar.gz 
 ```
 
 ## .rar
 For RAR files, you can just use `unrar`:
 
 ```title="Terminal Command"
-$ unrar e bigfile.rar
+unrar e bigfile.rar
 ```
-Additional explanation for this can be found [**here**](https://www.tecmint.com/how-to-open-extract-and-create-rar-files-in-linux/).
+Additional explanation for this can be found [**here**](https://www.tecmint.com/how-to-open-extract-and-create-rar-files-in-linux/){:target="_blank"}.
 
 ## .7z
 A less common compression format, you can use `7z` for this:
 
 ```title="Terminal Command"
-$ 7z e bigfile.7z
+7z e bigfile.7z
 ```
-Additional options for this command can be found [**here**](https://itsfoss.com/use-7zip-ubuntu-linux/).
+Additional options for this command can be found [**here**](https://itsfoss.com/use-7zip-ubuntu-linux/){:target="_blank"}.
