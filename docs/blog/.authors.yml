@@ -1,7 +1,7 @@
 authors:
   jeffotter:
     name: Jeff Ott        # Author name
-    description: 🍀 Darc Team Research Analytics Scientist # Author description
+    description: 🍀 Research Analytics Scientist @DARC GSB Tea # Author description
     avatar: https://github.com/jeffotter.png         # Author avatar
     url: https://github.com/Jeffotter            # Author website URL
   mason:
@@ -24,3 +24,8 @@ authors:
     description: Research Analytics Scientist @DARC GSB Team  # Author description
     avatar: https://github.com/kevintran128.png            # Author avatar
     url: https://github.com/kevintran128                  # Author website URL
+  bchivers:
+    name: Brian Chivers                                       # Author name
+    description: Former Research Analytics Scientist @DARC GSB Team  # Author description
+    avatar: https://github.com/bchivers-stanford.png            # Author avatar
+    url: https://github.com/bchivers-stanford   
