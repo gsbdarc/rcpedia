@@ -7,12 +7,17 @@ authors:
     - nrapstin
 ---
 
+
+Compressed files are widely used to save space and facilitate file transfers. Understanding how to uncompress these files ensures quick access to your data, no matter the format. This post will guide you through the process of uncompressing files on the Yens.
+
+
+<!-- more -->
+
 # How do I extract compressed files?
 
 
 Large collections of files will often be compressed in order to make them more friendly for transfer or long-term storage. Below are examples on how to uncompress a few common compression file types on the Yens.
 
-<!-- more -->
 
 !!! tip
     See [this page](/_user_guide/best_practices_archive/?h=archive){:target="_blank"} to learn more about archiving your projects for long-term storage or transfer.
@@ -46,7 +51,7 @@ Commonly, the tarball may also be compressed with gunzip (having an extension `.
 Then to untar, add the unzip option as well (`-z`). 
 
 ```title="Terminal Command"
-tar -zxvf bigfile.tar.gz 
+tar -zxvf bigfile.tar.gz  # z: gzip, x: extract, v: verbose, f: file
 ```
 
 ## .rar
