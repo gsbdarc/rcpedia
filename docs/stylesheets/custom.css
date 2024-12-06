@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
+@font-face {
+  font-family: "Stanford";
+  src: url("https://www-media.stanford.edu/assets/fonts/stanford.woff") format("woff"), url("https://www-media.stanford.edu/assets/fonts/stanford.ttf") format("truetype");
+  font-weight: 300;
+  font-display: swap;
+}
 
 :root {
   --md-text-font: 'Source Sans 3', sans-serif; /* Sets the variable with fallback */
@@ -8,7 +14,6 @@
   --md-accent-fg-color:                #b1040d9e;
   --md-accent-fg-color--transparent:   #b1040e0a;
 }
-
 
 /* Accessibility Requirement */
 .md-typeset a {
@@ -31,10 +36,9 @@
   color:                   #ffffff; /*  text color */
 }
 
-
 /* Header logo */
 .md-header-nav__button img {
-  height: 100px;  
+  /* height: 100px;   */
   width: auto;   /* Maintain aspect ratio */
 }
 .md-header__button.md-logo {
@@ -42,7 +46,7 @@
 }
 .md-header__button.md-logo img, .md-header__button.md-logo svg {
   height: auto;
-  width: 10rem;
+  width: 150px;
 }
 .md-header {
   background-color: white;
@@ -274,6 +278,7 @@
   text-decoration: none; /* Removes underline from all states */
   color: white; 
   font-size: 20px;
+  font-family: "Stanford";
   line-height: 1;
 }
 
@@ -288,3 +293,7 @@
     padding-left: 30px;
   }
 }
+
+/* html {
+  font-size: 14px;
+} */
