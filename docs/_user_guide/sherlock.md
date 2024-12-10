@@ -1,11 +1,11 @@
 # Sherlock
 <a href="https://your-link-here.com">
-  <img src="/images/sherlock_logo.png" alt="Sherlock Narwhal Logo" style="float: right; width: 350px; height: auto;">
+  <img src="/assets/images/sherlock_logo.png" alt="Sherlock Narwhal Logo" style="float: right; width: 350px; height: auto;">
 </a>
 
 ## What is Sherlock?
 
-[Sherlock](https://www.sherlock.stanford.edu/) is a high-performance computing (HPC) cluster available for research at Stanford and operated by [Stanford Research Computing](https://srcc.stanford.edu)<a href="https://srcc.stanford.edu/" target="_blank">Stanford Research Computing</a>. Sherlock has over 1,700 compute nodes with 57,000+ CPU cores. It is divided into several logical partitions that are either accessble for everyone to use (`normal`) or provisioned specifically for a specific group.
+[Sherlock](https://www.sherlock.stanford.edu){:target="_blank"} is a high-performance computing (HPC) cluster available for research at Stanford and operated by [Stanford Research Computing](https://srcc.stanford.edu){:target=_blank}. Sherlock has over 1,700 compute nodes with 57,000+ CPU cores. It is divided into several logical partitions that are either accessble for everyone to use (`normal`) or provisioned specifically for a particular group.
 
 #### Condo Model
 Stanford Research Computing provides faculty with the opportunity to purchase from a catalog a recommended compute node configurations, for the use of their research teams. Using a traditional compute cluster "condo" model, participating faculty and their teams get priority access to the resources they purchase. When those resources are idle, other "owners" can use them, until the purchasing owner wants to use them. When this happens, those other owners jobs are re-queued to free up resources. Participating owner PIs also have shared access to the original base Sherlock nodes, along with everyone else.
@@ -18,7 +18,7 @@ Sherlock and Yen are entirely separate systems -- this means:
 * Data stored on Yen cannot be accessed from Sherlock, or vice versa
 * Sherlock and Yen have different funding models, administrator teams and policies
 
-Sherlock is exclusively a  _batch_  submission environment like [FarmShare](https://srcc.stanford.edu/farmshare) and [Yen-Slurm](/_user_guide/slurm/), not an _interactive_ computing environment like the [interactive yens](/_getting_started/yen-servers/). That is,  **you can't just log in and run intensive tasks**. To compute on Sherlock, you have to prepare and submit a <a href="/_user_guide/slurm/" target="_blank">slurm</a> job script that describes the CPU, memory (RAM), and time resources you require, as well as the code to run. A scheduler puts your requests in queue until the resources can be allocated.
+Sherlock is exclusively a *batch* submission environment like [FarmShare](https://srcc.stanford.edu/farmshare){:target="_blank"} and [Yen Slurm](/_user_guide/slurm){:target="_blank"}, not an *interactive* computing environment like the [interactive yens](/_getting_started/yen-servers){:target="_blank"}. That is,  **you can't just log in and run intensive tasks**. To compute on Sherlock, you have to prepare and submit a [slurm](/_user_guide/slurm/#example-script){:target="_blank"} job script that describes the CPU, memory (RAM), and time resources you require, as well as the code to run. A scheduler puts your requests in queue until the resources can be allocated.
 
 Both Yen and Sherlock are valuable resources, but Sherlock is significantly larger. Consider using Sherlock for:
 
@@ -39,28 +39,28 @@ For GSB faculty members, SRC can provision a Sherlock account with a PI group th
 
 ### Logging In
 
-```bash
-$ ssh <$USER>sherlock.stanford.edu
+```bash title="Terminal Command"
+ssh <$USER>sherlock.stanford.edu
 ```
 
 Enter your SUNet ID and Duo authenticate to login.
 
-!!! tip
-    You'll be logged on to a **login node**, which has limited resources, and is not designed for running jobs.
+!!! warning 
+    You'll be logged on to a **login node**, which has limited resources, and is **not** designed for running jobs.
 
-You can also login using the web-based <a href="https://ondemand.sherlock.stanford.edu">Open OnDemand</a> environment.
+You can also login using the web-based [Open OnDemand](https://ondemand.sherlock.stanford.edu){:target="_blank"} environment.
 
-Sherlock uses <a href="_user_guide/slurm/" target="_blank">Slurm</a> to schedule jobs and manage the queue of pending jobs. We can use the standard slurm commands to get system information, and similar submission scripts to the ones used on [Yen-Slurm](/_user_guide/slurm/) to run jobs on Sherlock.
+Sherlock uses [Slurm](/_user_guide/slurm){:target="_blank"} to schedule jobs and manage the queue of pending jobs. We can use the standard slurm commands to get system information, and similar submission scripts to the ones used on [Yen Slurm](/_user_guide/slurm){:target="_blank"} to run jobs on Sherlock.
 
 See the queue on the `normal` partition:
 
-```bash
-$ squeue -p normal
+```bash title="Terminal Command"
+squeue -p normal
 ```
 
 To get information about partitions that are available to you, run
-```bash
-$ sh_part
+```bash  title="Terminal Command"
+sh_part
 ```
 
 
@@ -76,7 +76,9 @@ The GSB has its own partition, `gsb`, which all GSB faculty PI groups can access
 | 3 | 128 | 1TB |
 | 3 | 128 | 1TB |
 
-Note that to submit jobs to this partition, you will need to specifically reference **`gsb`** in your Slurm submit script:
+!!! note
+    To submit jobs to this partition, you will need to specifically reference `gsb` in your Slurm submit script.
+
 
 ```bash linenums="1" hl_lines="4-4" title="hello.slurm"
 #!/bin/bash
@@ -128,27 +130,27 @@ python hello.py
 
 Submit with:
 
-```bash
-$ sbatch hello.slurm
+```bash title="Terminal Command"
+sbatch hello.slurm
 ```
 
 Monitor the queue:
 
-```bash
-$ watch squeue -u $USER
+```bash title="Terminal Command"
+watch squeue -u $USER
 ```
 
 You might see job's status as `CF` (configuring) when the job starts and `CG` (completing) when the job finishes.
 
 Once the job is finished, look at the output:
 
-```bash
-$ cat hello-$JOBID.out
+```bash title="Terminal Command"
+cat hello-$JOBID.out
 ```
 
 You should see a similar output:
 
-```bash
+```{.yaml .no-copy title="Terminal Output"}
 Hello from sh02-05n71.int node
 ```
 
@@ -156,11 +158,11 @@ Hello from sh02-05n71.int node
 
 Now, we want to run a large job array. First, let's check user job limits for the `normal` partition with:
 
-```bash
-$ sacctmgr show qos normal
+```bash title="Terminal Command"
+sacctmgr show qos normal
 ```
 
-to find that `MaxTRESPU` limit is 512 CPUs max so we will need to limit our job array to 512 CPU cores.
+to find that `MaxTRESPU` limit is 512 CPUs, so we will need to limit our job array to 512 CPU cores.
 
 We can modify the hello world python script and call it `hello-task.py` to also print a job task ID. 
 
@@ -199,22 +201,21 @@ python hello-task.py $SLURM_ARRAY_TASK_ID
 
 Submit with:
 
-```bash
-$ sbatch hello-job-array.slurm
+```bash title="Terminal Command"
+sbatch hello-job-array.slurm
 ```
-
 
 Monitor the queue:
 
-```bash
-$ watch squeue -u $USER
+```bash title="Terminal Command"
+watch squeue -u $USER
 ```
 
-### Deep learning on GPU
+### Deep Learning on GPU
 
 Sherlock also has over 800+ GPUs that we can take advantage of when training machine learning / deep learning models. 
 
-This is an abbreviated version of <a href="/topicGuides/runGPU.html" target="_blank">this topic guide</a> that also talks about how to setup your conda environment on Sherlock to be able to run the Keras example below, training a simple MNIST convnet.
+This is an abbreviated version of this [user guide](/_user_guide/best_practices_gpu/#keras-example){:target=_blank} that also talks about how to setup your Python virtual environment on the Yens to be able to run the Keras example below, training a simple MNIST convnet.
 
 ```python linenums="1" title="mnist.py"
 import numpy as np
@@ -273,6 +274,8 @@ print("Test loss:", score[0])
 print("Test accuracy:", score[1])
 ```
 
+The slurm script looks like:
+
 ```bash linenums="1" hl_lines="6" title="keras-gpu.slurm"
 #!/bin/bash
 
@@ -288,7 +291,6 @@ print("Test accuracy:", score[1])
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=your_email@stanford.edu
 
-# For safety, we deactivate any conda env that might be activated on interactive yens before submission and purge all loaded modules
 source deactivate
 module purge
 
@@ -301,44 +303,45 @@ python3 mnist.py
 
 1.  This script is asking for one GPU (`-G 1`)
 2.  Running specifically on `gpu` partition
-3.  See available modules on the [Sherlock Documentation](https://www.sherlock.stanford.edu/docs/software/list/)
+3.  See available modules on the [Sherlock Documentation](https://www.sherlock.stanford.edu/docs/software/list){:target="_blank"}
 
 Note that the `py-tensorflow` module on Sherlock contains the Python Tensorflow bindings. You may need to build your own virtual environment if you are incorporating other packages or need to refer to a specific software version.
 
 Submit the job to the `gpu` partition with:
 
-```bash
-$ sbatch keras-gpu.slurm
+```bash title="Terminal Command"
+sbatch keras-gpu.slurm
 ```
 
 Monitor your job:
 
-```bash
-$ squeue -u $USER
+```bash title="Terminal Command"
+squeue -u $USER
 ```
 
 You should see something like:
 
-```bash
+```{.yaml .no-copy title="Terminal Output"}
            JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-          20372833       gpu train-gp nrapstin  R       0:05      1 sh03-12n07
+          20372833       gpu train-gp   user  R       0:05      1 sh03-12n07
 ```
 
 Once the job is running, connect to the node where your job is running to monitor GPU utilization:
 
-```bash
-$ ssh sh03-12n07
+```bash title="Terminal Command"
+ssh sh03-12n07
 ```
 
 Once you connect to the GPU node, load the cuda module there and monitor GPU utilization while the job is running:
 
-```bash
-$ module load cuda/11.0.3
-$ watch nvidia-smi
+```bash title="Terminal Command"
+module load cuda/11.0.3
+watch nvidia-smi
 ```
 
 You should see that the GPU is being utilized (GPU-Util column):
-```
+
+```{.yaml .no-copy title="Terminal Output"}
 Every 2.0s: nvidia-smi                                                                                         
 Tue Nov 15 13:43:04 2022
 +-----------------------------------------------------------------------------+
@@ -364,6 +367,6 @@ Tue Nov 15 13:43:04 2022
 
 Once the job is done, look at the output file:
 
-```bash
-$ cat train-gpu*.out
+```bash title="Terminal Command"
+cat train-gpu*.out
 ```
