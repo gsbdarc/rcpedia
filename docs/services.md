@@ -41,7 +41,7 @@ Are you a GSB researcher with a specific request for support?  Fill out this [fo
 
 ## Research Computing Support
 
-Doing computational or data-intensive research can be challenging.  We provide support for all users of our systems to ensure these systems are working as intended and that uses can reach their goals.  While this support is not as extensive as our [faculty support](/_policies/services/#research-project-support){:target="_blank"}, we are able to provide brief consultations on a number of different topics, including:
+Doing computational or data-intensive research can be challenging.  We provide support for all users of our systems to ensure these systems are working as intended and that uses can reach their goals.  While this support is not as extensive as our [faculty support](/services/#research-project-support){:target="_blank"}, we are able to provide brief consultations on a number of different topics, including:
 
 * Using the [scheduler](/_user_guide/slurm/){:target="_blank"}
 * Choosing a [storage location](/_user_guide/storage/){:target="_blank"}
@@ -60,7 +60,7 @@ There are several ways to onboard data, in this document, we will discuss the tw
     It is essential that you contact the [DARC team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"} or the [GSB Library](https://www.gsb.stanford.edu/library){:target="_blank"} before trying to onboard data yourself.  The DARC Team has vast experience working with various data formats and the Library has both legal (contract negotiation) and curation resources.  By negotiating and onboarding data yourself, you put the School and the University risk.  Data that may seem innocuous can contain Personal Identifiable Information or licensed data.
 
 
-- **Scenario one.** Let’s pretend that you’re an incoming faculty and you have several terabytes of data that you want to bring to Stanford. The DARC Team has this expertise and can deploy several tools from [Globus](/_user_guide/data_transfer/){:target="_blank"} to AWS’s Snowball to get your data loaded into our data ethos.  We will work with the data regardless of security level, including high-risk data.
+- **Scenario one.** If you're an incoming faculty member with terabytes of data to bring to Stanford, the DARC Team can help.  We specialize in using tools like [Globus](/_user_guide/data_transfer/){:target="_blank"} and AWS Snowball to securely transfer your data, including high-risk datasets, into our data infrastructure.  We will work with the data regardless of security level, including high-risk data.
 
 - **Scenario two.** You want to research the prices of cars and how they fluctuate dependent upon investment into new technology.  The data, from your perspective, only exists with one vendor and you wish to purchase the data. By engaging our team, we can help negotiate the terms and conditions in addition to haggling the best price for the data.
 
@@ -81,7 +81,7 @@ If you are a GSB researcher that is interested in starting a new project on the 
 Your feedback is very important to us. Please tell us about any issues you run
 into and successes you have working with DARC.
 
-After the project is complete, we ask that you compute [our feedback form](https://darc.stanford.edu/feedback){:target="_blank"} so we can improve our services and support you better.
+After the project is complete, we ask that you complete [our feedback form](https://darc.stanford.edu/feedback){:target="_blank"} so we can improve our services and support you better.
 
 If you have any questions, feel free to contact us at: [gsb_darcresearch@stanford.edu](mailto:gsb_darcresearch@stanford.edu){:target="_blank"}
 
@@ -89,7 +89,7 @@ If you have any questions, feel free to contact us at: [gsb_darcresearch@stanfor
 
 While the [`yen`](/_getting_started/yen-servers){:target="_blank"} servers may be sufficient for many of the research computing problems faced by researchers at the GSB, there are a number of other resources available both at the GSB and across campus.
 
-### Links to other services
+### Links To Other Services
 
 |Link   |Description   |Locale   |
 |---|---|---|
