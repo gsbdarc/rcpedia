@@ -65,7 +65,9 @@ markdown_extensions:
         alternate_style: true
 
 nav:
-  - Home: index.md
+  - Home:
+      - Home: index.md
+      - Services: services.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
       - Access the Yens: _getting_started/how_access_yens.md
@@ -73,7 +75,6 @@ nav:
       - Modules: _getting_started/modules.md
   - Policies: 
       - User Limits: _policies/user_limits.md
-      - Services: _policies/services.md
       - Collaborators: _policies/collaborators.md
       - Workgroups: _policies/workgroups.md
       - Security: _policies/security.md
@@ -98,9 +99,9 @@ nav:
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
           - Running R Interactively: _user_guide/r.md
+          - RStudio: _user_guide/rstudio.md
           - Best Practices in R: _user_guide/best_practices_r.md
-      - Matlab:
-          - Slurm Jobs:  _user_guide/matlab_slurm.md
+      #- Matlab:
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
       - Optimization Software: _user_guide/best_practices_optimization.md
@@ -119,3 +120,7 @@ nav:
 extra_css:
   - stylesheets/output.css # This is the decanter css tailwind output
   - stylesheets/custom.css # This is custom css
+
+watch:
+  - docs
+  - overrides

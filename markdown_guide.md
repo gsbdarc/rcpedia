@@ -37,3 +37,18 @@ Note:
     ```{ .yaml .no-copy }
     Hello from sh02-05n71.int node
     ```
+    
+## Language Output
+You can format **with** the language syntax highlighting for outputs.
+
+In R: 
+
+```{.r .yaml .no-copy title="Terminal Output" }
+> install.packages("package-name")
+```
+
+or Python REPL:
+
+```{.python .yaml .no-copy title="Terminal Output" }
+>>> import numpy as np
+```
