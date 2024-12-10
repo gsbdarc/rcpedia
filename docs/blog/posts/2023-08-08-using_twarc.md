@@ -19,7 +19,7 @@ In this blog, we discuss how to get started with the [`twarc`](https://github.co
 !!! update
      As of December 2024, we recommend using `venv` and not `conda` to install python packages
      
-We will use a `conda` to install all the python packages into. 
+We will use a `conda` environment to install all the python packages into. 
 That way we can make it into the kernel on JupyterHub and use the same environmnet on interactive yens, 
 [`yen-slurm`](/_user_guide/slurm/){:target="_blank"} or 
 [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
@@ -79,7 +79,7 @@ Go to your Projects & App and make a new app. It will have a unique API Key and 
 
 Make sure you can import all of the following python packages:
  
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 import os, json
 import datetime as dt
 import pandas as pd
@@ -100,21 +100,21 @@ TWITTER_API_BEARER_TOKEN="XXXXX"
 
 In the notebook, we need to first load the dotenv extension. 
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 load_ext dotenv
 dotenv
 ```
 
 Then, we can get the value of the `TWITTER_API_BEARER_TOKEN` with:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 # API Bearer Token
 bearer_token = os.environ["TWITTER_API_BEARER_TOKEN"]
 ```
 
 Finally, make sure you can connect to Twitter API without errors:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 client = Twarc2(bearer_token=bearer_token)
 ```
 
@@ -123,7 +123,7 @@ When you query Twitter API, you will get all tweets matching the query without c
 
 For example, let's get all tweets talking about GSB and Stanford since December 1, 2022 until today.
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 start_time = dt.datetime(2022, 12, 1, 0, 0, 0, 0, dt.timezone.utc)
 end_time = None
 query = "GSB Stanford"
@@ -133,14 +133,14 @@ The Academic Twitter API allows you to search all tweets, not just the last 7 da
 using `client.search_all()` function from `twarc` package. To get all tweets (without comments) for our query,
  run the following:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 search_results = client.search_all(query=query, start_time=start_time, end_time=end_time, max_results=100)
 ```
 
 Once we examine the tweets, we can decide what fields we want to keep and then construct a handy dataframe to store
 the tweets:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 columns = ['tweet_id', 'conversation_id', 'text', 'author_id', 'author', 'created_at', 'lang', 'retweet_count', 'reply_count', 'like_count', 'quote_count', 'hashtags', 'mentions_user_name', 'mentions_user_id', 'urls', 'expanded_urls', 'attachment_type', 'attachment', 'referenced_tweets_type', 'referenced_tweets_id']
 
 # all tweets w/o conversations
@@ -152,7 +152,7 @@ You might not want to store all 20 fields but pick and choose what suits your re
 
 Then, we can write a function that gets the tweet data for each tweet returned in `search_results` generator object.
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 def get_tweet_data(tweet):
     '''
     Parse tweet data for one tweet and return all features as lists.
@@ -347,7 +347,7 @@ df = pd.concat([df, df_temp])
 
 Let's look at the first few rows:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df.head()
 ```
 
@@ -358,19 +358,19 @@ You should see something similar to:
 
 We want to get rid of duplicated tweets:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df = df[~df.duplicated(subset = 'tweet_id')]
 ```
 
 For this example, we also sort the tweets by `created_at` date:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df = df.sort_values(by = 'created_at').reset_index(drop = True)
 ```
 
 At this point, the data is ready to be written to a csv file:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df.to_csv('tweets-no-comments.csv', index = False)
 ```
 
@@ -381,7 +381,7 @@ discussion (and got their own unique `tweet_id`). We can iterate over all tweets
 Instead of using the query from above, we use `tweet_id` values and get retweets that will expand our
 tweet dataframe because our original query did not pull retweets or tweet quotes.
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df_retweets = pd.DataFrame(columns = columns)
 
 for i, t in enumerate(df_retweet['tweet_id']):
@@ -444,7 +444,7 @@ This is because we are making a lot of calls to the Twitter API. The scraping wi
 
 Then we combine with tweets dataframe, throw away duplicated tweets and sort by `created_at` date.
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 df_combined = pd.concat([df, df_retweets])
 df_combined = df_combined[~df_combined.duplicated(subset = 'tweet_id')]
 df_combined = df_combined.sort_values(by = 'created_at').reset_index(drop = True)
@@ -460,7 +460,7 @@ If you want to see the particular conversation in the web browser, you can inser
 
 The following function can be used to get all comments based on tweet's conversation ID:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 def get_all_comments_per_conversation_id(c_id):
     '''
     Get df of comments for input conversation ID
@@ -520,7 +520,7 @@ sure to covert it to a string as the query expects `str()` type.
 
 We can then loop over the unique conversations to get all comments and replies to tweets:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 # use conversatin ID to get all comments
 result = pd.DataFrame(columns = columns)
 
@@ -547,7 +547,7 @@ Here, we are inserting the comments / replies that are time sorted before gettin
 
 We can now write the final tweets, retweets with comments to an excel or csv formats:
 
-```python linenums="1" title="python"
+```py linenums="1" title="python"
 result.to_excel('all-tweets-retweets-comments.xlsx', index = False)
 result.to_csv('all-tweets-retweets-comments.csv', index = False)
 ```
