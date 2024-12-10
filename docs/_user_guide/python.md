@@ -1,30 +1,5 @@
 # Running Python Interactively
 
-On the Yens, Python is available via the `python3` command, a version different from the system Python can be chosen via the `module` command.
-
-See all currently installed versions with:
-
-```title="Terminal Input"
-module avail python/
-```
-
-
-You will see the current Python versions listed:
-
-```{.yaml .no-copy title="Terminal Output"}
------------------------------------------------------------- Global Aliases ------------------------------------------------------------
-
------------------------------------------------------------ /software/modules/Core -----------------------------------------------------
-   intel-python/2019.4    intel-python3/2019.4    python/2.7.18    python/3.10.5 (D)    python/3.10.11    python/3.11.3
-
-  Where:
-   D:  Default Module
-```
-
-!!! tip
-    If you require access to a newer Python version that is not currently available on the system, please don't hesitate to [contact DARC](mailto:gsb_darcresearch@stanford.edu) to request its installation.
-
-
 To use the system Python software on the Yens, simply type `python3`.
 
 ```title="Terminal Input"
@@ -44,26 +19,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 This will load the system Python version (Python-3.10.12) 
 You can also load a specific version of Python with:
 
-```title="Terminal Input"   
-ml python/3.10.11
-python3
-```
-!!! Note
-    ml is an alias for the `module load` command.
+!!! Tip 
+    If you need a specific version of python we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv).
 
-Start the Python interactive console by typing `python3`.
-You should see:
-    
-```{.yaml .no-copy title="Terminal Output"} 
-Python 3.10.11 (main, May  6 2023, 14:44:19) [GCC 11.3.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>>
-
-```
 
 ### Managing Python Software Libraries and Versions
 
-The Python software is installed system-wide, allowing each user to maintain their own set of Python packages within their home directory by default. Each Python version has its own dedicated library, allowing you to maintain packages independently for different versions. To make sure your Python packages are installed to the correct place, check out the [Python Virtual Environment](/_user_guide/best_practices_python_env/) guide.
+The Python3 software is installed system-wide, allowing each user to maintain their own set of Python3 packages within their home directory by default. Each Python version has its own dedicated library, allowing you to maintain packages independently for different versions. To make sure your Python packages are installed to the correct place, check out the [Python Virtual Environment](/_user_guide/best_practices_python_env/) guide.
 
 !!! Warning
     This is the system Python. Note that [JupyterHub](/_getting_started/jupyter) uses a different Python version.
