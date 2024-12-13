@@ -114,6 +114,5 @@ Embeddings power modern recommenders through:
 
 ## Implementation Tips
 - Consider using pre-trained embeddings like Word2Vec, GloVe, or BERT
-- Evaluate embedding dimension size based on vocabulary and task
-- Use domain-specific embeddings when available
-- Consider fine-tuning embeddings for your specific task
+- Evaluate the appropriate embedding dimensionality based on your vocabulary size and the task at hand
+- Consider fine-tuning pre-trained models to better suit your specific task
