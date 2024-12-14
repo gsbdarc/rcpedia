@@ -1,45 +1,40 @@
 # How Do I Check My Resource Usage on the Yens?
-If you would like to check your resource usage on the Yens, there are a few tools available.
+Monitoring your resource usage is important to be a good citizen of the GSB Research Computing community, but also to be able to effectively estimate your needs on scheduled systems.
 
-- **`userload`** allows you to monitor CPU and RAM usage.
-- **`htop`** allows you to get an overview of the activity on the whole system that you are logged into. Furthermore, you can inspect your own processes by typing `htop -u <SUNetID>`. A lot more information about how to decipher the information produced with this command can be found on the [Community Guidelines](/_policies/user_limits){target="_blank"}.
-- **`topbyuser`** is another tool written by us that lists out the active users on the Yens you are logged into and the amount of resources they are currently using.
+These tools can help you characterize your usage:
+
+- **`htop`** allows you to get an overview of the activity on the whole system that you are logged into. 
+- **`userload`** is a custom tool that allows you to monitor CPU and RAM usage in a simplified view.
+- **`topbyuser`** is another custom tool that lists out the active users on your current host and the amount of resources they are currently using.
 
 !!! important
-    We have [Community Guidelines](/_policies/user_limits){target="_blank"} to illustrate responsible use of our shared resources that our users are expected to follow. These guidelines ensure that the Yens can remain accessible to everyone.
+    We have [Community Guidelines](/_policies/user_limits){target="_blank"} to illustrate responsible use of our shared resources that our users are expected to follow. These guidelines ensure that the Yens can remain accessible and performant.
 
-## Monitoring Usage
-
-Certain parts of the GSB research computing infrastructure provide environments that are managed by a scheduler (like [Sherlock](/_user_guide/sherlock){target="_blank"} or [Yen Slurm](/_user_guide/slurm){target="_blank"}).
-In these environments, requested resources are allocated to individual users, and jobs that exceed those resources are automatically killed.
-
-However, when working on systems like the [Yens](/_getting_started/yen-servers/){target="_blank"} where resources like **CPU**, **RAM**, 
-and **disk space** are shared among many researchers, it is important that all users be mindful of how their work impacts the larger community.
-
-!!! tip
-    When using interactive Yens, use the `htop` and `userload` commands to monitor CPU and RAM usage. Use the `gsbquota` command to monitor disk quota.
-
-### CPU & RAM
-Per our [Community Guidelines](/_policies/user_limits){target="_blank"}, CPU usage should always be limited to 48 CPU cores/threads per user at any one time on `yen2`, `yen3`, `yen4`, `yen5` and up to 12 CPU cores on `yen1`. Some software (R and RStudio, for example) defaults to claiming all available cores unless told otherwise.
-
-These defaults should always be overwritten when running R code on the Yens. Similarly, when working with multiprocessing code in languages like Python, care must be taken to ensure your code does not grab everything it sees. 
-Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} article for information about how to limit resource consumption when using parallel packages in R.
-
+## Monitoring Compute with `htop`
 One easy method of getting a quick snapshot of your CPU and memory usage is via the `htop` command line tool. Running `htop` shows usage graphs and a process list that is sortable by user, top CPU, top RAM, and other metrics. Please use this tool liberally to monitor your resource usage, especially if you are running multiprocessing code on shared systems for the first time.
 
-The `htop` console looks like this:
+You can toggle between a threaded view of processes by pressing ++t++ -- here is sample `htop` output in threaded mode.
 
 ![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
 
-!!! warning
-    Note that in certain cases greedy jobs may be terminated automatically to preserve the integrity of the system.
+!!! warning "Jobs may be automatically killed"
+    Note that jobs that exceed user limits may be terminated automatically to preserve the integrity of the system.
 
-The `userload` command will list the total amount of resources (CPU & RAM) all your tasks are consuming on that particular Yen node.
+## User Limits and Multiprocessing
 
-### Disk
-Unlike personal home directories which have a 50 GB quota, faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much bigger (1T default). 
-However, disk storage is a finite resource so to allow us to continue to provide large project spaces, please always be aware of your disk footprint. 
-This includes compressing files when you are able, and removing intermediate and/or temp files whenever possible. 
+Per our [Community Guidelines](/_policies/user_limits){target="_blank"}, CPU usage should always be limited based on system size. When working with implicitly or explicitly *multiprocessed* code, care must be taken to ensure your code does not use every available processor.
+Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/best_practices_parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
+
+Be sure to monitoring your processes, particularly when using a new package, to verify that you are using the expected number of cores.
+
+## Monitoring Disk Usage
+Personal home directories have a 50 GB quota, while faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much larger. 
+
+!!! danger "Do NOT exceed your home directory quota!"
+    If you exceed your home directory quota, you cannot access Jupyter or perform many basic system tasks.
+
+Disk storage is a finite resource so to allow us to continue to provide large project spaces, please always be aware of your disk footprint. 
+This includes removing intermediate and/or temp files whenever possible, and avoiding storing multiple copies of the same data set.
 See the [Storage Solutions](/_user_guide/storage){target="_blank"} page for more information about file storage options.
 
 Disk quotas on all Yens can be reviewed by using the `gsbquota` command. It produces output like this:
@@ -62,36 +57,45 @@ gsbquota /zfs/projects/students/<my-project-dir>/
 /zfs/projects/students/<my-project-dir>/: currently using 39% (78G) of 200G available
 ```
 
-## Multiple CPU Cores Example
-We are going to use an example with R, `investment-npv-parallel.R`, and experiment running it on multiple cores and monitoring our resource consumption.
-
-To monitor the resource usage while running a program, we will need three terminal windows that are all connected to the **same** Yen server.
-
-`ssh` to `yen3` in the first terminal windows.
+Unsure what's taking up space? The `gsbbrowser` command scans your home directory and provides a visual representation of your directories and files and their associated sizes. You can also provide a path to a project directory to scan that directory:
 
 ```bash title="Terminal Command"
+gsbbrowser /zfs/projects/students/<my-project-dir>/
+```
+
+## Example: Monitoring an R Script
+Here we present an example in R, to illustrate monitoring code running on multiple cores.
+
+To monitor the resource usage while running a program, we will need *three* terminal windows that are all connected to the **same** Yen server.
+
+`ssh` to `yen3` in the first terminal window.
+
+```bash title="Terminal 1 Command"
 ssh yen3.stanford.edu
 ```
 
 Check what Yen you are connected to in the first terminal:
 
-```bash title="Terminal Command"
+```bash title="Terminal 1 Command"
 hostname
 ```
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Terminal 1 Output"}
 yen3
 ```
 
 Then `ssh` to the same Yen in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
 
-```bash title="Terminal Command"
+```bash title="Terminal 2,3 Command"
 ssh yen3.stanford.edu
 ```
 
-Create an `investment-npv-parallel.R` file below and save it in your desired directory.
+Create an `investment-npv-parallel.R` file below and save it in your desired directory. 
 
-```R title="investment-npv-parallel.R"
+!!! tip "We explicitly set the cores in this code!"
+    Note that we set **8 cores** for use with the `registerDoParallel` function.
+
+```R title="investment-npv-parallel.R" linenums="1" hl_lines="14 17"
 # In the context of economics and finance, Net Present Value (NPV) is used to assess
 # the profitability of investment projects or business decisions.
 # This code performs a Monte Carlo simulation of Net Present Value (NPV) with 500,000 trials in parallel,
@@ -146,7 +150,7 @@ hist(results, main = 'NPV distribution')
 
 Once you have three terminal windows connected to the same Yen, run the `investment-npv-parallel.R` program after loading the R module in one of the terminals:
 
-```bash title="Terminal Command"
+```bash title="Terminal 1 Command"
 ml R
 Rscript investment-npv-parallel.R
 ```
@@ -156,7 +160,7 @@ Rscript investment-npv-parallel.R
 
 Once the program is running, monitor your usage with `userload` command in the second window:
 
-```bash title="Terminal Command"
+```bash title="Terminal 2 Command"
 watch -n 1 userload
 ```
 
@@ -166,29 +170,9 @@ While the program is running, you should see about 8 CPU cores being utilized in
 
 Run `htop -u $USER` in the third window, where `$USER` is your SUNetID:
 
-```bash title="Terminal Command"
+```bash title="Terminal 3 Command"
 htop -u $USER
 ```
 
 While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program.
 ![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
-
-!!! Notes
-    You can zoom in or out of these process trees by clicking the `+` or `-` icons.
-
-At the end of the program run, you should see the following output.
-
-```{.yaml .no-copy title="Terminal Output"}
-Loading required package: iterators
-Loading required package: parallel
-   user  system elapsed
-349.660   2.311 126.050
-Parallel NPV Calculation (using 8 cores):
-       V1
- Min.   :-761.0356
- 1st Qu.: -96.6439
- Median :  -0.0745
- Mean   :  -0.1852
- 3rd Qu.:  96.2920
- Max.   : 713.7188
-```
