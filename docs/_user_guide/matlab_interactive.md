@@ -20,64 +20,57 @@ module avail matlab
    D:  Default Module
 ```
 
-## Load Matlab Module
-To use Matlab software on the Yens, load the module:
+## Loading a Matlab Module
+To load the default MATLAB module (for example, `matlab/R2022b`), run:
+
 ```title="Terminal Input"
-ml Matlab
+ml matlab
 ```
-This will load the default Matlab module (matlab/R2022b). You can also load a specific version of Matlab with:
+
+!!! Note
+      `ml` is a shorthand for `module load`.
+
+If you want to load a specific MATLAB version instead, specify it directly:
 
 ```title="Terminal Input"
 ml matlab/R2024a
 ```
 
+## Starting an Interactive Matlab Session
+
 You can start the Matlab interactive console by typing `matlab`.
+
+```title=" Yen Terminal Input"
+matlab
+```
+
+### Example Output
 
 ```{.yaml .no-copy title="Terminal Output"}
 MATLAB is selecting SOFTWARE OPENGL rendering.
 
-                                                                                                                                 < M A T L A B (R) >
-                                                                                                                  Copyright 1984-2022 The MathWorks, Inc.
-                                                                                                                  R2022b Update 1 (9.13.0.2080170) 64-bit (glnxa64)
-                                                                                                                                 September 28, 2022
+                     < M A T L A B (R) >
+               Copyright 1984-2022 The MathWorks, Inc.
+          R2022b Update 1 (9.13.0.2080170) 64-bit (glnxa64)
+                     September 28, 2022
 
  
 To get started, type doc.
 For product information, visit www.mathworks.com.
  
 >> 
-
 ```
+### Exiting Matlab
 
-To exit matlab simply type `exit` in the interactive console.
-
-```title="Matlab Console"
+To exit matlab simply type:
+```title="Matlab Input"
 exit
 ```
-
-To access MATLAB's help documentation, type `doc` for the documentation browser or `help` followed by a function name.
-
-```title="Matlab Console"
->> doc
->> help disp
-```
-
-## Managing Matlab Software Libraries and Versions
-
-The Matlab software is installed system-wide. Each user can maintain their own set of Matlab scripts within their home directory.
-
-To see the list of currently installed toolboxes by running the interactive Matlab console and typing:
-
-```title="Matlab Console"
->> ver
-```
-This command will display all installed MATLAB toolboxes and their version numbers.
-
-
+Alternatively, you can press ++ctrl+"D"++ .
 
 ## Running Matlab Scripts
 
-A simple Matlab script looks like:
+Create a simple test script named hello_world.m:
 
 ```matlab title="hello_world.m"
 disp('Hello world')
@@ -86,9 +79,11 @@ disp('Hello world')
 Save this line to a new file called `hello_world.m`. 
 
 This one-liner script can be run on the matlab interactive Yens with 
+
 ``` title="Terminal Input"
 matlab -nodesktop < hello_world.m
 ``` 
+
 !!! Tip
     The `-nodesktop` option runs MATLAB without the desktop environment, which is useful when running on a remote server or over SSH.
 
