@@ -1,8 +1,8 @@
-# Running Matlab Interactively
+# Running MATLAB Interactively
 
-On the Yens, Matlab is available via the `module` command.
+On the Yens, MATLAB is available via the `module` command.
 
-Several versions of Matlab are installed on the Yens and the default version is designated with `(D)`:
+Several versions of MATLAB are installed on the Yens and the default version is designated with `(D)`:
 
 ```bash title="Terminal Command"
 module avail matlab
@@ -20,10 +20,10 @@ module avail matlab
    D:  Default Module
 ```
 
-## Loading a Matlab Module
+## Loading a MATLAB Module
 To load the default MATLAB module (for example, `matlab/R2022b`), run:
 
-```title="Terminal Input"
+```title="Yen Terminal Input"
 ml matlab
 ```
 
@@ -32,13 +32,13 @@ ml matlab
 
 If you want to load a specific MATLAB version instead, specify it directly:
 
-```title="Terminal Input"
+```title="Yen Terminal Input"
 ml matlab/R2024a
 ```
 
-## Starting an Interactive Matlab Session
+## Starting an Interactive MATLAB Session
 
-You can start the Matlab interactive console by typing `matlab`.
+You can start the MATLAB interactive console by typing `matlab`.
 
 ```title=" Yen Terminal Input"
 matlab
@@ -60,31 +60,28 @@ For product information, visit www.mathworks.com.
  
 >> 
 ```
-### Exiting Matlab
+### Exiting MATLAB
 
 To exit matlab simply type:
-```title="Matlab Input"
+```title="MATLAB Input"
 exit
 ```
-Alternatively, you can press ++ctrl+"D"++ .
 
-## Running Matlab Scripts
+## Running MATLAB Scripts
 
-Create a simple test script named hello_world.m:
+Create a simple test script named `hello_world.m`:
 
 ```matlab title="hello_world.m"
 disp('Hello world')
 ```
 
-Save this line to a new file called `hello_world.m`. 
-
-This one-liner script can be run on the matlab interactive Yens with 
+To run this script non-interactively (without the desktop environment), use:
 
 ``` title="Terminal Input"
 matlab -nodesktop < hello_world.m
 ``` 
 
 !!! Tip
-    The `-nodesktop` option runs MATLAB without the desktop environment, which is useful when running on a remote server or over SSH.
+    The `-nodesktop` option runs MATLAB in a terminal-only mode, which is useful when working on a remote server or over SSH where graphical interfaces may not be available or convenient.
 
 
