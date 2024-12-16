@@ -33,13 +33,13 @@ These straightforward access controls make the platform flexible for both admini
 
 ### Access to Organization
 
-The GSB has their own Redivis organization ([**StanfordGSBLibrary**](https://redivis.com/StanfordGSBLibrary){:target="_blank"}) within the greater [Stanford Data Farm](https://redivis.com/Stanford){:target="_blank"} pool of organizations. To join the GSB's Redivis organization, follow [the directions on this page](https://gsb-research-help.stanford.edu/library/faq/358602){:target="_blank"}. After you join the organization, you can start using the datasets that are already available to you.
+The GSB has their own Redivis organization ([StanfordGSBLibrary](https://redivis.com/StanfordGSBLibrary){:target="_blank"}) within the greater [Stanford Data Farm](https://redivis.com/Stanford){:target="_blank"} pool of organizations. To join the GSB's Redivis organization, follow [the directions on this page](https://gsb-research-help.stanford.edu/library/faq/358602){:target="_blank"}. After you join the organization, you can start using the datasets that are already available to you.
 
-Once you have a Redivis account, you can also join the organization hosted by Stanford Libraries ([**SUL**](https://redivis.com/SUL){:target="_blank"}), which features [an array of datasets](https://redivis.com/SUL/datasets){:target="_blank"} that may be of interest to GSB researchers. Note that the set of datasets in this organization is not maintained by the GSB so you should [contact Research Data Services at SUL](https://docs.google.com/forms/d/e/1FAIpQLSetdXE6wmr5e7Qdor31lCfl9OLsKRm50Ph08tWJbRkACl9dWg/viewform){:target="_blank"} instead for support.
+Once you have a Redivis account, you can also join the organization hosted by Stanford Libraries ([SUL](https://redivis.com/SUL){:target="_blank"}), which features [an array of datasets](https://redivis.com/SUL/datasets){:target="_blank"} that may be of interest to GSB researchers. Note that the set of datasets in this organization is not maintained by the GSB so you should [contact Research Data Services at SUL](https://docs.google.com/forms/d/e/1FAIpQLSetdXE6wmr5e7Qdor31lCfl9OLsKRm50Ph08tWJbRkACl9dWg/viewform){:target="_blank"} instead for support.
 
 ### Access to Datasets
 
-There are a [number of datasets hosted in the **StanfordGSBLibrary** organization](https://libguides.stanford.edu/az.php?q=redivis){:target="_blank"} that require additional approval. You will need to apply for access to these datasets individually.
+There are a [number of datasets hosted in the StanfordGSBLibrary organization](https://libguides.stanford.edu/az.php?q=redivis){:target="_blank"} that require additional approval. You will need to apply for access to these datasets individually.
 
 ## Where Do I Start?
 
@@ -76,9 +76,9 @@ The Redivis platform is best used when you want to...
 Depending on the nature of your question, there are several places that you can go for help:
 
 - For Redivis platform-specific questions, you can join the [#redivis-users](https://stanford.enterprise.slack.com/archives/C07FT1C7MBM){:target="_blank"} Slack channel hosted for GSB researchers and ask questions there.
-- For questions about access to datasets hosted on the **StanfordGSBLibrary** Redivis organization, [email the GSB Research Data Coordination team](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"}.
+- For questions about access to datasets hosted on the StanfordGSBLibrary Redivis organization, [email the GSB Research Data Coordination team](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"}.
 - For questions about hosting your own large datasets on Redivis, [email the GSB Data, Analytics, and Research Computing (DARC) team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"}.
-- For questions about the content of specific datasets hosted on the **StanfordGSBLibrary** Redivis organization, [fill out the GSB Library Ask Us form](https://www.gsb.stanford.edu/library/research-support/ask-us){:target="_blank"}.
+- For questions about the content of specific datasets hosted on the StanfordGSBLibrary Redivis organization, [fill out the GSB Library Ask Us form](https://www.gsb.stanford.edu/library/research-support/ask-us){:target="_blank"}.
 
 !!!note
     The DARC team is happy to perform the technical work to help GSB faculty researchers host datasets on Redivis, but there are [associated storage costs on the Redivis platform](https://docs.redivis.com/reference/organizations/billing){:target="_blank"} that will need to be covered by the researcher.
