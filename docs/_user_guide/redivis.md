@@ -48,26 +48,28 @@ To start, Redivis has [extensive documentation](https://docs.redivis.com/){:targ
 We recommend watching the video below for a quick overview:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/u78wHnGibbg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+!!!tip
+    Read [our blog post](/blog/2024/12/06/introduction-to-using-redivis/){:target="_blank"} covering key use cases and helpful tips for Redivis based on our experience with the platform and working with other users.
+
 ## When Do I Use Redivis?
 
-The first place to explore data within datasets hosted in the **StanfordGSBLibrary** Redivis organization should always be the Redivis platform itself. You do not need to start by exporting entire tables within datasets or querying data via the Redivis API. 
+The Redivis platform is best used when you want to...
 
-Beyond being used for initial data exploration, the Redivis platform can also be [versatile as a research computing resource](https://docs.redivis.com/guides/analyze-data-in-a-workflow){:target="_blank"}, with the availability of BigQuery-backed [data transforms](https://docs.redivis.com/guides/analyze-data-in-a-workflow/reshape-data-in-transforms){:target="_blank"} and [Python, R, and Stata notebooks](https://docs.redivis.com/guides/analyze-data-in-a-workflow/work-with-data-in-notebooks){:target="_blank"}. However, there are scenarios where Redivis is a limited resource and research work should instead be executed on dedicated research computing systems like the [Yens](/_getting_started/yen-servers/){:target="_blank"} or [Sherlock](/_user_guide/sherlock/){:target="_blank"}. 
+- **Initially explore and query datasets hosted in the StanfordGSBLibrary Redivis organization** 
+    
+    You do not need to start by exporting entire tables within datasets or querying data via the Redivis API.
 
-The following table illustrates several scenarios and the *recommended* platform(s) for research work:
+- **Subset or aggregate large datasets (multi-TB) for further processing elsewhere** 
 
-| Scenario | Redivis | Yens | Sherlock
-| ----------- | ----------- | ----------- | ----------- 
-| Initial exploration and querying | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
-| Data filtering, subsetting, and aggregation | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
-| Basic data cleaning, such as text extraction and manipulation | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
-| Light processing with specific software (Python, R, Stata) | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
-| Heavy processing with specific software | <span style="color:red">✗</span> | <span style="color:green">✓</span> | <span style="color:green">✓</span>
-| Processing requiring a medium load of CPUs, Memory, and/or GPUs | <span style="color:red">✗</span> | <span style="color:green">✓</span> | <span style="color:green">✓</span>
-| Processing requiring a high load of CPUs, Memory, and/or GPUs | <span style="color:red">✗</span> | <span style="color:red">✗</span> | <span style="color:green">✓</span>
-| Merging with small personal datasets, like Excel spreadsheets | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
-| Merging with large personal datasets (hundreds of GBs) | <span style="color:red">✗</span> | <span style="color:green">✓</span> | <span style="color:green">✓</span>
-| Working with [High risk data](https://uit.stanford.edu/guide/riskclassifications#data-classification-examples){:target="_blank"} | <span style="color:green">✓</span> | <span style="color:red">✗</span> | <span style="color:red">✗</span>
+    Leveraging the BigQuery-backed [data transforms](https://docs.redivis.com/guides/analyze-data-in-a-workflow/reshape-data-in-transforms){:target="_blank"} within Redivis for this type of data processing will be faster and more efficient for you compared with using your laptop or the Yens.
+
+- **Merge small personal datasets, like Excel spreadsheets, with data hosted on Redivis**
+
+    With the ability to [create your own datasets](https://docs.redivis.com/guides/create-and-manage-datasets){:target="_blank"} within your own account and to [upload your own lists](https://docs.redivis.com/reference/workflows/transforms/value-lists){:target="_blank"}, you can perform dataset merging operations within the Redivis platform and forego exporting data outside Redivis.
+
+- **Work with [High risk data](https://uit.stanford.edu/guide/riskclassifications#data-classification-examples){:target="_blank"}**
+
+    Although there are other options at Stanford for working with Big Data that is classified as high risk ([Nero GCP](https://nero-docs.stanford.edu/){:target="_blank"}), Redivis is fully approved and offers performant computing resources out-of-the-box that would otherwise need to be configured on your own.
 
 ## Where Do I Ask for Help?
 
