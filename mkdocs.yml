@@ -15,6 +15,7 @@ theme:
     - content.tabs.link
     - navigation.indexes
   # - navigation.sections
+    - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.path
@@ -116,12 +117,16 @@ nav:
           - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
       - Beyond the Yens:
           - Sherlock: _user_guide/sherlock.md
+          - Redivis: _user_guide/redivis.md
   - Blog:
       - blog/index.md
 
 extra_css:
-  - stylesheets/output.css # This is the decanter css tailwind output
+#   - stylesheets/output.css # This is the decanter css tailwind output
   - stylesheets/custom.css # This is custom css
+
+extra_javascript:
+  - js/footer.js
 
 watch:
   - docs

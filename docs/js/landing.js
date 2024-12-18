@@ -10,8 +10,8 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
             sidebar.classList.add('hidden');
         }
     }
-    checkWidth();     // Call checkWidth initially in case the page loads under 1220px
-    window.addEventListener('resize', checkWidth);     // Add event listener for resizing the window
+    checkWidth(); // Call checkWidth initially in case the page loads under 1220px
+    window.addEventListener('resize', checkWidth); // Add event listener for resizing the window
 
 
     // ------------------------------------------------------
@@ -71,6 +71,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
      */
 
     var mainContainer = document.querySelector('.md-main');
+
     function updatePadding() {
         // Check if the window width is 1200px or wider
         if (window.innerWidth >= 1200) {
@@ -81,10 +82,10 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         } else {
             mainContainer.style.paddingLeft = '0';
             mainContainer.style.paddingRight = '0';
-            mainContainer.style.paddingTop = '0'; 
+            mainContainer.style.paddingTop = '0';
         }
     }
-    updatePadding();  // Apply the appropriate padding based on the current window width
+    updatePadding(); // Apply the appropriate padding based on the current window width
     window.addEventListener('resize', updatePadding); // Add event listener for resizing the window
 
     // remove transparent/black overlay
@@ -112,7 +113,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     } else {
         console.log("Required elements not found. Please check the selectors.");
     }
-       // Apply the appropriate padding based on the current window width
+    // Apply the appropriate padding based on the current window width
     updatePadding();
 
     // Add event listener for resizing the window
@@ -171,7 +172,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     /*  Move navigation tab items up vertically by moving it to where the search used to be
      *  Align the Nav items to the bottom of the cell in the grid
      *  Also Right justify the tabs
-     */ 
+     */
     var tabsList = document.querySelector('.md-tabs');
     var searchDiv = document.querySelector('.md-search[data-md-component="search"]');
 
@@ -179,12 +180,15 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         searchDiv.appendChild(tabsList); // Append the tabsList inside the searchDiv
         console.log("Tabs have been moved inside the search div.");
     } else {
-        console.log("Elements not found:", {searchDiv: searchDiv, tabsList: tabsList});
+        console.log("Elements not found:", {
+            searchDiv: searchDiv,
+            tabsList: tabsList
+        });
     }
     var tabItems = document.querySelectorAll('.md-tabs__item');
 
     if (tabItems.length > 0) {
-        tabItems.forEach(function(item) {
+        tabItems.forEach(function (item) {
             // Set the display to flex and direction to column
             item.style.display = 'flex';
             item.style.flexDirection = 'column';
@@ -201,7 +205,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
 
     var searchDiv = document.querySelector('.md-search');
     if (searchDiv) { // Ensure the search div aligns its contents to the bottom
-        searchDiv.style.alignSelf = 'flex-end';  // Aligns this item to the end of the cross axis
+        searchDiv.style.alignSelf = 'flex-end'; // Aligns this item to the end of the cross axis
     } else {
         console.log('The .md-search element was not found.');
     }
@@ -212,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     // --------------------------------------------------------------------------
     /*  Adding github and project request form buttons
      *  Uses the div/grid cell formerly occupied by the search bar
-     */ 
+     */
     var tabsList = document.querySelector('.md-tabs__list');
     if (tabsList) {
         // Create a container for the buttons
@@ -231,7 +235,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         githubButton.textContent = 'GSB DARC Github';
         githubButtonLi.appendChild(githubButton);
         githubButton.id = 'github-button'
-        githubButton.addEventListener('click', function() {
+        githubButton.addEventListener('click', function () {
             window.open('https://github.com/gsbdarc', '_blank'); // Set the URL here
         });
 
@@ -242,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         servicesButtonLi.style.marginLeft = '10px'; // Space between the buttons
         servicesButtonLi.appendChild(servicesButton);
         servicesButton.id = 'request-services-button'
-        servicesButton.addEventListener('click', function() {
+        servicesButton.addEventListener('click', function () {
             window.open('https://darcrequest.stanford.edu/', '_blank'); // Set the URL here
         });
         // Append buttons to the list container
@@ -262,5 +266,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     } else {
         console.log('The .md-tabs__list element was not found.');
     }
+
 
 });
