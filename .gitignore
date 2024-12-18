@@ -169,6 +169,8 @@ cython_debug/
 # Random
 .gitignore.swp
 .swp
+.docs/.DS_Store
+.DS_Store
 
 # folders
 data/
