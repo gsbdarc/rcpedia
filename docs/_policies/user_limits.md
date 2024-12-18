@@ -4,6 +4,10 @@
 
 The Yens are designed to enable considerable computational usage on our "login" or "interactive" nodes.
 
+!!! info "Jupyter and Interactive Node Limits"
+    - **Jupyter Limits**: Jupyter notebooks are subject to the same CPU and RAM limits as the interactive nodes, but may also be affected by inactivity policy.
+    - **Interactive Node Usage**: Users can have both Jupyter notebooks and other scripts running on the same interactive node (e.g., `yen2`). The CPU and RAM limits are counted **separately** for JupyterHub and scripts started interactively, even if both are using the same node. This means resource usage for Jupyter does not count against the limits for your other interactive work, and vice versa.
+
 As such, we have imposed guidelines for users to follow on these shared systems, depending on the resources of the underlying machine:
 
 <div class="row">
@@ -36,7 +40,7 @@ Jobs submitted to [Yen Slurm](/_user_guide/slurm/){target="_blank"} have the fol
 The maximum job array size is set to **512** on Yen-Slurm.
 
 !!! note
-    We set these limits to best meet the needs of the community within the constraints of our current system configuration. If you believe these need to be adjusted, please [let us know](mailto:gsb_darcresearch@stanford.edu){target="_blank"}
+    We set these limits to best meet the needs of the community within the constraints of our current system configuration. If you believe these need to be adjusted, please [let us know](mailto:gsb_darcresearch@stanford.edu){target="_blank"}.
 
 ## Storage Limits
 

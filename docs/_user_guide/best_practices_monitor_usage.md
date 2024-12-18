@@ -3,7 +3,7 @@ Monitoring your resource usage is important to be a good citizen of the GSB Rese
 
 These tools can help you characterize your usage:
 
-- **`htop`** allows you to get an overview of the activity on the whole system that you are logged into. 
+- **`htop`** allows you to get an overview of the activity on the whole node that you are logged into. 
 - **`userload`** is a custom tool that allows you to monitor CPU and RAM usage in a simplified view.
 - **`topbyuser`** is another custom tool that lists out the active users on your current host and the amount of resources they are currently using.
 
@@ -13,19 +13,19 @@ These tools can help you characterize your usage:
 ## Monitoring Compute with `htop`
 One easy method of getting a quick snapshot of your CPU and memory usage is via the `htop` command line tool. Running `htop` shows usage graphs and a process list that is sortable by user, top CPU, top RAM, and other metrics. Please use this tool liberally to monitor your resource usage, especially if you are running multiprocessing code on shared systems for the first time.
 
-You can toggle between a threaded view of processes by pressing ++t++ -- here is sample `htop` output in threaded mode.
+You can toggle to a threaded view of processes by pressing ++t++. Below is a sample of `htop` output in threaded mode.
 
 ![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
 
-!!! warning "Jobs may be automatically killed"
+!!! danger "Jobs may be automatically killed"
     Note that jobs that exceed user limits may be terminated automatically to preserve the integrity of the system.
 
 ## User Limits and Multiprocessing
 
-Per our [Community Guidelines](/_policies/user_limits){target="_blank"}, CPU usage should always be limited based on system size. When working with implicitly or explicitly *multiprocessed* code, care must be taken to ensure your code does not use every available processor.
+Per our [User Limits](/_policies/user_limits){target="_blank"}, CPU usage should always be limited based on system size. When working with implicitly or explicitly *multiprocessed* code, care must be taken to ensure your code does not use every available processor.
 Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/best_practices_parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
 
-Be sure to monitoring your processes, particularly when using a new package, to verify that you are using the expected number of cores.
+Be sure to monitor your processes, particularly when using a new package, to verify that you are using the expected number of cores.
 
 ## Monitoring Disk Usage
 Personal home directories have a 50 GB quota, while faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much larger. 
@@ -68,10 +68,10 @@ Here we present an example in R, to illustrate monitoring code running on multip
 
 To monitor the resource usage while running a program, we will need *three* terminal windows that are all connected to the **same** Yen server.
 
-`ssh` to `yen3` in the first terminal window.
+Start by `ssh`'ing into any of the interactive yens in the first terminal window:
 
 ```bash title="Terminal 1 Command"
-ssh yen3.stanford.edu
+ssh yen.stanford.edu
 ```
 
 Check what Yen you are connected to in the first terminal:
@@ -80,11 +80,11 @@ Check what Yen you are connected to in the first terminal:
 hostname
 ```
 
-```{.yaml .no-copy title="Terminal 1 Output"}
+```{.yaml .no-copy title="Terminal 1 Output Example"}
 yen3
 ```
 
-Then `ssh` to the same Yen in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
+Then `ssh` to the **same** Yen in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
 
 ```bash title="Terminal 2,3 Command"
 ssh yen3.stanford.edu
@@ -148,15 +148,20 @@ summary(results)
 hist(results, main = 'NPV distribution')
 ```
 
-Once you have three terminal windows connected to the same Yen, run the `investment-npv-parallel.R` program after loading the R module in one of the terminals:
+Once we have three terminal windows connected to the same Yen, we are ready to run the script and monitor its resource consumption. In one of the terminals, load the R module:
 
 ```bash title="Terminal 1 Command"
 ml R
+```
+ 
+!!! Note "Install the Necessary Packages"
+    The above script relies on two R packages - `foreach` and `doParallel`. If you have not previously installed them for the version of R that you have loaded, you can install them by running the following command in the R console: `install.packages(c("foreach", "doParallel"))`. See [this page](/_user_guide/r/#installing-r-packages){:target=_blank} for details on how to manage R packages on the Yens. 
+
+In the same terminal where you loaded the R module, run the `investment-npv-parallel.R` program: 
+
+```bash title="Terminal 1 Command"
 Rscript investment-npv-parallel.R
 ```
-
-!!! Notes
-    If you have not installed `foreach` and `doParallel` packages. You have to run these commands after loading `r`: `install.packages("foreach")` and `install.packages("doParallel")`
 
 Once the program is running, monitor your usage with `userload` command in the second window:
 
@@ -164,9 +169,9 @@ Once the program is running, monitor your usage with `userload` command in the s
 watch -n 1 userload
 ```
 
-While the program is running, you should see about 8 CPU cores being utilized in `userload` output. Note that the `watch` command allows you to see the real time CPU cores count every 1 second.
+While the program is running, you should see about 8 CPU cores being utilized in `userload` output. Note that the `watch` command allows you to see the real time CPU cores count every second.
 
-![Resource monitoring during parallel run](/assets/images/monitor_userload_r_8_cores.png)
+![Resource monitoring during parallel run with userload](/assets/images/monitor_userload_r_8_cores.png)
 
 Run `htop -u $USER` in the third window, where `$USER` is your SUNetID:
 
@@ -175,4 +180,6 @@ htop -u $USER
 ```
 
 While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program.
-![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
+![Resource monitoring during parallel run with htop](/assets/images/monitor_htop_r_8_cores.png)
+
+In summary, effective monitoring of your resource usage on the Yens ensures that you stay within system limits, maintain performance, and contribute to a fair and efficient computing environment for all users. By leveraging tools like `htop`, `userload`, and `gsbquota`, you can proactively manage your resource consumption. 
