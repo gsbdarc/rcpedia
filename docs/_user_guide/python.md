@@ -16,27 +16,26 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 ```
 
-This will load the system Python version (Python-3.10.12) 
+This will load the system Python version (Python 3.10.12) 
 
 To exit the Python interpreter, type `exit()` or press ++ctrl+"D"++ .
 
 
-
-!!! Tip 
-    If you need a specific version of python we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
+!!! Important "Use a Virtual Environment to Manage Packages!"
+    If you need a specific version of python and to install python packages, we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
 
 ### Running Python Scripts
 
 #### 1. Create a Python Script 
 
-Let's create the classic "Hello, World!" script. Create a file named hello.py with the following content:
+Let's create the classic "Hello, World!" script. Create a file named `hello.py` with the following content:
 
 ```title="hello.py"
 print("Hello, World!")
 ```
 
-!!! Tip
-    - **Using JupyterHub**: If you're logged into JupyterHub, you can create and edit this file using the built-in text editor.
+!!! Tip "Open a Text Editor"
+    - **Using JupyterHub**: If you're logged into JupyterHub, you can create and edit this file using the built-in [text editor](/_getting_started/jupyter/#text-file-editor){:target=_blank}.
     - **Using the Command Line**: If you're using the command line, you can create this file using [`vim hello.py`](/blog/2023/09/20/editing-files-on-the-command-line){:target="_blank"} or another text editor.
     ```title="Terminal Input"
     vim hello.py
