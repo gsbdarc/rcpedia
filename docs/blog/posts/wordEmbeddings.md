@@ -113,6 +113,6 @@ Embeddings power modern recommenders through:
 - User preference modeling
 
 ## Implementation Tips
-- Consider using pre-trained embeddings like Word2Vec, GloVe, or BERT
-- Evaluate the appropriate embedding dimensionality based on your vocabulary size and the task at hand
-- Consider fine-tuning pre-trained models to better suit your specific task
+- Consider using pre-trained embedding models like Word2Vec, GloVe, or BERT.
+- Evaluate the appropriate embedding dimensionality based on your vocabulary size and the task at hand.
+- Consider fine-tuning pre-trained models to better suit your specific task.
