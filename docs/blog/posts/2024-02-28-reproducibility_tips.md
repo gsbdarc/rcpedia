@@ -1,7 +1,6 @@
 ---
 date:
   created: 2024-02-28
-  updated: 2024-11-18
 categories:
     - Reproducibility
     - Research
@@ -19,13 +18,10 @@ This guide provides the foundational components needed to ensure reproducibility
 - Managing computational environments
 - Summary with additional resources
 - Advanced topics
-<<<<<<< HEAD
 
 <!-- more -->
-=======
->>>>>>> d807b806 (edit the reproducibility tips page)
 
-There is also a **Research Computing and Reproducible Research** presentation available in the [Research Hub Training & Workshops](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"}. You can search for it, and you will find a one-hour video, presentation slides, and a code link.
+There is also a **Research Computing and Reproducible Research** presentation available in the [Research Hub Training & Workshops](https://gsbresearchhub.stanford.edu/training-workshops?search=reproducible){target="_blank"}. There is a one-hour video, presentation slides, and a code link.
 
 ## Documenting Fixed Inputs and Expected Outputs
 
@@ -96,26 +92,13 @@ Investing in thorough documentation and environment management pays off by makin
 
 Taking these steps ensures your research can be understood, validated, and built upon for years to come, significantly enhancing its impact.
 
-<<<<<<< HEAD
 ## Additional Resources
 
-- [Guide to Project Management](https://experimentology.io/013-management.html){target="_blank"}:<br>
-Strategies for data organization, FAIR principles, and ethical constraints in sharing research materials.
+- [Guide to Project Management](https://experimentology.io/013-management.html){target="_blank"}: Strategies for data organization, FAIR principles, and ethical constraints in sharing research materials.
 
-- [Software Carpentry Git Guide](https://swcarpentry.github.io/git-novice/aio.html){target="_blank"}:<br>
-Introductory and advanced topics on version control with Git.
+- [Software Carpentry Git Guide](https://swcarpentry.github.io/git-novice/aio.html){target="_blank"}: Introductory and advanced topics on version control with Git.
 
-=======
-### Additional Resources
-- [Guide to Project Management](https://experimentology.io/013-management.html){target="_blank"}:<br>
-Strategies for data organization, FAIR principles, and ethical constraints in sharing research materials.
-
-- [Software Carpentry Git Guide](https://swcarpentry.github.io/git-novice/aio.html){target="_blank"}:<br>
-Introductory and advanced topics on version control with Git.
-
->>>>>>> d807b806 (edit the reproducibility tips page)
-- [The Dataverse Project](https://dataverse.org/){target="_blank"}:<br>
-Open-source repository software for research data management and sharing.
+- [The Dataverse Project](https://dataverse.org/){target="_blank"}: Open-source repository software for research data management and sharing.
 
 ## Advanced Topics 
 - **Comprehensive Documentation**: Use tools like Sphinx for Python projects to create detailed documentation websites from code docstrings.
