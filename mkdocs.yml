@@ -1,9 +1,10 @@
-site_name: Research Computing
+site_name: Research Hub
+site_subtitle: Research Computing Resources
 site_url: https://rcpedia-dev.stanford.edu
 theme:
   name: material
   custom_dir: overrides
-  logo: assets/images/gsb-logo-color.webp
+  logo: assets/images/gsb-logo-color.png
   favicon: assets/images/stanford-favicon.png
   features:
     - announce.dismiss
@@ -14,6 +15,7 @@ theme:
     - content.tabs.link
     - navigation.indexes
   # - navigation.sections
+    - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
     - navigation.path
@@ -60,11 +62,14 @@ markdown_extensions:
     - pymdownx.emoji
     - pymdownx.superfences  
     - pymdownx.details
+    - pymdownx.keys
     - pymdownx.tabbed:
         alternate_style: true
 
 nav:
-  - Home: index.md
+  - Home:
+      - Home: index.md
+      - Services: services.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
       - Access the Yens: _getting_started/how_access_yens.md
@@ -72,7 +77,6 @@ nav:
       - Modules: _getting_started/modules.md
   - Policies: 
       - User Limits: _policies/user_limits.md
-      - Services: _policies/services.md
       - Collaborators: _policies/collaborators.md
       - Workgroups: _policies/workgroups.md
       - Security: _policies/security.md
@@ -80,6 +84,7 @@ nav:
       - Acknowledgements: _policies/acknowledgements.md
       - Leaving GSB: _policies/leavingGSB.md
   - User Guide: 
+      - Home: _user_guide/index.md
       - General Practices:
           - Archive: _user_guide/best_practices_archive.md
           - File Management: _user_guide/best_practices_file_management.md
@@ -92,42 +97,37 @@ nav:
           - Job Arrays: _user_guide/job_arrays.md
           - GPU Slurm Jobs: _user_guide/best_practices_gpu.md
       - Python:
+          - Running Python Interactively: _user_guide/python.md
           - Python Virtual Environments: _user_guide/best_practices_python_env.md
           - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
       - R:
+          - Running R Interactively: _user_guide/r.md
+          - RStudio: _user_guide/rstudio.md
           - Best Practices in R: _user_guide/best_practices_r.md
-      - Julia:
-          - Running Julia Interactively: _user_guide/julia.md
-      - Optimization Software:
-          - Optimization: _user_guide/best_practices_optimization.md
+      - Matlab: _user_guide/matlab_interactive.md
+      - Julia: _user_guide/julia.md
+      - SAS: _user_guide/sas.md          
+      - Optimization Software: _user_guide/best_practices_optimization.md
+      - Data:
+          - Storage: _user_guide/storage.md
+          - Data Transfer: _user_guide/data_transfer.md      
       - Troubleshooting:
           - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
           - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
           - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
-      - Data:
-          - Storage: _user_guide/storage.md
-          - Data Transfer: _user_guide/data_transfer.md
+      - Beyond the Yens:
+          - Sherlock: _user_guide/sherlock.md
+          - Redivis: _user_guide/redivis.md
   - Blog:
       - blog/index.md
-      # - Run Jobs on Yen's GPU Node: blog/posts/2024-04-25-yen_gpu.md
-      # - Train BERT model on Yen GPU's: blog/posts/2024-03-28-finBERT.md 
-      # - Run on GPU: blog/posts/2024-03-28-run-gpu.md
-      # - Reproducible Research Essentials: blog/posts/2024-02-28-reproducibility_tips.md 
-      # - Edit Files on Command Line: blog/posts/2023-09-20-edit-files-with-vim.md
-      # - How to use Rclone: blog/posts/2023-09-18-rclone.md
-      # - How do I export my R environment to JupyterHub?: blog/posts/2023-08-23-howRenvJupyterKernel.md
-      # - How do I extract compressed files?: blog/posts/2023-08-18-how_to_uncompress.md
-      # - Using Twarc Python Package to Scrape Twitter: blog/posts/2023-08-08-using_twarc.md
-      # - SEC Filings: blog/posts/2023-05-16-EDGARmirror.md
-      # - Merging Datasets in Dask: blog/posts/2023-02-09-merging_data_sets_dask.md
-      # - Installing Software on the Yens: blog/posts/2022-11-14_installing_software.md
-      # - Working with Large Zip Files in Python: blog/posts/2022-10-10_zipfile_guide.md
-      # - How Do I Access SEC Documents?: blog/posts/2021-09-22-how_access_SEC.md 
-      # - How Do I Install Stata on JupyterHub?: blog/posts/2022-02-24-install-stata-on-jupyter.md
-      # - What is a man-in-the-middle warning?: blog/posts/2020-03-13-man_in_middle.md
-
-#extra:
 
 extra_css:
-  - stylesheets/output.css # This is the decanter css tailwind output
+#   - stylesheets/output.css # This is the decanter css tailwind output
   - stylesheets/custom.css # This is custom css
+
+extra_javascript:
+  - js/footer.js
+
+watch:
+  - docs
+  - overrides

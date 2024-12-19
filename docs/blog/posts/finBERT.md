@@ -15,6 +15,8 @@ authors:
 
 In this example, we train a transformer model for sentiment analysis on financial news using Stanford GSB's Yens GPU partition. This task can provide insights into market movements based on news sentiment. 
 
+<!-- more -->
+
 !!! note
     This is a basic example. In a real-world scenario, you'd use a large dataset, fine-tune the model more thoroughly, and handle additional considerations.
 
