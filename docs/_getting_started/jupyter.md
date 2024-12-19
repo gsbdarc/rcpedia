@@ -18,7 +18,7 @@ updateDate: 2020-02-13
 
 # Web-based Computing
 
-Web-based computing is now available on the Yen servers with [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/)!  JupyterHub is a platform designed to allow multiple users to launch their own Jupyter notebook servers on a shared system with minimal user effort. Our implementation of JupyterHub currently features several language kernels including Python 3, R, and SAS.
+Web-based computing is now available on the Yen servers with [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/){:target="_blank"}!  JupyterHub is a platform designed to allow multiple users to launch their own Jupyter notebook servers on a shared system with minimal user effort. Our implementation of JupyterHub currently features several language kernels including Python 3, R, and SAS.
 
 ## Getting Started
 
@@ -32,7 +32,7 @@ To get started, open a web browser and visit one of the following links for each
 
 You will need to login with your SUNet credentials, and then `Launch Server`. From there, you will have access to the web-based computing services available.
 
-If you are a non-GSB collaborator and don't have a SUNet, you must request full sponsorship to access Jupyter. You can learn more about SUNet ID sponsorship [here](https://uit.stanford.edu/service/sponsorship).
+If you are a non-GSB collaborator and don't have a SUNet, you must request full sponsorship to access Jupyter. You can learn more about SUNet ID sponsorship [here](https://uit.stanford.edu/service/sponsorship){:target="_blank"}.
 
 !!! important
     JupyterHub instances on each `yen` server are independent of each other! If you launch a server on `yen2`, it will only use resources available on `yen2`
@@ -41,25 +41,27 @@ If you are a non-GSB collaborator and don't have a SUNet, you must request full 
     JupyterHub does not work well on Safari - we recommend using a different browser
 
 
-## Features of JupyterHub
+## Features Of JupyterHub
 
-We recommend taking a look at the [official documentation](https://jupyter-notebook.readthedocs.io) for JupyterHub if you have any questions on the features below!
+We recommend taking a look at the [official documentation](https://jupyter-notebook.readthedocs.io){:target="_blank"} for JupyterHub if you have any questions on the features below!
 
 ### Notebooks
 -----------
-![](/assets/images/jupyter_notebooks.png "Notebooks")
+![row of icons of softwares in Notebooks](/assets/images/jupyter_notebooks.png)
 
-Notebooks allow you to write code and execute it within a web browser.  Code is written into cells, which can be run in any order, on demand.  You can also include text, images, and plots to make your code read like a lab notebook.  As of March 2020, the above coding languages are supported. Contact the [DARC team](mailto:gsb_darcresearch@stanford.edu) if you have a language you would like installed
+Notebooks allow you to write code and execute it within a web browser.  Code is written into cells, which can be run in any order, on demand.  You can also include text, images, and plots to make your code read like a lab notebook.  As of December 2024, the above coding languages are supported. Contact the [DARC team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"} if you have a language you would like installed
 
 ### RStudio
 -----------
-![](/assets/images/jupyter_rstudio.png "RStudio")
-
+![RStudio](/assets/images/jupyter_rstudio.png)
+!!! note
+    RStudio currently takes ~1 minute to load
+    
 RStudio is also available! Clicking this link will bring up a new tab with a web-based RStudio on the Yens.
 
 ### SAS
 -----------
-![](/assets/images/sas-jupyter_notebooks.png "SAS")
+![SAS](/assets/images/sas-jupyter_notebooks.png)
 
 There are a few preliminary steps that need to be taken before SAS can be used on Yens/notebooks.
 
@@ -71,14 +73,14 @@ There are a few preliminary steps that need to be taken before SAS can be used o
 * Restart JupyterHub and start a new notebook with the SAS kernel. After running your first cell, the output should show a successful connection to SAS.
 
 
-### I don't see Julia on my JupyterHub!
+### Julia
 ---------------------------------------
 <!--
 See our [User Guide](/_user_guide/best_practices_julia_jupyter/) on how to install it!
 -->
-#### Step 1: Log onto the Yens via ssh
+Step 1: Log onto the Yens via ssh
 
-#### Step 2: Load and run Julia
+Step 2: Load and run Julia
 
 Use the following commands:
 
@@ -87,30 +89,27 @@ module load julia
 julia
 ```
 
-#### Step 3: Load IJulia for notebooks
+Step 3: Load IJulia for notebooks
 
 You should now be at an interactive Julia console.  Run the following Julia commands:
 
-```julia
+```.julia title="Julia Commands"
 using Pkg
 Pkg.add("IJulia")
 ```
 
-#### Step 4: Relaunch JupyterHub
+Step 4: Relaunch JupyterHub
 
 Restart your JupyterHub server, and you should see Julia listed as a notebook kernel.
 
-!!! tip
-    Learn more about JupyterHub on the Yens [here](/yen/webBasedCompute.html)
-
-#### Optional: Multithreaded Julia kernel
+Optional: Multithreaded Julia kernel
 The steps above install Julia kernel that will use a single core on JupyterHub on the Yens. 
 
 If you want to run multithreaded Julia kernel, you can install it by running the following
 in the interactive Julia console. Choose the number of threads for the kernel to be less than 12
-as per [Yen Community Guidelines](/yen/community.html).
+as per [user limits](/_policies/user_limits/){:target="_blank"}.
 
-```julia
+```julia title="Julia Commands"
 using IJulia
 IJulia.installkernel(
     "julia-mp", 
@@ -121,7 +120,7 @@ IJulia.installkernel(
 Once you launch JupyterHub and the new multithreaded Julia kernel, check that you are using the 
 correct number of threads:
 
-```julia
+```julia title="Output"
 Threads.nthreads()
 4
 ```
@@ -130,44 +129,26 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
 
 ### Stata
 ---------
-#### Step 1: Log onto the Yens via ssh
+Step 1: Log onto the Yens via ssh
 
-#### Step 2: Install Miniconda
-We are going to use a personal installation of miniconda because Anaconda3 module conda version has a known bug.
-
-```title="Terminal Command"
-wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-chmod +x Miniconda3-latest-Linux-x86_64.sh
-./Miniconda3-latest-Linux-x86_64.sh
-conda config --set auto_activate_base false 
-```
-
-Now that miniconda is installed, add path to miniconda to your bash profile:
-
-```title="Terminal Command"
-echo 'export PATH=$HOME/miniconda3/bin:$PATH' >> ~/.bash_profile
-source ~/.bash_profile
-```
-
-
-#### Step 3: Load Stata and Anaconda modules
+Step 2: Load Stata
 
 ```title="Terminal Command"
 # loading stata module adds correct path to stata bin
 ml statamp/17
 ```
 
-#### Step 4: Make a new conda environment
+Step 3: Make a new venv environment
 
 ```title="Terminal Command"
 # create a new conda env for the stata kernel and install necessary packages
-conda create -n stata_kernel 
+/usr/bin/python3 -m venv stata_kernel 
 
 # activate env
-source activate stata_kernel
+source stata_kernel/bin/activate
 
 # install stata kernel and jupyter
-conda install -c conda-forge -c defaults stata_kernel jupyter 
+conda install stata_kernel jupyter 
 
 # install Stata kernel to Jupyter
 python -m stata_kernel.install
@@ -186,15 +167,15 @@ stata_path = /software/non-free/stata17/stata-mp
 ```
 If you don't see `stata_path= /software/non-free/stata17/stata-mp`, or it goes to a different path, edit the `.stata_kernel.conf` file so that it points to the path listed above.
 
-#### Step 5: Start JupyterHub
+Step 5: Start JupyterHub
 
 You should now see Stata kernel under Notebooks:
 
-![](/assets/images/stata-kernel.png)
+![Stats Kernel](/assets/images/stata-kernel.png)
 
 Let's test that Stata works. Open a new Stata notebook and run:
 
-![](assets/images/test-stata-kernel.png)
+![Testing Stata kernel](/assets/images/test-stata-kernel.png)
 
 If you need to uninstall a particular Jupyter kernel, run:
 
@@ -208,38 +189,36 @@ jupyter kernelspec uninstall mykernel
 
 ### Consoles and Terminal
 -------------------------
-![](/assets/images/jupyter_consoles.png "Consoles")
+![Consoles](/assets/images/jupyter_consoles.png)
 
 You can also launch interactive consoles from JupyterHub.  These will behave very similar to the versions on the Yen servers.
 
-![](/assets/images/jupyter_terminal.png "Terminal")
+![Terminal](/assets/images/jupyter_terminal.png)
 
 You can also launch a bash terminal from JupyterHub.  This provides access to commands you would normally run on the Yens, but through the web browser.
 
 !!! warning
-    This is not the same as the log in terminal via ssh.  You should not do the following: ssh, installing software, and evaluating the contents of /tmp
+    You may notice slight differences between the Jupyter terminal and a standard ssh login terminal. Please use a traditional ssh terminal to build, install and configure software. If you experience any unexpected behavior in the Jupyter terminal, please log in using ssh and try again.
 
 ### File Upload and Download
 ----------------------------
-![](/assets/images/jupyter_upload.png "File Upload")
+![File Upload](/assets/images/jupyter_upload.png)
 
 One very useful feature of JupyterHub is the ability to upload and download files from ZFS.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.
 
-![](/assets/images/jupyter_download.png "File Download")
+![File Download](/assets/images/jupyter_download.png)
 
 To download, right click the file you would like, and click "Download".
 
 
 ### Text File Editor
 -------------------------
-![](/assets/images/editor.png)
+![Editor](/assets/images/editor.png)
 
 Finally, you can also edit text files like R scripts directly on JupyterHub. Clicking on Text File icon will open a new file that you can edit. Similarly, clicking on Python File will create an empty `.py` file and clicking on R File will create an empty `.r` file.
 You can also navigate to a directory that has the scripts you want to edit and double click on the script name to open it up in the Text Editor.
 
-For example, try to navigate to `intro_yens_sep_2023` folder in file brower first then double click on `investment-npv-parallel.R` file to open it in the text editor:
-![](/images/edit-r-script.png)
-
+![Editor for r script](/assets/images/edit-r-script.png)
 
 
 ## Technical Details
@@ -250,7 +229,7 @@ The JupyterHub instances will automatically launch from your home directory on t
 
 ### Installing Packages
 -----------------------
-JupyterHub will load packages found in your `~/.local/` directory.  We recommend using enviornments to install packages.  You can review the [User Guide](/_user_guide/best_practices_python_env.md/) for pythong packages and install R packages via R in a ssh session.
+JupyterHub will load packages found in your `~/.local/` directory.  We recommend using environments to install packages.  You can review the [User Guide](/_user_guide/best_practices_python_env/){:target="_blank"} for python packages and install R packages via R in a ssh session.
 
 ### Technical Limits
 ------------
@@ -262,7 +241,7 @@ JupyterHub instance will shut down after 3 hours idle (no notebooks actively run
 !!! warning
     Idle servers shut down will not retain any local packages or variables in the notebooks.  Please save your output
 
-If your processes require more than these limits, reach out to the [DARC team](/_policies/services/) for support.
+If your processes require more than these limits, reach out to the [DARC team](/_policies/services/){:target="_blank"} for support.
 
 <!--
 ---
@@ -303,6 +282,9 @@ If installed correctly, you should see:
 Installed kernelspec interm-yens in /home/users/$USER/.local/share/jupyter/kernels/interm-yens
 ```
 where `$USER` is your username.
+
+
+
 <!-- ```bash
 Installed kernelspec interm-yens in /home/users/$USER/.local/share/jupyter/kernels/interm-yens
 ```
