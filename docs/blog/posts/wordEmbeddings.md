@@ -1,11 +1,13 @@
 ---
 date:
   created: 2020-03-04
+  updated: 2024-12-15
 categories:
     - Machine Learning
     - GPU
 authors:
     - bchivers
+    - jeffotter
 
  
 ---
