@@ -1,0 +1,12 @@
+{% extends "main.html" %} 
+
+<!-- Custom Home Styling -->
+{% block extrahead %}
+  <link rel="stylesheet" href="{{ 'stylesheets/landing.css' | url }}" />
+{% endblock %}
+
+<!-- Home-page-related JavaScript -->
+{% block scripts %}
+  {{ super() }} <!-- <===== this is needed so the search works -->
+<script src="{{ '/js/landing.js' | url }}"></script>
+{% endblock %}

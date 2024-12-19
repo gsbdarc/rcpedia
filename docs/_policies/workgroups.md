@@ -1,29 +1,27 @@
 # Workgroup Management
+
 ## What is a Workgroup?
 
-The [Stanford Workgroup Manager](https://workgroup.stanford.edu/) is a web interface that gives Stanford community members a place to define a group of other community members based on their SUNet IDs for use in various applications. A workgroup is given a name that uniquely identifies it and succintly describes its purpose. Relevant to the Yens, the Workgroup Manager helps control access to individual [project space](/services/newProject.html) on ZFS (ex: `gsb-rc:[faculty-SUNet]-[projectname]`).
+The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succinctly describes its purpose. 
 
-## Adding/Removing Users to your Workgroup
-If you are an Administrator of a workgroup, you can use the Workgroup Manager interface to easily add users to and remove users from that workgroup. Adding users to a workgroup immediately grants them permissions to whatever resource that workgroup controls access to. Likewise, removing users revokes those permissions. You might want to do this if you no longer want someone to have access to your project space or as part of regular auditing of external collaborators you have sponsored access to the Yens for.
+Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/services){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
 
-Users can be added as Members and/or Administrators of a workgroup. While Members are simply granted permission to the resource controlled by the workgroup, Administrators have the power to add *other* users as Members/Administrators to the workgroup.
+If you are unsure of the workgroup associated with your directory, please check your confirmation email from the initial project space creation or reach out to the [DARC team](mailto:gsb_darcresearch@stanford.edu) for assistance.
 
-!!! warning
-    Given that Administrators of a workgroup have the power to add other users, please be mindful of who you grant Administrator privileges to. It is *your responsibility* to audit both the Administrators and Members of your workgroup.
+!!! Warning
+    It may take up to 24 hours for a workgroup membership to propagate to the Yens.
 
+## How to Add or Remove Users to Your Workgroup?
 
-For instructions on how to perform these operations, use this [helpful page](https://uit.stanford.edu/service/workgroup/add-remove-members) created by Stanford UIT that illustrates these processes with screenshots.
+If you are an Administrator of a workgroup, you can use the Stanford Workgroup Manager to easily add users to and remove users from that workgroup. Adding users to a workgroup immediately grants them permissions to whatever resource that workgroup controls access to. Likewise, removing users revokes those permissions. You might want to do this if you no longer want someone to have access to your project space or as part of regular auditing of external collaborators you have sponsored access to the Yens for.
 
-## Other Page
-### How Do I Add a Collaborator to my Yen Project Space?
-Adding (and removing) members to your project space is self-service for project administrators.  All you have to do is add a collaborator to the Workgroup that is tied to the project.
+Users can be added as Members and/or Administrators of a workgroup. While Members are simply granted permission to the resource controlled by the workgroup, Administrators have the power to add other users as Members/Administrators to the workgroup.
 
-!!! tip 
-     If your collaborator is new to the Yens, you can learn how to sponsor them [here](/yen/Collaborators.html).
+For instructions on how to perform these operations, refer to this [helpful page](https://uit.stanford.edu/service/workgroup/add-remove-members){:target="_blank"}, created by Stanford UIT. which illustrates these processes with detailed screenshots.
 
-!!! important.html
-    Full SUNet ID sponsorship is required for access to [JupyterHub](/yen/webBasedCompute.html).
+!!! Warning
+    Administrators of a workgroup have the power to add **other** users. Please be cautious about whom you grant Administrator privileges to, as it is **your responsibility** to audit both the Administrators and Members of your workgroup.
 
-Your workgroup should have a name that is clear from the name of your project space.  For example, if your project is stored at `/zfs/projects/faculty/jdoe-housing`, there will be a workgroup called `gsb-rc:jdoe-housing`.
+## How to Add a Collaborator to Your Yen Project Space?
 
-Faculty and students should use the [workgroup manager](https://workgroup.stanford.edu) to add members, and optionally, administrators to their projects.  This is the same system used for [yen access](/_policies/collaborators).  For step-by-step instructions on how to use the workgroup manager, see our [workgroup guide](/yen/workgroups.html).
+Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators){:target="_blank"}.
