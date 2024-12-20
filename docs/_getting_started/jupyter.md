@@ -158,7 +158,8 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
     ```
     After you type the above in your terminal, you should see:
 
-    ```{.stata .yaml .no-copy }
+    ```{.stata .yaml .no-copy title="Terminal Output"}
+
     [stata_kernel]
     
     stata_path = /software/non-free/stata17/stata-mp
@@ -184,7 +185,7 @@ jupyter kernelspec list
 ```
 
 Then, to uninstall a kernel called `mykernel`, run:
-```
+```title="Terminal Command"
 jupyter kernelspec uninstall mykernel
 ```
 
