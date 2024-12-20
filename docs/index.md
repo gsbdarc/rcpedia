@@ -1,6 +1,6 @@
 ---
 title: Home # this title has to be overwritten in js
-template: landing.html
+template: home.html
 hide:
   - navigation
   - toc
