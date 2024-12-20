@@ -5,11 +5,15 @@ categories:
     - Performant Code
     - Parallelization 
     - Code Optimization Tips 
+authors:
+    - astorer
 ---
 
 # Optimizing Performance on the Yens
 
 As you migrate your code from a local machine to the Yen servers, you may notice some differences in performance. Due to the shared nature of our architecture, adapting your code can help maximize efficiency and take full advantage of the available resources.
+
+<!-- more -->
 
 ## Tips for Improving Performance
 ### Minimize Disk Writes
