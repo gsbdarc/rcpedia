@@ -11261,6 +11261,7 @@ td.fas:before {
     padding: 15px 20px; /* Ensure sufficient padding */
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transitions */
     cursor: pointer; /* Add pointer cursor on hover */
+    text-decoration: none;
 }
 
 /* Hover Effect */
@@ -11268,17 +11269,22 @@ td.fas:before {
     background-color: #7E2F49; /* Fill background with #7E2F49 */
     color: white; /* Change text to white */
     box-shadow: inset 0 0 0 0px #7E2F49; /* Remove inset border effect */
+    text-decoration: underline;
 }
 
 .inline-icon {
     width: 18px; /* Icon width */
     height: 18px; /* Icon height */
-    fill: #B1040E; /* Default icon color */
-    transition: fill 0.3s ease; /* Smooth transition */
+    background-color: #B1040E; /* Default icon color */
+    transition: background-color 0.3s ease; /* Smooth transition */
+    mask: url('/assets/svg/slack-icon-stroke.svg') no-repeat center;
+    -webkit-mask: url('/assets/svg/slack-icon-stroke.svg') no-repeat center; /* For Safari */
+    mask-size: contain; /* Ensure the SVG scales correctly */
+    -webkit-mask-size: contain;
 }
 
 #join-slack-btn:hover .inline-icon {
-    fill: white; /* Change color on hover */
+    background-color: white; /* Change color on hover */
 }
 
 #local-footer-span1 {
