@@ -30,6 +30,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
 
         // Create a new div to serve as the parent for both the search form and the search results
         var parentDiv = document.createElement('div');
+        parentDiv.id = "searchBarParentDiv"
         parentDiv.style.position = 'relative'; // Position relative so children can be positioned absolutely within
         parentDiv.style.width = '100%'; // Take full width of its container
 
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     // ------------------------------------------------------
     // ----------------- IMPROVING SEARCH UI ----------------
     // ------------------------------------------------------
-    /*  Move navigation sidebar to main content div
+    /* Move navigation sidebar to main content div
      * Remove overlay that appears when starting a search
      * Move the header element above the search bar
      * Give the header an ID so that CSS can be specifically applied
@@ -95,27 +96,8 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         console.log("Search overlay has been disabled.");
     }
 
-    var header = document.querySelector('h1');
-    var searchForm = document.querySelector('.md-search__form');
-
-    if (header && searchForm) {
-        console.log("H1 header and search form found.");
-        if (searchForm.parentNode) { // Check if the searchForm has a parent node and move the h1 header
-            header.id = 'titleHeader'; // Assign an ID to the h1 header
-            header.textContent = "Power Your Research with GSB’s Advanced Research Computing Solutions"
-
-            // Use the parent node of searchForm to insert the h1 before the searchForm
-            searchForm.parentNode.insertBefore(header, searchForm);
-            console.log("H1 header has been moved above the search form and assigned an ID.");
-        } else {
-            console.log("searchForm has no parent node accessible.");
-        }
-    } else {
-        console.log("Required elements not found. Please check the selectors.");
-    }
     // Apply the appropriate padding based on the current window width
     updatePadding();
-
     // Add event listener for resizing the window
     window.addEventListener('resize', updatePadding);
 
@@ -126,6 +108,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     /* When search input is clicked, resize scroll wrapper to better size for mobile view
      * Remove animated overlays that appear in mobile view and restrict clicking
      */
+    var searchForm = document.querySelector('.md-search__form');
     var mdSearchInput = document.querySelector('input.md-search__input');
 
     if (mdSearchInput) {
@@ -268,4 +251,49 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     }
 
 
+    // // -------------------------------------------------------
+    // // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
+    // // -------------------------------------------------------
+
+
+    const mainDiv = document.querySelector('.md-main');
+    if (mainDiv) {
+        const colorBarDiv = document.createElement('div');
+        const contentDiv = document.createElement('div');
+
+        colorBarDiv.id = 'colorBarDiv'; // Set ID
+        colorBarDiv.style.height = '40px'; 
+        colorBarDiv.style.backgroundColor = '#7E2F49'; 
+
+        contentDiv.id = 'contentDiv'; // Set ID
+        contentDiv.style.height = '400px'; 
+        contentDiv.textContent = 'Cluster stats and resource link cards go here'; 
+        contentDiv.style.backgroundColor = 'white'; 
+    
+        // Insert the new divs after the mainDiv
+        mainDiv.insertAdjacentElement('afterend', contentDiv);
+        mainDiv.insertAdjacentElement('afterend', colorBarDiv);
+    }
+
+    var titleText = document.querySelector('h1');
+    titleText.id = 'titleText'; // Assign an ID to the h1 header
+
+
+    if (titleText && mainDiv) {
+        console.log("H1 header found.");
+        titleText.textContent = "Power Your Research with GSB’s Advanced Research Computing Solutions"
+    }
+    const searchBarParentDiv = document.getElementById("searchBarParentDiv");
+    searchBarParentDiv.parentElement.insertBefore(titleText, searchBarParentDiv);
+
+    if (searchBarParentDiv) {
+        // Increase the z-index and make it stick to the bottom of its parent
+        searchBarParentDiv.style.position = "absolute"; // Make it positionable
+        searchBarParentDiv.style.bottom = "-100px"; // Move 30px below the parent container
+        searchBarParentDiv.style.width = "70%"; // Make it span the full width of the parent (optional)
+        searchBarParentDiv.style.zIndex = "1000"; // Move it up in the z-index
+        searchBarParentDiv.style.padding = "30px";
+        searchBarParentDiv.style.backgroundColor = "white";
+        searchBarParentDiv.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.3)";
+    }
 });
