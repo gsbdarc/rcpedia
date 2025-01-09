@@ -1,4 +1,4 @@
-class MyComponent extends HTMLElement {
+class CustomGlobalFooterComponent extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' }); // Attach a shadow root to the element.
@@ -18,12 +18,12 @@ class MyComponent extends HTMLElement {
 
         // Create and append a div for HTML content
         const div = document.createElement('div');
-        div.id = 'custom-su-footer';
-        div.className = 'custom-su-footer';
+        div.id = 'custom-global-su-footer';
+        div.className = 'custom-global-su-footer';
         this.shadowRoot.appendChild(div);
 
         // Fetch and set HTML content
-        const htmlURL = '/footer-inner-html.html';
+        const htmlURL = '/html/global-footer-inner-html.html';
         fetch(htmlURL)
             .then(response => response.text())
             .then(html => {
@@ -33,5 +33,54 @@ class MyComponent extends HTMLElement {
     }
 }
 
+class CustomLocalFooterComponent extends HTMLElement {
+    constructor() {
+        super();
+        this.attachShadow({ mode: 'open' }); // Attach a shadow root to the element.
+    }
+
+    async connectedCallback() {
+        try {
+            // List of CSS files to include from the "css" folder
+            const cssFiles = [
+                '/stylesheets/decanter.css',
+            ];
+
+            // Dynamically load each CSS file
+            for (const cssURL of cssFiles) {
+                const response = await fetch(cssURL);
+                if (!response.ok) {
+                    console.error(`Failed to load CSS: ${cssURL}`);
+                    continue;
+                }
+
+                const css = await response.text();
+                const style = document.createElement('style');
+                style.textContent = css;
+                this.shadowRoot.appendChild(style);
+            }
+
+            // Create and append a div for HTML content
+            const div = document.createElement('div');
+            div.id = 'custom-local-su-footer';
+            div.className = 'custom-local-su-footer';
+            this.shadowRoot.appendChild(div);
+
+            // Fetch and set HTML content
+            const htmlURL = '/html/local-footer-inner-html.html';
+            const htmlResponse = await fetch(htmlURL);
+            if (htmlResponse.ok) {
+                const html = await htmlResponse.text();
+                div.innerHTML = html;
+            } else {
+                console.error(`Failed to load HTML: ${htmlURL}`);
+            }
+        } catch (error) {
+            console.error('Error in CustomLocalFooterComponent:', error);
+        }
+    }
+}
+
 console.log('Setting up Footer Shadow DOM');
-customElements.define('custom-su-global-footer', MyComponent);
+customElements.define('custom-su-global-footer', CustomGlobalFooterComponent);
+customElements.define('custom-su-local-footer', CustomLocalFooterComponent);

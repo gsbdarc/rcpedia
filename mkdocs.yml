@@ -122,8 +122,7 @@ nav:
       - blog/index.md
 
 extra_css:
-#   - stylesheets/output.css # This is the decanter css tailwind output
-  - stylesheets/custom.css # This is custom css
+  - stylesheets/custom.css
 
 extra_javascript:
   - js/footer.js
