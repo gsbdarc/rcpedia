@@ -13,3 +13,9 @@ hide:
     </div>
 </div>
 
+## Report a Problem
+
+Encounter an issue? Let us know:
+
+- [Email Us](mailto:gsb_darcresearch@stanford.edu){:target=_blank}
+- [Slack Yen User Channel](https://circlerss.slack.com/archives/C01JXJ6U4E5){:target=_blank}
