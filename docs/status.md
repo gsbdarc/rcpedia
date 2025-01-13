@@ -1,3 +1,7 @@
+---
+hide:
+  - navigation
+---
 # Yen Cluster Status
 
 <div class="row">
