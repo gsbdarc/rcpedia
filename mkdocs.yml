@@ -14,7 +14,6 @@ theme:
     - content.code.copy
     - content.tabs.link
     - navigation.indexes
-  # - navigation.sections
     - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
@@ -108,6 +107,7 @@ nav:
       - Matlab: _user_guide/matlab_interactive.md
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
+      - Stata: _user_guide/stata.md          
       - Optimization Software: _user_guide/best_practices_optimization.md
       - Data:
           - Storage: _user_guide/storage.md
