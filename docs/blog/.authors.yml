@@ -1,4 +1,9 @@
 authors:
+  astorer:
+    name: Alex Storer        # Author name
+    description: Director @DARC GSB Team # Author description
+    avatar: https://github.com/alexstorer.png         # Author avatar
+    url: https://github.com/alexstorer            # Author website URL
   jeffotter:
     name: Jeff Ott        # Author name
     description: 🍀 Research Analytics Scientist @DARC GSB Team # Author description
@@ -24,11 +29,6 @@ authors:
     description: Senior Research Analytics Scientist @DARC GSB Team  # Author description
     avatar: https://github.com/wolee101.png            # Author avatar
     url: https://github.com/wolee101                   # Author website URL
-  kevin128:
-    name: Kevin Tran                                       # Author name
-    description: Research Analytics Scientist @DARC GSB Team  # Author description
-    avatar: https://github.com/kevintran128.png            # Author avatar
-    url: https://github.com/kevintran128                  # Author website URL
   bchivers:
     name: Brian Chivers                                       # Author name
     description: Former Research Analytics Scientist @DARC GSB Team  # Author description
