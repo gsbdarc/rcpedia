@@ -34,7 +34,17 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
-
+      
+    - name: Replace placeholders
+      env: 
+        CPU_NUMBER: ${{ vars.CPU_NUMBER }}
+        RAM: ${{ vars.RAM }}
+        STORAGE: ${{ vars.STORAGE }}
+      run: |
+        sed -i "s/CPU_NUMBER_PLACEHOLDER/$CPU_NUMBER/g" mkdocs.yml
+        sed -i "s/RAM_PLACEHOLDER/$RAM/g" mkdocs.yml
+        sed -i "s/STORAGE_PLACEHOLDER/$STORAGE/g" mkdocs.yml
+        
     - name: Build MkDocs site
       run: mkdocs build --clean
 
@@ -43,7 +53,7 @@ jobs:
       with:
         name: site
         path: site/
-
+        
   deploy:
     runs-on: ubuntu-latest
     needs: build
