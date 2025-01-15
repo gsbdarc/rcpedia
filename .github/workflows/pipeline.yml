@@ -35,17 +35,6 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    # Step: Replace placeholders in mkdocs.yml using non-secret variables
-    - name: Replace placeholders
-      env:
-        CPU_NUMBER: ${{ vars.CPU_NUMBER }}
-        RAM: ${{ vars.RAM }}
-        STORAGE: ${{ vars.STORAGE }}
-        run: |
-          sed -i "s/CPU_NUMBER_PLACEHOLDER/$CPU_NUMBER/g" mkdocs.yml
-          sed -i "s/RAM_PLACEHOLDER/$RAM/g" mkdocs.yml
-          sed -i "s/STORAGE_PLACEHOLDER/$STORAGE/g" mkdocs.yml
-
     - name: Build MkDocs site
       run: mkdocs build --clean
 
