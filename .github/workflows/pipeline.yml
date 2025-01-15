@@ -44,7 +44,13 @@ jobs:
         sed -i "s/CPU_NUMBER_PLACEHOLDER/$CPU_NUMBER/g" mkdocs.yml
         sed -i "s/RAM_PLACEHOLDER/$RAM/g" mkdocs.yml
         sed -i "s/STORAGE_PLACEHOLDER/$STORAGE/g" mkdocs.yml
-        
+      
+    # ---- Add Debug Step Here ----
+    - name: Debug placeholders
+      run: |
+        echo "mkdocs.yml after placeholder replacement:"
+        cat mkdocs.yml
+    # -----------------------------     
     - name: Build MkDocs site
       run: mkdocs build --clean
 
