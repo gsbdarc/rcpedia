@@ -5,11 +5,9 @@ on:
     types: [opened]
 
 permissions:
-  issues: write
-  actions: write
-  # IMPORTANT: Must allow write to "actions" so we can update variables:
-  # If you're using fine-grained settings, you might need:
-  # actions: write
+  actions: write  # Needed to update GitHub Actions variables
+  issues: write   # Needed to create, update, or close issues
+  contents: write # Needed to commit changes to the repository
 
 jobs:
   update-variables:
