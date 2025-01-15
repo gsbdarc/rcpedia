@@ -131,3 +131,8 @@ extra_javascript:
 watch:
   - docs
   - overrides
+
+extra:
+  CPU_number: CPU_NUMBER_PLACEHOLDER
+  RAM: RAM_PLACEHOLDER
+  storage: STORAGE_PLACEHOLDER
