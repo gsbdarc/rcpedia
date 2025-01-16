@@ -1,0 +1,27 @@
+name: Airtable Issue Filter
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  check_airtable_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Issue Details
+        run: |
+          echo "Issue Title: ${{ github.event.issue.title }}"
+          echo "Issue Body: ${{ github.event.issue.body }}"
+          echo "Issue State: ${{ github.event.issue.state }}"
+
+      - name: Check if Issue is Open and from Airtable
+        run: |
+          TITLE="${{ github.event.issue.title }}"
+          STATE="${{ github.event.issue.state }}"
+          
+          if [[ "$STATE" == "open" && "$TITLE" == Airtable:* ]]; then
+            echo "✅ This is an open issue created from Airtable."
+          else
+            echo "⏭️ Skipping: This issue is either closed or not from Airtable."
+            exit 0
+          fi
