@@ -1,7 +1,14 @@
 document.addEventListener("DOMContentLoaded", function () { // Wait for content to load
 
-    var sidebar = document.querySelector('.md-sidebar__inner');
 
+     // ------------------------------------------------------
+    // ------------------- HIDE THE SIDE BAR  ----------------
+    // -------------------------------------------------------
+    /* Find Search bar on page an move it to the main content div
+     * Put search bar and results into a parent div and stack them
+     * Make sure the results list is in a scroll wrapper
+     */
+    var sidebar = document.querySelector('.md-sidebar__inner');
     function checkWidth() {
         // Check if window width is less than 1220px
         if (window.innerWidth < 1220) {
@@ -23,16 +30,15 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
      */
     var searchForm = document.querySelector('.md-search__form');
     var searchResult = document.querySelector('.md-search-result');
-    var mainContainer = document.querySelector('.md-main');
+    var mdMain = document.querySelector('.md-main');
 
-    if (searchForm && searchResult && mainContainer) {
+    if (searchForm && searchResult && mdMain) {
         console.log("Search form and result found, and main container is available.");
 
         // Create a new div to serve as the parent for both the search form and the search results
         var parentDiv = document.createElement('div');
         parentDiv.id = "searchBarParentDiv"
         parentDiv.style.position = 'relative'; // Position relative so children can be positioned absolutely within
-        parentDiv.style.width = '100%'; // Take full width of its container
 
         // Create a scroll wrapper for the search results
         var scrollWrapper = document.createElement('div');
@@ -50,13 +56,13 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         searchForm.style.position = 'relative'; // Position relative ensures it's part of normal document flow
         searchForm.style.width = '100%';
         searchForm.style.zIndex = '1'; // Ensure form is above results if they overlap
-        scrollWrapper.id = 'results-scroll-wrapper'
+        scrollWrapper.id = 'search-results-scroll-wrapper'
 
         // Adjust the search result's style within the scroll wrapper
         searchResult.style.width = '100%';
 
         // Add the new div to the md-main container
-        mainContainer.insertBefore(parentDiv, mainContainer.firstChild);
+        mdMain.insertBefore(parentDiv, mdMain.firstChild);
     } else {
         console.log("Required elements not found.");
     }
@@ -71,19 +77,18 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
      * Add padding to the left and right of search bar
      */
 
-    var mainContainer = document.querySelector('.md-main');
+    var mdMain = document.querySelector('.md-main');
 
     function updatePadding() {
         // Check if the window width is 1200px or wider
         if (window.innerWidth >= 1200) {
-            mainContainer.style.paddingLeft = '15%';
-            mainContainer.style.paddingRight = '15%';
-            mainContainer.style.paddingTop = '2%';
-
+            mdMain.style.paddingLeft = '15%';
+            mdMain.style.paddingRight = '15%';
+            // mdMain.style.paddingTop = '2%';
         } else {
-            mainContainer.style.paddingLeft = '0';
-            mainContainer.style.paddingRight = '0';
-            mainContainer.style.paddingTop = '0';
+            mdMain.style.paddingLeft = '0';
+            mdMain.style.paddingRight = '0';
+            mdMain.style.paddingTop = '0';
         }
     }
     updatePadding(); // Apply the appropriate padding based on the current window width
@@ -197,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     // --------------------------------------------------------------------------
     // ----------------- ADDING CUSTOM BUTTONS TO HOME PAGE HEADER --------------
     // --------------------------------------------------------------------------
-    /*  Adding github and project request form buttons
+    /*  Adding Github and Project Request form buttons
      *  Uses the div/grid cell formerly occupied by the search bar
      */
     var tabsList = document.querySelector('.md-tabs__list');
@@ -219,7 +224,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         githubButtonLi.appendChild(githubButton);
         githubButton.id = 'github-button'
         githubButton.addEventListener('click', function () {
-            window.open('https://github.com/gsbdarc', '_blank'); // Set the URL here
+            window.open('https://github.com/gsbdarc', '_blank');
         });
 
         // Create Request Services button as list item
@@ -254,46 +259,73 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     // // -------------------------------------------------------
     // // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
     // // -------------------------------------------------------
+    /*  Creating 2 new divs for the team color bar, link cards, etc.
+     *  Setting the Page title text
+     *  Make the Search Bar a child element of the Team Color Bar
+     *  Removing unused elements
+     */
 
+    // Creating 2 new divs for the team color bar, link cards, etc.
+    const mdContainer = document.querySelector('.md-container');
+    const colorBarDiv = document.createElement('div');
+    const contentDiv = document.createElement('div');
 
-    const mainDiv = document.querySelector('.md-main');
-    if (mainDiv) {
-        const colorBarDiv = document.createElement('div');
-        const contentDiv = document.createElement('div');
-
-        colorBarDiv.id = 'colorBarDiv'; // Set ID
+    if (mdMain && colorBarDiv) {
+        colorBarDiv.id = 'colorBarDiv';
         colorBarDiv.style.height = '40px'; 
+        colorBarDiv.style.width = '100%';
         colorBarDiv.style.backgroundColor = '#7E2F49'; 
 
-        contentDiv.id = 'contentDiv'; // Set ID
-        contentDiv.style.height = '400px'; 
-        contentDiv.textContent = 'Cluster stats and resource link cards go here'; 
+        contentDiv.id = 'contentDiv';
+        contentDiv.style.height = '200px'; 
+        contentDiv.style.width = '100%';
         contentDiv.style.backgroundColor = 'white'; 
     
-        // Insert the new divs after the mainDiv
-        mainDiv.insertAdjacentElement('afterend', contentDiv);
-        mainDiv.insertAdjacentElement('afterend', colorBarDiv);
+        // Insert the 2 new divs into the main container
+        if (mdContainer && mdMain) {
+            mdContainer.insertBefore(colorBarDiv, mdMain.nextSibling);
+            mdContainer.insertBefore(contentDiv, colorBarDiv.nextSibling);
+        } else {
+            console.error('mdContainer or .md-main not found in the DOM.');
+        }
     }
 
+    // Set the Page title text
     var titleText = document.querySelector('h1');
-    titleText.id = 'titleText'; // Assign an ID to the h1 header
-
-
-    if (titleText && mainDiv) {
+    titleText.id = 'titleText'; 
+    if (titleText && mdMain) {
         console.log("H1 header found.");
-        titleText.textContent = "Power Your Research with GSB’s Advanced Research Computing Solutions"
+        titleText.textContent = "Power Your Research with Stanford GSB’s Research Computing Solutions"
     }
-    const searchBarParentDiv = document.getElementById("searchBarParentDiv");
-    searchBarParentDiv.parentElement.insertBefore(titleText, searchBarParentDiv);
 
-    if (searchBarParentDiv) {
-        // Increase the z-index and make it stick to the bottom of its parent
-        searchBarParentDiv.style.position = "absolute"; // Make it positionable
-        searchBarParentDiv.style.bottom = "-100px"; // Move 30px below the parent container
-        searchBarParentDiv.style.width = "70%"; // Make it span the full width of the parent (optional)
-        searchBarParentDiv.style.zIndex = "1000"; // Move it up in the z-index
-        searchBarParentDiv.style.padding = "30px";
-        searchBarParentDiv.style.backgroundColor = "white";
-        searchBarParentDiv.style.boxShadow = "0px 0px 10px rgba(0, 0, 0, 0.3)";
+    // Make the Search Bar a child element of the Team Color Bar
+    const searchBarParentDiv = document.getElementById("searchBarParentDiv");
+    if (searchBarParentDiv && colorBarDiv) {
+        colorBarDiv.appendChild(searchBarParentDiv);
     }
+
+    // Move the horizontal rule to the custom content div
+    const hrElement = document.querySelector('hr');
+    if (contentDiv && hrElement) {
+        contentDiv.appendChild(hrElement);
+    }
+
+    // Remove the 'Results Metadata Div' that says 'Type to Start searching'
+    const elements = document.querySelectorAll('.md-search-result__meta');
+    elements.forEach(element => {
+        element.remove();
+    });
+
+    // Change the placeholder text in Search
+    const searchInput = document.querySelector('.md-search__input');
+    if (searchInput) {
+        searchInput.setAttribute('placeholder', 'Search the docs...');
+    }
+
+    // Remove the back-to-top button
+    const backToTopButton = document.querySelector('button.md-top');
+    if (backToTopButton) {
+        backToTopButton.remove(); 
+    }
+
 });

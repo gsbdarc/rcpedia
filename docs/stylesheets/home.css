@@ -1,66 +1,59 @@
-/* CSS for the site home landing page only */
+/* ==================================================================== */
+/* ---- This file contains CSS for the site home landing page only ---- */
+/* ==================================================================== */
+
+
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 
 body {
     background-color: #ffffff; 
 }
 
-#searchForm1 {
-    background-color: #c4c4c4;
-    position: absolute; 
-    z-index: 999; 
-    color: black;
-}
-
-#titleText {
-    font-size: 64px;
-    font-weight: 900;
-    text-align: center;
-    margin-bottom: 0;
-    padding-bottom: 0;
-    bottom: -100px;
-    color: white;
-    z-index: 999;
-    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-}
-
-#results-scroll-wrapper {
-    border-color: rgb(255, 255, 255);
-    border-width: 1px;
-    border-style: solid;
-}
-
 .hidden {
     display: none;
-}s
+}
 
+
+/* Header */
 .md-header__button.md-logo {
     padding-top: 10px;
 }
-
+.md-header__topic .md-ellipsis:first-child {
+    line-height: 20px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+}
+@media (max-width: 1220px) { /* Site title text spacing on mobile */
+    .md-header__topic .md-ellipsis:first-child {
+        line-height: 20px;
+        padding-top: 5px;
+        padding-bottom: 0px;
+    }
+}
+[dir=ltr] .md-tabs__list {
+    margin-left: 0 !important;
+}
 #header-vertical-line {
     border-left: 1px solid rgb(62, 62, 62); 
-    height: 60px; 
+    height: 50px; 
     margin-left: 5px;
     margin-top: 10px;
 }
-
 #github-button {
     padding: 10px;
     color: #646464;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23646464"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
     background-repeat: no-repeat;
-    background-position: right 1px center; /* Adjust the position as needed */
+    background-position: right 1px center; 
     background-size: 15px 15px; /* Set the size of the icon */
-    padding-right: 20px; /* Add padding to prevent text overlay */
+    padding-right: 20px;
     font-size: 16px;
 }
 #github-button:hover {
     text-decoration: underline;
 }
-
 #request-services-button {
-    padding: 10px 35px 10px 20px; /* Top, Right, Bottom, Left padding */
+    padding: 10px 35px 10px 20px;
     color: white;
     background-color: #B1040E;
     background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23FFFFFF"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
@@ -73,44 +66,113 @@ body {
     text-decoration: underline;
 }
 
-.md-header__topic .md-ellipsis:first-child {
-    line-height: 20px;
-    padding-top: 5px;
-    padding-bottom: 10px;
-}
 
-/* Site title text spacing on mobile */
-@media (max-width: 1220px) {
-    .md-header__topic .md-ellipsis:first-child {
-        line-height: 20px;
-        padding-top: 5px;
-        padding-bottom: 0px;
+
+/* Search Bar */
+.md-search__form {
+    background-color: white;
+    border-radius: 20px;
+    color: black;
+    box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+}
+.md-search__form:hover {
+    background-color: #9c9c9c40; 
+}
+.md-search__input::placeholder {
+    color: gray;
+    opacity: 1;
+}
+.md-search__scrollwrap {
+    height: auto;
+}
+.md-search__icon svg {
+    fill: #B1040E; /* Change this to your desired color */
+}
+#searchForm1 {
+    background-color: #c4c4c4;
+    position: absolute; 
+    z-index: 999; 
+    color: black;
+}
+#search-results-scroll-wrapper {
+    border-color: rgb(255, 255, 255);
+    border-width: 1px;
+    border-style: solid;
+}
+#searchBarParentDiv {
+    top: -30px;
+    z-index: 0;
+    padding: 30px;
+    width: 70%;
+    margin-left: 15%;
+    background-color: white;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 600px) {
+    #searchBarParentDiv {
+        width: 100%;
+        margin-left: 0;
+        top: 20px;
+        padding: 15px 10px 15px 10px;
+
     }
 }
 
-[dir=ltr] .md-tabs__list {
-    margin-left: 0 !important;
-}
-
+/* Main Container styling */
 .md-main {
-    position: relative; /* Ensure relative positioning */
-    width: 100%; /* Full width */
-    height: auto; /* Height will adjust automatically */
+    position: relative;
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    width: 100%; 
+    height: auto; 
     aspect-ratio: 4000 / 1247; /* Maintain the image's aspect ratio */
-    background-image: url("/assets/images/1968-building.jpg"); 
-    background-size: cover; /* Fill the width */
+    background-image: url("/assets/images/1968-building.jpg");
+    background-size: cover; 
     background-repeat: no-repeat;
-    background-position: center; /* Center the image */
+    background-position: center; 
+    overflow: hidden; 
 }
+.md-main__inner {
+    height: 50%;
+}
+.md-content__inner {
+    padding-top: 0px;
+    text-align: center;
 
-.md-main::before {
+}
+.md-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100%; 
+}
+.md-main::before { /* Black tint pseudo-element */
     content: ""; /* Create the pseudo-element */
-    position: absolute; /* Position relative to .md-main */
-    top: 0px;
+    position: absolute; 
+    top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.2); /* Black tint with 50% transparency */
-    z-index: 0; /* Ensure it sits above the background but below other content */
+    background-color: rgba(0, 0, 0, 0.2); /* Black tint with 20% transparency */
     pointer-events: none; /* Make it non-interactive */
+}
+#titleText { /* Title text styling */
+    font-size: clamp(28px, 3.7vw, 128px); /* Font scales with viewport size */
+    line-height: 1.5; 
+    font-weight: 900;
+    padding-top: 25px;
+    text-align: center;
+    position: relative;
+    color: white;
+    text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+    margin: 0;
+}
+
+/* Custom Elements */
+hr {
+    margin: 5%;
+    background-color: #cecece;
 }
