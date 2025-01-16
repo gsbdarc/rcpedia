@@ -1,0 +1,37 @@
+name: Airtable Issue Filter
+
+on:
+  issues:
+    types: [opened]
+  workflow_dispatch:  # Allows manual execution
+
+jobs:
+  check_airtable_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Issue Details
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+          STATE: ${{ github.event.issue.state }}
+        run: |
+          echo "Issue Title: $TITLE"
+          echo "Issue Body: $BODY"
+          echo "Issue State: $STATE"
+
+      - name: Check if Issue is Open and from Airtable
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          STATE: ${{ github.event.issue.state }}
+        run: |
+          if [[ -z "$TITLE" ]]; then
+            echo "⚠️ Manual run detected. No issue context available."
+            exit 0
+          fi
+
+          if [[ "$STATE" == "open" && "$TITLE" == Airtable:* ]]; then
+            echo "✅ This is an open issue created from Airtable."
+          else
+            echo "⏭️ Skipping: This issue is either closed or not from Airtable."
+            exit 0
+          fi
