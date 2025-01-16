@@ -1,0 +1,39 @@
+authors:
+  astorer:
+    name: Alex Storer        # Author name
+    description: Director @DARC GSB Team # Author description
+    avatar: https://github.com/alexstorer.png         # Author avatar
+    url: https://github.com/alexstorer            # Author website URL
+  jeffotter:
+    name: Jeff Ott        # Author name
+    description: 🍀 Research Analytics Scientist @DARC GSB Team # Author description
+    avatar: https://github.com/jeffotter.png         # Author avatar
+    url: https://github.com/Jeffotter            # Author website URL
+  mason:
+    name: Mason Jiang        # Author name
+    description: 🪨 Senior Data Engineer @DARC GSB Team # Author description
+    avatar: https://github.com/mpj2104.png         # Author avatar
+    url: https://github.com/mpj2104            # Author website URL
+  nrapstin:
+    name: Natalya Rapstine                                       # Author name
+    description: 🦄 Research Computing Specialist @DARC GSB Team  # Author description
+    avatar: https://github.com/natalya-patrikeeva.png            # Author avatar
+    url: https://github.com/natalya-patrikeeva                   # Author website URL
+  awn:
+    name: Amy Ng                                       # Author name
+    description: Lead Research Analytics Scientist @DARC GSB Team  # Author description
+    avatar: https://github.com/alwaysawn.png            # Author avatar
+    url: https://github.com/alwaysawn                   # Author website URL
+  wolee:
+    name: Wonhee Lee                                       # Author name
+    description: Senior Research Analytics Scientist @DARC GSB Team  # Author description
+    avatar: https://github.com/wolee101.png            # Author avatar
+    url: https://github.com/wolee101                   # Author website URL
+  bchivers:
+    name: Brian Chivers                                       # Author name
+    description: Former Research Analytics Scientist @DARC GSB Team  # Author description
+    avatar: https://github.com/bchivers-stanford.png            # Author avatar
+    url: https://github.com/bchivers-stanford   
+
+
+

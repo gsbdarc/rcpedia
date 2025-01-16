@@ -1,46 +1,138 @@
-site_name: GSB RC Site 2024
+site_name: Research Hub
+site_subtitle: Research Computing Resources
 site_url: https://rcpedia-dev.stanford.edu
 theme:
   name: material
-  custom_dir: docs/assets
+  custom_dir: overrides
+  logo: assets/images/gsb-logo-color.png
+  favicon: assets/images/stanford-favicon.png
   features:
     - announce.dismiss
     - header.autohide
     - content.code.annotate
+    - content.code.select
+    - content.code.copy
+    - content.tabs.link
     - navigation.indexes
-    - navigation.sections
+  # - navigation.sections
+    - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
-    - navigation.top
+    - navigation.path
     - navigation.tracking
+    - content.code.select
+    - content.code.copy
     - search.highlight
     - search.share
     - search.suggest
   font:
-    text: Roboto
-    code: Roboto Mono
+    text: Source Sans Pro
+    code: Source Code Pro
 
 plugins:
   - search
-  - blogging
-  - git-revision-date-localized
+  - blog:
+      archive: true
+      blog_toc: false
+      archive_date_format: yyyy
+      archive_toc: true
+      authors: true
+  - tags
+ 
+  # CI=1 mkdocs build
+  - group:
+      enabled: !ENV CI
+      plugins:
+        - git-revision-date-localized
+
+  # INSIDERS=1 mkdocs build
+  - group:
+      enabled: !ENV INSIDERS
+      plugins:
+        - optimize:
+            optimize_png: false
 
 markdown_extensions:
-  - codehilite
-  - toc
-  - pymdownx.superfences
+    - attr_list # Enables links open in new tab with {:target="_blank"} syntax 
+    - admonition
+    - attr_list
+    - codehilite
+    - toc
+    - md_in_html
+    - pymdownx.emoji
+    - pymdownx.superfences  
+    - pymdownx.details
+    - pymdownx.keys
+    - pymdownx.tabbed:
+        alternate_style: true
 
 nav:
-  - Home: index.md
-  - Yen Servers: yen-servers.md
+  - Home:
+      - Home: index.md
+      - Services: services.md
+  - Status: status.md
+  - Getting Started: 
+      - Yen Servers: _getting_started/yen-servers.md
+      - Access the Yens: _getting_started/how_access_yens.md
+      - Jupyter: _getting_started/jupyter.md
+      - Modules: _getting_started/modules.md
+  - Policies: 
+      - User Limits: _policies/user_limits.md
+      - Collaborators: _policies/collaborators.md
+      - Workgroups: _policies/workgroups.md
+      - Security: _policies/security.md
+      - Human Subjects Research: _policies/humanSubjectsResearch.md
+      - Acknowledgements: _policies/acknowledgements.md
+      - Leaving GSB: _policies/leavingGSB.md
+  - User Guide: 
+      - Home: _user_guide/index.md
+      - General Practices:
+          - Archive: _user_guide/best_practices_archive.md
+          - File Management: _user_guide/best_practices_file_management.md
+          - Monitor Resource Usage: _user_guide/best_practices_monitor_usage.md
+          - GUI: _user_guide/best_practices_gui.md
+          - screen: _user_guide/best_practices_screen.md
+      - Slurm:
+          - Slurm: _user_guide/slurm.md
+          - Migrating From JupyterHub: _user_guide/best_practices_migrating_from_jupyter.md
+          - Job Arrays: _user_guide/job_arrays.md
+          - GPU Slurm Jobs: _user_guide/best_practices_gpu.md
+      - Python:
+          - Running Python Interactively: _user_guide/python.md
+          - Python Virtual Environments: _user_guide/best_practices_python_env.md
+          - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
+      - R:
+          - Running R Interactively: _user_guide/r.md
+          - RStudio: _user_guide/rstudio.md
+          - Best Practices in R: _user_guide/best_practices_r.md
+      - Matlab: _user_guide/matlab_interactive.md
+      - Julia: _user_guide/julia.md
+      - SAS: _user_guide/sas.md          
+      - Optimization Software: _user_guide/best_practices_optimization.md
+      - Data:
+          - Storage: _user_guide/storage.md
+          - Data Transfer: _user_guide/data_transfer.md      
+      - Troubleshooting:
+          - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
+          - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
+          - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
+      - Beyond the Yens:
+          - Sherlock: _user_guide/sherlock.md
+          - Redivis: _user_guide/redivis.md
   - Blog:
-      - Optimization Software: _posts/2024-01-26-optimization_software.md 
-
-extra:
-  update_date: 2024-06-27
+      - blog/index.md
 
 extra_css:
-  - assets/css/index.css
-  - assets/css/sh.css
-  - assets/css/fonts.css
-  - css/custom.css
+  - stylesheets/custom.css
+
+extra_javascript:
+  - js/footer.js
+
+watch:
+  - docs
+  - overrides
+
+extra:
+  CPU_number: CPU_NUMBER_PLACEHOLDER
+  RAM: RAM_PLACEHOLDER
+  storage: STORAGE_PLACEHOLDER

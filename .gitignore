@@ -1,3 +1,9 @@
+# swp files
+*.swp
+
+#vscode
+.vscode/settings.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -9,6 +15,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 build/
+mkdocs/
 develop-eggs/
 dist/
 downloads/
@@ -164,6 +171,8 @@ cython_debug/
 # Random
 .gitignore.swp
 .swp
+.docs/.DS_Store
+.DS_Store
 
 # folders
 data/

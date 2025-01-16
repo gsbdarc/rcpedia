@@ -1,0 +1,62 @@
+name: "Update GitHub Variables from Issue"
+
+on:
+  workflow_dispatch: {}  # 👈 Allows manual triggering
+  issues:
+    types: [opened]
+  
+  
+permissions:
+  actions: write  # Needed to update GitHub Actions variables
+  issues: write   # Needed to create, update, or close issues
+  contents: write # Needed to commit changes to the repository
+
+jobs:
+  update-variables:
+    runs-on: ubuntu-latest
+    # Only run this job if the Issue title contains "Update from Airtable:"
+    if: contains(github.event.issue.title, 'Update from Airtable:')
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Parse issue body and update GH variables
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The issue body is available in github.event.issue.body
+          BODY="${{ github.event.issue.body }}"
+
+          # We'll loop through each line: KEY=VALUE
+          # Then make a PATCH request to update that variable in the repo
+          while IFS='=' read -r KEY VALUE; do
+            # skip empty lines or lines without '='
+            [ -z "$KEY" ] && continue
+
+            # Trim whitespace (optional)
+            KEY=$(echo "$KEY" | xargs)
+            VALUE=$(echo "$VALUE" | xargs)
+
+            echo "Updating variable '$KEY' with value '$VALUE'"
+
+            # PATCH /repos/{owner}/{repo}/actions/variables/{name}
+            # Use the built-in $GITHUB_TOKEN with "actions: write" permission
+            curl -s -X PATCH \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Content-Type: application/json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/variables/${KEY}" \
+              -d "{\"name\":\"${KEY}\",\"value\":\"${VALUE}\"}"
+          done <<< "$BODY"
+
+      - name: Close the issue
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Closing this issue..."
+          curl -s -X PATCH \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}" \
+            -d '{"state":"closed"}'
