@@ -1,9 +1,10 @@
 name: "Update GitHub Variables from Issue"
 
 on:
+  workflow_dispatch: {}  # 👈 Allows manual triggering
   issues:
     types: [opened]
-  workflow_dispatch: 
+  
   
 permissions:
   actions: write  # Needed to update GitHub Actions variables
