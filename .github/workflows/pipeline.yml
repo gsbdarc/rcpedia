@@ -51,9 +51,9 @@ jobs:
   update-variables:
     runs-on: ubuntu-latest
       if: >
-       github.event_name == 'issues' &&
-       github.event.issue.title != '' &&
-       contains(github.event.issue.title, 'Update from Airtable:')
+        github.event_name == 'issues' &&
+        github.event.issue.title != '' &&
+        contains(github.event.issue.title, 'Update from Airtable:')
       
     steps:
       - name: Debug Event Information
