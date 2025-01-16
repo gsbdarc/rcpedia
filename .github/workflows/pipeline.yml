@@ -11,10 +11,63 @@ on:
           required: true
           default: 'QA'
 
+  issues:
+    types: [opened]  # ✅ Runs when a new issue is created
+
+permissions:
+  actions: write  # Needed to update GitHub Actions variables
+  issues: write   # Needed to create, update, or close issues
+  contents: write # Needed to commit changes to the repository
+
 jobs:
+  update-variables:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'issues' && contains(github.event.issue.title, 'Update from Airtable:')
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Parse issue body and update GitHub Variables
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Read issue body
+          BODY="${{ github.event.issue.body }}"
+
+          # Process each line (expected format: KEY=VALUE)
+          while IFS='=' read -r KEY VALUE; do
+            [ -z "$KEY" ] && continue  # Skip empty lines
+
+            # Trim whitespace
+            KEY=$(echo "$KEY" | xargs)
+            VALUE=$(echo "$VALUE" | xargs)
+
+            echo "Updating variable '$KEY' with value '$VALUE'"
+
+            # PATCH request to update GitHub Actions variables
+            curl -s -X PATCH \
+              -H "Accept: application/vnd.github.v3+json" \
+              -H "Authorization: Bearer $GITHUB_TOKEN" \
+              -H "Content-Type: application/json" \
+              "https://api.github.com/repos/${{ github.repository }}/actions/variables/${KEY}" \
+              -d "{\"name\":\"${KEY}\",\"value\":\"${VALUE}\"}"
+          done <<< "$BODY"
+
+      - name: Close the issue after updating variables
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "Closing issue #${{ github.event.issue.number }}..."
+          curl -s -X PATCH \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: Bearer $GITHUB_TOKEN" \
+            "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.issue.number }}" \
+            -d '{"state":"closed"}'
+
   build:
     runs-on: ubuntu-latest
-
+    needs: update-variables  # Ensure variables are updated first
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -34,8 +87,8 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
-      
-    - name: Replace placeholders
+
+    - name: Replace placeholders in mkdocs.yml
       env: 
         CPU_NUMBER: ${{ vars.CPU_NUMBER }}
         RAM: ${{ vars.RAM }}
@@ -44,13 +97,12 @@ jobs:
         sed -i "s/CPU_NUMBER_PLACEHOLDER/$CPU_NUMBER/g" mkdocs.yml
         sed -i "s/RAM_PLACEHOLDER/$RAM/g" mkdocs.yml
         sed -i "s/STORAGE_PLACEHOLDER/$STORAGE/g" mkdocs.yml
-      
-    # ---- Add Debug Step Here ----
-    - name: Debug placeholders
+
+    - name: Debug placeholder replacement
       run: |
         echo "mkdocs.yml after placeholder replacement:"
         cat mkdocs.yml
-    # -----------------------------     
+
     - name: Build MkDocs site
       run: mkdocs build --clean
 
@@ -59,7 +111,7 @@ jobs:
       with:
         name: site
         path: site/
-        
+
   deploy:
     runs-on: ubuntu-latest
     needs: build
