@@ -1,19 +1,18 @@
 name: DeployStanford
 
 on:
-  push:
-    branches:
-      - QA
-  workflow_dispatch:
+  issues:
+    types: [opened]
+  workflow_dispatch:  # Allow
     inputs:
       branch:
         description: 'Branch to run the workflow on'
         required: true
         default: 'QA'
-
-  issues:
-    types: [opened]  # ✅ Runs when a new issue is created
-
+  push:
+    branches:
+      - QA
+      
 permissions:
   actions: write  # Needed to update GitHub Actions variables
   issues: write   # Needed to create, update, or close issues
