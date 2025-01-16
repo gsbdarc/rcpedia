@@ -22,10 +22,10 @@ permissions:
 jobs:
   update-variables:
     runs-on: ubuntu-latest
-    if: >
-      github.event_name == 'issues' &&
-      github.event.issue.title != '' &&
-      contains(github.event.issue.title, 'Update from Airtable:')
+    # if: >
+    #  github.event_name == 'issues' &&
+    #  github.event.issue.title != '' &&
+    #  contains(github.event.issue.title, 'Update from Airtable:')
       
     steps:
       - name: Debug Event Information
@@ -33,6 +33,8 @@ jobs:
           echo "Event Name: ${{ github.event_name }}"
           echo "Issue Title: '${{ github.event.issue.title }}'"
           echo "Issue Body: '${{ github.event.issue.body }}'"
+          echo "Full GitHub Event Payload:"
+          echo '${{ toJson(github.event) }}'
           
       - name: Checkout code
         uses: actions/checkout@v4
