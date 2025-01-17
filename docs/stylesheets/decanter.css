@@ -11262,6 +11262,7 @@ td.fas:before {
     transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transitions */
     cursor: pointer; /* Add pointer cursor on hover */
     text-decoration: none;
+    position: static;
 }
 
 /* Hover Effect */
