@@ -40,6 +40,8 @@ jobs:
         TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
         TOTAL_GPUS: ${{ vars.TOTAL_GPUS }}
         TOTAL_STORAGE_TB: ${{ vars.TOTAL_STORAGE_TB }}
+        TOTAL_NODE_COUNT: ${{ vars.TOTAL_NODE_COUNT }}
+        SLURM_NODE_COUNT: ${{ vars.SLURM_NODE_COUNT }}
       run: |
         sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" vars.yml
         sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" vars.yml
