@@ -1,7 +1,7 @@
 name: DeployStanford
 
 on:
-  workflow_dispatch:  # Allow
+  workflow_dispatch:  
     inputs:
       branch:
         description: 'Branch to run the workflow on'
@@ -10,9 +10,7 @@ on:
   push:
     branches:
       - QA
-      
 jobs:
-
   build:
     runs-on: ubuntu-latest
 
@@ -36,20 +34,22 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Replace placeholders in mkdocs.yml
+    - name: Replace placeholders in vars.yml
       env: 
-        CPU_NUMBER: ${{ vars.CPU_NUMBER }}
-        RAM: ${{ vars.RAM }}
-        STORAGE: ${{ vars.STORAGE }}
+        TOTAL_PHYSICAL_CORES: ${{ vars.TOTAL_PHYSICAL_CORES }}
+        TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
+        TOTAL_GPUS: ${{ vars.TOTAL_GPUS }}
+        TOTAL_STORAGE_TB: ${{ vars.TOTAL_STORAGE_TB }}
       run: |
-        sed -i "s/CPU_NUMBER_PLACEHOLDER/$CPU_NUMBER/g" mkdocs.yml
-        sed -i "s/RAM_PLACEHOLDER/$RAM/g" mkdocs.yml
-        sed -i "s/STORAGE_PLACEHOLDER/$STORAGE/g" mkdocs.yml
+        sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" vars.yml
+        sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" vars.yml
+        sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" vars.yml
+        sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" vars.yml
 
     - name: Debug placeholder replacement
       run: |
-        echo "mkdocs.yml after placeholder replacement:"
-        cat mkdocs.yml
+        echo "vars.yml after placeholder replacement:"
+        cat vars.yml
 
     - name: Build MkDocs site
       run: mkdocs build --clean
