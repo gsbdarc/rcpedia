@@ -45,6 +45,8 @@ jobs:
         sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" vars.yml
         sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" vars.yml
         sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" vars.yml
+        sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" vars.yml
+        sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" vars.yml
 
     - name: Debug placeholder replacement
       run: |
