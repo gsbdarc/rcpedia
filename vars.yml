@@ -1,3 +1,5 @@
+total_node_count:TOTAL_NODE_COUNT
+slurm_node_count:SLURM_NODE_COUNT
 total_physical_cores: TOTAL_PHYSICAL_CORES_PLACEHOLDER
 total_memory_tb: TOTAL_MEMORY_TB_PLACEHOLDER
 total_gpus: TOTAL_GPUS_PLACEHOLDER
