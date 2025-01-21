@@ -63,9 +63,15 @@ or
 
 > the Yen cluster
 
+or, least favorably but still acceptable:
+
+> the Yens
+
 When discussing a machine in the context of a command, use `code`...
 
 > Now, connect to `yen2` and run `python`
+
+
 
 # Talking about Languages
 
