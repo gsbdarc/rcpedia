@@ -1,7 +1,6 @@
 ---
 date:
   created: 2020-03-04
-  updated: 2024-12-15
 categories:
     - Machine Learning
     - GPU
@@ -44,10 +43,10 @@ However, in real world examples, it is rarely this simple.  In general, we do no
 
 
 ### Word2Vec
-Developed by Google, it uses skip-gram and continuous bag-of-words (CBOW) architectures to create word embeddings. [You can read more on Word2Vec's wikipedia page.](https://en.wikipedia.org/wiki/Word2vec){:target="_blank"} [The Gensim package in python has an implementation of these algorithms](https://radimrehurek.com/gensim/models/word2vec.html){:target="_blank"}.
+Developed by Google, it uses skip-gram and continuous bag-of-words (CBOW) architectures to create word embeddings. You can read more on [Word2Vec's wikipedia page.](https://en.wikipedia.org/wiki/Word2vec){:target="_blank"} The [Gensim package in Python](https://radimrehurek.com/gensim/models/word2vec.html){:target="_blank"} has an implementation of these algorithms.
 
 ### GloVe (Global Vectors for Word Representation)
-Developed by Stanford, it creates embeddings by aggregating global word-word co-occurrence statistics from a corpus. You can find GloVe and more information [**here**](https://nlp.stanford.edu/projects/glove/){:target="_blank"}.
+Developed by Stanford, it creates embeddings by aggregating global word-word co-occurrence statistics from a corpus. You can find GloVe and more information [here](https://nlp.stanford.edu/projects/glove/){:target="_blank"}.
 
 ### FastText
 Developed by Facebook, it extends Word2Vec by representing words as bags of character n-grams, which helps in handling out-of-vocabulary words (words which did not exist in the training data).
