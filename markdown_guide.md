@@ -52,3 +52,35 @@ or Python REPL:
 ```{.python .yaml .no-copy title="Terminal Output" }
 >>> import numpy as np
 ```
+
+# Talking about Yen vs `yen`
+
+When discussing the cluster, as a whole use...
+
+> the Yen servers
+
+or
+
+> the Yen cluster
+
+When discussing a machine in the context of a command, use `code`...
+
+> Now, connect to `yen2` and run `python`
+
+# Talking about Languages
+
+Best practice is to capitalize languages.  When used in prose, you can use the following:
+
+* Python (not python)
+* Matlab (yes I know, it's properly MATLAB but ugh)
+* R
+* Julia
+* Stata
+
+# Links in New Tabs
+
+Format links like this:
+
+    ```bash
+    visit [Stanford](https://stanford.edu){target="_blank"}
+    ```
