@@ -81,6 +81,11 @@ Best practice is to capitalize languages.  When used in prose, you can use the f
 
 Format links like this:
 
-    ```bash
     visit [Stanford](https://stanford.edu){target="_blank"}
-    ```
+
+# Admonitions
+
+When using Admonitions (e.g., `!!! tip` or `!!! danger`) use the optional title to add context and emphasis when helpful.
+
+    !!! danger "Be aware of license agreements"
+        Not all data is licensed for use outside of Stanford!  Be careful before copying data to other university environments.
