@@ -9,7 +9,7 @@ hide:
         <iframe class="airtable-embed" src="https://airtable.com/embed/shrS3FLv2TnfNDHgx?backgroundColor=red"
                 frameborder="0" width="100%" height="600"
                 style="background: transparent; border: 1px solid #ccc;"></iframe>
-        <p>Learn more about the Yen cluster <a href="/_getting_started/yen-servers">here.</a></p>
+        <p>Learn more about the Yen cluster [here](/_getting_started/yen-servers){:target="_blank"}.</p>
     </div>
 </div>
 
