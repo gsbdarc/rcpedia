@@ -48,4 +48,4 @@ stata -b do <your-script.do>
 where `<your-script.do>` is your do script.
 
 !!! tip "Graphical Stata"
-    Stata can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#stata) or [X-Forwarding](/_user_guide/best_practices_gui).
+    Stata can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#stata){:target=_blank} or [X-Forwarding](/_user_guide/best_practices_gui){:target=_blank}.
