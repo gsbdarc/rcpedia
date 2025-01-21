@@ -4,7 +4,7 @@ date:
 categories:
     - File Editing
 authors:
-    - jeffotter
+    - nrapstin 
 ---
 # Editing Files on the Command Line
 When working within JupyterHub, one can utilize the built-in Text Editor to [directly edit scripts on the Yens](/_getting_started/jupyter/#text-file-editor){:target="_blank"}. 
