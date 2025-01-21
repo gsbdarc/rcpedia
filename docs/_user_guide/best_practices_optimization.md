@@ -15,11 +15,9 @@ nonlinear optimization problems. It is designed to express complex problems with
 
 ### Gurobi
 
-### Running Gurobi in Python
+#### Running Gurobi in Python
 
 Because the Yens already have Gurobi software and Gurobi Python interface installed, we simply need to access them by loading the `gurobipy3` [module](/_getting_started/modules/){:target="_blank"}.
-
-**Environment Setup**
 
 Load Gurobi module:
 ```title="Terminal Command"
@@ -37,7 +35,7 @@ Let's navigate to the shared project directory:
 cd <path/to/project>
 ```
 
-Create a new virtual environment, named `gurobi_env` (as an example):
+Create a new virtual environment, named `gurobi_env`:
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv gurobi_env
@@ -105,11 +103,9 @@ The environment is now set up to run your Python scripts that import `gurobipy` 
 #### Running Gurobi in R
 
 !!! Warning
-    The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi). 
+    The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running `ml gurobi R` with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided [here](https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi){:target="_blank"}. 
 
 Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.
-
-**Environment Setup**
 
 To use Gurobi software with R, simply load both modules:
 
@@ -216,8 +212,6 @@ Quit R. You can now run the R scripts to solve the optimization problem using Gu
 
 Because the Yens already have Knitro and AMPL software installed, we simply need to load the appropriate [modules](/_getting_started/modules/){:target="_blank"}.
 
-**Environment Setup**
-
 Load both modules:
 
 ```title="Terminal Command"
@@ -272,7 +266,7 @@ Let's navigate to the shared project directory:
 cd <path/to/project>
 ```
 
-Create a new virtual environment, named `opt` (as an example):
+Create a new virtual environment, named `opt`:
 
 ```title="Terminal Command"
 /usr/bin/python3  -m venv opt
@@ -285,7 +279,7 @@ Next, activate the virtual environment using the following command:
 source opt/bin/activate
 ```
 
-You should see `(opt)_knitro:` prepended to the prompt:
+You should see `(opt):` prepended to the prompt:
 ```{ .yaml .no-copy title="Terminal Output" }
 (opt): $
 ```
@@ -296,7 +290,7 @@ Finally, install the required python packages using `pip` (this step may take so
 pip install numpy pandas ipykernel amplpy
 ```
 
-The `ipykernel` module is needed to turn this virtual environment into a Jupyter kernel at a later step and the [`amplpy`](https://pypi.org/project/amplpy){:target="_blank"} package serves as the Python interface to `AMPL`.
+The `ipykernel` module is needed to turn this virtual environment into a Jupyter kernel at a later step and the [`amplpy`](https://pypi.org/project/amplpy){:target="_blank"} package serves as the Python interface to AMPL.
 
 We can now use both AMPL and Knitro on interactive Yen nodes. After the packages are installed, start the Python REPL by typing `python`:
 
@@ -367,7 +361,7 @@ Using license file "/software/non-free/ampl/20231031/ampl.lic".\
 !!! Warning
     To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions), we must properly close `ampl` instance. The `try` and `finally` logic does that in which we release the AMPL license with `ampl.close()` call. Be sure to shut down the Jupyter kernel when using AMPL in a Jupyter notebook, as only one floating license is available.
 
-We also point to the Yen's Knitro licence with `ampl.setOption()` call.
+We also point to the Knitro license on the Yens with `ampl.setOption()` call.
 
 After defining the problem, the `ampl.solve()` call should print out the Knitro license information and the problem solution.
 
@@ -410,7 +404,7 @@ The environment is now set up to run your Python scripts that use AMPL and Knitr
 
 ### Running Gurobi in Jupyter Notebooks
 
-To make Gurobi Python interface work on the Yen's JupyterHub, we can take our `opt` virtual environment and make it into a Jupyter kernel.
+To make Gurobi Python interface work on the Yen's JupyterHub, we can take our `gurobi_env` virtual environment and make it into a Jupyter kernel.
 
 Load `gurobipy3` module:
 ```title="Terminal Command"
@@ -421,7 +415,7 @@ Activate the virtual environment in your project space:
 
 ```title="Terminal Command"
 cd <path/to/project>
-source opt/bin/activate
+source gurobi_env/bin/activate
 ```
 
 Then, we add the **active** `gurobi_env` virtual environment as a new JupyterHub kernel and name it as `gurobi_env`:
@@ -512,7 +506,7 @@ On [JupyterHub](/_getting_started/jupyter/){:target="_blank"}, launch the new `o
 
 ### Running Batch Jobs 
 
-To use the optimization software on the [Yen-Slurm cluster](/_user_guide/slurm/){:target="_blank"}, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named `opt_test.slurm`:
+To use the optimization software on the [Yen Slurm cluster](/_user_guide/slurm/){:target="_blank"}, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named `opt_test.slurm`:
 
 ```bash linenums="1" title="opt_test.slurm"
 #!/bin/bash
@@ -567,7 +561,7 @@ A Slurm job array is a way to launch multiple jobs in parallel. One use case is 
 
 #### Gurobi Example
 
-We will work with the following Python script that was modified from [Gurobi documentation](https://www.gurobi.com/documentation){:target="_blank"} that performs sensitivity analysis using the Gurobi optimization library.
+We will work with the following Python script that was modified from [Gurobi documentation](https://docs.gurobi.com/current/){:target="_blank"} that performs sensitivity analysis using the Gurobi optimization library.
 
 Specifically, this script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:
 
@@ -639,7 +633,7 @@ except AttributeError:
     print(f"Encountered an attribute error")
 ```
 
-This Python script can be run with `python gurobi_sensitivity.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen-Slurm cluster.
+This Python script can be run with `python gurobi_sensitivity.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen Slurm cluster.
 
 Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_sensitivity.py` script. Save this Slurm script to a file named `sensitivity_analysis.slurm`:
 
@@ -721,7 +715,7 @@ python gurobi_sensitivity.py $SLURM_ARRAY_TASK_ID
 
 Again, you will have to modify the script to use your `venv` environment and your email.
 
-Note that in this case, we specify Slurm option `#SBATCH --array=0-31` to run 32 tasks in parallel. The maximum job array index is 511 (`--array=0-511`) on Yen-Slurm. All tasks will be launched as independent jobs. There is a limit of 200 concurrent jobs per user that could be running at the same time. Each task will generate a unique log file `gurobi-%A-%a.out` where `%A` will be the unique job ID and `%a` will be the unique task ID (from 0 to 31).
+Note that in this case, we specify Slurm option `#SBATCH --array=0-31` to run 32 tasks in parallel. The maximum job array index is 511 (`--array=0-511`) on Yen Slurm. All tasks will be launched as independent jobs. There is a limit of 200 concurrent jobs per user that could be running at the same time. Each task will generate a unique log file `gurobi-%A-%a.out` where `%A` will be the unique job ID and `%a` will be the unique task ID (from 0 to 31).
 
 After modifying the path to your `venv` environment, submit the `sensitivity_analysis_array.slurm` script to the scheduler to run the job array on the cluster. It will launch all 32 tasks at the same time (some might sit in the queue while others are going to run right away). To submit, run:
 
