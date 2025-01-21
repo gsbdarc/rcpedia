@@ -3,12 +3,12 @@
 
 ## Example Job Array
 
-We will take the [slurm job](/_user_guide/slurm/#example-script){:target="_blank"} script and modify it to run as a job array. 
+We will take [this Slurm script](/_user_guide/slurm/#example-script){:target="_blank"} script and modify it to run as a job array. 
 Each task in a job array will run the same script and print 'Hello!' and the job array task ID. We are going to do this by passing the job array task ID as a **command line argument** to the script. The script accepts the command line argument and prints 'Hello!' and the task ID passed to it. 
 
 
 
-Let's modify our hello world script to look like:
+Let's modify our basic script to look like:
 
 === "R"
     ```R linenums="1" title="hello-parallel.R"
@@ -19,7 +19,6 @@ Let's modify our hello world script to look like:
     print(paste0('Hello! I am a task number: ', args[1]) )    
     ```
 
-
 === "Python"
     ```py linenums="1" title="hello-parallel.py"
     # import sys library (needed for accepted command line args)
@@ -28,8 +27,6 @@ Let's modify our hello world script to look like:
     # print task number
     print('Hello! I am a task number: ', sys.argv[1])
     ```
-
-    This one-liner script can be run with `python hello.py`. 
 
 === "Julia"
     ```julia linenums="1"  title="hello-parallel.jl"
@@ -46,7 +43,7 @@ Let's modify our hello world script to look like:
     end
     ```
 
-Then we modify the slurm file to look like below:
+Then we modify the Slurm file to look like below:
 
 === "R"
     ```bash linenums="1" title="hello-parallel.slurm"
@@ -135,10 +132,10 @@ Then we modify the slurm file to look like below:
     ```
 
 
-Note that in this case, we specified slurm option `#SBATCH --array=1-10` to run ten independent tasks in parallel. The maximum job array size is set to 512 on Yen. Each task will generate a unique log file `hello-jobID-taskID.out` so we can look at those and see if any of the tasks failed.
+Note that in this case, we specified Slurm option `#SBATCH --array=1-10` to run ten independent tasks in parallel. The maximum job array size is set to 512 on the Yens. Each task will generate a unique log file `hello-[jobID]-[taskID].out` so we can look at those and see if any of the tasks failed.
  
 ### Submit Job Array to Scheduler
-We can now submit our `hello-parallel.slurm` script to the slurm scheduler to run the job array. It will launch all 10 tasks at the same time (some might sit in the queue while others are going to run right away). To submit, run:
+We can now submit our `hello-parallel.slurm` script to the Slurm scheduler to run the job array. It will launch all ten tasks at the same time (some might sit in the queue while others are going to run right away). To submit, run:
 
 ```title="Terminal Command"
 sbatch hello-parallel.slurm
