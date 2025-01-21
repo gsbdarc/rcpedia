@@ -85,7 +85,26 @@ Format links like this:
 
 # Admonitions
 
-When using Admonitions (e.g., `!!! tip` or `!!! danger`) use the optional title to add context and emphasis when helpful.
+When using Admonitions (e.g., `!!! tip` or `!!! danger`) use the optional title to add context and emphasis when helpful. Use `Title Case` for these, as they are formatted like a title:
 
-    !!! danger "Be aware of license agreements"
+    !!! danger "Be Aware of License Agreements"
         Not all data is licensed for use outside of Stanford!  Be careful before copying data to other university environments.
+
+## What's Title Case?
+
+In Title Case, the following words are typically not capitalized unless they are the first or last word of the title:
+
+Articles:
+a, an, the
+
+Coordinating Conjunctions:
+and, but, or, for, nor, so, yet
+
+Prepositions (short ones, typically 4 letters or fewer):
+at, by, for, in, of, off, on, out, to, up, with
+However, longer prepositions like "between" or "underneath" are usually capitalized.
+
+For example:
+
+* Correct Title Case: "Be Aware of License Agreements"
+* Incorrect Title Case: "Be Aware Of License Agreements" (note the capitalized "Of")
