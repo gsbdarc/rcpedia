@@ -14,7 +14,7 @@ Compressed files are commonly used to save storage space and simplify file trans
 <!-- more -->
 
 
-!!! tip
+!!! tip "Best Practices: Archiving Projects"
     See [this page](/_user_guide/best_practices_archive/?h=archive){:target="_blank"} to learn more about archiving your projects for long-term storage or transfer.
 
 ## .zip
