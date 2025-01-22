@@ -76,6 +76,7 @@ nav:
       - Jupyter: _getting_started/jupyter.md
       - Modules: _getting_started/modules.md
   - Policies: 
+      - Services: _policies/darc.md
       - User Limits: _policies/user_limits.md
       - Collaborators: _policies/collaborators.md
       - Workgroups: _policies/workgroups.md

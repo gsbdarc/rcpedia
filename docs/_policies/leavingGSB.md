@@ -20,6 +20,8 @@ updateDate: 2022-03-21
 
 # Leaving GSB & Stanford
 
+For researchers leaving the school, we have developed a collection of policies and best practices to ensure that the appropriate users continue to have access to the right systems and data.
+
 ## Your SUNet ID
 
 To start off, please take a look at Stanford's policies on your SUNet ID account for [students](https://uit.stanford.edu/service/accounts/closing-students){target="_blank"} and [faculty/staff](https://uit.stanford.edu/service/accounts/closing-facstaff){target="_blank"}. Within those links, you will find information regarding the grace period for your SUNet account and general directions on how to close any personal websites, transfer AFS data, etc.
