@@ -16,9 +16,10 @@ It is **your** responsibility as a researcher to be a responsible steward of you
 
 !!! danger "The Yen Servers Are **Not** Approved for High Risk Data."
     The Yen cluster is approved for use with Low and Moderate risk data. Other Stanford systems, such as [Nero](https://nero-docs.stanford.edu/){:target="_blank"} and [Carina](https://carinadocs.sites.stanford.edu/){:target="_blank"} are designed for High Risk Data.
+If you choose to use your own independent system (e.g., your own machine in the cloud), you are responsible for correctly managing any secure data and credentials necessary.
 
 
-## Yen Servers
+## Yen Cluster
 
 The Yen servers are approved to handle Moderate and Low Risk data. They are currently stored in a secure, centrally-managed data center on the Stanford Historical Campus. Consistent with minimum security standards, the Yen servers have the following security features:
 
@@ -27,7 +28,6 @@ The Yen servers are approved to handle Moderate and Low Risk data. They are curr
 * Patching and vulnerability scans
 
 While the Yen servers do protect data from unauthorized access, there are no mechanisms in place to control the export of data.
-
 
 ## Contractual Requirements
 

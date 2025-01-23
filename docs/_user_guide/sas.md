@@ -41,11 +41,11 @@ where `<your-script.sas>` is your SAS script.
 Note that SAS output is provided in a log file called `<your-script.log>`.
 
 !!! tip "Graphical SAS"
-    SAS can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#sas) or [X-Forwarding](/_user_guide/best_practices_gui).
+    SAS can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#sas){:target="_blank"} or [X-Forwarding](/_user_guide/best_practices_gui){:target="_blank"}.
 
 ## Other SAS Environments
 
 Depending on your needs, you may prefer using SAS in a different environment.
 
-* [SAS Studio on WRDS](https://wrds-www.wharton.upenn.edu/pages/grid-items/using-sas-studio/) provides a web-native graphical interface with access to the GSB's licensed data on WRDS.
-* Your machine may be a more effective place to develop your code, given the native GUI. There is a [free license](https://uit.stanford.edu/service/softwarelic/sas) for SAS at the University level.
+* [SAS Studio on WRDS](https://wrds-www.wharton.upenn.edu/pages/grid-items/using-sas-studio/){:target="_blank"} provides a web-native graphical interface with access to the GSB's licensed data on WRDS.
+* Your machine may be a more effective place to develop your code, given the native GUI. There is a [free license](https://uit.stanford.edu/service/softwarelic/sas){:target="_blank"} for SAS at the University level.

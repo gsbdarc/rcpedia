@@ -21,7 +21,7 @@ You will see the current R versions listed:
    D:  Default Module
 ```
 
-!!! tip
+!!! tip "Using the Latest R Version"
     If you require access to a newer R version that is not currently available on the system, please don't hesitate to [contact DARC](mailto:gsb_darcresearch@stanford.edu) to request its installation.
 
 ## Load R Module
@@ -40,7 +40,7 @@ The R software is installed system-wide, allowing each user to maintain their ow
 Every R version will also have its own library separate from other versions. For example, R 4.0 will have its user-installed
 packages side by side with R 4.2 library containing the user-installed packages specific to that version.
 
-!!! warning
+!!! warning "Package Installation"
     When upgrading your R version (e.g., to run code with a newly released R version), you must first install packages that are needed for your script to run for that specific R version. 
 
 However, once the package is installed, you can load it in your scripts without the need for repeated installations upon each login.
@@ -84,7 +84,7 @@ In R, install packages that you need:
 > install.packages('foreach')
 ```
 
-!!! note
+!!! note "Creating User R Library"
     If this is your first time installing R package for this R version on the Yens, you will be asked to create a personal library because users do not have write permissions to the system R library. 
 
 Answer `yes` to both questions:
@@ -134,7 +134,7 @@ If you want to quit R, type:
 > q()
 ```
 
-!!! danger
+!!! danger "Do Not Install Packages from RStudio"
     Do **not** install packages directly from RStudio on JupyterHub. Instead, use the terminal and run `R` to install packages. This ensures compatibility with the Yen environment. 
 
 ## Run R Code Interactively

@@ -2,7 +2,7 @@
 
 ## Access Eligibility  
 
-By default, GSB faculty, staff, PhD students, and research fellows have access. Others require sponsored access from a GSB faculty member. More info on [sponsored access](/_policies/collaborators){ :target="_blank" }. 
+By default, GSB faculty, staff, PhD students, and research fellows have access. Others require sponsored access from a GSB faculty member. More info on [sponsored access](/_policies/collaborators){:target="_blank"}. 
 
 ---
 
@@ -18,7 +18,7 @@ By default, GSB faculty, staff, PhD students, and research fellows have access. 
     ssh <SUNetID>@yen.stanford.edu
     ```
 
-3. Authenticate using your SUNet ID password. You will not see your password being typed. Then, complete the two-factor authentication process with [Duo](https://uit.stanford.edu/service/authentication/twostep/smartphone){ :target="_blank" }.
+3. Authenticate using your SUNet ID password. You will not see your password being typed. Then, complete the two-factor authentication process with [Duo](https://uit.stanford.edu/service/authentication/twostep/smartphone){:target="_blank"}.
 
 If the login is successful, you will see something similar to the following:
 
@@ -26,8 +26,8 @@ If the login is successful, you will see something similar to the following:
 
 ## Log In to a Specific Yen
 
-To log into a specific server (yen1, yen2, yen3, yen4 or yen5), use yenX in the `ssh` command. 
-For example, to login to yen3, do:
+To log into a specific server (`yen1`, `yen2`, `yen3`, `yen4` or `yen5`), write it in the `ssh` command. 
+For example, to login to `yen3`, do:
 
 ```bash title="Terminal Command"
 ssh <SUNetID>@yen3.stanford.edu
@@ -48,8 +48,10 @@ Access the shell through the **Terminal** app (pre-installed).
     wsl --install
     ```
 
-  After installing and restarting your computer, search for **Ubuntu** and follow the setup instructions.  
-  Tip: To enable copy and paste, click the top-left Ubuntu icon, go to Settings, and enable copy/paste.
+  After installing and restarting your computer, search for **Ubuntu** and follow the setup instructions.
+
+!!! tip 
+    To enable copy and paste, click the top-left Ubuntu icon, go to Settings, and enable copy/paste.
 
 - **Windows <10 Users:**  
   Use **Git Bash**, which comes with [Git for Windows](https://gitforwindows.org){:target="_blank"}.
@@ -58,7 +60,7 @@ Access the shell through the **Terminal** app (pre-installed).
 Open your default shell app, often named **Shell** or something similar, depending on your OS.
 
 
-### Graphical User Interface (GUI) Applications Access
+### Graphical User Interface (GUI) Applications
 For GUI applications such as Stata, use X-forwarding:
 
 - **Mac OS:** Install [XQuartz](https://www.xquartz.org){:target="_blank"}. 
@@ -74,7 +76,7 @@ ssh -Y <SUNetID>@yen.stanford.edu
 
 
 ### Common Access Issues
-1. **No Sponsored Yen Access**
+1. **No Sponsored Yen Cluster Access**
 
     If you're not eligible by default, confirm you have sponsorship from a GSB faculty member.
 
@@ -96,7 +98,7 @@ ssh -Y <SUNetID>@yen.stanford.edu
 5. **Use Full Server Address**
 
     If you encounter an error like:
-    ```bash title="Terminal Output"
+    ```{.yaml .no-copy bash title="Terminal Output"}
     ssh: Could not resolve hostname yen1: nodename nor servname provided, or not known
     ```
 

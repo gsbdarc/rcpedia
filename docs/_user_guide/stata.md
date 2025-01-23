@@ -45,7 +45,7 @@ To execute a do script at the terminal, run:
 ```bash title="Terminal Input"
 stata -b do <your-script.do>
 ```
-where `<your-script.do>` is your do script.
+where `<your-script.do>` refers to your Stata do-file."
 
 !!! tip "Graphical Stata"
     Stata can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#stata){:target=_blank} or [X-Forwarding](/_user_guide/best_practices_gui){:target=_blank}.

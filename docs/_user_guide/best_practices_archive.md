@@ -12,7 +12,7 @@ When your project is nearing completion and you have finished running computatio
 
 Archiving data will save disk space on the Yens as well as make it easy for you to transfer your full project as one big file.
 
-!!! Warning
+!!! Warning "The Yens Are Not For Long-Term Storage"
     The Yens are **not** meant for long-term archiving of files and past projects. You should figure out where you want to archive your projects or talk to the DARC team. Possible long-term and affordable solutions include [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"}, [AWS Glacier](https://aws.amazon.com/glacier/){:target="_blank"}, or [GitLab](https://code.stanford.edu/){:target="_blank"}. You can store the archived files there and move them off of Yens.
 
 ## How Do I Archive?
@@ -31,5 +31,5 @@ where `-z` flag will compress the files inside `my-project-dir` directory and cr
 ### Transferring to Your Archive
 After choosing the long-term storage solution, transfer the tarball into it for the long-term storage and delete the project directory and the tarball off of Yens.
 
-!!! Important
-    Make sure you know the risk classification of [the data you have on the Yens](/_policies/security){:target="_blank"}. Some high-risk data cannot be transferred off of the Yens to the cloud, for example.
+!!! Important "Data Risk Classification"
+    Ensure you understand the risk classification of the [data stored on the Yen servers](/_policies/security){:target="_blank"}. For instance, certain high-risk data cannot be transferred from the Yen servers to the cloud.

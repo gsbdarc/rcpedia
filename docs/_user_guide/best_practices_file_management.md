@@ -36,7 +36,7 @@ data
 │       │   ...
 │...
 ```
-In this structure, the `data` directory is organized first by year and then by month, based on the article's identifier. If you anticipate that the number of articles for a single month could exceed several thousand, you can further subdivide by day to distribute the files more evenly and maintain folder performance. This approach not only improves file system efficiency but also ensures your data is more comprehensible and accessible to users.
+In this structure, the `data/` directory is organized first by year and then by month, based on the article's identifier. If you anticipate that the number of articles for a single month could exceed several thousand, you can further subdivide by day to distribute the files more evenly and maintain folder performance. This approach not only improves file system efficiency but also ensures your data is more comprehensible and accessible to users.
 
 ## Create an Index File
 A common justification for placing all data files in a single directory is the perceived simplicity of processing them with a script. In this approach, a user can provide a single path to the script, which then lists the directory contents to process the files. While this may seem convenient, there's a much more efficient and scalable solution: creating an index file.
