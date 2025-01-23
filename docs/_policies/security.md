@@ -14,7 +14,7 @@ The University provides a [simple categorization of data risk levels](http://dat
 
 It is **your** responsibility as a researcher to be a responsible steward of your data. If you're ever unsure the risk categorization of your data, please [contact us](mailto:gsb_darcresearch@stanford.edu){:target="_blank"} to discuss how to best achieve your research goals while being mindful of data security.
 
-!!! danger "The Yen servers Are **Not** Approved for High Risk Data."
+!!! danger "The Yen Servers Are **Not** Approved for High Risk Data."
     The Yen cluster is approved for use with Low and Moderate risk data. Other Stanford systems, such as [Nero](https://nero-docs.stanford.edu/){:target="_blank"} and [Carina](https://carinadocs.sites.stanford.edu/){:target="_blank"} are designed for High Risk Data.
 
 
