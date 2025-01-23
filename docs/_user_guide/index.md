@@ -2,7 +2,7 @@
 
 Welcome to the User Guide! Here, you'll find detailed documentation and best practices for using the Yens, including:
 
-- Running Jobs 
+- Running jobs 
 - Working with Slurm and job arrays
 - Managing files and storage
 - And much more!

@@ -1,16 +1,15 @@
 name: DeployStanford
 
 on:
+  workflow_dispatch:  
+    inputs:
+      branch:
+        description: 'Branch to run the workflow on'
+        required: true
+        default: 'QA'
   push:
     branches:
       - QA
-  workflow_dispatch:
-    inputs:
-        branch:
-          description: 'Branch to run the workflow on'
-          required: true
-          default: 'QA'
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -34,6 +33,25 @@ jobs:
 
     - name: Install dependencies
       run: pip install -r requirements.txt
+
+    - name: Replace placeholders in vars.yml
+      env: 
+        TOTAL_PHYSICAL_CORES: ${{ vars.TOTAL_PHYSICAL_CORES }}
+        TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
+        TOTAL_GPUS: ${{ vars.TOTAL_GPUS }}
+        TOTAL_STORAGE_TB: ${{ vars.TOTAL_STORAGE_TB }}
+      run: |
+        sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" vars.yml
+        sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" vars.yml
+        sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" vars.yml
+        sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" vars.yml
+        sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" vars.yml
+        sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" vars.yml
+
+    - name: Debug placeholder replacement
+      run: |
+        echo "vars.yml after placeholder replacement:"
+        cat vars.yml
 
     - name: Build MkDocs site
       run: mkdocs build --clean

@@ -14,7 +14,6 @@ theme:
     - content.code.copy
     - content.tabs.link
     - navigation.indexes
-  # - navigation.sections
     - navigation.top
     - navigation.tabs
     - navigation.tabs.sticky
@@ -70,12 +69,14 @@ nav:
   - Home:
       - Home: index.md
       - Services: services.md
+  - Status: status.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
       - Access the Yens: _getting_started/how_access_yens.md
       - Jupyter: _getting_started/jupyter.md
       - Modules: _getting_started/modules.md
   - Policies: 
+      - Services: _policies/darc.md
       - User Limits: _policies/user_limits.md
       - Collaborators: _policies/collaborators.md
       - Workgroups: _policies/workgroups.md
@@ -107,6 +108,7 @@ nav:
       - Matlab: _user_guide/matlab_interactive.md
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
+      - Stata: _user_guide/stata.md          
       - Optimization Software: _user_guide/best_practices_optimization.md
       - Data:
           - Storage: _user_guide/storage.md

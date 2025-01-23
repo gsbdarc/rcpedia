@@ -97,7 +97,7 @@ with Pool(6) as p:
 
 In the above script, we are setting a few environment variables to limit the number of cores that `numpy` wants to use. In this case, we are setting the number of cores to 1. Then using `multiprocessing` package, we can create a parallel region in our code with the `Pool` object which will run a function `f` in parallel 100 times (for each of 100 elements in the `data` list). 
 
-On the yens, before we start running the script, let's log into a second terminal window so we can monitor our CPU usage. Remember to login to the same yen machine! Check which yen you are on in terminal 1 by typing `hostname` then `ssh` to the same yen in terminal 2. For example, running `hostname` might output:
+On the Yens, before we start running the script, let's log into a second terminal window so we can monitor our CPU usage. Remember to login to the same yen machine! Check which `yen` you are on in terminal 1 by typing `hostname` then `ssh` to the same `yen` in terminal 2. For example, running `hostname` might output:
 
 ```{.yaml .no-copy title="Terminal Output"}
 yen4
