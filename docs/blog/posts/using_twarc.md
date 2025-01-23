@@ -9,19 +9,19 @@ authors:
     - nrapstin
 ---
 
-# Using Twarc python package to scrape Twitter
+# Using Twarc Python Package to Scrape Twitter
 
-In this blog, we discuss how to get started with the [`twarc`](https://github.com/DocNow/twarc){:target="_blank"} python package to scrape Twitter.
+In this blog, we discuss how to get started with the [`twarc`](https://github.com/DocNow/twarc){:target="_blank"} Python package to scrape Twitter.
 
 <!-- more -->
 
-## Installing `Twarc` package
+## Installing `twarc` package
 !!! update
      As of December 2024, we recommend using `venv` and not `conda` to install python packages
      
 We will use a `conda` environment to install all the python packages into. 
-That way we can make it into the kernel on JupyterHub and use the same environmnet on interactive yens, 
-[`yen-slurm`](/_user_guide/slurm/){:target="_blank"} or 
+That way we can make it into a kernel on JupyterHub and use the same environmnet on the interactive Yens, 
+[Yen Slurm](/_user_guide/slurm/){:target="_blank"} or 
 [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
 
 ```title="Terminal Command"
@@ -30,14 +30,14 @@ ml anaconda3
 
 After loading Anaconda module, make the new environment. If you are working on a shared project and want to share one
  conda environment with your collaborators, you can use `--prefix` argument instead of `-n` when calling `conda create`.
- You can also specify the version of python with which to make the environment.
+ You can also specify the version of Python with which to make the environment.
  
 ```title="Terminal Command"
 conda create --prefix=/zfs/projects/<project-space>/conda/twitter python=3.10
 ```
 
 In the above command, make sure you have the write privilages to `/zfs/projects/<project-space>/conda/` before making 
-the conda environment. After the conda env is created, all of the python packages including `twarc` will be installed there.
+the conda environment. After the conda env is created, all of the Python packages including `twarc` will be installed there.
 
 After the environment is made, activate it:
 
@@ -45,14 +45,13 @@ After the environment is made, activate it:
 source activate /zfs/projects/<project-space>/conda/twitter 
 ```
 
-Install the necessary python packages:
+Install the necessary Python packages:
 
 ```title="Terminal Command"
 pip install pandas twarc python-dotenv
 ```
 
-We will use [`python-dotenv`](https://pypi.org/project/python-dotenv/){:target="_blank"} package for passing our Twitter API key to our
-python script.  
+We will use [`python-dotenv`](https://pypi.org/project/python-dotenv/){:target="_blank"} package for passing our Twitter API key to our Python script.  
 
 Last step is to make this conda environment into a Jupyter kernel.  
 
@@ -63,17 +62,17 @@ for your kernel to go into the `--name` argument.
 python -m ipykernel install --user --name=twitter
 ```
 
-Start up [Jupyter](/_getting_started/jupyter/){:target="_blank"} on any of the interactive yens (yen[1-5]) and you should now see a new
+Start up [JupyterHub](/_getting_started/jupyter/){:target="_blank"} on any of the interactive Yens (`yen[1-5]`) and you should now see a new
 kernel in the Launcher menu under Notebooks. Start a new notebook with that kernel.
 
 ![Twitter icon box highlighted in the Notebook section of JupyterHub](/assets/images/twitter_kernel.png)
 
 ## Scraping Twitter
 !!! warning
-     This guide uses Academic Research License discontinued by Twitter earler this year. 
+     This guide uses Academic Research License discontinued by Twitter in early 2024. 
 
-Once Academic Research application was approved, a researcher had access to [Twitter developer dashboard](https://developer.twitter.com/en/portal/products/academic-research){:target="_blank"}.
-Go to your Projects & App and make a new app. It will have a unique API Key and Secret and a Bearer Token that will be used to access Twitter data.
+Once an Academic Research application was approved, a researcher had access to [Twitter developer dashboard](https://developer.twitter.com/en/portal/products/academic-research){:target="_blank"}.
+Go to your "Projects & App" and make a new app. It will have a unique API Key and Secret and a Bearer Token that will be used to access Twitter data.
  
 ### Test Jupyter environment
 

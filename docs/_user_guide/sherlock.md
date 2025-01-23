@@ -10,17 +10,17 @@
 #### Condo Model
 Stanford Research Computing provides faculty with the opportunity to purchase from a catalog a recommended compute node configurations, for the use of their research teams. Using a traditional compute cluster "condo" model, participating faculty and their teams get priority access to the resources they purchase. When those resources are idle, other "owners" can use them, until the purchasing owner wants to use them. When this happens, those other owners jobs are re-queued to free up resources. Participating owner PIs also have shared access to the original base Sherlock nodes, along with everyone else.
 
-### Sherlock and Yen
+### Sherlock and the Yen Cluster
 
-Sherlock and Yen are entirely separate systems -- this means:
+Sherlock and the Yen Cluster are entirely separate systems -- this means:
 
-* You cannot submit jobs from Yen to Sherlock or vice versa
-* Data stored on Yen cannot be accessed from Sherlock, or vice versa
-* Sherlock and Yen have different funding models, administrator teams and policies
+* You cannot submit jobs from the Yen cluster to Sherlock or vice versa
+* Data stored on the Yen cluster cannot be accessed from Sherlock, or vice versa
+* Sherlock and the Yen cluster have different funding models, administrator teams and policies
 
-Sherlock is exclusively a *batch* submission environment like [FarmShare](https://srcc.stanford.edu/farmshare){:target="_blank"} and [Yen Slurm](/_user_guide/slurm){:target="_blank"}, not an *interactive* computing environment like the [interactive yens](/_getting_started/yen-servers){:target="_blank"}. That is,  **you can't just log in and run intensive tasks**. To compute on Sherlock, you have to prepare and submit a [slurm](/_user_guide/slurm/#example-script){:target="_blank"} job script that describes the CPU, memory (RAM), and time resources you require, as well as the code to run. A scheduler puts your requests in queue until the resources can be allocated.
+Sherlock is exclusively a *batch* submission environment like [FarmShare](https://srcc.stanford.edu/farmshare){:target="_blank"} and [Yen Slurm](/_user_guide/slurm){:target="_blank"}, not an *interactive* computing environment like the [interactive Yens](/_getting_started/yen-servers){:target="_blank"}. That is,  **you can't just log in and run intensive tasks**. To compute on Sherlock, you have to prepare and submit a [Slurm](/_user_guide/slurm/#example-script){:target="_blank"} job script that describes the CPU, memory (RAM), and time resources you require, as well as the code to run. A scheduler puts your requests in queue until the resources can be allocated.
 
-Both Yen and Sherlock are valuable resources, but Sherlock is significantly larger. Consider using Sherlock for:
+Both the Yen cluster and Sherlock are valuable resources, but Sherlock is significantly larger. Consider using Sherlock for:
 
 -   Parameter Sweeps: you need to run the same code _many_ times, but with different inputs
 -   Large Compute: you need more CPU/memory resources than is "fair" to use at a time on the yens
@@ -94,7 +94,7 @@ echo "hello"
 
 ### Python Example 
 
-The python script `hello.py` is a simple hello world script that prints hello and hostname of the node where 
+The Python script `hello.py` is a simple hello world script that prints hello and hostname of the node where 
 it is running then sleeps for 30 seconds. 
 
 ```py linenums="1" title="hello.py"
@@ -106,7 +106,7 @@ print('Hello from {} node').format(socket.gethostname())
 time.sleep(30)
 ```
 
-We can use the following slurm script, `hello.slurm`, that will submit the above python script and use any of the three partitions that I have permission to submit to:
+We can use the following Slurm script, `hello.slurm`, that will submit the above Python script and use any of the three partitions that I have permission to submit to:
 
 ```bash linenums="1" title="hello.slurm"
 #!/bin/bash
@@ -164,7 +164,7 @@ sacctmgr show qos normal
 
 to find that `MaxTRESPU` limit is 512 CPUs, so we will need to limit our job array to 512 CPU cores.
 
-We can modify the hello world python script and call it `hello-task.py` to also print a job task ID. 
+We can modify the hello world Python script and call it `hello-task.py` to also print a job task ID. 
 
 ```python linenums="1" title="hello-task.py"
 import sys
@@ -176,7 +176,7 @@ print('Hello! I am a task number {} on {} node').format(sys.argv[1], socket.geth
 time.sleep(30)
 ```
 
-We use the following slurm script, `hello-job-array.slurm`, that will submit 512 job array tasks and use either `normal` or the `gsb` partition where I have permission to submit to:
+We use the following Slurm script, `hello-job-array.slurm`, that will submit 512 job array tasks and use either `normal` or the `gsb` partition where I have permission to submit to:
 
 ```bash linenums="1" hl_lines="7" title="hello-job-array.slurm"
 #!/bin/bash
@@ -215,7 +215,7 @@ watch squeue -u $USER
 
 Sherlock also has over 800+ GPUs that we can take advantage of when training machine learning / deep learning models. 
 
-This is an abbreviated version of this [user guide](/_user_guide/best_practices_gpu/#keras-example){:target=_blank} that also talks about how to setup your Python virtual environment on the Yens to be able to run the Keras example below, training a simple MNIST convnet.
+This is an abbreviated version of this [user guide](/_user_guide/best_practices_gpu/#keras-example){:target=_blank} that also talks about how to set up your Python virtual environment on the Yens to be able to run the Keras example below, training a simple MNIST convnet.
 
 ```python linenums="1" title="mnist.py"
 import numpy as np
@@ -274,7 +274,7 @@ print("Test loss:", score[0])
 print("Test accuracy:", score[1])
 ```
 
-The slurm script looks like:
+The Slurm script looks like:
 
 ```bash linenums="1" hl_lines="6" title="keras-gpu.slurm"
 #!/bin/bash
@@ -301,9 +301,9 @@ ml py-tensorflow
 python3 mnist.py
 ```
 
-1.  This script is asking for one GPU (`-G 1`)
-2.  Running specifically on `gpu` partition
-3.  See available modules on the [Sherlock Documentation](https://www.sherlock.stanford.edu/docs/software/list){:target="_blank"}
+- This script is asking for one GPU (`-G 1`)
+- Running specifically on `gpu` partition
+- See available modules on the [Sherlock Documentation](https://www.sherlock.stanford.edu/docs/software/list){:target="_blank"}
 
 Note that the `py-tensorflow` module on Sherlock contains the Python Tensorflow bindings. You may need to build your own virtual environment if you are incorporating other packages or need to refer to a specific software version.
 
@@ -332,7 +332,7 @@ Once the job is running, connect to the node where your job is running to monito
 ssh sh03-12n07
 ```
 
-Once you connect to the GPU node, load the cuda module there and monitor GPU utilization while the job is running:
+Once you connect to the GPU node, load the Cuda module there and monitor GPU utilization while the job is running:
 
 ```bash title="Terminal Command"
 module load cuda/11.0.3
