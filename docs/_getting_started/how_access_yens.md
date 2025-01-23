@@ -76,7 +76,7 @@ ssh -Y <SUNetID>@yen.stanford.edu
 
 
 ### Common Access Issues
-1. **No Sponsored Yen Access**
+1. **No Sponsored Yen Cluster Access**
 
     If you're not eligible by default, confirm you have sponsorship from a GSB faculty member.
 

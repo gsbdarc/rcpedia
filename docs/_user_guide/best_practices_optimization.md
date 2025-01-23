@@ -25,9 +25,9 @@ ml gurobipy3
 ```
 
 Next, create a new [Python virtual environment](/_user_guide/best_practices_python_env/){:target="_blank"} using the `venv` package.
-This virtual environment will be used across interactive Yen nodes, Slurm nodes, and as a Jupyter kernel.
+This virtual environment will be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel.
 
-To ensure the virtual environment is sharable, create it in a shared location on the Yen system, such as a faculty project directory, rather than in a user’s home directory.
+To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.
 
 Let's navigate to the shared project directory:
 
@@ -95,7 +95,7 @@ deactivate
 module purge
 ```
 
-The environment is now set up to run your Python scripts that import `gurobipy` on the interactive Yen nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
+The environment is now set up to run your Python scripts that import `gurobipy` on the interactive Yen cluster nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
 
 !!! Important
     You need to load the `gurobipy3` module and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use the `gurobipy` package.
@@ -158,7 +158,7 @@ Loading required package: slam
 >
 ```
 
-You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
+You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen cluster nodes.
 
 !!! Important
     You need to load the `gurobi` and `R` modules every time you log in to the Yens before running the interactive R scripts that use `gurobi` R package.
@@ -203,7 +203,7 @@ Loading required package: slam
 >
 ```
 
-Quit R. You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen nodes.
+Quit R. You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen cluster nodes.
 
 
 ### AMPL with Knitro Solver
@@ -256,9 +256,9 @@ prepend_path("PYTHONPATH","/software/non-free/knitro/14.0.0/examples/Python")
 ```
 
 Next, create a new [Python virtual environment](/_user_guide/best_practices_python_env/){:target="_blank"} using the `venv` package.
-This virtual environment will also be used across interactive Yen nodes, Slurm nodes, and as a Jupyter kernel. The process is the same as the one we set up for Gurobi above.
+This virtual environment will also be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel. The process is the same as the one we set up for Gurobi above.
 
-To ensure the virtual environment is sharable, create it in a shared location on the Yen system, such as a faculty project directory, rather than in a user’s home directory.
+To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.
 
 Let's navigate to the shared project directory:
 
@@ -292,7 +292,7 @@ pip install numpy pandas ipykernel amplpy
 
 The `ipykernel` module is needed to turn this virtual environment into a Jupyter kernel at a later step and the [`amplpy`](https://pypi.org/project/amplpy){:target="_blank"} package serves as the Python interface to AMPL.
 
-We can now use both AMPL and Knitro on interactive Yen nodes. After the packages are installed, start the Python REPL by typing `python`:
+We can now use both AMPL and Knitro on interactive Yen cluster nodes. After the packages are installed, start the Python REPL by typing `python`:
 
 ```title="Terminal Command"
 python
@@ -395,7 +395,7 @@ deactivate
 module purge
 ```
 
-The environment is now set up to run your Python scripts that use AMPL and Knitro on the interactive Yen nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
+The environment is now set up to run your Python scripts that use AMPL and Knitro on the interactive Yen cluster nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
 
 !!! Important
     You need to load the `ampl` and `knitro` modules and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use AMPL and Knitro.

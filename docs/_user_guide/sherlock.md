@@ -10,17 +10,17 @@
 #### Condo Model
 Stanford Research Computing provides faculty with the opportunity to purchase from a catalog a recommended compute node configurations, for the use of their research teams. Using a traditional compute cluster "condo" model, participating faculty and their teams get priority access to the resources they purchase. When those resources are idle, other "owners" can use them, until the purchasing owner wants to use them. When this happens, those other owners jobs are re-queued to free up resources. Participating owner PIs also have shared access to the original base Sherlock nodes, along with everyone else.
 
-### Sherlock and Yen
+### Sherlock and the Yen Cluster
 
-Sherlock and Yen are entirely separate systems -- this means:
+Sherlock and the Yen Cluster are entirely separate systems -- this means:
 
-* You cannot submit jobs from Yen to Sherlock or vice versa
-* Data stored on Yen cannot be accessed from Sherlock, or vice versa
-* Sherlock and Yen have different funding models, administrator teams and policies
+* You cannot submit jobs from the Yen cluster to Sherlock or vice versa
+* Data stored on the Yen cluster cannot be accessed from Sherlock, or vice versa
+* Sherlock and the Yen cluster have different funding models, administrator teams and policies
 
 Sherlock is exclusively a *batch* submission environment like [FarmShare](https://srcc.stanford.edu/farmshare){:target="_blank"} and [Yen Slurm](/_user_guide/slurm){:target="_blank"}, not an *interactive* computing environment like the [interactive Yens](/_getting_started/yen-servers){:target="_blank"}. That is,  **you can't just log in and run intensive tasks**. To compute on Sherlock, you have to prepare and submit a [Slurm](/_user_guide/slurm/#example-script){:target="_blank"} job script that describes the CPU, memory (RAM), and time resources you require, as well as the code to run. A scheduler puts your requests in queue until the resources can be allocated.
 
-Both Yen and Sherlock are valuable resources, but Sherlock is significantly larger. Consider using Sherlock for:
+Both the Yen cluster and Sherlock are valuable resources, but Sherlock is significantly larger. Consider using Sherlock for:
 
 -   Parameter Sweeps: you need to run the same code _many_ times, but with different inputs
 -   Large Compute: you need more CPU/memory resources than is "fair" to use at a time on the yens

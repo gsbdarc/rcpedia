@@ -17,7 +17,7 @@ RStudio will open up in a new tab.
 ![RStudio opens](/assets/images/rstudio-gui.png)
 
 !!! danger
-    Do **not** install packages directly from RStudio on JupyterHub. Instead, use the terminal and run R to install packages. This ensures compatibility with the Yen environment.
+    Do **not** install packages directly from RStudio on JupyterHub. Instead, use the terminal and run R to install packages. This ensures compatibility with the Yen cluster environment.
 
 See [this guide](/_user_guide/r#installing-r-packages){target="_blank"} on how to install R packages on the Yens. Make sure the R module you load is the one RStudio is using.
 
