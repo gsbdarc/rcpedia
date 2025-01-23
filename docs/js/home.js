@@ -256,9 +256,9 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     }
 
 
-    // // -------------------------------------------------------
-    // // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
-    // // -------------------------------------------------------
+    // -------------------------------------------------------
+    // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
+    // -------------------------------------------------------
     /*  Creating 2 new divs for the team color bar, link cards, etc.
      *  Setting the Page title text
      *  Make the Search Bar a child element of the Team Color Bar
@@ -277,7 +277,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         colorBarDiv.style.backgroundColor = '#7E2F49'; 
 
         contentDiv.id = 'contentDiv';
-        contentDiv.style.height = '200px'; 
         contentDiv.style.width = '100%';
         contentDiv.style.backgroundColor = 'white'; 
     
@@ -304,12 +303,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         colorBarDiv.appendChild(searchBarParentDiv);
     }
 
-    // Move the horizontal rule to the custom content div
-    const hrElement = document.querySelector('hr');
-    if (contentDiv && hrElement) {
-        contentDiv.appendChild(hrElement);
-    }
-
     // Remove the 'Results Metadata Div' that says 'Type to Start searching'
     const elements = document.querySelectorAll('.md-search-result__meta');
     elements.forEach(element => {
@@ -327,5 +320,74 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     if (backToTopButton) {
         backToTopButton.remove(); 
     }
+
+    // -------------------------------------------------------
+    // --------- ADDING LINK CARDS & CLUSTER STATS -----------
+    // -------------------------------------------------------
+
+
+    contentDiv.textContent = "CURRENT CLUSTER CONFIGURATION"
+
+    // Creating stats
+    // Create the container for the grid
+    const statContainer = document.createElement('div');
+    statContainer.classList.add('grid-container');
+    statContainer.id = 'stat-container';
+
+    contentDiv.appendChild(statContainer);
+
+    // Create 5 grid elements
+    for (let i = 1; i <= 5; i++) {
+        const cell = document.createElement('div');
+        cell.classList.add('grid-item');
+        cell.textContent = i; // Placeholder number as text
+        statContainer.appendChild(cell);
+    }
+
+    // Move the horizontal rule to the custom content div
+    const hrElement = document.querySelector('hr');
+    if (contentDiv && hrElement) {
+        contentDiv.appendChild(hrElement);
+    }
+
+    // Creating link card grid
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add('grid-container');
+    contentDiv.appendChild(cardContainer); // Append the container to the contentDiv
+
+    // Create 4 div elements with the class "su-card"
+    for (let i = 1; i <= 4; i++) {
+        const card = document.createElement('div');
+        card.classList.add('su-card');
+        
+        const link = document.createElement('a'); // Create a link inside each card
+        link.classList.add('su-card-link'); // Add a class for styling
+        
+        switch(i) {
+            case 1:
+                link.textContent = 'Request Services';
+                link.href = 'https://darcrequest.stanford.edu/';
+                break;
+            case 2:
+                link.textContent = 'Storage';
+                link.href = '/_user_guide/storage/';
+                break;
+            case 3:
+                link.textContent = 'Getting Started';
+                link.href = '/_getting_started/yen-servers/';
+                break;
+            case 4:
+                link.textContent = 'GSB Research Hub';
+                link.href = 'https://gsbresearchhub.stanford.edu/';
+                break;
+            default:
+                console.log("Switch case default")
+        }
+        card.appendChild(link);
+        cardContainer.appendChild(card);
+    }
+
+    
+
 
 });
