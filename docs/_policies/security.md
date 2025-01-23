@@ -1,6 +1,6 @@
 # Security
 
-Stanford is committed to protecting the privacy of its students, alumni, faculty, and staff, as well as protecting the confidentiality, integrity, and availability of information important to the University's mission.  
+Stanford is committed to protecting the privacy of its students, alumni, faculty, and staff, as well as protecting the confidentiality, integrity, and availability of information important to the University's mission. 
 
 ## Data Classification
 
@@ -14,22 +14,20 @@ The University provides a [simple categorization of data risk levels](http://dat
 
 It is **your** responsibility as a researcher to be a responsible steward of your data. If you're ever unsure the risk categorization of your data, please [contact us](mailto:gsb_darcresearch@stanford.edu){:target="_blank"} to discuss how to best achieve your research goals while being mindful of data security.
 
-!!! danger
-    The Yens are **not** approved for High risk data.
-
+!!! danger "The Yen Servers Are **Not** Approved for High Risk Data."
+    The Yen cluster is approved for use with Low and Moderate risk data. Other Stanford systems, such as [Nero](https://nero-docs.stanford.edu/){:target="_blank"} and [Carina](https://carinadocs.sites.stanford.edu/){:target="_blank"} are designed for High Risk Data.
 If you choose to use your own independent system (e.g., your own machine in the cloud), you are responsible for correctly managing any secure data and credentials necessary.
 
 
 ## Yen Cluster
 
-The Yens are approved to handle Moderate risk data. They are currently stored in a secure, centrally-managed data center on the Stanford Historical Campus. Consistent with minimum security standards, the Yens have the following security features:
+The Yen servers are approved to handle Moderate and Low Risk data. They are currently stored in a secure, centrally-managed data center on the Stanford Historical Campus. Consistent with minimum security standards, the Yen servers have the following security features:
 
 * Required Single-Sign On with Multi Factor Authentication
 * Centralized logging
 * Patching and vulnerability scans
 
-While the Yens do protect data from unauthorized access, there are no mechanisms in place to control the export of data.
-
+While the Yen servers do protect data from unauthorized access, there are no mechanisms in place to control the export of data.
 
 ## Contractual Requirements
 
@@ -55,6 +53,6 @@ Note that it is **your** responsibility to ensure the correct researchers are li
 
 No matter how secure our research computing servers are, if your own computer is compromised, it compromises the security of our environment.
 
-!!! tip
+!!! tip "Protect Your Personal Machine"
     Stanford's Information Security Office has a [full site](https://uit.stanford.edu/security){:target="_blank"} to help protect your data and devices.
 
