@@ -35,7 +35,7 @@ On the bottom of the editor, we see:
 which presents the name of the file we are editing and signals that we are in **Command mode** (default mode when opening a file).
 
 
-Now if we want to start typing content edits, we press the `i` key and make sure the bottom of the editor now says:
+Now if we want to start typing content edits, we press the ++i++ key and make sure the bottom of the editor now says:
 
 ```{.yaml .no-copy title="Terminal Output"}
 -- INSERT --     
