@@ -10,7 +10,7 @@ The A30 NVIDIA GPU's have 24 G of GPU RAM while the A40 NVIDIA GPU's have 48 G o
 
 ### GPU Partition
 
-To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/slurm/#how-do-i-use-the-scheduler){:target="_blank"} to the `yen-slurm` cluster targeting the `gpu` partition. You can use the command `sinfo -p gpu` to get more information about this partition:
+To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/slurm/#how-do-i-use-the-scheduler){:target="_blank"} to the Slurm scheduler targeting the `gpu` partition. You can use the command `sinfo -p gpu` to get more information about this partition:
 
 ```{.yaml .no-copy title="Terminal Output"}
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST

@@ -1,4 +1,4 @@
-# Storage Solutions
+;# Storage Solutions
 
 At Stanford Graduate School of Business, we offer several storage options to support your research. To determine the best storage solution for your research, key factors such as data size, security, access restrictions, and computing needs must be considered. Below is a brief overview of each storage option available.
 
@@ -112,7 +112,7 @@ There is a large ZFS based scratch space, accessible from any Yen server, at ```
 
 On each Yen machine, there is a local disk space mounted at ```/tmp```, which is over 1 TB in size. Reading and writing from ```/tmp``` is a lot faster because I/O operations do not have to go via the slow network. All Yen users are free to make use of this space. Much like a hard drive on your laptop, this can be accessed only from that single Yen machine. Be careful not to fill up `/tmp` completely as jobs running on that Yen node may crash in unexpected ways. Be a good citizen and delete the files you no longer need. 
 
-!!! Warning "Move Results Off /scratch and /tmp"
+!!! Warning "Move Results Off `/scratch` and `/tmp`"
     Note that ```/scratch``` and ```/tmp``` spaces on the Yen servers are cleared during system reboots, and are subject to **intermittent purging** as needed by the admins. Therefore, local ```/tmp``` or ```/scratch``` spaces are best used only for temporary files. Additionally, ensure that files in ```/tmp`` have the correct permissions set to prevent unauthorized access or manipulation.
 
 ### AFS Volumes
