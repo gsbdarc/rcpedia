@@ -5,8 +5,8 @@
     "subtitle": "including SLURM_NODE_COUNT_PLACEHOLDER job scheduler nodes"
   },
   {
-    "number": "TOTAL_STORAGE_PB_PLACEHOLDER",
-    "unit": "PB",
+    "number": "TOTAL_STORAGE_TB_PLACEHOLDER",
+    "unit": "TB",
     "subtitle": "of available storage"
   },
   {
