@@ -30,7 +30,7 @@ ssh -Y <SUNet ID>@yen.stanford.edu
 The `-Y` flag here enables X-forwarding, allowing you to run software on the server that uses graphical windows.
 
 When prompted, type your SUNet ID password. Then, complete the two-factor authentication process.
-After you successfully login, check that X-forwarding works correctly. Choose any of the following commands and type it in the `yen` command line interface as all of them will pop up a window if everything is working correctly - `xeyes`, `xcalc`, `xlogo` or `xclock` (or choose your favorite X11 command line program):
+After you successfully login, check that X-forwarding works correctly. Choose any of the following commands and type it in the Yen command line interface as all of them will pop up a window if everything is working correctly - `xeyes`, `xcalc`, `xlogo` or `xclock` (or choose your favorite X11 command line program):
 
 ```title="Terminal Command"
 xeyes
