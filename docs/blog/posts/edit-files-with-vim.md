@@ -6,7 +6,9 @@ categories:
 authors:
     - nrapstin 
 ---
+
 # Editing Files on the Command Line
+
 When working within JupyterHub, one can utilize the built-in Text Editor to [directly edit scripts on the Yens](/_getting_started/jupyter/#text-file-editor){:target="_blank"}. 
 However, it is sometimes more convenient and faster to edit files directly from the command line, for instance if you are logged into a terminal and need to make small changes to your Slurm script prior to submission.
 
@@ -20,38 +22,41 @@ To start, Vim has several modes:
 
 
 Let's open up a test file and edit it:
+
 ```title="Terminal Command"
 vi test.py
 ```
 
 On the bottom of the editor, we see:
+
 ```{.yaml .no-copy title="Terminal Output"}
 "test.py" [New File]   
 ```
 which presents the name of the file we are editing and signals that we are in **Command mode** (default mode when opening a file).
 
+
 Now if we want to start typing content edits, we press the `i` key and make sure the bottom of the editor now says:
+
 ```{.yaml .no-copy title="Terminal Output"}
 -- INSERT --     
 ```
 which indicates that **Insert mode** is activated.
  
-We then add in a line with a test python command:
+We then add in a line with a test Python command:
+
 ```python title="Python Code"
 print("hello world!")
 ```
 
 To change the position of the position cursor, we use the arrow keys or `h`, `j`, `k`, `l` keys. This will allow us to jump to a different line or position the cursor within a line.
 
-Let's now save and quit the Vim editor. First, we press `esc` to go back to **Command mode** (the bottom of the editor should no longer show `-- INSERT --`).
-Then type `:wq` to write and quit Vim. This should save the file and return you back to the command line.
+Let's now save and quit the Vim editor. First, we press `esc` to go back to **Command mode** (the bottom of the editor should no longer show `-- INSERT --`). Then type `:wq` to write and quit Vim. This should save the file and return you back to the command line.
 
 After you are back on the command line, let's make sure the file is saved correctly:
 
 ```title="Terminal Command"
 cat test.py
 ```
-
 You should see the file's content that we created:
 
 ```{.yaml .no-copy title="Terminal Output"}
