@@ -34,7 +34,7 @@ jobs:
     - name: Install dependencies
       run: pip install -r requirements.txt
 
-    - name: Replace placeholders in vars.yml
+    - name: Replace placeholders in docs/assets/vars.json
       env: 
         TOTAL_PHYSICAL_CORES: ${{ vars.TOTAL_PHYSICAL_CORES }}
         TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
@@ -43,17 +43,17 @@ jobs:
         TOTAL_NODE_COUNT: ${{ vars.TOTAL_NODE_COUNT }}
         SLURM_NODE_COUNT: ${{ vars.SLURM_NODE_COUNT }}
       run: |
-        sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" docs/assets/vars.yml
-        sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" docs/assets/vars.yml
-        sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" docs/assets/vars.yml
-        sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" docs/assets/vars.yml
-        sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" docs/assets/vars.yml
-        sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" docs/assets/vars.yml
+        sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" docs/assets/vars.json
+        sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" docs/assets/vars.json
+        sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" docs/assets/vars.json
+        sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" docs/assets/vars.json
+        sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" docs/assets/vars.json
+        sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" docs/assets/vars.json
 
     - name: Debug placeholder replacement
       run: |
-        echo "docs/assets/vars.yml after placeholder replacement:"
-        cat docs/assets/vars.yml
+        echo "docs/assets/vars.json after placeholder replacement:"
+        cat docs/assets/vars.json
 
     - name: Build MkDocs site
       run: mkdocs build --clean
