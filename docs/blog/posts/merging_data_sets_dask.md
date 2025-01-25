@@ -44,7 +44,7 @@ pip install -r requirements.txt
 ```
 
 ## Data Download
-We are going to use public EDGAR data from 2013. We will merge two data sets - EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2013.html){:target="_blank"}. 
+We are going to use public EDGAR data from 2013. We will merge two data sets - EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2017.html){:target="_blank"}. 
 
 Save the following to a file called `download_logs.py`.
 ```python title="download_logs.py"
@@ -241,6 +241,12 @@ def download_financials(year, quarters):
 
 # Run the download function
 download_financials('2013', quarters)
+```
+
+Then, run the saved script to download 4 zip financial files:
+
+```title="Terminal Input"
+python download_financials_2013.py
 ```
 
 Now you should have 4 zip files downloaded in `data/financial2013` directory:
