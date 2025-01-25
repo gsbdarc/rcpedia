@@ -1,6 +1,6 @@
 # Running Python Interactively
 
-To use the system Python software on the Yens, simply type `python3`.
+To use the system Python software on the Yen servers, simply type `python3`.
 
 ```title="Yen Terminal Input"
 python3
@@ -22,7 +22,7 @@ To exit the Python interpreter, type `exit()` or press ++ctrl+"D"++ .
 
 
 !!! Important "Use a Virtual Environment to Manage Packages!"
-    If you need a specific version of python and to install python packages, we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
+    If you need a specific version of Python and to install Python packages, we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
 
 ### Running Python Scripts
 

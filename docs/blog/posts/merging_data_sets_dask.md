@@ -11,17 +11,19 @@ authors:
 
 # Merging Big Data Sets with Python Dask 
 
-If you're running out of memory on your desktop for data processing tasks, consider using the Yen servers. Both the interactive Yen servers and the Yen-Slurm nodes have at least 1 TB of RAM per node. However, per the [Yen User Limits](/_policies/user_limits){:target="_blank"}, you should limit your memory usage to 192 GB on most interactive Yen servers.
+If you're running out of memory on your desktop for data processing tasks, consider using the Yen servers. Both the interactive Yen servers and the Yen Slurm nodes have at least 1 TB of RAM per node. However, per the [Yen User Limits](/_policies/user_limits){:target="_blank"}, you should limit your memory usage to 192 GB on most interactive Yen servers.
 
 <!-- more -->
 
-## `dask` Python Package 
+## Dask Python Package 
 
 The Python package [`dask`](https://dask.org){:target="_blank"} is a powerful tool for parallel data analytics, offering faster and more memory-efficient performance than `pandas`. It follows `pandas` syntax and can accelerate common data processing tasks like merging large datasets.  
 
 ## Virtual Environment
+
 First, we'll prepare a virtual environment called `venv` inside a ZFS directory where you have write permissions. 
 Create a virtual environment:
+
 ```bash title="Terminal Input"
 /usr/bin/python3 -m venv venv
 source venv/bin/activate
@@ -44,9 +46,11 @@ pip install -r requirements.txt
 ```
 
 ## Data Download
-We are going to use public EDGAR data from 2013. We will merge two data sets - EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2013.html){:target="_blank"}. 
 
-Save the following to a file called `download_logs.py`.
+We are going to use public EDGAR data from 2013. We will merge two data sets: EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2013.html){:target="_blank"}. 
+
+Save the following to a file named `download_logs.py`.
+
 ```python title="download_logs.py"
 import os
 import requests
@@ -129,7 +133,7 @@ Then, run the saved script to download 10 zip log files:
 python download_logs.py
 ```
 
-Now you should have 10 zip files downloaded in `data/raw_edgar_logs2013` directory:
+Now you should have 10 zip files downloaded in the `data/raw_edgar_logs2013` directory:
 
 ```bash title="Terminal Input"
 ls -ltrh data/raw_edgar_logs2013/
@@ -243,7 +247,7 @@ def download_financials(year, quarters):
 download_financials('2013', quarters)
 ```
 
-Now you should have 4 zip files downloaded in `data/financial2013` directory:
+Now you should have 4 zip files downloaded in the `data/financial2013` directory:
 
 ```bash title="Terminal Input"
 ls -ltrh data/financial2013
@@ -262,7 +266,8 @@ total 196M
 Next, we will combine the 4 zip files into one CSV file. Save the following into a new script `combine_financials.py`.
 
 ```python title="combine_financials.py"
-# Python script to combine EDGAR finacial files from 2013 into one csv file
+
+# Python script to combine EDGAR financial files from 2013 into one csv file
 import pandas as pd
 import numpy as np
 from zipfile import ZipFile
@@ -289,7 +294,7 @@ result = pd.concat(frames)
 result.to_csv('data/finance2013.csv')
 ```
 
-Now we should have two data sets that we are going to merge using `pandas` and `dask` Python packages - `logs2013-10logs.csv` and `finance2013.csv` inside `data` directory.
+Now we should have two data sets that we are going to merge using `pandas` and `dask` Python packages: `logs2013-10logs.csv` and `finance2013.csv` inside `data` directory.
 
 ## Profiling Memory
 
@@ -300,7 +305,7 @@ We will use the [`memory_profiler`](https://pypi.org/project/memory-profiler/){:
 
     Add the `@profile` decorator to the function you want to profile.
 
-    ```python title="memory profile a function"
+    ```python title="Memory Profile a Function"
     from memory_profiler import profile
   
     @profile
@@ -326,7 +331,7 @@ We will use the [`memory_profiler`](https://pypi.org/project/memory-profiler/){:
 
 
 ### Example 
-We will compare the memory consumption of merging two datasets using `pandas` and `dask`. The profiling will be run on the yen-slurm servers.
+We will compare the memory consumption of merging two datasets using `pandas` and `dask`. The profiling will be run on the Yen Slurm servers.
 
 1.  Create Profiling Scripts
 
@@ -338,6 +343,7 @@ We will compare the memory consumption of merging two datasets using `pandas` an
     #########################################
     # Merge example using pandas
     #########################################
+    
     from memory_profiler import profile
     import pandas as pd
     
@@ -369,6 +375,7 @@ We will compare the memory consumption of merging two datasets using `pandas` an
     #########################################
     # Merge example using dask
     #########################################
+    
     from memory_profiler import profile
     import dask.dataframe as dd
     
@@ -428,7 +435,7 @@ We will compare the memory consumption of merging two datasets using `pandas` an
     ```bash title="Terminal Input"
     squeue -u $USER 
     ```
-    Replace `$USER` with your actual username on the yen servers.
+    Replace `$USER` with your actual username on the Yen servers.
   
     You should see your job running:
   
@@ -449,7 +456,7 @@ We will compare the memory consumption of merging two datasets using `pandas` an
     ```
     where `<JOBID>` is the `JOBID` of the slurm job that has finished.
  
-    After running the profiling scripts, your output file will include memory usage details for both `pandas` and `dask` profiles. Here's an example of what the output might look like:
+    After running the profiling scripts, your output file will include memory usage details for both `pandas` and `dask` profiles. Here's an example of what the content of the output might look like:
 
 
     ```{.yaml .no-copy title="Contents of mem-profile-JOBID.out"}
@@ -625,7 +632,7 @@ Then monitor your job with:
 ```bash title="Terminal Input"
 squeue -u $USER  
 ```
-Replace `$USER` with your actual username on the yen servers.
+Replace `$USER` with your actual username on the Yen servers.
 
 
 You should see your job running:
@@ -635,14 +642,14 @@ JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
 ```
 
 Once the job finishes, display the out file to see the results of profiling. The name of the out file
-will have the `JOBID` that you saw in the output from `squeue` command.
+will have the `JOBID` that you saw in the output from the `squeue` command.
 
 ```bash title="Terminal Input"
 cat speed-profile-<JOBID>.out
 ```
 
 You should see something like:
-```{.yaml .no-copy title="Contents of speed-profile-JOBID.out file"}
+```{.yaml .no-copy title="Contents of speed-profile-JOBID.out"}
 
 loading log data in pandas...
 log data loading took: 222.10 seconds
@@ -669,7 +676,7 @@ in both speed and memory utilization:
 | :---                       |    :----:       |           ----:|
 | Loading log data           |        22 GB    |        222 sec  |
 | Loading finance data       |        10 MB    |       0.28 sec  |
-| Merge data sets            |        63 GB    |        187 sec  |
+| Merging data               |        63 GB    |        187 sec  |
 | Writing merged data to disk|         0 MB    |       4231 sec  |
 
 In comparision:
@@ -678,12 +685,12 @@ In comparision:
 | :---                       |    :----:       |           ----:|
 | Loading log data           |         6 MB    |       0.09 sec  |
 | Loading finance data       |        -1 MB    |       0.05 sec  |
-| Merge data sets            |         2 MB    |       0.07 sec  |
+| Merginge data              |         2 MB    |       0.07 sec  |
 | Writing merged data to disk|       5.5 GB    |       4058 sec  |
 
-`dask` impressive performance over `pandas` in both memory efficiency and speed is largely due to its *lazy evaluation* approach. Unlike `pandas`, which immediately processes data when an operation is called, `dask` builds a task graph and delays actual computation until explicitly requested — usually at the last step, such as writing data to disk. This explains why `dask` uses significantly less memory and time for operations like loading and merging data, only fully utilizing resources during the final write step where computation is triggered. This lazy evaluation strategy allows `dask` to optimize memory usage and parallelize tasks, leading to more efficient data processing overall.
+The impressive performance of `dask` over `pandas` in both memory efficiency and speed is largely due to its *lazy evaluation* approach. Unlike `pandas`, which immediately processes data when an operation is called, `dask` builds a task graph and delays actual computation until explicitly requested — usually at the last step, such as writing data to disk. This explains why `dask` uses significantly less memory and time for operations like loading and merging data, only fully utilizing resources during the final write step where computation is triggered. This lazy evaluation strategy allows `dask` to optimize memory usage and parallelize tasks, leading to more efficient data processing overall.
 
 !!! note
-    We made the `pandas` and `dask` scripts save the merged dataset as one CSV file. That is not optimal for `dask` performance because `dask` really excels at working on chunks of the dataset in parallel and it would improve the perfomance for `dask` to save the dataset in multiple chunks. So, for real projects, `dask` can be optimized even further to save big on memory and speed.
+    We made the `pandas` and `dask` scripts save the merged dataset as a single CSV file. That is not optimal for `dask` performance because `dask` really excels at working on chunks of the dataset in parallel and it would improve the perfomance for `dask` to save the dataset in multiple chunks. So, for real projects, `dask` can be optimized even further to save big on memory and speed.
 
 Finally, we would like to acknowledge Sara Malik and Professor Jung Ho Choi that inspired this `dask` vs. `pandas` comparison example.
