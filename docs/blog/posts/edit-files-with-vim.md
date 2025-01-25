@@ -18,7 +18,7 @@ In this post, we will illustrate how you can do this using the Vim text editor t
 To start, Vim has several modes:
 
 - **Command mode**: This is the mode you will be in when you first enter Vim. The user issues commands such as search, replace, block deletion and so on, but cannot type new content directly. It is in this mode where you can also save the edited file.
-- **Insert mode**: The user types in content edits to files. We can switch from **Command mode** to this mode by pressing the `i` key. When you are in **Insert mode**, the bottom of the editor displays `-- INSERT --`. Switch back to **Command mode** by pressing the `esc` key. 
+- **Insert mode**: The user types in content edits to files. We can switch from **Command mode** to this mode by pressing the ++i++ key. When you are in **Insert mode**, the bottom of the editor displays `-- INSERT --`. Switch back to **Command mode** by pressing the <kbd>esc</kbd> key. 
 
 
 Let's open up a test file and edit it:
@@ -48,9 +48,9 @@ We then add in a line with a test Python command:
 print("hello world!")
 ```
 
-To change the position of the position cursor, we use the arrow keys or `h`, `j`, `k`, `l` keys. This will allow us to jump to a different line or position the cursor within a line.
+To change the position of the position cursor, we use the arrow keys or ++h++, ++j++, ++k++, ++l++ keys. This will allow us to jump to a different line or position the cursor within a line.
 
-Let's now save and quit the Vim editor. First, we press `esc` to go back to **Command mode** (the bottom of the editor should no longer show `-- INSERT --`). Then type `:wq` to write and quit Vim. This should save the file and return you back to the command line.
+Let's now save and quit the Vim editor. First, we press <kbd>esc</kbd> to go back to **Command mode** (the bottom of the editor should no longer show `-- INSERT --`). Then type `:wq` to write and quit Vim. This should save the file and return you back to the command line.
 
 After you are back on the command line, let's make sure the file is saved correctly:
 
@@ -65,8 +65,8 @@ print("hello world!")
 
 In summary, use:
 
-- `i` : switch to **Insert mode** from **Command mode**
-- `esc`: switch back to **Command mode** from **Insert mode**
+- ++i++ : switch to **Insert mode** from **Command mode**
+- <kbd>esc</kbd>: switch back to **Command mode** from **Insert mode**
 - `:wq` : save file and quit out of Vim (must be in **Command mode**)
 
 Finally, you can download a [short list of useful Vim commands](https://drive.google.com/file/d/1sBbdrk_UcfX_tfy1jgxBaomwhDWKli2T/view?usp=sharing){:target="_blank"} to reference while using the editor
