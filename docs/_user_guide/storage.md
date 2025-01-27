@@ -1,4 +1,4 @@
-;# Storage Solutions
+# Storage Solutions
 
 At Stanford Graduate School of Business, we offer several storage options to support your research. To determine the best storage solution for your research, key factors such as data size, security, access restrictions, and computing needs must be considered. Below is a brief overview of each storage option available.
 
