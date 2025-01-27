@@ -52,7 +52,7 @@ Share illustrative examples, ranging from simple cases to complex scenarios.
 - **License**:
 Clearly state the license governing the use, modification, and distribution of your project.
 
-Additionally, include information about the memory and compute requirements of your analysis. For resource-intensive projects, note the necessity of high-performance computing environments, like the [Yens](/_getting_started/yen-servers){:target="_blank"}, and provide a description of these environments if applicable.
+Additionally, include information about the memory and compute requirements of your analysis. For resource-intensive projects, note the necessity of high-performance computing environments, like the [Yen cluster](/_getting_started/yen-servers){:target="_blank"}, and provide a description of these environments if applicable.
 
 ## Managing Computational Environment
 
