@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 ## Data Download
 
-We are going to use public EDGAR data from 2013. We will merge two data sets: EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2013.html){:target="_blank"}. 
+We are going to use public EDGAR data from 2013. We will merge two data sets: EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from [the SEC website](https://www.sec.gov/files/edgar_logfiledata_thru_jun2017.html){:target="_blank"}. 
 
 Save the following to a file named `download_logs.py`.
 
