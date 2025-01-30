@@ -1,0 +1,27 @@
+[
+  {
+    "number": "TOTAL_NODE_COUNT_PLACEHOLDER",
+    "unit": "nodes",
+    "subtitle": "including SLURM_NODE_COUNT_PLACEHOLDER job scheduler nodes"
+  },
+  {
+    "number": "TOTAL_STORAGE_TB_PLACEHOLDER",
+    "unit": "TB",
+    "subtitle": "of available storage"
+  },
+  {
+    "number": "TOTAL_MEMORY_TB_PLACEHOLDER",
+    "unit": "TB",
+    "subtitle": "total available RAM"
+  },
+  {
+    "number": "TOTAL_GPUS_PLACEHOLDER",
+    "unit": "GPUs",
+    "subtitle": "for intensive AI/ML tasks"
+  },
+  {
+    "number": "TOTAL_PHYSICAL_CORES_PLACEHOLDER",
+    "unit": "cores",
+    "subtitle": "distributed across nodes"
+  }
+]

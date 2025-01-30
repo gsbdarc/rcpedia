@@ -247,7 +247,13 @@ def download_financials(year, quarters):
 download_financials('2013', quarters)
 ```
 
-Now you should have 4 zip files downloaded in the `data/financial2013` directory:
+Then, run the saved script to download 4 zip financial files:
+
+```title="Terminal Input"
+python download_financials_2013.py
+```
+
+Now you should have 4 zip files downloaded in `data/financial2013` directory:
 
 ```bash title="Terminal Input"
 ls -ltrh data/financial2013

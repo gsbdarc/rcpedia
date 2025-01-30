@@ -9,7 +9,7 @@ authors:
 subtitle: Download Files Directly to the Yens Server
 ---
 
-# Download Files Directly to the Yens Server
+# Download Files Directly to the Yen Servers
 
 Instead of downloading the file to your local machine and transferring it to the Yens, you can streamline the process by downloading it directly to the Yens server using the `wget` command.
 

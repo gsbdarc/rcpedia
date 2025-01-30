@@ -34,7 +34,7 @@ rclone config
 ```
 
 The configuration menu will then be presented:
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 No remotes found - make a new one
 n) New remote
 s) Set configuration password
@@ -48,7 +48,7 @@ Select `n` to make a new remote and give it a name when prompted. For example, `
 Next, select the number corresponding to Google Drive (the menu changes with each `rclone` version so be careful to select
 the right remote).
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 18 / Google Drive
    \ (drive)
 
@@ -60,7 +60,7 @@ When prompted for the next two options, leave them blank and press Enter.
 Then the next menu asks to select permissions you want to give `rclone`. Choose `1` for full read-write
 access.
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 scope> 1
 ```
 
@@ -68,7 +68,7 @@ Then leave the next prompt blank and press Enter.
 
 Choose `n` to not edit advanced config:
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 Edit advanced config? (y/n)
 y) Yes
 n) No (default)
@@ -77,7 +77,7 @@ y/n> n
 
 Choose `n` again since we are working on the remote Yen server:
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 Remote config
 Use auto config?
  * Say Y if not sure
@@ -102,7 +102,7 @@ and paste it back into the Yen terminal after `config_token>`.
 Next, you will be asked if you want to configure this as a team drive. Press `y` if you are connecting
 to a shared Google Drive or press `n` if you are connecting to your Google Drive.
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 Configure this as a team drive?
 y) Yes
 n) No (default)
@@ -110,7 +110,7 @@ n) No (default)
 
 Finally, press Enter to complete the config.
 
-```{.yaml .no-copy title="Terminal Output"}
+```{.yaml .no-copy title="Interactive Terminal Output"}
 y) Yes this is OK (default)
 e) Edit this remote
 d) Delete this remote

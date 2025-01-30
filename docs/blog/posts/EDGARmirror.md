@@ -14,7 +14,7 @@ All companies are required to file registration statements, periodic reports, an
 
 <!-- more -->
 
-!!! note
+!!! note "Watch the Recorded Presentation"
     We gave a presentation on "Using SEC Documents at the GSB" on November 16, 2022. Watch the recording and view the slides [here](https://gsbresearchhub.stanford.edu/training-workshops?search=using+sec+documents+at+the+gsb){:target="_blank"}.
 
 
@@ -23,8 +23,8 @@ The SEC maintains a comprehensive collection of filings on their [EDGAR system](
 
 While viewing individual filings on EDGAR is useful, for those who need bulk access to filings, there are a couple of primary resources.
 
-### Yens Collection
-The DARC team maintains a mirror of the raw text filings on the Yens by checking for new filings on the EDGAR system on a weekly basis and then downloading those filings. An example path for an individual filing located on the Yens is:
+### The Yen Cluster Collection
+The DARC team maintains a mirror of the raw text filings on the Yen servers by checking for new filings on the EDGAR system on a weekly basis and then downloading those filings. An example path for an individual filing located on the Yen servers is:
 
 ```title="Filepath"
 /zfs/data/NODR/EDGAR_HTTPS/edgar/data/1050122/0001047469-03-017249.txt
@@ -59,7 +59,7 @@ WHERE form_type='10-K' and year=1994
 LIMIT 10
 ```
 
-You may then use the `filepath` field to locate these filings on the Yens or `filename` to construct the appropriate URLs to those filings on EDGAR.
+You may then use the `filepath` field to locate these filings on the Yen servers or `filename` to construct the appropriate URLs to those filings on EDGAR.
 
 You can also explore the EDGAR Filings data set on Redivis. An example project is found [here](https://redivis.com/projects/ssxg-10madynje){:target="_blank"}.
 You can create a copy to modify or run the transforms yourself by "Forking" the project. There are three example transforms:
@@ -79,7 +79,7 @@ If you have a [WRDS](https://wrds-www.wharton.upenn.edu/){:target="_blank"} acco
 
 To access these filings, you can connect to [WRDS Cloud](https://wrds-www.wharton.upenn.edu/pages/support/the-wrds-cloud/introduction-wrds-cloud/){:target="_blank"} and either navigate to `/wrds/sec/warchives/` for raw filings or `/wrds/sec/wrds_clean_filings/` for cleaned filings.
 
-!!! warning
+!!! warning "Contact WRDS Support with Issues"
     The DARC team does not provide support for issues with WRDS. Please submit a ticket to [WRDS Support](https://wrds-www.wharton.upenn.edu/contact-support){:target="_blank"} instead.
 
 ## XBRL
@@ -119,7 +119,7 @@ Reference Name of Report HTML Index (IName)
 Index Source: 1-Daily, 2-Full, 3-Both (SOURCE)
 ```
 
-!!! note
+!!! note "Use Redivis"
     You can also perform your filings search using the aforementioned [dataset on Redivis](https://redivis.com/datasets/dq12-4q4st0kjt){:target="_blank"}, although you won't retrieve certain identification variables such as Ticker.
 
 ### Readability and Sentiment Analysis
@@ -191,4 +191,4 @@ Word Summary
 ```
 
 ## Additional Support
-If you have additional questions about these resources or would like a consultation about how you might leverage these resources for your research, please reach out to the DARC team at [gsb_darcresearch@stanford.edu](gsb_darcresearch@stanford.edu).
+If you have additional questions about these resources or would like a consultation about how you might leverage these resources for your research, please reach out to the DARC team at [gsb_darcresearch@stanford.edu](mailto:gsb_darcresearch@stanford.edu){:target=_blank}.

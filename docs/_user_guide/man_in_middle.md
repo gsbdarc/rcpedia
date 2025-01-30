@@ -48,4 +48,4 @@ Are you sure you want to continue connecting (yes/no)?
 
 Type `yes` to continue. The new host key will be added to your known_hosts file, and the connection will proceed.
 
-Learn more about connecting to the Yens [here](../_getting_started/how_access_yens.md).
+Learn more about connecting to the Yens [here](../_getting_started/how_access_yens.md){:target="_blank"}.

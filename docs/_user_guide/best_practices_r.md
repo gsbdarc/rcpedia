@@ -4,11 +4,16 @@
 
 Many parallel packages in R require you to create a "cluster" of workers executing tasks in parallel. If you copy code from the internet, it might look like this:
 
-```{ .r .yaml .no-copy }
+```{ .r .yaml .no-copy title="Bad Code from Some Website"}
 😱 cluster_fork <- makeForkCluster(detectCores()) 😱
 ```
 
-Don't use `detectCores`. It checks the machine for the total number of available cores and attempts to use all of them. Instead, replace `detectCores()` with a fixed number, such as 4, or another reasonably scaled allocation of resources. It's also a good practice to benchmark your code first before scaling up. Consider [this guide](https://jstaf.github.io/hpc-r/parallel/){:target="_blank"} or [this one](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html){:target="_blank"} to understand how your code might benefit from parallelization.
+!!! danger "Don't Use `detectCores`!"
+    It checks the machine for the total number of available cores and attempts to use all of them.
+
+
+
+Instead, replace `detectCores()` with a fixed number, such as 4, or another reasonably scaled allocation of resources. It's also a good practice to benchmark your code first before scaling up. Consider [this guide](https://jstaf.github.io/hpc-r/parallel/){:target="_blank"} or [this one](https://bookdown.org/rdpeng/rprogdatascience/parallel-computation.html){:target="_blank"} to understand how your code might benefit from parallelization.
 
 ## Parallelization Under the Hood
 

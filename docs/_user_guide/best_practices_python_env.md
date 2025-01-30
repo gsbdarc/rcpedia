@@ -27,9 +27,6 @@ We highly recommend using `venv`, Python’s built-in tool for creating virtual 
 * **Fast and Resource-Efficient**: `venv` offers quicker environment creation and is more lightweight compared to tools like `conda`, making it ideal for shared systems where speed and efficient use of resources are important.
 * **Ease of Reproducibility**: `venv` allows for easy replication of environments by using a `requirements.txt` file, ensuring that the code remains reproducible and consistent regardless of the platform.
 
-!!!Tip
-    Utilize `venv` for Python Environment Management to create isolated environments, ensuring simplicity and avoiding conflicts between project dependencies.
-
 ## Creating a New Virtual Environment with `venv`
 
 To ensure the virtual environment is shareable, create it in a shared location on the Yen system, such as a faculty project directory, rather than in a user’s home directory. The virtual environment only needs to be created once, and all team members with access to the project directory will be able to activate and use it.

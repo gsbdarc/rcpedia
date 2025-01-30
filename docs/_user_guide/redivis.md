@@ -3,7 +3,7 @@
   <img src="/assets/images/redivis_logo.png" alt="Redivis Logo" style="float: right; width: 275px; height: auto;">
 </a>
 
-[Redivis](https://redivis.com/){:target="_blank"} is a powerful data querying and analysis platform built specifically with [researchers in mind](https://redivis.com/for-researchers){:target="_blank"}. Redivis is constructed on top of [Google Cloud's BigQuery engine](https://cloud.google.com/bigquery){:target="_blank"}, which makes working with Big Data on the multi-TB scale much faster. Data manipulation and queries that may take many hours to run on computing systems like the Yens, can take seconds on Redivis.
+[Redivis](https://redivis.com/){:target="_blank"} is a powerful data querying and analysis platform built specifically with [researchers in mind](https://redivis.com/for-researchers){:target="_blank"}. Redivis is constructed on top of [Google Cloud's BigQuery engine](https://cloud.google.com/bigquery){:target="_blank"}, which makes working with Big Data on the multi-TB scale much faster. Data manipulation and queries that may take many hours to run on computing systems like the Yen servers, can take seconds on Redivis.
 
 ## Why Redivis?
 
@@ -13,9 +13,9 @@ Furthermore, Redivis has particular points of emphasis on data security and acce
 
 ### Data Security
 
-Unlike the Yens, which is [only approved for Moderate risk data](/_policies/security/#yen-servers){:target="_blank"}, Redivis is approved for [High risk data](https://uit.stanford.edu/guide/riskclassifications#data-classification-examples){:target="_blank"}. This includes highly-sensitive data such as social security numbers and protected health information (PHI). This is possible, because Redivis has a [number of protective measures](https://redivis.com/security){:target="_blank"} built into the platform. The fact that Redivis has been approved for High risk data makes it a unique data processing platform at Stanford University and serves as a viable hosting option for researchers negotiating with data vendors for sensitive data.
+Unlike the Yen cluster, which is [only approved for Moderate risk data](/_policies/security/#yen-servers){:target="_blank"}, Redivis is approved for [High risk data](https://uit.stanford.edu/guide/riskclassifications#data-classification-examples){:target="_blank"}. This includes highly-sensitive data such as social security numbers and protected health information (PHI). This is possible, because Redivis has a [number of protective measures](https://redivis.com/security){:target="_blank"} built into the platform. The fact that Redivis has been approved for High risk data makes it a unique data processing platform at Stanford University and serves as a viable hosting option for researchers negotiating with data vendors for sensitive data.
 
-!!!tip
+!!! tip "Learn More"
     Visit our [Security page](/_policies/security/){:target="_blank"} to learn more about what data and information security mean at both Stanford GSB and Stanford University.
 
 ### Fine-Grained Access Control
@@ -48,7 +48,7 @@ To start, Redivis has [extensive documentation](https://docs.redivis.com/){:targ
 We recommend watching the video below for a quick overview:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/u78wHnGibbg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-!!!tip
+!!! tip "Learn More"
     Read [our blog post](/blog/2024/12/06/introduction-to-using-redivis/){:target="_blank"} covering key use cases and helpful tips for Redivis based on our experience with the platform and working with other users.
 
 ## When Do I Use Redivis?
@@ -61,7 +61,7 @@ The Redivis platform is best used when you want to...
 
 - **Subset or aggregate large datasets (multi-TB) for further processing elsewhere** 
 
-    Leveraging the BigQuery-backed [data transforms](https://docs.redivis.com/guides/analyze-data-in-a-workflow/reshape-data-in-transforms){:target="_blank"} within Redivis for this type of data processing will be faster and more efficient for you compared with using your laptop or the Yens.
+    Leveraging the BigQuery-backed [data transforms](https://docs.redivis.com/guides/analyze-data-in-a-workflow/reshape-data-in-transforms){:target="_blank"} within Redivis for this type of data processing will be faster and more efficient for you compared with using your laptop or the Yen cluster.
 
 - **Merge small personal datasets, like Excel spreadsheets, with data hosted on Redivis**
 
@@ -80,5 +80,5 @@ Depending on the nature of your question, there are several places that you can 
 - For questions about hosting your own large datasets on Redivis, [email the GSB Data, Analytics, and Research Computing (DARC) team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"}.
 - For questions about the content of specific datasets hosted on the StanfordGSBLibrary Redivis organization, [fill out the GSB Library Ask Us form](https://www.gsb.stanford.edu/library/research-support/ask-us){:target="_blank"}.
 
-!!!note
+!!! note "Storage Costs"
     The DARC team is happy to perform the technical work to help GSB faculty researchers host datasets on Redivis, but there are [associated storage costs on the Redivis platform](https://docs.redivis.com/reference/organizations/billing){:target="_blank"} that will need to be covered by the researcher.

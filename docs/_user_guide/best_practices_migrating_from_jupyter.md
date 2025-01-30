@@ -1,6 +1,6 @@
 # Migrating Processes from JupyterHub to `yen-slurm`
 
-[JupyterHub](/_getting_started/jupyter){:target=_blank} and the interactive `yen`'s are a great resource for developing and debugging code, but is not intended to be final stop for your research computing needs.  If your process requires more resources than the [technical limits](/_policies/user_limits/){:target="_blank"} of JupyterHub and `yen[1-5]`, migrating your process to the [`yen-slurm`](/_user_guide/slurm/){:target="_blank"} scheduler</a> will allow you to access more resources.
+[JupyterHub](/_getting_started/jupyter){:target=_blank} and the interactive Yens are a great resource for developing and debugging code, but is not intended to be final stop for your research computing needs.  If your process requires more resources than the [technical limits](/_policies/user_limits/){:target="_blank"} of JupyterHub and Yens 1-5, migrating your process to the [`yen-slurm`](/_user_guide/slurm/){:target="_blank"} scheduler</a> will allow you to access more resources.
 
 ## Common Reasons to Migrate Your Code from JupyterHub
 
@@ -8,7 +8,7 @@ There are three common reasons:
 
 1. JupyterHub has a 3 hour timeout limit on idle processes. If you are babysitting your code by keeping your laptop open and moving the mouse every few hours, it's time to migrate.
 
-2. Your code uses more cores or RAM on `yen` than the limits stated on the [user limits page](/_policies/user_limits){:target="_blank"}. 
+2. Your code uses more cores or RAM than the limits stated on the [user limits page](/_policies/user_limits){:target="_blank"}. 
 
 3. You would like to use the [GPUs](/_user_guide/best_practices_gpu/){:target=_blank}.
 
@@ -28,11 +28,11 @@ You have a few options:
 
 The biggest hurdle in migrating your process from a JupyterHub notebook to `yen-slurm` will be managing package dependencies.  Generally, for any process, the following steps will help make a smooth transition:
 
-* Create a virtual environment for your process to run
-* Install any packages needed in that environment
-* Setup that environment in JupyterHub
-* Test your process 
-* Write a submit script to run your process on `yen-slurm` using your working environment
+* Create a virtual environment for your process to run.
+* Install any packages needed in that environment.
+* Setup that environment in JupyterHub.
+* Test your process in JupyterHub.
+* Write a submit script to run your process on `yen-slurm` using your working environment.
 
 
 ## Python Virtual Environments
