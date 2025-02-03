@@ -256,9 +256,9 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     }
 
 
-    // // -------------------------------------------------------
-    // // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
-    // // -------------------------------------------------------
+    // -------------------------------------------------------
+    // ------ ADDING/UPDATING DESIGN ELEMENTS ----------------
+    // -------------------------------------------------------
     /*  Creating 2 new divs for the team color bar, link cards, etc.
      *  Setting the Page title text
      *  Make the Search Bar a child element of the Team Color Bar
@@ -277,8 +277,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         colorBarDiv.style.backgroundColor = '#7E2F49'; 
 
         contentDiv.id = 'contentDiv';
-        contentDiv.style.height = '200px'; 
-        contentDiv.style.width = '100%';
         contentDiv.style.backgroundColor = 'white'; 
     
         // Insert the 2 new divs into the main container
@@ -304,12 +302,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         colorBarDiv.appendChild(searchBarParentDiv);
     }
 
-    // Move the horizontal rule to the custom content div
-    const hrElement = document.querySelector('hr');
-    if (contentDiv && hrElement) {
-        contentDiv.appendChild(hrElement);
-    }
-
     // Remove the 'Results Metadata Div' that says 'Type to Start searching'
     const elements = document.querySelectorAll('.md-search-result__meta');
     elements.forEach(element => {
@@ -328,4 +320,170 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         backToTopButton.remove(); 
     }
 
+    // -------------------------------------------------------
+    // --------- ADDING LINK CARDS & CLUSTER STATS -----------
+    // -------------------------------------------------------
+
+    contentDiv.textContent = "CURRENT CLUSTER CONFIGURATION"
+
+    // Creating Stats Grid
+    // Create the container for the grid
+    const statContainer = document.createElement('div');
+    statContainer.id = 'stat-container';
+    contentDiv.appendChild(statContainer);
+
+    // Read from json file
+    fetch('/assets/default_vars.json')
+    .then(response => response.json()) // Parse the JSON response
+    .then(data => {
+        data.forEach(item => {
+            const cell = document.createElement('div');
+            cell.classList.add('metric-grid-item');
+
+            // Create a container for number and unit
+            const numberUnitContainer = document.createElement('div');
+            numberUnitContainer.classList.add('grid-number-unit');
+
+            const numberElement = document.createElement('div');
+            numberElement.classList.add('grid-number');
+            numberElement.textContent = item.number;
+
+            const unitElement = document.createElement('div');
+            unitElement.classList.add('grid-unit');
+            unitElement.textContent = item.unit;
+
+            // Append number and unit to the container
+            numberUnitContainer.appendChild(numberElement);
+            numberUnitContainer.appendChild(unitElement);
+
+            // Add the subtitle
+            const subtitleElement = document.createElement('div');
+            subtitleElement.classList.add('grid-subtitle');
+            subtitleElement.textContent = item.subtitle;
+
+            // Append everything to the cell
+            cell.appendChild(numberUnitContainer);
+            cell.appendChild(subtitleElement);
+
+            // Append the cell to the grid container
+            statContainer.appendChild(cell);
+        });
+    })
+    .catch(error => console.error('Failed to load or parse default_vars.json:', error));
+    
+    // Move the horizontal rule to the custom content div
+    const hrElement = document.querySelector('hr');
+    if (contentDiv && hrElement) {
+        contentDiv.appendChild(hrElement);
+    }
+
+    // Resource Cards
+    const cardContainer = document.createElement('div');
+    cardContainer.classList.add('grid-container');
+    cardContainer.id = 'card-container';
+    contentDiv.appendChild(cardContainer); // Append the container to the contentDiv
+    
+    // Define card details
+    const cardData = [ 
+
+        // PLEASE NOTE THAT SUBTITLE TEXT SHOULD REMAIN RELATIVELY SHORT SO THAT IT LOOKS GOOD
+        { 
+            title: "Technical Expertise for Research Projects", 
+            subtitle: "Request technical support from dedicated staff", 
+            imageSrc: "/assets/images/mason_alex_DARC.jpeg",
+            link: "/_policies/darc/",
+            buttonText: "Services"
+        },
+        { 
+            title: "Modern Data Storage Solutions", 
+            subtitle: "Explore available data storage options", 
+            imageSrc: "/assets/images/nodes.png",
+            link: "/_user_guide/storage/",
+            buttonText: "Storage"
+        },
+        { 
+            title: "Research Computing Guide", 
+            subtitle: "Stay informed with our latest guide for using the Yens", 
+            imageSrc: "/assets/images/word_wall.jpg",
+            link: "/_getting_started/yen-servers/",
+            buttonText: "Getting Started"
+        },
+        { 
+            title: "GSB Research Hub", 
+            subtitle: "", 
+            imageSrc: "",
+            link: "https://gsbresearchhub.stanford.edu/services",
+            isExternal: true,
+            buttonText: null
+        }
+    ];
+    
+    // Create 4 div elements with the class "su-card"
+    cardData.forEach((data, i) => {
+        const card = document.createElement('div');
+        card.classList.add('su-card');
+    
+        // Create image
+        if (data.imageSrc) {
+            const image = document.createElement('img');
+            image.classList.add('su-card-image');
+            image.src = data.imageSrc;
+            image.alt = `Card ${i + 1} image`;
+            card.appendChild(image);
+        }
+    
+        // Create title
+        const titleDiv = document.createElement('div');
+        titleDiv.classList.add('card-title');
+        titleDiv.textContent = data.title;
+        card.appendChild(titleDiv);
+        if (i == 3) { // If it's the 4th card
+            titleDiv.id = "rhCardTitle"
+        }
+    
+        // Create subtitle
+        const subtitleDiv = document.createElement('div');
+        subtitleDiv.classList.add('card-subtitle');
+        subtitleDiv.textContent = data.subtitle;
+        card.appendChild(subtitleDiv);
+    
+        if (data.isExternal) {
+            // Create external link
+            const link = document.createElement('a');
+            link.classList.add('su-card-link', 'su-link--external');
+            link.textContent = "Explore other services available to researchers";
+            link.href = data.link;
+            card.id = "rhCard"
+            card.appendChild(link);
+        } else {
+            // Create button
+            const button = document.createElement('button');
+            button.classList.add('card-btn');
+            button.onclick = () => { window.location.href = data.link; };
+    
+            // Create text span
+            const buttonText = document.createElement('span');
+            buttonText.textContent = data.buttonText;
+    
+            // Create icon span
+            const buttonIcon = document.createElement('span');
+            buttonIcon.classList.add('inline-icon');
+            buttonIcon.style.mask = "url('/assets/svg/right-chevron.svg') no-repeat center";
+            buttonIcon.style.backgroundColor = "currentColor";
+    
+            // Append text and icon to button
+            button.appendChild(buttonText);
+            button.appendChild(buttonIcon);
+            card.appendChild(button);
+        }
+    
+        cardContainer.appendChild(card);
+    });
+
+    // Section Title
+    const exploreDiv = document.createElement('div');
+    exploreDiv.textContent = 'Explore Resources'; 
+    exploreDiv.id = 'resourceSectionTitle';
+    contentDiv.insertBefore(exploreDiv, cardContainer);
+    
 });

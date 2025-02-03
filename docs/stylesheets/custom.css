@@ -32,7 +32,7 @@
     margin-left:  0.2em;
 }
 .md-banner {
-  background-color:        #006CB8;
+  background-color:        #ffd000;
   color:                   #ffffff;
 }
 
@@ -121,8 +121,6 @@
   margin-left: 5px;
   margin-top: 20px;
 }
-
-
 
 /* Navigation Bar */
 .md-tabs__item {
@@ -286,7 +284,7 @@
 }
 
 /* Media query for applying medium-specific padding */
-@media (min-width: 768px) {
+@media (min-width: 768px) { /* Adjusts breakpoint for medium devices */
   .md:pl-30 {
     padding-left: 30px;
   }
