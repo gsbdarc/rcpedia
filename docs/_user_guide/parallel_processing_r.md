@@ -1,4 +1,4 @@
-# Best Practices in R 
+# Parallel Processing in R 
 
 ## Tips for Being a Good Citizen
 
@@ -17,7 +17,7 @@ Instead, replace `detectCores()` with a fixed number, such as 4, or another reas
 
 ## Parallelization Under the Hood
 
-Even if you’re not explicitly running parallel code, some packages may use parallelization "under the hood." If you’re unsure, learn how to [monitor usage](/_user_guide/best_practices_monitor_usage/){:target="_blank"}. If your code runs in parallel automatically, figure out which options to pass to the functions you’re using in R to limit the number of cores. For example, in the [ranger](https://rdocumentation.org/packages/ranger/versions/0.15.1) package, the `num.threads` option defaults to the total number of cores (😱). However, you can override this manually to prevent overuse of resources.
+Even if you’re not explicitly running parallel code, some packages may use parallelization "under the hood." If you’re unsure, learn how to [monitor usage](/_user_guide/monitor_usage/){:target="_blank"}. If your code runs in parallel automatically, figure out which options to pass to the functions you’re using in R to limit the number of cores. For example, in the [ranger](https://rdocumentation.org/packages/ranger/versions/0.15.1) package, the `num.threads` option defaults to the total number of cores (😱). However, you can override this manually to prevent overuse of resources.
 
 ## An Example of Parallelized Simulation
 

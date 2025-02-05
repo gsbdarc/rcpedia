@@ -48,7 +48,7 @@ The training script:
 
 - Defines a custom dataset to handle financial news texts and their labels.
 - Uses BERT from the `transformers` library for sentiment analysis.
-- Trains the model using PyTorch Lightning's Trainer on [Yen's GPU](/_user_guide/best_practices_gpu){:target="_blank"}.
+- Trains the model using PyTorch Lightning's Trainer on [Yen's GPU](/_user_guide/using_gpu){:target="_blank"}.
 
 
 ## Login to Yens

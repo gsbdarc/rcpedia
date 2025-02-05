@@ -41,7 +41,7 @@ where `<your-script.sas>` is your SAS script.
 Note that SAS output is provided in a log file called `<your-script.log>`.
 
 !!! tip "Graphical SAS"
-    SAS can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#sas){:target="_blank"} or [X-Forwarding](/_user_guide/best_practices_gui){:target="_blank"}.
+    SAS can be also be accessed in a graphical form using [Jupyter Notebooks](/_getting_started/jupyter/#sas){:target="_blank"} or [X-Forwarding](/_user_guide/using_gui){:target="_blank"}.
 
 ## Other SAS Environments
 

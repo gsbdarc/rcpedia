@@ -64,4 +64,4 @@ Large directories from completed projects are often forgotten and left behind, c
 
 - **If there’s a chance you might need the files in the future, but not anytime soon**, compress your files to reduce their storage footprint. This practice not only conserves space but also makes it easier to transfer or archive your data when necessary.
 
-For detailed instructions on archiving a project directory, refer to this [guide](/_user_guide/best_practices_archive){:target="_blank"}. By following these steps, you can contribute to a cleaner, more efficient storage system while ensuring your data remains accessible if needed.
+For detailed instructions on archiving a project directory, refer to this [guide](/_user_guide/archiving){:target="_blank"}. By following these steps, you can contribute to a cleaner, more efficient storage system while ensuring your data remains accessible if needed.

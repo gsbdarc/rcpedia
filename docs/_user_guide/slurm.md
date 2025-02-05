@@ -42,7 +42,7 @@ A job scheduler has many advantages over the directly shared environment of the 
 
 ## How Do I Use The Scheduler?
 
-First, you should make sure your process can run on the interactive Yen command line. We've written a guide on migrating a process from [JupyterHub to `yen-slurm`](/_user_guide/best_practices_migrating_from_jupyter/){:target="_blank"}. [Virtual Environments](/_user_guide/best_practices_python_env/){:target="_blank"} will be your friend here.
+First, you should make sure your process can run on the interactive Yen command line. We've written a guide on migrating a process from [JupyterHub to `yen-slurm`](/_user_guide/migrating_from_jupyter/){:target="_blank"}. [Virtual Environments](/_user_guide/python_envs/){:target="_blank"} will be your friend here.
 
 Once your process is capable of running on the interactive Yen command line, you will need to create a Slurm script. This script has two major components:
 
@@ -272,7 +272,7 @@ squeue
 ### Using Python Virtual Environment In Slurm Scripts
 We can also employ a virtual Python enviuronment using `venv` instead of the system's `python3` when running scripts via Slurm.
 
-For example, let's say you've created a virtual Python environment using the process described on [this page](/_user_guide/best_practices_python_env/){:target="_blank"} that is located in your home directory at `/zfs/home/users/SUNetID/venv/`. You can modify your Slurm script to use this `venv` environment:
+For example, let's say you've created a virtual Python environment using the process described on [this page](/_user_guide/python_envs/){:target="_blank"} that is located in your home directory at `/zfs/home/users/SUNetID/venv/`. You can modify your Slurm script to use this `venv` environment:
 
 ```slurm title="python-job-venv.slurm"
 #!/bin/bash
@@ -294,11 +294,11 @@ source /zfs/home/users/SUNetID/venv/bin/activate
 python myscript.py
 ``` 
 
-In the above Slurm script, we first activate the `venv` environment and then execute the python script using `python` in the active environment. You can [create your own `venv` environment](/_user_guide/best_practices_python_env/){:target="_blank"} and then activate it within your Slurm script in the same manner.
+In the above Slurm script, we first activate the `venv` environment and then execute the python script using `python` in the active environment. You can [create your own `venv` environment](/_user_guide/python_envs/){:target="_blank"} and then activate it within your Slurm script in the same manner.
 
 ### Use All Of The Resources You Request
 
-The Slurm scheduler keeps track of the resources you request, and the resources you use. Frequent under-utilization of CPU and Memory will affect your future job priority. You should be confident that your job will use all of the resources you request. It's recommended that you run your job on the interactive Yens, and [monitor resource usage](/_user_guide/best_practices_monitor_usage/){:target="_blank"} to make an educated guess on resource usage.
+The Slurm scheduler keeps track of the resources you request, and the resources you use. Frequent under-utilization of CPU and Memory will affect your future job priority. You should be confident that your job will use all of the resources you request. It's recommended that you run your job on the interactive Yens, and [monitor resource usage](/_user_guide/monitor_usage/){:target="_blank"} to make an educated guess on resource usage.
 
 ### Restructure Your Job Into Small Tasks
 
