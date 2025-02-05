@@ -15,7 +15,7 @@ Compressed files are commonly used to save storage space and simplify file trans
 
 
 !!! tip "Best Practices: Archiving Projects"
-    See [this page](/_user_guide/best_practices_archive/?h=archive){:target="_blank"} to learn more about archiving your projects for long-term storage or transfer.
+    See [this page](/_user_guide/archiving/?h=archive){:target="_blank"} to learn more about archiving your projects for long-term storage or transfer.
 
 ## .zip
 As one of the most common compression formats, `.zip` files can be easily extracted using the `unzip` command:

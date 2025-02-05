@@ -215,7 +215,7 @@ watch squeue -u $USER
 
 Sherlock also has over 800+ GPUs that we can take advantage of when training machine learning / deep learning models. 
 
-This is an abbreviated version of this [user guide](/_user_guide/best_practices_gpu/#keras-example){:target=_blank} that also talks about how to set up your Python virtual environment on the Yens to be able to run the Keras example below, training a simple MNIST convnet.
+This is an abbreviated version of this [user guide](/_user_guide/using_gpu/#usage-example-with-python){:target=_blank} that also talks about how to set up your Python virtual environment on the Yens to be able to run the Keras example below, training a simple MNIST convnet.
 
 ```python linenums="1" title="mnist.py"
 import numpy as np

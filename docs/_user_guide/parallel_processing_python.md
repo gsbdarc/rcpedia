@@ -1,4 +1,3 @@
-
 # Parallel Processing in Python
 
 ## Common Python Libraries (`numpy`, `sklearn`, `pytorch`, etc...)
@@ -56,7 +55,7 @@ with Pool(5) as p:
 ```
 
 !!! tip
-    You can check your processes and their core usage on the Yens using `htop`! See [this page](/_user_guide/best_practices_monitor_usage/){:target="_blank"} for more information on monitoring your resource usage.
+    You can check your processes and their core usage on the Yens using `htop`! See [this page](/_user_guide/monitor_usage/){:target="_blank"} for more information on monitoring your resource usage.
 
 ## Example
 We will use `numpy` and `multiprocessing` packages to do a giant matrix inversion (which will

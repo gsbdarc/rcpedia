@@ -23,7 +23,7 @@ You can toggle to a threaded view of processes by pressing ++t++. Below is a sam
 ## User Limits and Multiprocessing
 
 Per our [User Limits](/_policies/user_limits){target="_blank"}, CPU usage should always be limited based on system size. When working with implicitly or explicitly *multiprocessed* code, care must be taken to ensure your code does not use every available processor.
-Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/best_practices_parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
+Please refer to our [Parallel Processing in R](/_user_guide/parallel_processing_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
 
 Be sure to monitor your processes, particularly when using a new package, to verify that you are using the expected number of cores.
 

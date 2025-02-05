@@ -10,7 +10,7 @@ There are three common reasons:
 
 2. Your code uses more cores or RAM than the limits stated on the [user limits page](/_policies/user_limits){:target="_blank"}. 
 
-3. You would like to use the [GPUs](/_user_guide/best_practices_gpu/){:target=_blank}.
+3. You would like to use the [GPUs](/_user_guide/using_gpu/){:target=_blank}.
 
 
 ## Before You Migrate
@@ -21,7 +21,7 @@ You have a few options:
 * Reduce the amount of cores your program uses.  If your usage is going above the CPU limit your program will get shut down.  Most code from ChatGPT will attempt to greedily use all cores on the system.
 * Settle for a machine learning algorithm over deep learning. These can often times be as effective and use less resources.
 
-[This article](/_user_guide/best_practices_monitor_usage/){:target="_blank"} gives some help on how to check your resources.  
+[This article](/_user_guide/monitor_usage/){:target="_blank"} gives some help on how to check your resources.  
 
 
 ## Managing Package Dependencies
@@ -37,7 +37,7 @@ The biggest hurdle in migrating your process from a JupyterHub notebook to `yen-
 
 ## Python Virtual Environments
 
-For Python, you can use `venv` to create an environment that can be shared across `yen`, `yen-slurm`, and JupyterHub. See [this page](/_user_guide/best_practices_python_env/){:target="_blank"} for information on setting up a Python virtual environment using `venv`.
+For Python, you can use `venv` to create an environment that can be shared across `yen`, `yen-slurm`, and JupyterHub. See [this page](/_user_guide/python_envs/){:target="_blank"} for information on setting up a Python virtual environment using `venv`.
 
 ### Activate Your Environment and Install `ipykernel`
 
