@@ -1,7 +1,5 @@
 # Sherlock
-<a href="https://your-link-here.com">
-  <img src="/assets/images/sherlock_logo.png" alt="Sherlock Narwhal Logo" style="float: right; width: 350px; height: auto;">
-</a>
+<img src="/assets/images/sherlock_logo.png" alt="Sherlock Narwhal Logo" style="float: right; width: 350px; height: auto;">
 
 ## What is Sherlock?
 
