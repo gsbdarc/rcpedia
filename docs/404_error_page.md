@@ -23,8 +23,3 @@
 ### Need assistance?
 If you need immediate assistance, please [reach out to our support team](mailto:gsb_darcresearch@stanford.edu).
 
----
-
-![GSB Logo](/docs/assets/images/gsb-logo.png)
-
-© 2025 DARC. All rights reserved.
