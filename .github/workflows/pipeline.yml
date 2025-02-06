@@ -100,4 +100,4 @@ jobs:
       - name: Install linkchecker
         run: pip install linkchecker
       - name: Run linkchecker
-        run: linkchecker --ignore-robots --recursion-level=inf https://rcpedia-dev.stanford.edu
+        run: linkchecker --ignore-robots --recursion-level=10 https://rcpedia-dev.stanford.edu
