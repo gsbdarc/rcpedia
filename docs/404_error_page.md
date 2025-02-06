@@ -1,10 +1,8 @@
 # 404 - Page Not Found
 
-![404 Error](https://via.placeholder.com/600x200.png?text=404+Error)
-
 ---
 
-## Oops! We can't seem to find the page you're looking for.
+## Oops! We couldn't find that page. 
 
 ### What could have gone wrong?
 - The page might have been removed.
@@ -14,19 +12,14 @@
 ---
 
 ### Here are some helpful links instead:
-- [Home](place_holder)
-- [Getting Started](placeholder_link)
-- [User Guide](placeholder_link)
-- [Policies](placeholder_link)
-- [Blog](placeholder_link)
+- [Home](/)
+- [Getting Started](/_getting_started/yen-servers/)
+- [User Guide](/_user_guide/)
+- [Policies](/_policies/darc/)
+- [Blog](/blog/)
 
 ---
 
 ### Need assistance?
 If you need immediate assistance, please [reach out to our support team](mailto:gsb_darcresearch@stanford.edu).
 
----
-
-![DARC Logo](https://via.placeholder.com/150.png?text=Your+Logo)
-
-© 2024 DARC. All rights reserved.
