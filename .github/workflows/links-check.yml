@@ -9,7 +9,7 @@ on:
         default: 'main'
   push:
     branches:
-      - QA
+      - main
 jobs:
   mkdocs-link-check:
     runs-on: ubuntu-latest
