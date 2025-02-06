@@ -58,6 +58,9 @@ jobs:
     - name: Build MkDocs site
       run: mkdocs build --clean
 
+    - name: Run MkDocs Link Checker
+      uses: byrnereese/github-action-mkdocs-link-check@1.0
+
     - name: Upload Site Artifacts
       uses: actions/upload-artifact@v4
       with:
