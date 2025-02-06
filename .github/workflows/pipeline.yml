@@ -88,3 +88,16 @@ jobs:
       run: |
         ssh -i ~/.ssh/id_rsa rcpediaq@rcpedia-qa.su.domains "rm -rf /home/rcpediaq/rcpedia-dev.stanford.edu/*"
         scp -i ~/.ssh/id_rsa -r ${{ github.workspace }}/* rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia-dev.stanford.edu
+
+  check_links:
+    needs: deploy  # Ensure this job runs after deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
+      - name: Install linkchecker
+        run: pip install linkchecker
+      - name: Run linkchecker
+        run: linkchecker https://rcpedia-dev.stanford.edu
