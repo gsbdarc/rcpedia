@@ -1,4 +1,4 @@
-name: Check for Broken Links
+name: Check for Broken Links Deployed Site
 
 on:
   workflow_dispatch:  
