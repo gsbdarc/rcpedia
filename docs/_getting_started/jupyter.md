@@ -6,20 +6,20 @@ Web-based computing is available on the Yen servers with JupyterHub. JupyterHub 
 
 To get started, open a web browser and visit one of the following links for each server:
 
-- <a href="https://yen1.stanford.edu" target="_blank">Yen1 https://yen1.stanford.edu</a>
-- <a href="https://yen2.stanford.edu" target="_blank">Yen2 https://yen2.stanford.edu</a>
-- <a href="https://yen3.stanford.edu" target="_blank">Yen3 https://yen3.stanford.edu</a>
-- <a href="https://yen4.stanford.edu" target="_blank">Yen4 https://yen4.stanford.edu</a>
-- <a href="https://yen5.stanford.edu" target="_blank">Yen5 https://yen5.stanford.edu</a>
+- <a href="https://yen1.stanford.edu" target="_blank">`yen1` https://yen1.stanford.edu</a>
+- <a href="https://yen2.stanford.edu" target="_blank">`yen2` https://yen2.stanford.edu</a>
+- <a href="https://yen3.stanford.edu" target="_blank">`yen3` https://yen3.stanford.edu</a>
+- <a href="https://yen4.stanford.edu" target="_blank">`yen4` https://yen4.stanford.edu</a>
+- <a href="https://yen5.stanford.edu" target="_blank">`yen5` https://yen5.stanford.edu</a>
 
 You will need to login with your SUNet credentials, and then click on "Start My Server". From there, you will have access to the web-based computing services available.
 
 If you are a non-GSB collaborator and don't have a SUNet, you must request full sponsorship to access Jupyter. You can learn more about SUNet ID sponsorship [here](https://uit.stanford.edu/service/sponsorship){:target="_blank"}.
 
-!!! important
-    JupyterHub instances on each `yen` server are independent of each other! If you launch a server on `yen2`, it will only use resources available on `yen2`.
+!!! note "Jupyter Instances are Independent" 
+    JupyterHub instances on each Yen server are independent of each other! If you launch a server on `yen2`, it will only use resources available on `yen2`.
 
-!!! warning
+!!! warning "Do NOT use Safari Browser"
     JupyterHub does not work well on Safari - we recommend using a different browser.
 
 
@@ -57,7 +57,7 @@ In addition, any virtual environment created with `venv` can be made into a cust
     ```title="Terminal Command"
     source venv/bin/activate
     ```
-    This command assumes you have [already made](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your ZFS project folder and the name of your virtual environment is `venv`.
+    This command assumes you have [already made](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your ZFS project folder and the name of your virtual environment is `venv`.
 
 * Install `ipykernel` package into the active `venv`: 
     ```title="Terminal Command"
@@ -79,10 +79,10 @@ In addition, an `R` virtual environment can be added as a custom kernel as well.
 #### SAS
 ![SAS](/assets/images/sas-jupyter_notebooks.png)
 
-There are a few preliminary steps that need to be taken before SAS can be used on Yens/notebooks.
+There are a few preliminary steps that need to be taken before SAS can be used on the Yens/notebooks.
 
 * Install the [SAS kernel for Jupyter](https://github.com/sassoftware/sas_kernel){:target=_blank} by running `pip3 install sas_kernel`.
-* Confirm that you see the newly installed SAS kernel by running `jupyter kernelspec list`. You may need to have a Python virtual environment that already has jupyter installed.
+* Confirm that you see the newly installed SAS kernel by running `jupyter kernelspec list`. You may need to have a Python virtual environment that already has Jupyter installed.
 * Find the location where this new kernel is installed by running `pip3 show saspy`. It should look something like `/home/users/{SUNetID}/.local/lib/python3.10/site-packages/saspy`.
 * Edit the default SAS path in the `sascfg.py` file within that directory to be `/software/non-free/SAS-langsup/SAS9.4/software/SASFoundation/9.4/sas`.
 * Restart JupyterHub and start a new notebook with the SAS kernel. After running your first cell, the output should show a successful connection to SAS.
@@ -117,7 +117,7 @@ If you want to run multithreaded Julia kernel, you can install it by running the
 
 For example, let's say we want to use 4 threads. 
 
-```julia title="Julia Commands to add Julia Kernel with 4 Threads"
+```julia title="Julia Commands to Add Julia Kernel with 4 Threads"
 using IJulia
 IJulia.installkernel(
     "julia-mp", 
@@ -198,7 +198,7 @@ You can also launch a bash terminal from JupyterHub.  This provides access to co
 ![Terminal](/assets/images/jupyter_terminal.png)
 
 
-!!! warning
+!!! warning "Jupyter Terminal vs. Standard `ssh` Terminal"
     You may notice slight differences between the Jupyter terminal and a standard `ssh` login terminal. Please use a terminal not in Jupyter to build, install and configure software. If you experience any unexpected behavior in the Jupyter terminal, please log in using `ssh` and try again.
 
 
@@ -225,17 +225,16 @@ You can also navigate to a directory that has the scripts you want to edit and d
 The JupyterHub instances will automatically launch from your home directory on the Yens.  Use the `zfs` directory in your home directory to navigate to your normal [file systems](/_user_guide/storage/#yen-file-system){:target=_blank}.
 
 ### Installing Packages
-JupyterHub will load packages found in your `~/.local/` directory.  For Python, we recommend using environments to install packages.  You can review the [User Guide](/_user_guide/best_practices_python_env/){:target="_blank"} for Python packages and the [User Guide](_user_guide/r/#installing-r-packages){:target=_blank} for R packages.
+JupyterHub will load packages found in your `~/.local/` directory.  For Python, we recommend using environments to install packages.  You can review the [User Guide](/_user_guide/python_envs/){:target="_blank"} for Python packages and the [User Guide](/_user_guide/r/#installing-r-packages){:target=_blank} for R packages.
 
 ### Technical Limits
 * JupyterHub instance will shut down after 3 hours idle (no notebooks actively running code).
 
-!!! warning
+!!! warning "Please Save Your Work"
     Idle servers shut down will not retain any local packages or variables in the notebooks.  Please save your output.
 
 * JupyterHub servers have the same [User Limits](/_policies/user_limits){:target=_blank} as the interactive Yen nodes.
 
 
 !!! tip "Learn How to Migrate to Yen-Slurm"
-    If your notebooks take days to run or you often exceed the resource limits, it might be time to [migrate your Jupyter](/_user_guide/best_practices_migrating_from_jupyter){:target=_blank} processes to Yen-Slurm.
-
+    If your notebooks take days to run or you often exceed the resource limits, it might be time to [migrate your Jupyter](/_user_guide/migrating_from_jupyter){:target=_blank} processes to Yen-Slurm.

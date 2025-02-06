@@ -32,13 +32,12 @@
     margin-left:  0.2em;
 }
 .md-banner {
-  background-color:        #006CB8;
-  color:                   #ffffff; /*  text color */
+  background-color:        #ffd000;
+  color:                   #ffffff;
 }
 
 /* Header logo */
 .md-header-nav__button img {
-  /* height: 100px;   */
   width: auto;   /* Maintain aspect ratio */
 }
 .md-header__button.md-logo {
@@ -58,8 +57,8 @@
 
 /* Search Bar */
 .md-search__form {
-  transition: background-color 0.3s; /* Smooth transition for the background color change */
-  transition: color 0.3s; /* Smooth transition for the background color change */
+  transition: background-color 0.3s;
+  transition: color 0.3s;
 }
 .md-search__form:hover {
   background-color: #919191; 
@@ -80,8 +79,7 @@
   color: black;
 }
 .md-header__title .md-ellipsis:after {
-    /* prevent text clipping */
-    content: '';
+    content: ''; /* prevent text clipping */
     padding: 1px;
 }
 .md-header__topic .md-ellipsis:first-child {
@@ -109,7 +107,7 @@
 }
 .md-header__topic {
   display: block;
-  text-align: left; /* Center align if needed */
+  text-align: left;
 }
 .md-ellipsis-sub {
   font-size: 0.9rem;
@@ -123,8 +121,6 @@
   margin-left: 5px;
   margin-top: 20px;
 }
-
-
 
 /* Navigation Bar */
 .md-tabs__item {
@@ -168,6 +164,7 @@
 .md-tabs__list {
   margin-left: 0;
 }
+
 
 /* Cookie consent link */
 .md-footer-meta.md-typeset .consent {
@@ -251,6 +248,7 @@
 /* Identity-Bar */ 
 .identity-bar-container {
   position: relative;
+  z-index: 0;
   width: 100%;
 }
 
@@ -271,20 +269,18 @@
   width: 100%;
   height: 100%;
   background-color: #8c1515; 
-  z-index: 0; /* Behind the .identity-bar */
+  z-index: 0;
 }
 
 #identity-bar-logo {
-  text-decoration: none; /* Removes underline from all states */
+  text-decoration: none;
   color: white; 
   font-size: 20px;
   font-family: "Stanford";
   line-height: 1;
 }
-
-/* Hover and focus states for the anchor tag */
 .logo:hover, .logo:focus {
-  text-decoration: none; /* Keeps text underline removed on hover/focus */
+  text-decoration: none;
 }
 
 /* Media query for applying medium-specific padding */

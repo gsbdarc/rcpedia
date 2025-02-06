@@ -45,26 +45,25 @@ where `<your-script.jl>` is your Julia script.
 ## Installing Packages
 Launch Julia REPL by running `julia` in the terminal. Even though the Julia software is installed system-wide, every user keeps their own library of packages that they need to run their code.
 
-!!! note
-    The packages need to be installed once, then can be loaded in subsequent code runs. 
-
 To install packages, Press `]` to enter the package manager mode in the Julia REPL. You'll see the prompt change from `julia>` to `pkg>`. Use the `add` command followed by the package name: 
 ```julia title="Example Package Installation"
 pkg> add DataFrames
 ```
 This will download and install the package along with any necessary dependencies. 
 
+!!! note "Package Installation is Persistent"
+    The packages need to be installed once, then can be loaded in subsequent code runs. 
 
-!!! tip
-    To switch back from the package manager mode (indicated by the `pkg>` prompt) to the Julia REPL (indicated by the `julia>` prompt), press the `delete` or `Backspace` key. Alternatively, you can press `Ctrl+C`, which will also return you to the regular Julia prompt.
 
-To use the installed package, run:
+To switch back from the package manager mode (indicated by the `pkg>` prompt) to the Julia REPL (indicated by the `julia>` prompt), press the `delete` or `Backspace` key. Alternatively, you can press `Ctrl+C`, which will also return you to the regular Julia prompt.
 
-```julia title="Load Installed Package"
+To use the installed package:
+
+```julia title="Julia REPL Input"
 using DataFrames
 ```
 
-!!! warning
+!!! warning "Julia Packages Vary By Version"
     Every version of Julia has its own library of packages which means if you upgrade the version of Julia, you will need to reinstall the necessary packages for that version (once).
 
 ## Multithreading in Julia

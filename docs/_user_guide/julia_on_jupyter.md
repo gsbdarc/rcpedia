@@ -2,7 +2,7 @@
 
 ## Step 1: Log onto the Yens
 
-## Step 2: Load and run Julia
+## Step 2: Load and Run Julia
 
 Use the following commands:
 
@@ -27,7 +27,7 @@ Restart your JupyterHub server, and you should see Julia listed as a notebook ke
 !!! tip
     Learn more about JupyterHub on the Yens [here](/yen/webBasedCompute.html)
 
-## Optional: Multithreaded Julia kernel
+## Optional: Multithreaded Julia Kernel
 The steps above install Julia kernel that will use a single core on JupyterHub on the Yens. 
 
 If you want to run multithreaded Julia kernel, you can install it by running the following

@@ -2,7 +2,7 @@
 
 Researchers who would like to acknowledge the use of the Yens or the consulting services of the DARC team in publications/presentations can do so in the Acknowledgement and/or Methods sections. 
 
-As the DARC team provides both computational support (e.g., use of the `yen` servers) as well as in-depth research support for faculty projects, please identify the specific support you received.
+As the DARC team provides both computational support (e.g., use of the Yen servers) as well as in-depth research support for faculty projects, please identify the specific support you received.
 
 Here are a few sample acknowledgements for the different types of support you may have received from the DARC team:
 

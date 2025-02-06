@@ -215,7 +215,7 @@ load("rstudio")
 prepend_path("PATH","/software/free/R/R-4.2.1/bin")
 ```
 
-Linux modules modify only your current working environment. This means that if you lose connection to the Yens server or close your terminal window, you will need to reload the modules. However, all the libraries or packages you have installed as a user will persist and only need to be installed once.
+Linux modules modify only your current working environment. This means that if you lose connection to the Yen servers or close your terminal window, you will need to reload the modules. However, all the libraries or packages you have installed as a user will persist and only need to be installed once.
 
 Once the software you want to use is loaded, the binary becomes available for use from the command line.
 For example, to install R packages or run the interactive R console, type:

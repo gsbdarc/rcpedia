@@ -7,8 +7,8 @@ These tools can help you characterize your usage:
 - **`userload`** is a custom tool that allows you to monitor CPU and RAM usage in a simplified view.
 - **`topbyuser`** is another custom tool that lists out the active users on your current host and the amount of resources they are currently using.
 
-!!! important
-    We have [Community Guidelines](/_policies/user_limits){target="_blank"} to illustrate responsible use of our shared resources that our users are expected to follow. These guidelines ensure that the Yens can remain accessible and performant.
+!!! warning "Stay Within User Limits"
+    We have [User Limits](/_policies/user_limits){target="_blank"} to illustrate responsible use of our shared resources that our users are expected to follow. These guidelines ensure that the Yen cluster can remain accessible and performant.
 
 ## Monitoring Compute with `htop`
 One easy method of getting a quick snapshot of your CPU and memory usage is via the `htop` command line tool. Running `htop` shows usage graphs and a process list that is sortable by user, top CPU, top RAM, and other metrics. Please use this tool liberally to monitor your resource usage, especially if you are running multiprocessing code on shared systems for the first time.
@@ -17,27 +17,27 @@ You can toggle to a threaded view of processes by pressing ++t++. Below is a sam
 
 ![resource monitoring during parallel run](/assets/images/monitor_htop_r_8_cores.png)
 
-!!! danger "Jobs may be automatically killed"
+!!! danger "Jobs May be Automatically Killed"
     Note that jobs that exceed user limits may be terminated automatically to preserve the integrity of the system.
 
 ## User Limits and Multiprocessing
 
 Per our [User Limits](/_policies/user_limits){target="_blank"}, CPU usage should always be limited based on system size. When working with implicitly or explicitly *multiprocessed* code, care must be taken to ensure your code does not use every available processor.
-Please refer to our [Best Practices in R](/_user_guide/best_practices_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/best_practices_parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
+Please refer to our [Parallel Processing in R](/_user_guide/parallel_processing_r/){target="_blank"} and [Parallel Processing in Python](/_user_guide/parallel_processing_python/){target="_blank"} articles for information about how to limit resource consumption when using parallel packages in those languages.
 
 Be sure to monitor your processes, particularly when using a new package, to verify that you are using the expected number of cores.
 
 ## Monitoring Disk Usage
 Personal home directories have a 50 GB quota, while faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much larger. 
 
-!!! danger "Do NOT exceed your home directory quota!"
+!!! danger "Do NOT Exceed Your Home Directory Quota!"
     If you exceed your home directory quota, you cannot access Jupyter or perform many basic system tasks.
 
 Disk storage is a finite resource so to allow us to continue to provide large project spaces, please always be aware of your disk footprint. 
 This includes removing intermediate and/or temp files whenever possible, and avoiding storing multiple copies of the same data set.
 See the [Storage Solutions](/_user_guide/storage){target="_blank"} page for more information about file storage options.
 
-Disk quotas on all Yens can be reviewed by using the `gsbquota` command. It produces output like this:
+Disk quotas on the Yen servers can be reviewed by using the `gsbquota` command. It produces output like this:
 
 ```bash title="Terminal Command"
 gsbquota
@@ -74,7 +74,7 @@ Start by `ssh`'ing into any of the interactive yens in the first terminal window
 ssh yen.stanford.edu
 ```
 
-Check what Yen you are connected to in the first terminal:
+Check what `yen` node you are connected to in the first terminal:
 
 ```bash title="Terminal 1 Command"
 hostname
@@ -84,7 +84,7 @@ hostname
 yen3
 ```
 
-Then `ssh` to the **same** Yen in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
+Then `ssh` to the **same** `yen` in the second and third terminal windows. So if you are on `yen3`, you would open two new terminals and `ssh` to `yen3` in both so you can monitor your resources when you start running the R program on `yen3`.
 
 ```bash title="Terminal 2,3 Command"
 ssh yen3.stanford.edu
@@ -92,7 +92,7 @@ ssh yen3.stanford.edu
 
 Create an `investment-npv-parallel.R` file below and save it in your desired directory. 
 
-!!! tip "We explicitly set the cores in this code!"
+!!! tip "We Explicitly Limit the Cores in the Code!"
     Note that we set **8 cores** for use with the `registerDoParallel` function.
 
 ```R title="investment-npv-parallel.R" linenums="1" hl_lines="14 17"
@@ -148,14 +148,14 @@ summary(results)
 hist(results, main = 'NPV distribution')
 ```
 
-Once we have three terminal windows connected to the same Yen, we are ready to run the script and monitor its resource consumption. In one of the terminals, load the R module:
+Once we have three terminal windows connected to the same `yen`, we are ready to run the script and monitor its resource consumption. In one of the terminals, load the R module:
 
 ```bash title="Terminal 1 Command"
 ml R
 ```
  
 !!! Note "Install the Necessary Packages"
-    The above script relies on two R packages - `foreach` and `doParallel`. If you have not previously installed them for the version of R that you have loaded, you can install them by running the following command in the R console: `install.packages(c("foreach", "doParallel"))`. See [this page](/_user_guide/r/#installing-r-packages){:target=_blank} for details on how to manage R packages on the Yens. 
+    The above script relies on two R packages - `foreach` and `doParallel`. If you have not previously installed them for the version of R that you have loaded, you can install them by running the following command in the R console: `install.packages(c("foreach", "doParallel"))`. See [this page](/_user_guide/r/#installing-r-packages){:target=_blank} for details on how to manage R packages on the Yen cluster. 
 
 In the same terminal where you loaded the R module, run the `investment-npv-parallel.R` program: 
 
@@ -173,7 +173,7 @@ While the program is running, you should see about 8 CPU cores being utilized in
 
 ![Resource monitoring during parallel run with userload](/assets/images/monitor_userload_r_8_cores.png)
 
-Run `htop -u $USER` in the third window, where `$USER` is your SUNetID:
+Run `htop -u $USER` in the third window, where `$USER` is your SUNet ID:
 
 ```bash title="Terminal 3 Command"
 htop -u $USER
@@ -182,4 +182,4 @@ htop -u $USER
 While the program is running, you should see 8 R processes running in the `htop` output because we specified 8 cores in our R program.
 ![Resource monitoring during parallel run with htop](/assets/images/monitor_htop_r_8_cores.png)
 
-In summary, effective monitoring of your resource usage on the Yens ensures that you stay within system limits, maintain performance, and contribute to a fair and efficient computing environment for all users. By leveraging tools like `htop`, `userload`, and `gsbquota`, you can proactively manage your resource consumption. 
+In summary, effective monitoring of your resource usage on the Yen cluster ensures that you stay within system limits, maintain performance, and contribute to a fair and efficient computing environment for all users. By leveraging tools like `htop`, `userload`, and `gsbquota`, you can proactively manage your resource consumption. 

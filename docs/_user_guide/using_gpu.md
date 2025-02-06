@@ -1,16 +1,4 @@
----
-date:
-  created: 2024-04-25
-categories:
-    - deep learning
-    - GPU
-authors:
-    - nrapstin
-subtitle: Running Jobs on Yen's GPU Partition
-
----
-
-# Run Jobs on Yen's GPU Partition
+# Run Jobs on the GPU Partition
 
 ## GPU Partition Overview
 [Yen Slurm](/_user_guide/slurm/){:target="_blank"} has three GPU nodes: 
@@ -20,11 +8,9 @@ subtitle: Running Jobs on Yen's GPU Partition
 
 The A30 NVIDIA GPU's have 24 G of GPU RAM while the A40 NVIDIA GPU's have 48 G of GPU RAM.
 
-<!-- more -->
-
 ### GPU Partition
 
-To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/slurm/#how-do-i-use-the-scheduler){:target="_blank"} to the `yen-slurm` cluster targeting the `gpu` partition. You can use the command `sinfo -p gpu` to get more information about this partition:
+To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/slurm/#how-do-i-use-the-scheduler){:target="_blank"} to the Slurm scheduler targeting the `gpu` partition. You can use the command `sinfo -p gpu` to get more information about this partition:
 
 ```{.yaml .no-copy title="Terminal Output"}
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
@@ -32,7 +18,7 @@ gpu          up 1-00:00:00      1    mix yen-gpu3
 gpu          up 1-00:00:00      2   idle yen-gpu[1-2]
 ```
 
-!!! warning
+!!! warning "Job Time and GPU Limit"
     There is a limit of 1 day runtime and 4 GPU's per user.
 
 ## Usage Example with Python
@@ -258,7 +244,7 @@ You should see something like:
 
 ```{.yaml .no-copy title="Terminal Output"}
 JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-190526       gpu train-gp nrapstin  R       0:25      1 yen-gpu1
+190526       gpu train-gp    user  R       0:25      1 yen-gpu1
 ```
 
 Once the job is running, you gain the ability to connect to the node that the job is running on:

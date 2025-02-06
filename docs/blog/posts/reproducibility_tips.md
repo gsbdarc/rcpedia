@@ -52,7 +52,7 @@ Share illustrative examples, ranging from simple cases to complex scenarios.
 - **License**:
 Clearly state the license governing the use, modification, and distribution of your project.
 
-Additionally, include information about the memory and compute requirements of your analysis. For resource-intensive projects, note the necessity of high-performance computing environments, like the [Yens](/_getting_started/yen-servers){:target="_blank"}, and provide a description of these environments if applicable.
+Additionally, include information about the memory and compute requirements of your analysis. For resource-intensive projects, note the necessity of high-performance computing environments, like the [Yen cluster](/_getting_started/yen-servers){:target="_blank"}, and provide a description of these environments if applicable.
 
 ## Managing Computational Environment
 
@@ -65,7 +65,7 @@ Use tools like `venv` to create isolated environments for managing dependencies.
 - **Environment Files**:
 Include environment specifications in your repository. While `requirements.txt` may contain superfluous libraries, it provides a starting point for replication.
 
-- For more details, please refer to the [Python Virtual Environment Page](/_user_guide/best_practices_python_env){:target="_blank"}
+- For more details, please refer to the [Python Virtual Environment Page](/_user_guide/python_envs){:target="_blank"}
 
 ### R
 - **RStudio and Projects**:

@@ -19,7 +19,7 @@ If you are a researcher who is just starting to use Redivis, or considering usin
 
 <!-- more -->
 
-!!! note
+!!! tip
     For a brief introduction on Redivis and its place within the GSB's research computing offerings, read [this page](/_user_guide/redivis/){:target="_blank"}.
 
 ## Use Cases
@@ -92,7 +92,7 @@ Here are a few quick tips based on common questions that we have received from r
 ### Exporting Data
 There are [numerous ways to export data from Redivis](https://docs.redivis.com/reference/datasets/exporting-data){:target="_blank"}, but consider the size of the data that you are exporting prior to doing it or [requesting an export approval](https://docs.redivis.com/reference/data-access/usage-rules#requesting-export-approval){:target="_blank"}. Many of the datasets hosted by the GSB on Redivis are hundreds of GBs to several TBs in total size. **It is highly recommended to leverage the powerful backend querying engine of Redivis for as much of your data exploration, filtering, manipulation, and merging work as possible** before exporting data to an external environment for any remaining analysis.
 
-!!! note
+!!! Important "Comply with Data Export Policies!"
     Many of the datasets hosted by the GSB have export restrictions that limit which external environments data can be exported to and how much data can be exported. Many exports also require explicit approval from an administrator of the StanfordGSBLibrary Redivis organization. These measures ensure that researchers using these datasets are in compliance with language in data use agreements and that researchers do not frivolously export massive amounts of data outside of Redivis.
 
 ### Using the API
@@ -105,5 +105,5 @@ Redivis [maintains an API](https://apidocs.redivis.com/){:target="_blank"} that 
 ### Importing Data
 In addition to using the datasets hosted by the GSB, individual Redivis users have the ability to [import their own datasets](https://docs.redivis.com/guides/create-and-manage-datasets){:target="_blank"} into Redivis that only they have access to. Access to these datasets [can also be configured](https://docs.redivis.com/guides/create-and-manage-datasets/create-and-populate-a-dataset#id-5.-configure-access){:target="_blank"} for other Redivis users by the user who uploaded the dataset.
 
-!!! note
+!!! note "Manage Storage Limits for Redivis Datasets!"
     Each Redivis user has a [10 GB storage limit](https://docs.redivis.com/reference/your-account/compute-credits-and-billing#usage-limits){:target="_blank"} for datasets and files imported into their own Redivis account. If you have a dataset that is critical to your research that you would like in Redivis, but exceeds the 10 GB limit, please [contact the GSB Data, Analytics, and Research Computing team](mailto:gsb_darcresearch@stanford.edu){:target="_blank"} for further consultation.

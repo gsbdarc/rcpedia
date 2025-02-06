@@ -1,4 +1,3 @@
-
 # Parallel Processing in Python
 
 ## Common Python Libraries (`numpy`, `sklearn`, `pytorch`, etc...)
@@ -56,7 +55,7 @@ with Pool(5) as p:
 ```
 
 !!! tip
-    You can check your processes and their core usage on the Yens using `htop`! See [this page](/_user_guide/best_practices_monitor_usage/){:target="_blank"} for more information on monitoring your resource usage.
+    You can check your processes and their core usage on the Yens using `htop`! See [this page](/_user_guide/monitor_usage/){:target="_blank"} for more information on monitoring your resource usage.
 
 ## Example
 We will use `numpy` and `multiprocessing` packages to do a giant matrix inversion (which will
@@ -97,7 +96,7 @@ with Pool(6) as p:
 
 In the above script, we are setting a few environment variables to limit the number of cores that `numpy` wants to use. In this case, we are setting the number of cores to 1. Then using `multiprocessing` package, we can create a parallel region in our code with the `Pool` object which will run a function `f` in parallel 100 times (for each of 100 elements in the `data` list). 
 
-On the yens, before we start running the script, let's log into a second terminal window so we can monitor our CPU usage. Remember to login to the same yen machine! Check which yen you are on in terminal 1 by typing `hostname` then `ssh` to the same yen in terminal 2. For example, running `hostname` might output:
+On the Yens, before we start running the script, let's log into a second terminal window so we can monitor our CPU usage. Remember to login to the same yen machine! Check which `yen` you are on in terminal 1 by typing `hostname` then `ssh` to the same `yen` in terminal 2. For example, running `hostname` might output:
 
 ```{.yaml .no-copy title="Terminal Output"}
 yen4
