@@ -1,7 +1,5 @@
 # 404 - Page Not Found
 
-![404 Error](https://via.placeholder.com/600x200.png?text=404+Error)
-
 ---
 
 ## Oops! We couldn't find that page. 
