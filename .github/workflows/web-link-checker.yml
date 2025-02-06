@@ -11,14 +11,12 @@ on:
     branches:
       - QA
 jobs:
-
   broken_link_checker_job:
     runs-on: ubuntu-latest
     name: Check for broken links
     steps:
-      - name: Check for broken links
+      - name: Check for broken links on the deployed site
         id: link-report
         uses: elliotforbes/broken-link-checker@1.0.2
         with:
           url: "https://rcpedia-dev.stanford.edu"
-          cmd_params: "--exclude=google.com --buffer-size=8192 --max-connections=10 --color=always --verbose"
