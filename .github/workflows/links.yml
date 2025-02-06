@@ -1,4 +1,4 @@
-name: Check for broken links
+name: Check for Broken Links
 
 on:
   workflow_dispatch:  
@@ -14,14 +14,13 @@ jobs:
   linkChecker:
     runs-on: ubuntu-latest
     permissions:
-      issues: write # required for peter-evans/create-issue-from-file
+      issues: write # Required for automated issue creation
     steps:
-      - uses: actions/checkout@v4
-
       - name: Link Checker
         id: lychee
         uses: lycheeverse/lychee-action@v2.3.0
         with:
+          args: --verbose --no-progress https://rcpedia-dev.stanford.edu
           fail: false
 
       - name: Create Issue From File
@@ -31,3 +30,5 @@ jobs:
           title: Link Checker Report
           content-filepath: ./lychee/out.md
           labels: report, automated issue
+          
+ 
