@@ -1,10 +1,24 @@
-broken_link_checker_job:
-  runs-on: ubuntu-latest
-  name: Check for broken links
-  steps:
-    - name: Check for broken links
-      id: link-report
-      uses: elliotforbes/broken-link-checker@1.0.2
-      with:
-        url: "https://rcpedia-dev.stanford.edu/"
-        cmd_params: "--exclude=google.com --buffer-size=8192 --max-connections=10 --color=always --verbose"
+name: Check for broken links
+
+on:
+  workflow_dispatch:  
+    inputs:
+      branch:
+        description: 'Branch to run the workflow on'
+        required: true
+        default: 'QA'
+  push:
+    branches:
+      - QA
+jobs:
+
+  broken_link_checker_job:
+    runs-on: ubuntu-latest
+    name: Check for broken links
+    steps:
+      - name: Check for broken links
+        id: link-report
+        uses: elliotforbes/broken-link-checker@1.0.2
+        with:
+          url: "https://rcpedia-dev.stanford.edu"
+          cmd_params: "--exclude=google.com --buffer-size=8192 --max-connections=10 --color=always --verbose"
