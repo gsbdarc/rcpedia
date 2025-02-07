@@ -1,4 +1,4 @@
-# How Do I Install Julia on JupyterHub?
+ # How Do I Install Julia on JupyterHub?
 
 ## Step 1: Log onto the Yens
 
@@ -6,7 +6,7 @@
 
 Use the following commands:
 
-```bash
+```bash title="Terminal Input"
 module load julia
 julia
 ```
@@ -15,7 +15,7 @@ julia
 
 You should now be at an interactive Julia console.  Run the following Julia commands:
 
-```julia
+```julia  title="Julia Console Input"
 using Pkg
 Pkg.add("IJulia")
 ```
@@ -24,17 +24,17 @@ Pkg.add("IJulia")
 
 Restart your JupyterHub server, and you should see Julia listed as a notebook kernel.
 
-!!! tip
-    Learn more about JupyterHub on the Yens [here](/yen/webBasedCompute.html)
+!!! tip "JupyterHub on the Yen Cluster"
+    Learn more about JupyterHub on the Yens [here](/_getting_started/jupyter){:target=_blank}.
 
 ## Optional: Multithreaded Julia Kernel
-The steps above install Julia kernel that will use a single core on JupyterHub on the Yens. 
+The steps above install Julia kernel that will use a single core on JupyterHub on the Yen cluster. 
 
-If you want to run multithreaded Julia kernel, you can install it by running the following
-in the interactive Julia console. Choose the number of threads for the kernel to be less than 12
-as per [Yen Community Guidelines](/yen/community.html).
+To run a multithreaded Julia kernel, open the interactive Julia console and execute the following command. 
+Be sure to set the number of threads to a value below the maximum allowed, as outlined in the
+the [User Limits](/_policies/user_limits){:target=_blank}.
 
-```julia
+```julia title="Julia Console Input"
 using IJulia
 IJulia.installkernel(
     "julia-mp", 
@@ -45,7 +45,7 @@ IJulia.installkernel(
 Once you launch JupyterHub and the new multithreaded Julia kernel, check that you are using the 
 correct number of threads:
 
-```julia
+```julia title="Julia Notebook Cell Input"
 Threads.nthreads()
 4
 ```
