@@ -22,7 +22,7 @@ To exit the Python interpreter, type `exit()` or press ++ctrl+"D"++ .
 
 
 !!! Important "Use a Virtual Environment to Manage Packages!"
-    If you need a specific version of Python and to install Python packages, we recommend using a [virtual environment](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
+    If you need a specific version of Python and to install Python packages, we recommend using a [virtual environment](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv){:target="_blank"}.
 
 ### Running Python Scripts
 

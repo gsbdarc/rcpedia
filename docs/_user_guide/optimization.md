@@ -24,7 +24,7 @@ Load Gurobi module:
 ml gurobipy3
 ```
 
-Next, create a new [Python virtual environment](/_user_guide/best_practices_python_env/){:target="_blank"} using the `venv` package.
+Next, create a new [Python virtual environment](/_user_guide/python_envs/){:target="_blank"} using the `venv` package.
 This virtual environment will be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel.
 
 To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.
@@ -255,7 +255,7 @@ prepend_path("MATLABPATH","/software/non-free/knitro/14.0.0/knitromatlab")
 prepend_path("PYTHONPATH","/software/non-free/knitro/14.0.0/examples/Python")
 ```
 
-Next, create a new [Python virtual environment](/_user_guide/best_practices_python_env/){:target="_blank"} using the `venv` package.
+Next, create a new [Python virtual environment](/_user_guide/python_envs/){:target="_blank"} using the `venv` package.
 This virtual environment will also be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel. The process is the same as the one we set up for Gurobi above.
 
 To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.

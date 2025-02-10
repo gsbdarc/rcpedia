@@ -57,7 +57,7 @@ In addition, any virtual environment created with `venv` can be made into a cust
     ```title="Terminal Command"
     source venv/bin/activate
     ```
-    This command assumes you have [already made](/_user_guide/best_practices_python_env/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your ZFS project folder and the name of your virtual environment is `venv`.
+    This command assumes you have [already made](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your ZFS project folder and the name of your virtual environment is `venv`.
 
 * Install `ipykernel` package into the active `venv`: 
     ```title="Terminal Command"
@@ -225,7 +225,7 @@ You can also navigate to a directory that has the scripts you want to edit and d
 The JupyterHub instances will automatically launch from your home directory on the Yens.  Use the `zfs` directory in your home directory to navigate to your normal [file systems](/_user_guide/storage/#yen-file-system){:target=_blank}.
 
 ### Installing Packages
-JupyterHub will load packages found in your `~/.local/` directory.  For Python, we recommend using environments to install packages.  You can review the [User Guide](/_user_guide/best_practices_python_env/){:target="_blank"} for Python packages and the [User Guide](/_user_guide/r/#installing-r-packages){:target=_blank} for R packages.
+JupyterHub will load packages found in your `~/.local/` directory.  For Python, we recommend using environments to install packages.  You can review the [User Guide](/_user_guide/python_envs/){:target="_blank"} for Python packages and the [User Guide](/_user_guide/r/#installing-r-packages){:target=_blank} for R packages.
 
 ### Technical Limits
 * JupyterHub instance will shut down after 3 hours idle (no notebooks actively running code).
@@ -237,4 +237,4 @@ JupyterHub will load packages found in your `~/.local/` directory.  For Python, 
 
 
 !!! tip "Learn How to Migrate to Yen-Slurm"
-    If your notebooks take days to run or you often exceed the resource limits, it might be time to [migrate your Jupyter](/_user_guide/best_practices_migrating_from_jupyter){:target=_blank} processes to Yen-Slurm.
+    If your notebooks take days to run or you often exceed the resource limits, it might be time to [migrate your Jupyter](/_user_guide/migrating_from_jupyter){:target=_blank} processes to Yen-Slurm.

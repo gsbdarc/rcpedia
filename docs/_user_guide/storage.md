@@ -7,7 +7,7 @@ At Stanford Graduate School of Business, we offer several storage options to sup
 
 ## Preferred Platforms:
 - **ZFS:** The GSB's 1 PB high-performance storage solution. Currently, all Yen users and project directories reside on ZFS. Snapshots are taken of the data and are easily recoverable. ZFS is the ideal solution if you are performing your analysis or computational work on the Yens.
-- **Google Drive:** Available to all users at Stanford. [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"} is approved for low, medium and high risk data. It supports up to 400,000 files and has a daily upload limit of 750 GB, making it ideal for storing audio, video, PDFs, images, and flat files. Google Drive is great for sharing with external collaborators and is also suitable for [archiving research data](/_user_guide/best_practices_archive/){:target="_blank"}
+- **Google Drive:** Available to all users at Stanford. [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"} is approved for low, medium and high risk data. It supports up to 400,000 files and has a daily upload limit of 750 GB, making it ideal for storing audio, video, PDFs, images, and flat files. Google Drive is great for sharing with external collaborators and is also suitable for [archiving research data](/_user_guide/archiving/){:target="_blank"}
  - **Oak:** Similar to ZFS, [Oak](https://uit.stanford.edu/service/oak-storage){:target="_blank"} is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data.  The monthly cost is approximately $45 per 10 TB. Oak does not provide local or remote data backup by default, and should be considered as a single copy. However, [backups](https://docs.oak.stanford.edu/backups/){:target="_blank"} are available for an additional fee. Oak is the preferred storage location for [Sherlock](/_policies/sherlock/){:target="_blank"}, but can be mounted on the Yen cluster by request using an [NFS gateway](https://docs.oak.stanford.edu/gateways/nfs/){:target="_blank"}.
  - **Redivis:** [Redivis](https://redivis.com/){:target="_blank"} allows users to deploy datasets in a web-based environment (GCP backend) and provides a powerful query GUI for users who don't have a strong background in SQL.
 
@@ -88,7 +88,7 @@ where `<your-project-dir>` is the name of your project directory, consisting of 
 
 The project directories come with much larger quotas than your home directory. However, please help maintain the shared resources by being a responsible steward of the commons by:
 
-- Archiving projects or infrequently accessed files when you can (see [here](/_user_guide/best_practices_archive/#why-should-i-archive){:target="_blank"})
+- Archiving projects or infrequently accessed files when you can (see [here](/_user_guide/archiving/#why-should-i-archive){:target="_blank"})
 - Deleting intermediate files that you no longer need to use
 
 This will help ensure efficient use of storage resources across the system.

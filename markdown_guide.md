@@ -71,8 +71,6 @@ When discussing a machine in the context of a command, use `code`...
 
 > Now, connect to `yen2` and run `python`
 
-
-
 # Talking about Languages
 
 Best practice is to capitalize languages.  When used in prose, you can use the following:

@@ -65,7 +65,7 @@ Use tools like `venv` to create isolated environments for managing dependencies.
 - **Environment Files**:
 Include environment specifications in your repository. While `requirements.txt` may contain superfluous libraries, it provides a starting point for replication.
 
-- For more details, please refer to the [Python Virtual Environment Page](/_user_guide/best_practices_python_env){:target="_blank"}
+- For more details, please refer to the [Python Virtual Environment Page](/_user_guide/python_envs){:target="_blank"}
 
 ### R
 - **RStudio and Projects**:

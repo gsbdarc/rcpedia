@@ -68,7 +68,6 @@ markdown_extensions:
 nav:
   - Home:
       - Home: index.md
-      - Services: services.md
   - Status: status.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md
@@ -87,36 +86,36 @@ nav:
   - User Guide: 
       - Home: _user_guide/index.md
       - General Practices:
-          - Archive: _user_guide/best_practices_archive.md
-          - File Management: _user_guide/best_practices_file_management.md
-          - Monitor Resource Usage: _user_guide/best_practices_monitor_usage.md
-          - GUI: _user_guide/best_practices_gui.md
-          - screen: _user_guide/best_practices_screen.md
+          - Archive: _user_guide/archiving.md
+          - File Management: _user_guide/file_management.md
+          - Monitor Resource Usage: _user_guide/monitor_usage.md
+          - GUI: _user_guide/using_gui.md
+          - screen: _user_guide/screen.md
       - Slurm:
           - Slurm: _user_guide/slurm.md
-          - Migrating From JupyterHub: _user_guide/best_practices_migrating_from_jupyter.md
+          - Migrating From JupyterHub: _user_guide/migrating_from_jupyter.md
           - Job Arrays: _user_guide/job_arrays.md
-          - GPU Slurm Jobs: _user_guide/best_practices_gpu.md
+          - GPU Slurm Jobs: _user_guide/using_gpu.md
       - Python:
           - Running Python Interactively: _user_guide/python.md
-          - Python Virtual Environments: _user_guide/best_practices_python_env.md
-          - Parallel Processing Python: _user_guide/best_practices_parallel_processing_python.md
+          - Python Virtual Environments: _user_guide/python_envs.md
+          - Parallel Processing Python: _user_guide/parallel_processing_python.md
       - R:
           - Running R Interactively: _user_guide/r.md
           - RStudio: _user_guide/rstudio.md
-          - Best Practices in R: _user_guide/best_practices_r.md
+          - Best Practices in R: _user_guide/parallel_processing_r.md
       - Matlab: _user_guide/matlab_interactive.md
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
       - Stata: _user_guide/stata.md          
-      - Optimization Software: _user_guide/best_practices_optimization.md
+      - Optimization Software: _user_guide/optimization.md
       - Data:
           - Storage: _user_guide/storage.md
           - Data Transfer: _user_guide/data_transfer.md      
       - Troubleshooting:
-          - Why isn't JupyterHub Working?: _user_guide/best_practices_jupyter_does_not_work.md
+          - Why isn't JupyterHub Working?: _user_guide/jupyter_does_not_work.md
           - Man-in-the-Middle Warning: _user_guide/man_in_middle.md
-          - Julia on Jupyter: _user_guide/best_practices_julia_jupyter.md
+          - Julia on Jupyter: _user_guide/julia_on_jupyter.md
       - Beyond the Yens:
           - Sherlock: _user_guide/sherlock.md
           - Redivis: _user_guide/redivis.md

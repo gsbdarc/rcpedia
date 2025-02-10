@@ -72,4 +72,4 @@ Unsure what's taking up space? The `gsbbrowser` command scans your home director
 
 - **Use effective language-specific packages**: Use packages optimized for your language or software (i.e. [Dask for merging large data sets in Python](/blog/2023/02/09/merging-big-data-sets-with-python-dask/){target="_blank"}, or `data.table` in R).
 
-- **Monitor your jobs**: Use tools like `top`, `htop` and `userload` to [monitor system processes](/_user_guide/best_practices_monitor_usage/){target="_blank"}, especially CPU and RAM usage. If your job misbehaves, halt and fix it.
+- **Monitor your jobs**: Use tools like `top`, `htop` and `userload` to [monitor system processes](/_user_guide/monitor_usage/){target="_blank"}, especially CPU and RAM usage. If your job misbehaves, halt and fix it.
