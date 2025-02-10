@@ -1,3 +1,4 @@
+
 # Yen Slurm
 You may be used to using a job scheduler on [other Stanford compute resources](https://srcc.stanford.edu/systems){:target="_blank"} (e.g. Sherlock, etc.) or servers from other institutions. However, the Yen servers have traditionally run without a scheduler in order to make them more accessible and intuitive to our users. The ability to log onto a machine with considerably more resources than your laptop and immediately start running scripts as if it was still your laptop has been very popular with our users. This is the case on `yen1`, `yen2`, `yen3`, `yen4` and `yen5`.
 
@@ -345,6 +346,15 @@ Or with a shorthand:
 ```
 
 If you don’t specify the partition in the submission script, the job is queued in the `normal` partition. To request a particular partition, for example, `long`, specify `#SBATCH -p long` in the Slurm submission script. You can specify more than one partition if the job can be run on multiple partitions (i.e. `#SBATCH -p normal,dev`).
+
+To see more details about each partition limits, run:
+
+```bash title="Terminal Input"
+sacctmgr show qos [partition]
+```
+where `partition` argument is optional and will filter the output for that `partition` only.
+
+The output table will have columns such as `MaxTRESPU` which lists the maximum number of CPU's a user can request, `MaxJobsPU` which lists the maximum number of jobs that can be running for a user, and `MaxSubmitPU` which lists the number of jobs that a user can submit to the partition queue.
 
 ### How Do I Check How Busy Yen Slurm Is?
 
