@@ -39,10 +39,10 @@ plugins:
   - tags
  
   # CI=1 mkdocs build
-  - group:
-      enabled: !ENV CI
-      plugins:
-        - git-revision-date-localized
+#   - group:
+#       enabled: !ENV CI
+    #   plugins:
+    #     - git-revision-date-localized
 
   # INSIDERS=1 mkdocs build
   - group:
@@ -128,6 +128,7 @@ extra_css:
 
 extra_javascript:
   - js/footer.js
+  - js/announcement-bar.js
 
 watch:
   - docs

@@ -28,12 +28,21 @@ source mkdocs/bin/activate
 pip install -r requirements.txt
 ```
 
-- Build website:
+- Build with INSIDERS enabled:
+First install insiders with pip and auth key
+```
+pip install git+https://{access_key_goes_here}@github.com/squidfunk/mkdocs-material-insiders.git@9.4.2-insiders-4.42.0
+```
+<br>
+Use this command, to build mkdocs with Insiders turned on:
+```CI=true INSIDERS=true mkdocs build```
+
+- Serve website:
 ```
 mkdocs serve
 ```
-
 - Navigate to `http://localhost:8000/` to view the website.
+
 
 Confirm you have the most recent changes and no merge conflicts:
 ```

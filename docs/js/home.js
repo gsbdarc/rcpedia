@@ -1,7 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () { // Wait for content to load
 
+    // --------------------------------------------------------------
+    // ---------------- LOAD THE CountUp JS LIBRARY  ----------------
+    // --------------------------------------------------------------
+    (function loadCountUp() {
+        const script = document.createElement("script");
+        script.src = "https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"; // Use non-module version
+        script.onload = () => {
+            console.log("✅ CountUp.js Loaded!");
+        };
+        document.head.appendChild(script);
+    })();
 
-     // ------------------------------------------------------
+    // ------------------------------------------------------
     // ------------------- HIDE THE SIDE BAR  ----------------
     // -------------------------------------------------------
     /* Find Search bar on page an move it to the main content div
@@ -293,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     titleText.id = 'titleText'; 
     if (titleText && mdMain) {
         console.log("H1 header found.");
-        titleText.textContent = "Power Your Research with Stanford GSB’s Research Computing Solutions"
+        titleText.textContent = "Power Your Research with GSB’s Research Computing Solutions"
     }
 
     // Make the Search Bar a child element of the Team Color Bar
@@ -314,6 +325,45 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         searchInput.setAttribute('placeholder', 'Search the docs...');
     }
 
+    // Add buttons below the search form
+    if (searchBarParentDiv) {
+        // Create a wrapper div for the text and buttons
+        const buttonContainer = document.createElement("div");
+        buttonContainer.classList.add("popular-container"); // Add a class for styling
+    
+        // Create a text span for "Popular:"
+        const popularText = document.createElement("span");
+        popularText.textContent = "Popular:";
+        popularText.classList.add("popular-text"); // Add a class for styling
+        buttonContainer.appendChild(popularText); // Append "Popular:" text
+    
+        // Buttons
+        const buttonLabels = ["Jupyter", "Jobs", "Collaborators", "Slurm", "GPUs"];
+    
+        // Loop through labels and create buttons
+        buttonLabels.forEach(label => {
+            const button = document.createElement("button");
+            button.textContent = label; // Set button text
+            button.classList.add("search-fill-button"); // Add a class for styling
+            buttonContainer.appendChild(button); // Append button to container
+        });
+    
+        // Append the container to the parent div
+        searchBarParentDiv.appendChild(buttonContainer);
+    }
+
+    // Make the buttons work
+    const buttons = document.querySelectorAll('.search-fill-button');
+
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            if (searchInput) {
+                searchInput.value = button.textContent; 
+                searchInput.focus(); 
+            }
+        });
+    });
+
     // Remove the back-to-top button
     const backToTopButton = document.querySelector('button.md-top');
     if (backToTopButton) {
@@ -333,44 +383,86 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     contentDiv.appendChild(statContainer);
 
     // Read from json file
-    fetch('/assets/default_vars.json')
-    .then(response => response.json()) // Parse the JSON response
+    // Function to load JSON data from a file
+    function loadJSON(url) {
+        return fetch(url).then(response => response.json());
+    }
+    
+    
+    // First, attempt to load vars.json
+    loadJSON('/assets/vars.json')
     .then(data => {
-        data.forEach(item => {
+        // Check if any value contains "PLACEHOLDER"
+        const hasPlaceholder = data.some(item =>
+            Object.values(item).some(value => typeof value === "string" && value.includes("PLACEHOLDER"))
+        );
+
+        // If placeholder is detected, load default_vars.json instead
+        if (hasPlaceholder) {
+            console.log("PLACEHOLDER detected in vars.json. Falling back to default_vars.json");
+            return loadJSON('/assets/default_vars.json');
+        }
+        return data; // Otherwise, use vars.json data
+    })
+    .then(data => {
+        data.forEach((item, index) => {
             const cell = document.createElement('div');
             cell.classList.add('metric-grid-item');
-
+        
             // Create a container for number and unit
             const numberUnitContainer = document.createElement('div');
             numberUnitContainer.classList.add('grid-number-unit');
-
+        
+            // Create a div for the number with a unique ID
             const numberElement = document.createElement('div');
             numberElement.classList.add('grid-number');
-            numberElement.textContent = item.number;
-
+            numberElement.id = `countup-${index}`; // Unique ID for each counter
+        
+            // Create a div for the unit
             const unitElement = document.createElement('div');
             unitElement.classList.add('grid-unit');
             unitElement.textContent = item.unit;
-
+        
             // Append number and unit to the container
             numberUnitContainer.appendChild(numberElement);
             numberUnitContainer.appendChild(unitElement);
-
+        
             // Add the subtitle
             const subtitleElement = document.createElement('div');
             subtitleElement.classList.add('grid-subtitle');
             subtitleElement.textContent = item.subtitle;
-
+        
             // Append everything to the cell
             cell.appendChild(numberUnitContainer);
             cell.appendChild(subtitleElement);
-
+        
             // Append the cell to the grid container
             statContainer.appendChild(cell);
+        
+            // Check if not mobile before using CountUp.js
+            if (window.innerWidth > 768 && window.CountUp) { // 768px is a common breakpoint for mobile
+                numberElement.textContent = "0"; // Start from 0 before animation
+                const countUp = new CountUp(numberElement.id, 0, item.number, (item.number % 1 !== 0 ? item.number.toString().split('.')[1].length : 0), 2.5);        
+                // Observer for triggering animation when visible
+                const observer = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            countUp.start(); // Start animation when element is in view
+                            observer.unobserve(entry.target); // Stop observing after animation
+                        }
+                    });
+                }, { threshold: 0.5 });
+        
+                observer.observe(numberElement);
+            } else {
+                // On mobile, display the number statically
+                numberElement.textContent = item.number;
+            }
         });
     })
-    .catch(error => console.error('Failed to load or parse default_vars.json:', error));
-    
+    .catch(error => console.error('Failed to load or parse JSON file:', error));
+
+
     // Move the horizontal rule to the custom content div
     const hrElement = document.querySelector('hr');
     if (contentDiv && hrElement) {
