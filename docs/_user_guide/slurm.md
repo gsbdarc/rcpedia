@@ -346,6 +346,15 @@ Or with a shorthand:
 
 If you don’t specify the partition in the submission script, the job is queued in the `normal` partition. To request a particular partition, for example, `long`, specify `#SBATCH -p long` in the Slurm submission script. You can specify more than one partition if the job can be run on multiple partitions (i.e. `#SBATCH -p normal,dev`).
 
+To see more details about each partition limits, run:
+
+```bash title="Terminal Input"
+sacctmgr show qos [partition]
+```
+where `partition` argument is optional and will filter the output for that `partition` only.
+
+The output table will have columns such as `MaxTRESPU` which lists the maximum number of CPU's a user can request, `MaxJobsPU` which lists the maximum number of jobs that can be running for a user, and `MaxSubmitPU` which lists the number of jobs that a user can submit to the partition queue.
+
 ### How Do I Check How Busy Yen Slurm Is?
 
 You can pass format options to the `sinfo` command as follows:
