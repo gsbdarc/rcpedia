@@ -102,7 +102,7 @@ body {
 #searchBarParentDiv {
     top: -30px;
     z-index: 1;
-    padding: 30px;
+    padding: 30px 30px 15px 30px;
     width: 70%;
     margin-left: 15%;
     background-color: white;
@@ -116,6 +116,42 @@ body {
         padding: 15px 10px 15px 10px;
 
     }
+}
+.search-fill-button {
+    padding: 5px 10px; 
+    border: 1px solid #a8a8a8;
+    background-color: white;
+    color: #B1040E;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 2px;
+    transition: background-color 0.3s ease-in-out;
+    white-space: nowrap;
+}
+.search-fill-button:hover {
+    background-color: #9c9c9c40; 
+}
+@media (max-width: 600px) {
+    .search-fill-button {
+        display: none;
+    }
+    .popular-text {
+        display: none;
+    }
+}
+.popular-text {
+    font-weight: 400;
+    letter-spacing: normal;
+    width: fit-content;
+    font-size: 18px;
+    color: #333;
+}
+.popular-container {
+    padding: 10px 0px 0px 0px; 
+    display: flex;
+    flex-wrap: wrap; 
+    align-items: center;
+    gap: 15px; 
 }
 
 /* Main Container styling */
@@ -177,7 +213,7 @@ hr {
 }
 #contentDiv {
     font-family: 'Source Sans 3', sans-serif;
-    padding-top: 80px;
+    padding-top: 100px;
     width: 80%;
     background-color: white;
     margin-left: 10%;

@@ -5,9 +5,8 @@
   <link rel="stylesheet" href="{{ 'stylesheets/home.css' | url }}" />
 {% endblock %}
 
-<!-- Home-page-related JavaScript -->
+<!-- Home-page-related custom JavaScript -->
 {% block scripts %}
   {{ super() }} <!-- <===== this is needed so the search works -->
-  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
   <script src="{{ '/js/home.js' | url }}"></script>
 {% endblock %}
