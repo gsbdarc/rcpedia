@@ -6,10 +6,10 @@ on:
       branch:
         description: 'Branch to run the workflow on'
         required: true
-        default: 'QA'
+        default: 'main'
   push:
     branches:
-      - QA
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -86,8 +86,7 @@ jobs:
 
     - name: Deploy to Stanford Hosts
       run: |
-        ssh -i ~/.ssh/id_rsa rcpediaq@rcpedia-qa.su.domains "rm -rf /home/rcpediaq/rcpedia-dev.stanford.edu/*"
-        scp -i ~/.ssh/id_rsa -r ${{ github.workspace }}/* rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia-dev.stanford.edu
+        rsync -e "ssh -i ~/.ssh/id_rsa" -av --delete ${{ github.workspace }}/ rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia-dev.stanford.edu/
 
   check_links:
     needs: deploy  # Ensure this job runs after deploy
