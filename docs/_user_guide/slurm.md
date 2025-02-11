@@ -347,7 +347,7 @@ Or with a shorthand:
 
 If you don’t specify the partition in the submission script, the job is queued in the `normal` partition. To request a particular partition, for example, `long`, specify `#SBATCH -p long` in the Slurm submission script. You can specify more than one partition if the job can be run on multiple partitions (i.e. `#SBATCH -p normal,dev`).
 
-To see more details about each partition limits, run:
+To see more details about each of the partition limits, run:
 
 ```bash title="Terminal Input"
 sacctmgr show qos [partition]
