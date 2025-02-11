@@ -5,10 +5,10 @@ At Stanford Graduate School of Business, we offer several storage options to sup
 !!! Important "Check Data License and Platform"
     Before transferring data to any platform, make sure the data is licensed for your use and that the storage platform meets the [security requirements](/_policies/security/){:target="_blank"} for that data. 
 
-## Preferred Platforms:
+## Preferred Platforms
 - **ZFS:** The GSB's 1 PB high-performance storage solution. Currently, all Yen users and project directories reside on ZFS. Snapshots are taken of the data and are easily recoverable. ZFS is the ideal solution if you are performing your analysis or computational work on the Yens.
 - **Google Drive:** Available to all users at Stanford. [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"} is approved for low, medium and high risk data. It supports up to 400,000 files and has a daily upload limit of 750 GB, making it ideal for storing audio, video, PDFs, images, and flat files. Google Drive is great for sharing with external collaborators and is also suitable for [archiving research data](/_user_guide/archiving/){:target="_blank"}
- - **Oak:** Similar to ZFS, [Oak](https://uit.stanford.edu/service/oak-storage){:target="_blank"} is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data.  The monthly cost is approximately $45 per 10 TB. Oak does not provide local or remote data backup by default, and should be considered as a single copy. However, [backups](https://docs.oak.stanford.edu/backups/){:target="_blank"} are available for an additional fee. Oak is the preferred storage location for [Sherlock](/_policies/sherlock/){:target="_blank"}, but can be mounted on the Yen cluster by request using an [NFS gateway](https://docs.oak.stanford.edu/gateways/nfs/){:target="_blank"}.
+ - **Oak:** Similar to ZFS, [Oak](https://uit.stanford.edu/service/oak-storage){:target="_blank"} is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data.  The monthly cost is approximately $45 per 10 TB. Oak does not provide local or remote data backup by default, and should be considered as a single copy. However, [backups](https://docs.oak.stanford.edu/backups/){:target="_blank"} are available for an additional fee. Oak is the preferred storage location for [Sherlock](/_user_guide/sherlock/){:target="_blank"}, but can be mounted on the Yen cluster by request using an [NFS gateway](https://docs.oak.stanford.edu/gateways/nfs/){:target="_blank"}.
  - **Redivis:** [Redivis](https://redivis.com/){:target="_blank"} allows users to deploy datasets in a web-based environment (GCP backend) and provides a powerful query GUI for users who don't have a strong background in SQL.
 
 ## Other Stanford Platforms
@@ -102,7 +102,7 @@ All GSB faculty can request project space on ZFS. DARC will collaborate with sys
 While ZFS is primarily a resource for Stanford GSB faculty, under certain conditions Stanford GSB graduate students may also be granted project space in ZFS. If you feel you are in need of student project space on ZFS (as distinct from a faculty led project), please contact [DARC](mailto:gsb_darcresearch@stanford.edu). The default size for student project space is 200 GB, but let us know if you need more space for your student project.
 
 !!! note "Request a New Storage Space"
-    To create a new faculty or student project space, please complete the project space request form [here](http://darc.stanford.edu/yenstorage/){:target="_blank"}. If you would like to discuss specific storage solutions for your project, Please email the [DARC](mailto:gsb_darcresearch@stanford.edu){:target=_blank} team to discuss further.
+    To create a new faculty or student project space, please complete the project space request form [here](http://darc.stanford.edu/yenstorage){:target="_blank"}. If you would like to discuss specific storage solutions for your project, Please email the [DARC](mailto:gsb_darcresearch@stanford.edu){:target=_blank} team to discuss further.
 
 ### Scratch Space
 
