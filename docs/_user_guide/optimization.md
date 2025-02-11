@@ -715,7 +715,14 @@ python gurobi_sensitivity.py $SLURM_ARRAY_TASK_ID
 
 Again, you will have to modify the script to use your `venv` environment and your email.
 
-Note that in this case, we specify Slurm option `#SBATCH --array=0-31` to run 32 tasks in parallel. The maximum job array index is 511 (`--array=0-511`) on Yen Slurm. All tasks will be launched as independent jobs. There is a limit of 200 concurrent jobs per user that could be running at the same time. Each task will generate a unique log file `gurobi-%A-%a.out` where `%A` will be the unique job ID and `%a` will be the unique task ID (from 0 to 31).
+Note that in this case, we specify Slurm option `#SBATCH --array=0-31` to run 32 tasks in parallel. The maximum job array index is 511 (`--array=0-511`) on Yen Slurm. All tasks will be launched as independent jobs. There is a limit of 512 concurrent jobs per user that could be running at the same time. Each task will generate a unique log file `gurobi-%A-%a.out` where `%A` will be the unique job ID and `%a` will be the unique task ID (from 0 to 31).
+
+You can see the limits for the `normal` partition with:
+
+```bash title="Terminal Input"
+sacctmgr show qos normal
+```
+Look for values in `MaxSubmitPU` and `MaxJobsPU` columns which list the maximum number of jobs allowed to be submitted by a user and the maximum number of jobs that can be running at the same time, respectively.
 
 After modifying the path to your `venv` environment, submit the `sensitivity_analysis_array.slurm` script to the scheduler to run the job array on the cluster. It will launch all 32 tasks at the same time (some might sit in the queue while others are going to run right away). To submit, run:
 
