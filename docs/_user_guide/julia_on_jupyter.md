@@ -1,4 +1,4 @@
- # How Do I Install Julia on JupyterHub?
+# How Do I Install Julia on JupyterHub?
 
 ## Step 1: Log onto the Yens
 
