@@ -21,19 +21,6 @@
 }
 
 
-/* Announcement bar */
-.md-banner a,
-.md-banner a:focus,
-.md-banner a:hover {
-    color: currentColor;
-    border-bottom: none;
-}
-.md-banner .icon {
-    margin-left:  0.2em;
-}
-.md-banner {
-  background-color: #006CB8;
-}
 /* Header logo */
 .md-header-nav__button img {
   width: auto;   /* Maintain aspect ratio */

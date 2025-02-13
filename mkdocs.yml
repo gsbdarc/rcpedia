@@ -7,7 +7,6 @@ theme:
   logo: assets/images/gsb-logo-color.png
   favicon: assets/images/stanford-favicon.png
   features:
-    - announce.dismiss
     - header.autohide
     - content.code.annotate
     - content.code.select
@@ -126,7 +125,7 @@ extra_css:
   - stylesheets/custom.css
 
 extra_javascript:
-#   - js/announcement-bar.js
+  - js/announcement-banner.js
   - js/footer.js
 
 watch:
