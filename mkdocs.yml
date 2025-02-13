@@ -126,8 +126,8 @@ extra_css:
   - stylesheets/custom.css
 
 extra_javascript:
+#   - js/announcement-bar.js
   - js/footer.js
-  - js/announcement-bar.js
 
 watch:
   - docs
