@@ -33,24 +33,27 @@ jobs:
 
       - name: Install dependencies & Build MkDocs on server
         run: |
-          ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5 \
+          ssh -t -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5 \
             rcpediaq@rcpedia-qa.su.domains << 'EOF'
           cd /home/rcpediaq/rcpedia-dev.stanford.edu
           
-          # Ensure pip is installed and update it
+          # Ensure pip is installed and updated
           python3 -m ensurepip --default-pip
           python3 -m pip install --upgrade pip
-
-          # Install dependencies (ensure mkdocs and any plugins are available)
+          
+          # Install dependencies into the user directory to avoid permission errors.
+          # IMPORTANT: If Babel==2.15.0 is not compatible with Python 3.6 on your server,
+          # either update Python (to 3.7+) or change the Babel version in requirements.txt.
           python3 -m pip install --user -r requirements.txt
-
-          # Add ~/.local/bin to PATH if mkdocs is installed there
+          
+          # Add the user's local bin directory to PATH if mkdocs was installed there.
           export PATH=$HOME/.local/bin:$PATH
-
+          
           # Run MkDocs build
           mkdocs build --clean
           EOF
 
+  # Uncomment the following block if you want to run link checking after deployment.
   # check_links:
   #   needs: deploy
   #   runs-on: ubuntu-latest
