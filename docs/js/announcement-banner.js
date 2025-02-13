@@ -191,8 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
         .then(data => {
             const { message, type } = data;
     
-            if (!message || !type) {
-                console.warn("⚠️ Announcement JSON is missing 'message' or 'type'.");
+            if (!message || message.trim() === "" || !type) {
+                console.warn("⚠️ No current announcement.");
                 return;
             }
     
