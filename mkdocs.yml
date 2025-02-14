@@ -7,7 +7,6 @@ theme:
   logo: assets/images/gsb-logo-color.png
   favicon: assets/images/stanford-favicon.png
   features:
-    - header.autohide
     - content.code.annotate
     - content.code.select
     - content.code.copy
@@ -65,8 +64,6 @@ markdown_extensions:
         alternate_style: true
 
 nav:
-  - Home:
-      - Home: index.md
   - Status: status.md
   - Getting Started: 
       - Yen Servers: _getting_started/yen-servers.md

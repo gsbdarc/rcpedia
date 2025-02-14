@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         const script = document.createElement("script");
         script.src = "https://cdnjs.cloudflare.com/ajax/libs/countup.js/1.9.3/countUp.min.js"; // Use non-module version
         script.onload = () => {
-            console.log("✅ CountUp.js Loaded!");
+            console.log("CountUp.js Loaded!");
         };
         document.head.appendChild(script);
     })();
@@ -78,6 +78,51 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         console.log("Required elements not found.");
     }
 
+    // ------------------------------------------------------------------
+    // ------------------ OPTIMIZING SEARCH BAR BEHAVIOR ----------------
+    // ------------------------------------------------------------------
+    /* Fixing the behavior of the Search bar now that its moved
+     */
+
+    // Make the search end when user clicks out of search
+    document.addEventListener("click", function (event) {
+        var searchBarParent = document.querySelector("#searchBarParentDiv");
+        var body = document.body; // Get body element
+    
+        if (searchBarParent && !searchBarParent.contains(event.target)) {
+            console.log("Clicked outside search bar, closing search results.");
+            var searchResult = document.querySelector(".md-search-result");
+    
+            if (searchResult) {
+                searchResult.style.display = "none"; // Hide search results
+            }
+    
+            // ✅ Remove scroll lock when search closes
+            body.removeAttribute("data-md-scrolllock");
+            body.style.overflow = ""; // Restore scrolling
+            body.style.position = "";
+        }
+    });
+    
+    // Show search results when the input is focused or typed into
+    var searchInput = document.querySelector(".md-search__form input");
+    if (searchInput) {
+        searchInput.addEventListener("focus", function () {
+            var searchResult = document.querySelector(".md-search-result");
+            if (searchResult) {
+                searchResult.style.display = "block"; // Show search results
+            }
+        });
+    
+        // Also show results when the user starts typing
+        searchInput.addEventListener("input", function () {
+            var searchResult = document.querySelector(".md-search-result");
+            if (searchResult) {
+                searchResult.style.display = "block"; // Show search results
+            }
+        });
+    }
+
     // ------------------------------------------------------
     // ----------------- IMPROVING SEARCH UI ----------------
     // ------------------------------------------------------
@@ -117,53 +162,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     // Add event listener for resizing the window
     window.addEventListener('resize', updatePadding);
 
-
-    // // -------------------------------------------------------
-    // // -------------- FIXING SEARCH ON MOBILE ----------------
-    // // -------------------------------------------------------
-    /* When search input is clicked, resize scroll wrapper to better size for mobile view
-     * Remove animated overlays that appear in mobile view and restrict clicking
-     */
-    var searchForm = document.querySelector('.md-search__form');
-    var mdSearchInput = document.querySelector('input.md-search__input');
-
-    if (mdSearchInput) {
-        mdSearchInput.addEventListener('focus', function () {
-            // Use a slight delay to allow the scroll wrapper to become visible if it's triggered by focus
-            setTimeout(function () {
-                var scrollWrapper = document.querySelector('.md-search__scrollwrap');
-                if (scrollWrapper) {
-                    console.log(`Scroll Wrapper Dimensions: ${scrollWrapper.offsetWidth}px wide by ${scrollWrapper.offsetHeight}px tall`);
-                } else {
-                    console.log("Scroll wrapper not found after search input focus.");
-                }
-            }, 100); // Adjust timeout as necessary based on when the scroll wrapper appears
-
-            var mdSearchInput = document.querySelector('input.md-search__input');
-            var scrollWrapper = document.querySelector('.md-search__scrollwrap');
-            if (mdSearchInput && scrollWrapper) {
-                // Check if the search input has a next sibling element and if it's not the scroll wrapper
-                if (mdSearchInput.nextElementSibling !== scrollWrapper) {
-                    // Insert the scroll wrapper after the search input
-                    mdSearchInput.parentNode.insertBefore(scrollWrapper, mdSearchInput.nextSibling);
-                    console.log("Scroll wrapper moved below the search input.");
-                }
-            } else {
-                console.log('Search input or scroll wrapper not found');
-            }
-
-            var defaultSearchOutputDiv = document.querySelector('.md-search__output');
-            var defaultSearchInnerDiv = document.querySelector('.md-search__inner');
-            if (defaultSearchOutputDiv) {
-                defaultSearchOutputDiv.remove();
-            }
-            if (defaultSearchInnerDiv) {
-                defaultSearchInnerDiv.remove();
-            }
-        });
-    } else {
-        console.log('Search input not found');
-    }
 
     // ------------------------------------------------------
     // ----------------- MOVING NAV BAR UP ------------------
@@ -320,7 +318,7 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     });
 
     // Change the placeholder text in Search
-    const searchInput = document.querySelector('.md-search__input');
+    // const searchInput = document.querySelector('.md-search__input');
     if (searchInput) {
         searchInput.setAttribute('placeholder', 'Search the docs...');
     }
@@ -387,7 +385,6 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     function loadJSON(url) {
         return fetch(url).then(response => response.json());
     }
-    
     
     // First, attempt to load vars.json
     loadJSON('/assets/vars.json')
