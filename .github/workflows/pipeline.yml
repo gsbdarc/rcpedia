@@ -99,4 +99,4 @@ jobs:
       - name: Install linkchecker
         run: pip install linkchecker
       - name: Run linkchecker
-        run: linkchecker --no-robots --check-extern -r 10 https://rcpedia.stanford.edu 
+        run: linkchecker --no-robots --check-extern -r 10 https://rcpedia.stanford.edu --output failures
