@@ -24,4 +24,4 @@ For instructions on how to perform these operations, refer to this [helpful page
 
 ## How to Add a Collaborator to Your Yen Project Space?
 
-Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators){:target="_blank"}.
+Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found [here](/_policies/collaborators){:target="_blank"}.
