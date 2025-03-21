@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // setAnnouncmentBar(type="ALERT", message=shortMessage+linkedText+longMessage); // FOR TESTING
     
     // TEMPORARY –– MSG TO BE REMOVED: Announcing the new site
-    setAnnouncmentBar(type="INFORMATION", 'Hey There! 👋 Welcome to the new GSB Research Computing Site! This site is the new and improved version of RCpedia. If you are a member of the Stanford community, please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel</a> and tell us what you think!');
+    //    setAnnouncmentBar(type="INFORMATION", 'Hey There! 👋 Welcome to the new GSB Research Computing Site! This site is the new and improved version of RCpedia. If you are a member of the Stanford community, please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel</a> and tell us what you think!');
 
     // 👆      👆      👆      👆      👆      👆       👆      👆       👆        👆 
    setAnnouncmentBar(type="ALERT", message='The Yen servers are scheduled for a routine reboot next <b>Thursday, March 27, 2025</b>.');    
