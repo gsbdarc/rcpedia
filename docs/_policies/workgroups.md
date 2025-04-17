@@ -4,7 +4,7 @@
 
 The [Stanford Workgroup Manager](https://workgroup.stanford.edu/){:target="_blank"}, is a web interface that allows Stanford community members to define groups of other community members based on their SUNet IDs for use in various applications. Each workgroup is assigned a unique name that succinctly describes its purpose. 
 
-Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/services){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
+Workgroups on the Yens are used to manage system logins as well as access to [project space](/_policies/darc){:target="_blank"}. Each project space has a corresponding workgroup, so members of the workgroup `gsb-rc:jdoe-housing` have read/write access to data stored at `/zfs/projects/faculty/jdoe-housing`. Members of these project workgroups will also have login access to the Yen servers more generally.
 
 If you are unsure of the workgroup associated with your directory, please check your confirmation email from the initial project space creation or reach out to the [DARC team](mailto:gsb_darcresearch@stanford.edu) for assistance.
 
@@ -24,4 +24,4 @@ For instructions on how to perform these operations, refer to this [helpful page
 
 ## How to Add a Collaborator to Your Yen Project Space?
 
-Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found here [here](/_policies/collaborators){:target="_blank"}.
+Adding (or removing) members to your project space is a self-service task for project administrators. To add a collaborator, simply add them to the workgroup associated with the project. More details can be found [here](/_policies/collaborators){:target="_blank"}.
