@@ -61,7 +61,7 @@ First, set `SCRATCH_BASE` environment variable:
     ```
 
 !!! tip "The `SCRATCH_BASE` variable is system specific"
-    We reference `SCRATCH_BASE` to store models and other potentially large files on each cluster's scratch file system`.
+    We reference `SCRATCH_BASE` to store models and other potentially large files on each cluster's scratch file system.
 
 
 ## Step 4: Pull Ollama Container Image
