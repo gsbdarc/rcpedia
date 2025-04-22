@@ -14,7 +14,7 @@ This guide walks you through setting up Ollama across Stanford's GPU computing c
 
 <!-- more -->
 
-[Ollama](https://ollama.com){target="_blank"} is an open‑source, cross‑platform framework for local LLM inference providing a unified REST API and model customization — enabling researcher to pull, run, and manage models like Llama 3, Mistral, and DeepSeek.
+[Ollama](https://ollama.com){target="_blank"} is an open‑source, cross‑platform framework for local LLM inference providing a unified REST API and model customization — enabling researchers to pull, run, and manage models like Llama 3, Mistral, and DeepSeek.
 
 ## Step 1: Request a GPU Node
 === "Yens"
@@ -173,4 +173,4 @@ Use a provided test script (`test.py`) from a login node:
 python3 test.py <hostname> --port <port>
 ```
 
-🚀 You’re now set up and ready to explore powerful language models on Stanford's GPU cluster!
+🚀 You’re now set up and ready to explore powerful language models on Stanford's GPU clusters!
