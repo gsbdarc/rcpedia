@@ -276,8 +276,6 @@ Submit with `sbatch run_ollama_client.slurm`.
     echo "Starting python script..."
     python3 test.py --host $GPU_HOST --port $PORT
     ```
-## Advanced Usage
-
 
 
 🚀 You’re now set up and ready to explore powerful language models on Stanford's GPU clusters!
