@@ -34,7 +34,7 @@ This guide walks you through setting up Ollama across Stanford's GPU computing c
 This ensures you have a GPU node before continuing. 
 
 !!! warning "Request a GPU with Enough RAM to Fit the Model"
-    - The Yens have two types of GPU's - NVIDIA A30 with 24 GB of GPU RAM and A40 with 48GB of GPU RAM. 
+    - The Yens have two types of GPUs - NVIDIA A30 with 24 GB of GPU RAM and A40 with 48GB of GPU RAM. 
     - Sherlock has a variety of GPU sizes on the `gpu` partition from 10GB to 80GB of GPU RAM depending on the GPU type. 
     - Marlowe only has NVIDIA H100 GPUs with 80G of GPU RAM each.
 
