@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2025-04-17
+  created: 2025-04-24
 categories:
     - LLM
 authors:
@@ -31,8 +31,14 @@ This guide walks you through setting up Ollama across Stanford's GPU computing c
     ```
 
 
-This ensures you have a GPU node before continuing.
+This ensures you have a GPU node before continuing. 
 
+!!! warning "Request a GPU with Enough RAM to Fit the Model"
+    - The Yens have two types of GPU's - NVIDIA A30 with 24 GB of GPU RAM and A40 with 48GB of GPU RAM. 
+    - Sherlock has a variety of GPU sizes on the `gpu` partition from 10GB to 80GB of GPU RAM depending on the GPU type. 
+    - Marlowe only has NVIDIA H100 GPUs with 80G of GPU RAM each.
+
+Below, pick a model from [Ollama](https://ollama.com/search){:target="_blank"} that fits in the GPU type the job is allocated or constraint your request with `--constaint` slurm flag to ensure your job requests enough RAM to fit the model into the GPU.
 
 
 ## Step 2: Clone Ollama Repository (All Clusters)
@@ -71,63 +77,11 @@ apptainer pull ollama.sif docker://ollama/ollama
 ```
 
 ## Step 5: Define the Ollama Wrapper Function (All Clusters)
-To simplify running the Ollama server and issuing client commands (e.g. `pull`, `list`) on an HPC cluster, define the following function. You must export `SCRATCH_BASE` environment variable before running the function. 
+To simplify running the Ollama server and issuing client commands (e.g. `pull`, `list`) on an HPC cluster, source a wrapper function defined in `ollama.sh`. You must export `SCRATCH_BASE` environment variable before running the function. 
 
 This function will pick an available random port and start Ollama server:
 ```bash title="Terminal Input"
-ollama() {
-  local LOWERPORT=32768 UPPERPORT=60999
-  local S PORT_FILE PORT HOST
-
-  # 1) Require SCRATCH_BASE
-  if [ -z "$SCRATCH_BASE" ]; then
-    echo "ERROR: please export SCRATCH_BASE" >&2
-    return 1
-  fi
-
-  # 2) Prep a single scratch tree for keys + models + port.txt
-  S="${SCRATCH_BASE}/ollama"
-  mkdir -p "${S}"/{.ollama,models}
-  PORT_FILE="${S}/port.txt"
-
-  # 3) If no port yet, or user explicitly asked "serve", pick & record one
-  if [ "$1" = "serve" ] || [ ! -f "$PORT_FILE" ]; then
-    # pick a free port
-    while :; do
-      PORT=$(shuf -i "${LOWERPORT}-${UPPERPORT}" -n1)
-      if ! ss -tuln | grep -q ":${PORT} "; then break; fi
-    done
-    echo "$PORT" > "$PORT_FILE"
-    HOST="http://0.0.0.0:${PORT}"
-    echo "Starting Ollama server on port: ${PORT}"
-    shift  # drop "serve" so we can pass any extra args through
-
-    apptainer run \
-      --nv \
-      --contain \
-      --home "${S}:/root" \
-      --env OLLAMA_MODELS="/root/models" \
-      --env OLLAMA_HOST="${HOST}" \
-      --env OLLAMA_PORT="${PORT}" \
-      ollama.sif serve "$@"
-    return
-  fi
-
-  # 4) Otherwise it's a client command: read the port and forward
-  PORT=$(<"$PORT_FILE")
-  HOST="http://0.0.0.0:${PORT}"
-  echo "Forwarding 'ollama $*' to server at ${HOST}"
-
-  apptainer run \
-    --nv \
-    --contain \
-    --home "${S}:/root" \
-    --env OLLAMA_MODELS="/root/models" \
-    --env OLLAMA_HOST="${HOST}" \
-    --env OLLAMA_PORT="${PORT}" \
-    ollama.sif "$@"
-}
-
+source ollama.sh
 ```
 
 ## Step 6: Start the Ollama Server (All Clusters)
@@ -138,21 +92,21 @@ ollama serve &
 You'll see output similar to:
 
 ```{.yaml .no-copy title="Terminal Output"}
-Starting Ollama server on port: <port>
+Starting Ollama server binding to 0.0.0.0:<port>
+Advertising server to clients at http://<hostname>:<port>
 ```
-
-This port number is recorded in `${SCRATCH_BASE}/ollama/port.txt` file.
+The server GPU hostname is written to `${SCRATCH_BASE}/ollama/host.txt` file and the port number is written to `${SCRATCH_BASE}/ollama/port.txt` file.
 
 ## Step 7: Pull a Model
 Download a specific LLM model for inference. Example:
 ```bash title="Terminal Input"
-ollama pull deepseek-r1:70b
+ollama pull deepseek-r1:7b
 ```
 
 ## Step 8: Run Inference
 Test inference directly:
 ```bash title="Terminal Input"
-ollama run deepseek-r1:70b "Hello, Ollama!"
+ollama run deepseek-r1:7b "Hello, Ollama!"
 ```
 
 ## Step 9: Check Server Status from a Different Node
@@ -170,7 +124,155 @@ Ollama is running
 ## Step 10: Run a Python Script to Test Server
 Use a provided test script (`test.py`) from a login node:
 ```bash title="Terminal Input From Login Node"
-python3 test.py <hostname> --port <port>
+python3 test.py --host <hostname> --port <port>
 ```
+Again, replace `<hostname>` with your GPU node's hostname and `<port>` with your Ollama server's port number.
+
+## Step 11: Slurm Script to Launch Ollama on a GPU Node
+Submit with `sbatch run_ollama_server.slurm`.
+It will request a GPU node, export your scratch base, source the `ollama()` function, and start the server:
+
+=== "Yens"
+    ```bash title="run_ollama_server.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-server
+    #SBATCH --partition=gpu
+    #SBATCH -C "GPU_MODEL:A40"
+    #SBATCH --gres=gpu:1
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=4
+    #SBATCH --time=2:00:00
+    #SBATCH --output=ollama-server-%j.out
+    
+    ml apptainer
+    export SCRATCH_BASE=/scratch/shared/$USER
+    
+    source ollama.sh
+    
+    # start the server
+    ollama serve
+    ```
+=== "Sherlock"
+    ``` title="run_ollama_server.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-server
+    #SBATCH --partition=gpu
+    #SBATCH --gres=gpu:1
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=4
+    #SBATCH --time=2:00:00
+    #SBATCH --output=ollama-server-%j.out
+
+    export SCRATCH_BASE=$GROUP_SCRATCH/$USER
+
+    source ollama.sh
+
+    # start the server
+    ollama serve
+    ```
+=== "Marlowe"
+    ```bash title="run_ollama_server.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-server
+    #SBATCH -A marlowe-<your-project> 
+    #SBATCH --partition=preempt
+    #SBATCH --gres=gpu:1
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=4
+    #SBATCH --time=2:00:00
+    #SBATCH --output=ollama-server-%j.out
+    
+    export SCRATCH_BASE=/scratch/<your-project>/$USER
+    source ollama.sh
+    
+    # start the server 
+    ollama serve
+    ```
+
+Once submitted, the job’s log file (`ollama-server-<jobid>.out`) will contain the “Starting Ollama server…” message and port.
+
+## Step 12: Slurm Script to Run Clients from Other Nodes
+While the `run_ollama_server.slurm` job is running, we can now connect to the model API from other nodes.
+Submit with `sbatch run_ollama_server.slurm`.
+
+=== "Yens"
+    ```bash title="run_ollama_client.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-client
+    #SBATCH --partition=normal
+    #SBATCH --exclude=yen15
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=2
+    #SBATCH --time=00:30:00
+    #SBATCH --output=ollama-client-%j.out
+    
+    ml apptainer
+    export SCRATCH_BASE=/scratch/shared/$USER
+    
+    # get the server host and port from scratch
+    GPU_HOST=$(<"${SCRATCH_BASE}/ollama/host.txt")
+    PORT=$(<"${SCRATCH_BASE}/ollama/port.txt")
+    
+    source ollama.sh
+    
+    echo "Pulling model deepseek-r1:7b…"
+    ollama pull deepseek-r1:7b
+    
+    echo "Starting python script..."
+    python3 test.py --host $GPU_HOST --port $PORT
+    ```
+=== "Sherlock"
+    ```bash title="run_ollama_client.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-client
+    #SBATCH --partition=normal,gsb
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=2
+    #SBATCH --time=00:30:00
+    #SBATCH --output=ollama-client-%j.out
+    
+    export SCRATCH_BASE=$GROUP_SCRATCH/$USER
+    
+    # get the server port from scratch
+    PORT=$(<"${SCRATCH_BASE}/ollama/port.txt")
+    GPU_HOST=$(<"${SCRATCH_BASE}/ollama/host.txt")
+    
+    source ollama.sh
+    
+    echo "Pulling model deepseek-r1:7b…"
+    ollama pull deepseek-r1:7b
+    
+    echo "Starting python script..."
+    python3 test.py --host $GPU_HOST --port $PORT
+    ```
+=== "Marlowe"
+    ```bash title="run_ollama_client.slurm"
+    #!/bin/bash
+    #SBATCH --job-name=ollama-client
+    #SBATCH -A marlowe-<your-project>
+    #SBATCH --partition=preempt
+    #SBATCH --gres=gpu:1
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=2
+    #SBATCH --time=00:30:00
+    #SBATCH --output=ollama-client-%j.out
+    
+    export SCRATCH_BASE=/scratch/<your-project>/$USER
+    
+    # get the server host and port from scratch
+    GPU_HOST=$(<"${SCRATCH_BASE}/ollama/host.txt")
+    PORT=$(<"${SCRATCH_BASE}/ollama/port.txt")
+    
+    source ollama.sh
+    
+    echo "Pulling model deepseek-r1:7b..."
+    ollama pull deepseek-r1:7b
+    
+    echo "Starting python script..."
+    python3 test.py --host $GPU_HOST --port $PORT
+    ```
+
+
+
 
 🚀 You’re now set up and ready to explore powerful language models on Stanford's GPU clusters!
