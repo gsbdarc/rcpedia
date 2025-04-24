@@ -22,15 +22,15 @@ This section will take you step by step through the process of setting up Ollama
 ### Step 1: Request a GPU Node
 === "Yens"
     ``` title="Terminal Command to Request a GPU on the Yen cluster"
-    srun -p gpu -G 1 -C "GPU_MODEL:A40" --n=1 --t=2:00:00 --pty /bin/bash
+    srun -p gpu -G 1 -C "GPU_MODEL:A40" -n 1 -t 2:00:00 --pty /bin/bash
     ```
 === "Sherlock"
     ``` title="Terminal Command to Request a GPU on Sherlock HPC"
-    srun -p gpu -G=gpu:1 --n=1 --t=2:00:00 --m=50G -c 16 --pty /bin/bash
+    srun -p gpu -G gpu:1 -n 1 -t 2:00:00 -m 50G -c 16 --pty /bin/bash
     ```
 === "Marlowe"
     ``` title="Terminal Command to Request a GPU on Marlowe HPC"
-    srun -p preempt -A marlowe-<your-project> -G=gpu:1 --n=1 --t=2:00:00 --pty /bin/bash
+    srun -p preempt -A marlowe-<your-project> -G gpu:1 -n 1 -t 2:00:00 --pty /bin/bash
     ```
     
 
