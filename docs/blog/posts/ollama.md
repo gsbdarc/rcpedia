@@ -26,11 +26,11 @@ This section will take you step by step through the process of setting up Ollama
     ```
 === "Sherlock"
     ``` title="Terminal Command to Request a GPU on Sherlock HPC"
-    srun -p gpu -G gpu:1 -n 1 -t 2:00:00 -m 50G -c 16 --pty /bin/bash
+    srun -p gpu -G 1 -n 1 -t 2:00:00 -c 16 --pty /bin/bash
     ```
 === "Marlowe"
     ``` title="Terminal Command to Request a GPU on Marlowe HPC"
-    srun -p preempt -A marlowe-<your-project> -G gpu:1 -n 1 -t 2:00:00 --pty /bin/bash
+    srun -p preempt -A marlowe-<your-project> -G 1 -n 1 -t 2:00:00 --pty /bin/bash
     ```
     
 
@@ -145,7 +145,7 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #SBATCH -J ollama-server              # job name
     #SBATCH -p gpu                        # partition
     #SBATCH -C "GPU_MODEL:A40"            # constraint
-    #SBATCH -G gpu:1                      # gres
+    #SBATCH -G 1                          # gpus
     #SBATCH -n 1                          # ntasks
     #SBATCH -c 4                          # cpus-per-task
     #SBATCH -t 2:00:00                    # time
@@ -164,7 +164,7 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #!/bin/bash
     #SBATCH -J ollama-server
     #SBATCH -p gpu
-    #SBATCH -G gpu:1
+    #SBATCH -G 1
     #SBATCH -n 1
     #SBATCH -c 4
     #SBATCH -t 2:00:00
@@ -183,7 +183,7 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #SBATCH -J ollama-server
     #SBATCH -A marlowe-<your-project>  # account
     #SBATCH -p preempt
-    #SBATCH -G gpu:1
+    #SBATCH -G 1
     #SBATCH -n 1
     #SBATCH -c 4
     #SBATCH -t 2:00:00
@@ -200,7 +200,7 @@ Once submitted, the job’s log file (`ollama-server-<jobid>.out`) will contain 
 
 ### Step 2: Slurm Script to Run Clients from Other Nodes
 While the `run_ollama_server.slurm` job is running, we can now connect to the model API from other nodes.
-Submit with `sbatch run_ollama_server.slurm`.
+Submit with `sbatch run_ollama_client.slurm`.
 
 === "Yens"
     ```bash title="run_ollama_client.slurm"
@@ -245,7 +245,7 @@ Submit with `sbatch run_ollama_server.slurm`.
     
     source ollama.sh
     
-    echo "Pulling model deepseek-r1:7b…"
+    echo "Pulling model deepseek-r1:7b..."
     ollama pull deepseek-r1:7b
     
     echo "Starting python script..."
@@ -257,7 +257,6 @@ Submit with `sbatch run_ollama_server.slurm`.
     #SBATCH -J ollama-client
     #SBATCH -A marlowe-<your-project>
     #SBATCH -p preempt
-    #SBATCH -G gpu:1
     #SBATCH -n 1
     #SBATCH -c 2
     #SBATCH -t 00:30:00
