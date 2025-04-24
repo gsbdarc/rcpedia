@@ -207,7 +207,6 @@ Submit with `sbatch run_ollama_server.slurm`.
     #!/bin/bash
     #SBATCH -J ollama-client
     #SBATCH -p normal
-    #SBATCH -x yen15
     #SBATCH -n 1
     #SBATCH -c 2
     #SBATCH -t 00:30:00
