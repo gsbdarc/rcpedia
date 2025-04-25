@@ -26,7 +26,7 @@ This section will take you step by step through the process of setting up Ollama
     ```
 === "Sherlock"
     ``` title="Terminal Command to Request a GPU on Sherlock HPC"
-    srun -p gpu -G 1 -n 1 -t 2:00:00 -c 16 --pty /bin/bash
+    srun -p gpu -G 1 -n 1 -t 2:00:00 --pty /bin/bash
     ```
 === "Marlowe"
     ``` title="Terminal Command to Request a GPU on Marlowe HPC"
@@ -73,7 +73,7 @@ First, set `SCRATCH_BASE` environment variable:
     We reference `SCRATCH_BASE` to store models and other potentially large files on each cluster's scratch file system.
 
 
-### Step 4: Pull Ollama Container Image
+### Step 4: Pull Ollama Container Image (All Clusters)
 Pull the Ollama image from DockerHub (takes a while):
 ``` title="Download Ollama Container Image"
 apptainer pull ollama.sif docker://ollama/ollama
@@ -100,19 +100,19 @@ Advertising server to clients at http://<hostname>:<port>
 ```
 The server GPU hostname is written to `${SCRATCH_BASE}/ollama/host.txt` file and the port number is written to `${SCRATCH_BASE}/ollama/port.txt` file.
 
-### Step 7: Pull a Model
+### Step 7: Pull a Model (All Clusters)
 Download a specific LLM model for inference. Example:
 ```bash title="Terminal Input"
 ollama pull deepseek-r1:7b
 ```
 
-### Step 8: Run Inference
+### Step 8: Run Inference (All Clusters)
 Test inference directly:
 ```bash title="Terminal Input"
 ollama run deepseek-r1:7b "Hello, Ollama!"
 ```
 
-### Step 9: Check Server Status from a Different Node
+### Step 9: Check Server Status from a Different Node (All Clusters)
 From another login node, verify the server is running:
 ```bash title="Terminal Input From Login Node"
 curl http://<hostname>:<port>
@@ -124,7 +124,7 @@ Expected output:
 Ollama is running
 ```
 
-### Step 10: Run a Python Script to Test Server
+### Step 10: Run a Python Script to Test Server (All Clusters)
 Use a provided test script (`test.py`) from a login node:
 ```bash title="Terminal Input From Login Node"
 python3 test.py --host <hostname> --port <port>
@@ -146,7 +146,7 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #SBATCH -p gpu                        # partition
     #SBATCH -C "GPU_MODEL:A40"            # constraint
     #SBATCH -G 1                          # gpus
-    #SBATCH -n 1                          # ntasks
+    #SBATCH -n 1                          # tasks
     #SBATCH -c 4                          # cpus-per-task
     #SBATCH -t 2:00:00                    # time
     #SBATCH -o ollama-server-%j.out       # output file
@@ -196,7 +196,7 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     ollama serve
     ```
 
-Once submitted, the job’s log file (`ollama-server-<jobid>.out`) will contain the “Starting Ollama server…” message and port.
+Once submitted, the job’s log file (`ollama-server-<jobid>.out`) will contain the “Starting Ollama server…” message, host name and port.
 
 ### Step 2: Slurm Script to Run Clients from Other Nodes
 While the `run_ollama_server.slurm` job is running, we can now connect to the model API from other nodes.
