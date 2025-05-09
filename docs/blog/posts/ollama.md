@@ -196,10 +196,10 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     ollama serve
     ```
 
-Once submitted, the job’s log file (`ollama-server-<jobid>.out`) will contain the “Starting Ollama server…” message, host name and port.
+Once the job is running, the job’s log file (`ollama-server-<jobid>.out`) will contain the “Starting Ollama server…” message, host name and port.
 
 ### Step 2: Slurm Script to Run Clients from Other Nodes
-While the `run_ollama_server.slurm` job is running, we can now connect to the model API from other nodes.
+While the `run_ollama_server.slurm` job is running, we can connect to the model API from other nodes.
 Submit with `sbatch run_ollama_client.slurm`.
 
 === "Yens"
