@@ -158,7 +158,6 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     
     ml apptainer
     export SCRATCH_BASE=/scratch/shared/$USER
-    
     source ollama.sh
     
     # start the server
