@@ -1,15 +1,20 @@
 ---
 date:
-  created: 2025-04-24
+  created: 2025-05-12
 categories:
     - LLM
 authors:
-    - jeffotter 
     - nrapstin
+    - jeffotter 
 ---
 
 # Running Ollama on Stanford Computing Clusters
- 
+Imagine running a notebook cell like this — and getting a full response from a large language model hosted on your own cluster:
+
+![LLM running on Yen Jupyter](/assets/images/local-llm.png)
+
+With Ollama, you can host models like Llama 3 or DeepSeek on Stanford’s GPU clusters — no API keys, no external calls — and interact with them through your own code or notebooks.
+
 This guide walks you through setting up Ollama across Stanford's GPU computing clusters — [Yen](/_getting_started/yen-servers){target="_blank"}, [Sherlock](/_user_guide/sherlock){target="_blank"}, and [Marlowe](https://docs.marlowe.stanford.edu/){target="_blank"} — to efficiently run large language models (LLMs).
 
 <!-- more -->
@@ -44,11 +49,11 @@ This ensures you have a GPU node before continuing.
 Below, pick a model from [Ollama](https://ollama.com/search){:target="_blank"} that fits in the GPU type the job is allocated or constraint your request with `--constaint` slurm flag to ensure your job requests enough RAM to fit the model into the GPU.
 
 
-### Step 2: Clone Ollama Repository (All Clusters)
+### Step 2: Clone Ollama Helper Repository (All Clusters)
 ```bash title="Clone This Repo"
 cd /<your-project-space>/
-git clone https://github.com/gsbdarc/ollama.git
-cd ollama
+git clone https://github.com/gsbdarc/ollama_helper.git
+cd ollama_helper
 ```
 Replace `<your-project-space>` with your actual project directory.
 
