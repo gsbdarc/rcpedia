@@ -176,7 +176,6 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #SBATCH -o ollama-server-%j.out
 
     export SCRATCH_BASE=$GROUP_SCRATCH/$USER
-
     source ollama.sh
 
     # start the server
