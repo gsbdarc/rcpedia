@@ -11,7 +11,7 @@ authors:
 # Running Ollama on Stanford Computing Clusters
 Imagine running a notebook cell like this — and getting a full response from a large language model hosted on your own cluster:
 
-![LLM running on Yen Jupyter](/assets/images/local-llm.png)
+![LLM running on Yen Jupyter](/assets/images/local-llm.gif)
 
 With Ollama, you can host models like Llama 3 or DeepSeek on Stanford’s GPU clusters — no API keys, no external calls — and interact with them through your own code or notebooks.
 
