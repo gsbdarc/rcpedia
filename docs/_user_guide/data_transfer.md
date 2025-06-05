@@ -154,6 +154,17 @@ If installed correctly, you should see your personal Globus endpoint under Colle
 
 You can now search for your personal endpoint when setting up a file transfer to the Yen servers.
 
+!!! note "Globus Connects to Google Drive"
+    Globus can be used to transfer data from **Google Drive** to any other supported location, including the Yens. See [Stanford's Official Documentation](https://globus.stanford.edu/cloud/drive.html){:target="_blank"}.
+
+    Other supported cloud platforms include:
+
+    * Amazon S3
+    * Google Cloud Storage
+    * Microsoft OneDrive
+    * Wasabi
+
+
 ## FTP
 
 FTP (File Transfer Protocol) is a standard network protocol used to transfer files between a client and a server over the internet or a local network. People use it to upload, download, or manage files, especially for website maintenance or large data transfers.  Due to security concerns, the Yen servers cannot host an FTP server — you can, however, use an FTP client to connect to an external server that is hosting data. We recommend using `lftp`, a powerful command-line FTP client that supports advanced features like secure transfers, parallel downloads, resumable transfers, and scripting, making it a preferred choice for efficient and reliable file transfers.
