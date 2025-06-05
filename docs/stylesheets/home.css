@@ -8,20 +8,14 @@
 body {
     background-color: #ffffff; 
 }
-
 .hidden {
     display: none;
 }
-
-
-/* Header */
-.md-header__button.md-logo {
-    padding-top: 10px;
+.md-header__inner {
+    align-items: flex-start;
 }
 .md-header__topic .md-ellipsis:first-child {
-    line-height: 20px;
-    padding-top: 5px;
-    padding-bottom: 10px;
+    padding-top: 21px;
 }
 @media (max-width: 1220px) { /* Site title text spacing on mobile */
     .md-header__topic .md-ellipsis:first-child {
@@ -32,38 +26,61 @@ body {
 }
 [dir=ltr] .md-tabs__list {
     margin-left: 0 !important;
+    margin-top: auto;
 }
 #header-vertical-line {
-    border-left: 1px solid rgb(62, 62, 62); 
-    height: 50px; 
-    margin-left: 5px;
-    margin-top: 10px;
+    margin-top: 20px;
 }
 #github-button {
     padding: 10px;
     color: #646464;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23646464"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
-    background-repeat: no-repeat;
-    background-position: right 1px center; 
-    background-size: 15px 15px; /* Set the size of the icon */
-    padding-right: 20px;
+    padding-right: 10px;
     font-size: 16px;
 }
-#github-button:hover {
-    text-decoration: underline;
+#github-button:after {
+    height: 0.6em;
+    width: 0.6em;
+    display: inline-block;
+    content: "";
+    mask: url(/assets/svg/arrow-up-right.svg) no-repeat 0 0;
+    mask-size: contain;
+    margin-left: .4em;
+    color: rgb(53, 53, 53);
+    background-color: #4e4e4e;
+    transition: -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out
+}
+#github-button:focus:after,
+#github-button:hover:after {
+        transform: translate3d(.10em, -.10em, 0);
+        text-decoration: underline;
+
 }
 #request-services-button {
-    padding: 10px 35px 10px 20px;
+    padding: 10px 20px 10px 20px;
     color: white;
     background-color: #B1040E;
-    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="%23FFFFFF"><path fill-rule="evenodd" d="M5.22 14.78a.75.75 0 0 0 1.06 0l7.22-7.22v5.69a.75.75 0 0 0 1.5 0v-7.5a.75.75 0 0 0-.75-.75h-7.5a.75.75 0 0 0 0 1.5h5.69l-7.22 7.22a.75.75 0 0 0 0 1.06Z" clip-rule="evenodd" /></svg>');
-    background-repeat: no-repeat;
-    background-position: calc(100% - 15px) center; /* Position icon 25px from the right */
-    background-size: 15px 15px; /* Icon size */
     font-size: 16px;
 }
-#request-services-button:hover {
+#request-services-button:after {
+    height: 0.6em;
+    width: 0.6em;
+    display: inline-block;
+    content: "";
+    mask: url(/assets/svg/arrow-up-right.svg) no-repeat 0 0;
+    mask-size: contain;
+    margin-left: .4em;
+    background-color: white;
+    transition: -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out
+}
+#request-services-button:focus:after,
+#request-services-button:hover:after {
+    transform: translate3d(.10em, -.10em, 0);
     text-decoration: underline;
+
 }
 
 
@@ -147,11 +164,11 @@ body {
     color: #333;
 }
 .popular-container {
-    padding: 10px 0px 0px 0px; 
+    padding: 10px 0px 0px 0px;
     display: flex;
-    flex-wrap: wrap; 
+    flex-wrap: wrap;
     align-items: center;
-    gap: 15px; 
+    gap: 15px;
 }
 
 /* Main Container styling */
@@ -162,16 +179,15 @@ body {
     justify-content: center; 
     align-items: center; 
     width: 100%; 
-    height: auto; 
+    height: auto;
     aspect-ratio: 4000 / 1247; /* Maintain the image's aspect ratio */
     background-image: url("/assets/images/1968-building.jpg");
     background-size: cover; 
     background-repeat: no-repeat;
     background-position: center; 
-    overflow: hidden; 
 }
 .md-main__inner {
-    height: 50%;
+    height: fit-content;
 }
 .md-content__inner {
     padding-top: 0px;
@@ -179,11 +195,7 @@ body {
 
 }
 .md-content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    height: 100%; 
+    min-height: fit-content;
 }
 .md-main::before { /* Black tint pseudo-element */
     content: ""; /* Create the pseudo-element */
@@ -196,7 +208,7 @@ body {
     pointer-events: none;
 }
 #titleText { 
-    font-size: clamp(28px, 3.7vw, 128px); 
+    font-size: clamp(40px, 3.7vw, 128px); 
     line-height: 1.5; 
     font-weight: 900;
     padding-top: 25px;

@@ -48,7 +48,6 @@ This ensures you have a GPU node before continuing.
 
 Below, pick a model from [Ollama](https://ollama.com/search){:target="_blank"} that fits in the GPU type the job is allocated or constraint your request with `--constraint` slurm flag to ensure your job requests enough RAM to fit the model into the GPU.
 
-
 ### Step 2: Clone Ollama Helper Repository (All Clusters)
 ```bash title="Clone This Repo"
 cd /<your-project-space>/
