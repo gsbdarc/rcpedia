@@ -6,10 +6,10 @@ on:
       branch:
         description: 'Branch to run the workflow on'
         required: true
-        default: 'QA'
+        default: 'main'
   push:
     branches:
-      - QA
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -86,7 +86,7 @@ jobs:
 
     - name: Deploy to Stanford Hosts
       run: |
-        rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" -av --delete /home/runner/work/rcpedia/rcpedia/ rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia-dev.stanford.edu/
+        rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" -av --delete /home/runner/work/rcpedia/rcpedia/ rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia.stanford.edu/
 
   check_links:
     needs: deploy  # Ensure this job runs after deploy
