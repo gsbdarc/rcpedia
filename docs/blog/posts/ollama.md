@@ -46,8 +46,7 @@ This ensures you have a GPU node before continuing.
     - Sherlock has a variety of GPU sizes on the `gpu` partition from 10GB to 80GB of GPU RAM depending on the GPU type. 
     - Marlowe only has NVIDIA H100 GPUs with 80G of GPU RAM each.
 
-Below, pick a model from [Ollama](https://ollama.com/search){:target="_blank"} that fits in the GPU type the job is allocated or constraint your request with `--constaint` slurm flag to ensure your job requests enough RAM to fit the model into the GPU.
-
+Below, pick a model from [Ollama](https://ollama.com/search){:target="_blank"} that fits in the GPU type the job is allocated or constraint your request with `--constraint` slurm flag to ensure your job requests enough RAM to fit the model into the GPU.
 
 ### Step 2: Clone Ollama Helper Repository (All Clusters)
 ```bash title="Clone This Repo"
@@ -158,7 +157,6 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     
     ml apptainer
     export SCRATCH_BASE=/scratch/shared/$USER
-    
     source ollama.sh
     
     # start the server
@@ -176,7 +174,6 @@ It will request a GPU node, export your scratch base, source the `ollama()` func
     #SBATCH -o ollama-server-%j.out
 
     export SCRATCH_BASE=$GROUP_SCRATCH/$USER
-
     source ollama.sh
 
     # start the server
