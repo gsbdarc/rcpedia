@@ -7,20 +7,20 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // ⬇️        CHANGE THIS CODE TO EDIT THE ANNOUNCMENT BAR        ⬇️ 
     // 👇      👇      👇      👇      👇      👇       👇      👇       👇       👇
-    // setAnnouncmentBar(type="ALERT", message=shortMessage+linkedText+longMessage); // FOR TESTING
+    //setAnnouncmentBar(type="ALERT", message=shortMessage+linkedText+longMessage); // FOR TESTING
     
     // TEMPORARY –– MSG TO BE REMOVED: Announcing the new site
-    //    setAnnouncmentBar(type="INFORMATION", 'Hey There! 👋 Welcome to the new GSB Research Computing Site! This site is the new and improved version of RCpedia. If you are a member of the Stanford community, please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel</a> and tell us what you think!');
+    //setAnnouncmentBar(type="INFORMATION", 'Hey There! 👋 Welcome to the new GSB Research Computing Site! This site is the new and improved version of RCpedia. If you are a member of the Stanford community, please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel</a> and tell us what you think!');
 
     // 👆      👆      👆      👆      👆      👆       👆      👆       👆        👆 
-    setAnnouncmentBar(type="ALERT", message='⚠️ Scheduled Downtime: July 10 (12 PM) – July 11 (EOD). All Yen servers will be offline for storage upgrades ⚠️..');    
+    //setAnnouncmentBar(type="ALERT", message='⚠️ Scheduled Downtime: July 10 (12 PM) – July 11 (EOD). All Yen servers will be offline for storage upgrades ⚠️..');    
 
     
     // ======================== E X A M P L E S ========================
     // setAnnouncmentBar(type="ERROR", message='There’s a campus-wide network issue affecting connectivity. As a result the Yens are down until further notice. Please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack Channel</a> or the <a href="https://mailman.stanford.edu/mailman/listinfo/yen-server-announce" target="_blank">Yens Announmcement email list</a> for further updates.');
     // setAnnouncmentBar(type="INFORMATION", 'The Data, Analytics, and Research Computing (DARC) team will be observing the Thanksgiving holiday from the afternoon of <b>Wednesday, November 27</b> through <b>Friday, November 29</b>, returning <b>Monday, December 2nd</b>.');
     // setAnnouncmentBar(type="WARNING",'☃️ <b>Winter Closure</b> ☃️ Dec. 21 2024 – Jan. 5, 2025. DARC support unavailable during this period. The Yens remain accessible. For major outages, contact <a href="mail-to:srcc-support@stanford.edu" target="_blank">srcc-support@stanford.edu.</a>');
-    // setAnnouncmentBar(type="ALERT", message='The Yen servers are scheduled for a routine reboot next <b>Thursday, January 23, 2025</b>.');
+    //setAnnouncmentBar(type="ALERT", message='The Yen servers are scheduled for a routine reboot next <b>Thursday, January 23, 2025</b>.');
     // setAnnouncmentBar(type="SUCCESS", 'The issues with JupyterHub have been resolved. Please visit the <a href="/status">Status page</a> or <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel </a>to be informed of any server status changes.');
 
     console.log(localStorage.getItem("announcementDismissed"));
@@ -121,6 +121,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             closeButton.innerHTML = "";
             closeButton.appendChild(dismissContainer);
+
+            closeButton.addEventListener("click", function () {
+            localStorage.setItem("announcementDismissed", "true");
+            console.log("Dismiss button clicked, banner will not show again.");
+            const banner = document.querySelector(".md-banner");
+            if (banner) banner.remove();
+        });
 
             // Create the type text
             const typeText = document.createElement("b");
