@@ -74,48 +74,6 @@ To copy files/folders from the Yen servers to your local machine, the `<source_p
 
     In this command, `.` represents the **current** local directory. This will copy the results folder from your project directory on the Yen servers to your current local directory. If you’re transferring individual files rather than entire directories, you can omit the `-r` flag. To transfer multiple files matching a pattern, use the `*` wildcard.
 
-## Rsync
-
-`rsync` is another excellent option for efficient and reliable file transfers, designed for synchronizing files across locations. Unlike `scp`, `rsync` only copies the differences between source and destination files, greatly speeding up re-transfers of partially completed uploads or downloads. It operates over `ssh` and thus requires the same authentication process as `scp`.
-
-Key flags commonly used with `rsync`:
-
-- `-a:` Archive mode, which includes recursive copying and preserves permissions, timestamps, and symbolic links. This is essentially a combination of several other flags.
-- `-P:` Shows progress during the transfer and enables resuming interrupted transfers.
-- `-n:` Dry-run mode, which simulates the transfer without actually copying files. This is useful for previewing the changes that `rsync` will make and is usually paired with `-v` (verbose) to display the list of files that would be transferred.
-
-### Transferring to Yen Servers
-
-To transfer a file (e.g., `myfile.csv`) from your local machine, use:
-
-```title="Local Terminal Command"
-rsync -aP myfile.csv <SUNetID>@yen-transfer.stanford.edu:/zfs/projects/students/<my_project_dir>
-```
-You will be prompted to authenticate.
-
-To transfer a folder, you can use the following command. Note that the `-aP` flags enable recursive and resumable copying of the directory.
-
-```title="Local Terminal Command"
-rsync -aP myfolder/ <SUNetID>@yen-transfer.stanford.edu:/zfs/projects/students/<my_project_dir>/myfolder
-```
-
-### Transferring from Yen Servers
-
-To copy a file (e.g., `my_remote_file.csv`) from Yen servers to your local machine, use:
-
-```title="Yen Terminal Command"
-rsync -aP <SUNetID>@yen-transfer.stanford.edu:/zfs/projects/students/<my_project_dir>/my_remote_file.csv .
-```
-To copy a folder, use the following command:
-
-
-```title="Local Terminal Command"
-rsync -aP <SUNetID>@yen-transfer.stanford.edu:/zfs/projects/students/<my_project_dir>/my_remote_folder/ myfolder/
-```
-
-The above command will copy a folder named `my_remote_folder` on ZFS in `/zfs/projects/students/<my_project_dir>` to the current working directory on your local machine and name the folder `myfolder`.
-
-
 ## Globus
 
 [Globus](https://www.globus.org/){:target=_blank} is a high-performance, secure file transfer service that allows you to transfer large amounts of data to and from the Yen servers. It is particularly useful for transferring large datasets, as it can optimize transfer settings for large files and handle network interruptions gracefully. It's particularly effective when transferring from one HPC environment to another.
@@ -182,7 +140,6 @@ Check out our [**rclone blog**](/blog/category/rclone){:target=_blank} post for 
 |--------------------------------------------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **Files Less than 100 MB** | Upload via JupyterHub or use `scp`. | For small files, simple methods like uploading directly through JupyterHub or using `scp` are quick, straightforward, and efficient.|
 | **Files Less than 10 GB**  | Use `scp` over the DTN. | Transferring directly to the DTN ensures faster speeds and reduces load on the interactive nodes. `scp` remains effective for these moderately sized files, **provided you have stable internet connection**.|
-| **Files Less than 1 TB** | Use `rsync` over the DTN. | `rsync` is more efficient for larger datasets because it can resume interrupted transfers and only copies changed parts of files.|
 | **Very Large Transfers** | Use Globus. | For very large datasets, Globus provides high-performance, secure transfers with features like parallelism and checkpoints, which are essential for handling transfers at the TB scale. |
 | **Cloud Transfers**                        | Use rclone with a cloud "remote" (e.g Google Drive).                                   | Rclone efficiently syncs data to cloud storage providers, making it suitable for working with a cloud provider. |
 | **Transferring Data from FTP Servers**     | Use LFTP.| LFTP is a sophisticated file transfer program that supports various protocols, including FTP and SFTP, making it ideal for transfers from FTP servers.                         |
