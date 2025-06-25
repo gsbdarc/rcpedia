@@ -26,7 +26,7 @@ The downside of this system is that resources can be eaten up rather quickly by 
     <div class="col col-md-2"></div>
   </div>
 
-The `yen-slurm` cluster has 12 nodes (including 3 GPU nodes) with a total of 2080 available CPU cores, 11.75 TB of memory, and 12 NVIDIA GPU's.
+The `yen-slurm` cluster has 10 nodes (including 3 GPU nodes) with a total of 2,112 available CPU cores, 10.25 TB of memory, and 12 NVIDIA GPU's.
 
 ## What Is A Scheduler?
 
@@ -314,9 +314,9 @@ Run `sinfo -o "%P %D %N"` in a terminal to see available partitions:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo -o "%P %D %N"
 PARTITION NODES NODELIST
-normal* 9 yen[11-19]
-dev 8 yen[11-19]
-long 8 yen[11-19]
+normal* 7 yen[10-11,15-19]
+dev 7 yen[10-11,15-19]
+long 7 yen[10-11,15-19]
 gpu 3 yen-gpu[1-3]
 ```
 
@@ -325,12 +325,12 @@ of the `yen-slurm` cluster. The `*` denotes the default partition.
 
 The four partitions have the following limits:
 
-| Partition      | CPU Limit Per User | Memory Limit           | Max Memory Per CPU (default)  | Time Limit (default) |
-| -------------- | :----------------: | :--------------------: | :----------------------------:| :-------------------:|
-|  normal        |    256             | 1.5 TB                   |   24 GB (4 GB)                | 2 days  (2 hours)    |
-|  dev           |    2               | 48 GB                  |   24 GB (4 GB)                | 2 hours (1 hour)     |
-|  long          |    32              |  768 GB                |   24 GB (4 GB)                | 7 days (2 hours)     |
-|  gpu           |    64              |  256 GB                |   24 GB (4 GB)                | 1 day (2 hours)      |
+| Partition      | CPU Limit Per User | Memory Limit           | Time Limit (default) |
+| -------------- | :----------------: | :--------------------: | :-------------------:|
+|  normal        |    512             | 3 TB                   | 2 days  (2 hours)    |
+|  dev           |    2               | 46 GB                  | 2 hours (1 hour)     |
+|  long          |    50              |  3 T                   | 7 days (2 hours)     |
+|  gpu           |    64              |  256 GB                | 1 day (2 hours)      |
 
 
 You can submit to the `dev` partition by specifying:
@@ -363,11 +363,11 @@ You can pass format options to the `sinfo` command as follows:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo --format="%m | %C"
 MEMORY | CPUS(A/I/O/T)
-257366+ | 855/713/0/1568
+257366+ | 1040/1072/0/2112
 ```
 
 where MEMORY outputs the minimum size of memory of the `yen-slurm` cluster node in megabytes (256 GB) and CPUS(A/I/O/T) prints the number of CPU's that are allocated / idle / other / total.
-For example, if you see `855/713/0/1568` that means 855 CPU's are allocated, 713 are idle (free) out of 1,568 CPU's total.
+For example, if you see `1040/1072/0/2112` that means 1,040 CPU's are allocated, 1,072 are idle (free) out of 2,112 CPU's total.
 
 You can also run `checkyens` and look at the last line for summary of all pending and running jobs on `yen-slurm`.
 
@@ -411,11 +411,11 @@ Certain nodes may have particular features that your job requires, such
 as a GPU. These features can be viewed as follows:
 
 ```{.yaml .no-copy title="Terminal Output"}
-USER@yen4:~$ sinfo -o "%10N  %5c  %5m  %64f  %10G"
-NODELIST    CPUS   MEMOR  AVAIL_FEATURES                                                    GRES      
-yen[11-19]  32+    10315  (null)                                                            (null)    
-yen-gpu1    64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A30,GPU_MEMORY:24GiB  gpu:4     
-yen-gpu[2-  64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A40,GPU_MEMORY:48GiB  gpu:4
+USER@yen4:~$ sinfo -o "%20N  %5c  %5m  %64f  %10G"
+NODELIST              CPUS   MEMOR  AVAIL_FEATURES                                                    GRES
+yen[10-11,15-19]      128+   10315  (null)                                                            (null)
+yen-gpu1              64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A30,GPU_MEMORY:24GiB  gpu:4
+yen-gpu[2-3]          64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A40,GPU_MEMORY:48GiB  gpu:4
 ```
 
 For example, to ensure that your job will run on a node that has an NVIDIA Ampere A40 GPU, you can include the `-C`/`--constraint` option to the `sbatch` command or in an `sbatch` script. Here is a trivial example command that demonstrates this: 
