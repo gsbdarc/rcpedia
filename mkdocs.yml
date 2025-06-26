@@ -1,6 +1,6 @@
 site_name: Research Hub
 site_subtitle: Research Computing Resources
-site_url: https://rcpedia-dev.stanford.edu
+site_url: https://rcpedia.stanford.edu
 theme:
   name: material
   custom_dir: overrides
