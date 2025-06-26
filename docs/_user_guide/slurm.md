@@ -325,13 +325,37 @@ of the `yen-slurm` cluster. The `*` denotes the default partition.
 
 The four partitions have the following limits:
 
-| Partition      | CPU Limit Per User | Memory Limit           | Time Limit (default) |
-| -------------- | :----------------: | :--------------------: | :-------------------:|
-|  normal        |    512             | 3 TB                   | 2 days  (2 hours)    |
-|  dev           |    2               | 46 GB                  | 2 hours (1 hour)     |
-|  long          |    50              |  3 T                   | 7 days (2 hours)     |
-|  gpu           |    64              |  256 GB                | 1 day (2 hours)      |
+| Partition      | CPU Limit Per User | Memory Limit (MB)      | Memory Limit (GB)     | Time Limit (default)  |
+| -------------- | :----------------: | :--------------------: | :-------------------: | :-------------------: |
+|  normal        |    512             |  3072000               | 3000                  | 2 days  (2 hours)     |
+|  long          |    50              |  3072000               | 3000                  | 7 days (2 hours)      |
+|  dev           |    2               |  48000                 | 46                    | 2 hours (1 hour)      |
+|  gpu           |    64              |  256000                | 250                    | 1 day (2 hours)       |
 
+The default unit for memory allocation in Slurm is Megabytes (MB).
+You can request memory using either of the following flags:
+
+- `--mem=<size>`: Requests the total amount of memory per node.
+- `--mem-per-cpu=<size>`: Requests the amount of memory per allocated CPU (Slurm multiplies this by the number of CPUs you request).
+
+!!! note
+    Memory values must be whole integers — Slurm does not accept decimals. Keep in mind that `3000G` is slightly **less than 3TB** so you can't request `--mem=3T`.
+
+Valid units:
+
+- `M` or `MB` = Megabytes (default)
+- `G` or `GB`  = Gigabytes (`1G = 1024M`)
+- `T` or `TB` = Terabytes (`1T = 1024G`)
+
+!!! warning "Memory and Core Matching"
+    - If you request `--mem=3000G`, you must use **yen10** — the only node with that much RAM and **128 cores**.
+    - Jobs with `-c 512` will be placed on large-core nodes, but those only have **up to 1.5 TB of RAM**, so they can't handle 3T RAM jobs.
+    - Both requests for either `--mem=3000G` or `-c 512` will require a full node and will wait in the queue until that node is empty which might take a very long time depending on what other jobs are in the queue at the moment. 
+
+You can see the node's memory (`mem` value) and cores (`CPUTot` value) with:
+```bash title="Terminal Input"
+scontrol show nodes
+```
 
 You can submit to the `dev` partition by specifying:
 
