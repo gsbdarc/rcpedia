@@ -30,12 +30,12 @@ As such, we have imposed guidelines for users to follow on these shared systems,
 
 Jobs submitted to [Yen Slurm](/_user_guide/slurm/){target="_blank"} have the following limits, by partition:
 
-| Partition      | CPU Limit Per User | Memory Limit           | Max Memory Per CPU (default)  | Time Limit (default) |
-| -------------- | :----------------: | :--------------------: | :----------------------------:| :-------------------:|
-|  normal        |    256             | 1.5 TB                   |   24 GB (4 GB)                | 2 days  (2 hours)    |
-|  dev           |    2               | 48 GB                  |   24 GB (4 GB)                | 2 hours (1 hour)     |
-|  long          |    32              |  768 GB                |   24 GB (4 GB)                | 7 days (2 hours)     |
-|  gpu           |    64              |  256 GB                |   24 GB (4 GB)                | 1 day (2 hours)      |
+| Partition      | CPU Limit Per User | Memory Limit (MB)      | Memory Limit (GB)     | Time Limit (default)  |
+| -------------- | :----------------: | :--------------------: | :-------------------: | :-------------------: |
+|  normal        |    512             |  3072000               | 3000                  | 2 days  (2 hours)     |
+|  long          |    50              |  3072000               | 3000                  | 7 days (2 hours)      |
+|  dev           |    2               |  48000                 | 46                    | 2 hours (1 hour)      |
+|  gpu           |    64              |  256000                | 250                    | 1 day (2 hours)       |
 
 The maximum job array size is set to **512** on Yen-Slurm.
 
