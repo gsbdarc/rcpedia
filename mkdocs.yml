@@ -126,7 +126,7 @@ extra_javascript:
 # - js/announcement-bar.js
   - js/footer.js
 
- extra:
+extra:
   meta:
     - name: "google-site-verification"
       content: "FtUSXO5iMSrlf4OXVLPXFGPyUKNQuxqSjrY0dlf-ejk"
