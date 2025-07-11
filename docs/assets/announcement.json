@@ -1,6 +1,6 @@
 {
-    "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: July 10 (12 PM) – July 11(EOD). All Yen servers will be offline for storage upgrades ⚠️..",
+    "type": "INFORMATION",
+    "message": "",
     "examples": [
         {
             "type": "ERROR",
