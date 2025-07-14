@@ -61,12 +61,12 @@ jobs:
     - name: Generate robots.txt for QA
       if: github.ref == 'refs/heads/qa'
       run: |
-        echo -e "User-agent: *\nDisallow: /" > docs/site/robots.txt
+        echo -e "User-agent: *\nDisallow: /" > site/robots.txt
 
     - name: Generate robots.txt for Main
       if: github.ref == 'refs/heads/main'
       run: |
-        echo -e "User-agent: *\nAllow: /" > docs/site/robots.txt
+        echo -e "User-agent: *\nAllow: /" > site/robots.txt
 
     - name: Upload Site Artifacts
       uses: actions/upload-artifact@v4
