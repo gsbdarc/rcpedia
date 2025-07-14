@@ -41,9 +41,9 @@ ml stata/18
 
 ## Running Code
 
-To execute a do script at the terminal, run:
+To execute a do script using `stata-mp` at the terminal, run:
 ```bash title="Terminal Input"
-stata -b do <your-script.do>
+stata-mp -b do <your-script.do>
 ```
 where `<your-script.do>` refers to your Stata do-file."
 
