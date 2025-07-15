@@ -1,6 +1,6 @@
 site_name: Research Hub
 site_subtitle: Research Computing Resources
-site_url: https://rcpedia-dev.stanford.edu
+site_url: https://rcpedia.stanford.edu
 theme:
   name: material
   custom_dir: overrides
@@ -125,11 +125,6 @@ extra_javascript:
 #  - js/announcement-banner.js
 # - js/announcement-bar.js
   - js/footer.js
-
-extra:
-  meta:
-    - name: "google-site-verification"
-      content: "FtUSXO5iMSrlf4OXVLPXFGPyUKNQuxqSjrY0dlf-ejk"
 
 watch:
   - docs
