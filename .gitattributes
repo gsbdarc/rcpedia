@@ -1,2 +1,3 @@
 .github/workflows/pipeline.yml merge=ours
+mkdocs.yml merge=ours
 robots.txt merge=ours

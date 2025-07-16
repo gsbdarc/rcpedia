@@ -139,7 +139,7 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
 * Load Stata module:
 
     ```title="Terminal Command"
-    ml statamp/17
+    ml statamp/18
     ```
 
 * Make a new Python `venv` environment, install Stata kernel, and add it to Jupyter:
@@ -147,7 +147,7 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
     ```title="Terminal Commands"
     /usr/bin/python3 -m venv stata_kernel 
     source stata_kernel/bin/activate
-    conda install stata_kernel jupyter 
+    pip install stata_kernel jupyter 
     python -m stata_kernel.install
     ```
 
@@ -162,9 +162,9 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
 
     [stata_kernel]
     
-    stata_path = /software/non-free/stata17/stata-mp
+    stata_path = /software/non-free/stata18/stata-mp
     ```
-    If you don't see `stata_path = /software/non-free/stata17/stata-mp`, or it goes to a different path, edit the `.stata_kernel.conf` file so that it points to the path listed above.
+    If you don't see `stata_path = /software/non-free/stata18/stata-mp`, or it goes to a different path, edit the `.stata_kernel.conf` file so that it points to the path listed above.
     
 * Start JupyterHub.
     
