@@ -13,23 +13,49 @@ body {
 }
 .md-header__inner {
     align-items: flex-start;
-}
-.md-header__topic .md-ellipsis:first-child {
-    padding-top: 21px;
-}
-@media (max-width: 1220px) { /* Site title text spacing on mobile */
-    .md-header__topic .md-ellipsis:first-child {
-        line-height: 20px;
-        padding-top: 5px;
-        padding-bottom: 0px;
-    }
+    padding: 0;
 }
 [dir=ltr] .md-tabs__list {
     margin-left: 0 !important;
     margin-top: auto;
 }
+.md-header__title>.md-header__ellipsis {
+    height: 100%;
+    position: inherit;
+    width: 100%;
+}
+.md-header__title.md-header__title--active {
+    margin-top: 0px;
+}
+@media (min-width: 1221px) {
+    .md-header__topic .md-ellipsis:first-child {
+        margin-top: 11px;
+    }
+    .md-header__title.md-header__title--active {
+        margin-top: 15px;
+    }
+}
+
 #header-vertical-line {
     margin-top: 20px;
+}
+/* Set up the animated underline */
+.button-text {
+position: relative;
+display: inline-block;
+}
+.button-text::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 1px; /* adjust distance from text */
+    width: 100%;
+    height: 1px;
+    background-color: white;
+    transform: scaleX(0);
+    transform-origin: left;
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
 }
 #github-button {
     padding: 10px;
@@ -54,14 +80,20 @@ body {
 #github-button:focus:after,
 #github-button:hover:after {
         transform: translate3d(.10em, -.10em, 0);
-        text-decoration: underline;
-
+}
+#github-button:hover .button-text::after {
+    transform: scaleX(1);
+    opacity: 1;
+}
+#github-button .button-text::after {
+  background-color: #646464;
 }
 #request-services-button {
     padding: 10px 20px 10px 20px;
     color: white;
     background-color: #B1040E;
     font-size: 16px;
+    
 }
 #request-services-button:after {
     height: 0.6em;
@@ -79,8 +111,48 @@ body {
 #request-services-button:focus:after,
 #request-services-button:hover:after {
     transform: translate3d(.10em, -.10em, 0);
-    text-decoration: underline;
 
+}
+#request-services-button {
+    position: relative;
+    padding: 10px 20px;
+    color: white;
+    background-color: #B1040E;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+#request-services-button:hover .button-text::after {
+    transform: scaleX(1);
+    opacity: 1;
+}
+#researchhub-button {
+    padding: 10px 20px 10px 20px;
+    color: white;
+    background-color: #7e2f49;
+    font-size: 16px;
+}
+#researchhub-button:after {
+    height: 0.6em;
+    width: 0.6em;
+    display: inline-block;
+    content: "";
+    mask: url(/assets/svg/arrow-up-right.svg) no-repeat 0 0;
+    mask-size: contain;
+    margin-left: .4em;
+    background-color: white;
+    transition: -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out;
+    transition: transform .2s ease-in-out, mask-image .2s ease-in-out, -webkit-transform .2s ease-in-out, -webkit-mask-image .2s ease-in-out
+}
+#researchhub-button:focus:after,
+#researchhub-button:hover:after {
+    transform: translate3d(.10em, -.10em, 0);
+}
+#researchhub-button:hover .button-text::after {
+    transform: scaleX(1);
+    opacity: 1;
 }
 
 

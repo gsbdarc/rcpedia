@@ -11289,11 +11289,7 @@ td.fas:before {
 }
 
 #local-footer-span1 {
-    font-size: 1.5em;
+    font-size: 1.3em;
     font-weight: 400;
-    line-height: 0.75em;
-}
-
-#local-footer-span2 {
-    font-style: italic;
+    line-height: 0.95em;
 }
