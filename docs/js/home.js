@@ -229,26 +229,49 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
         // Create GSB DARC Github button as list item
         var githubButtonLi = document.createElement('li');
         var githubButton = document.createElement('button');
-        githubButton.textContent = 'GSB DARC Github';
-        githubButtonLi.appendChild(githubButton);
-        githubButton.id = 'github-button'
+        githubButton.id = 'github-button';
+        var span = document.createElement('span');
+        span.className = 'button-text';
+        span.textContent = 'GSB DARC GitHub';
+        githubButton.appendChild(span);
         githubButton.addEventListener('click', function () {
             window.open('https://github.com/gsbdarc', '_blank');
         });
+        githubButtonLi.appendChild(githubButton);
 
         // Create Request Services button as list item
         var servicesButtonLi = document.createElement('li');
+        servicesButtonLi.style.marginLeft = '10px';
         var servicesButton = document.createElement('button');
-        servicesButton.textContent = 'Request Services';
-        servicesButtonLi.style.marginLeft = '10px'; // Space between the buttons
-        servicesButtonLi.appendChild(servicesButton);
-        servicesButton.id = 'request-services-button'
+        servicesButton.id = 'request-services-button';
+        var span = document.createElement('span');
+        span.className = 'button-text';
+        span.textContent = 'Request Services';
+        servicesButton.appendChild(span);
         servicesButton.addEventListener('click', function () {
-            window.open('https://darcrequest.stanford.edu/', '_blank'); // Set the URL here
+            window.open('https://darcrequest.stanford.edu/', '_blank');
         });
+        servicesButtonLi.appendChild(servicesButton);
+
+        // Create Research Hub button as list item
+        var rhButtonLi = document.createElement('li');
+        var rhButton = document.createElement('button');
+        rhButton.id = 'researchhub-button';
+        var span = document.createElement('span');
+        span.className = 'button-text';
+        span.textContent = 'Research Hub';
+        rhButton.appendChild(span);
+        rhButton.addEventListener('click', function () {
+            window.open('https://gsbresearchhub.stanford.edu/', '_blank');
+        });
+        rhButtonLi.appendChild(rhButton);
+
+
         // Append buttons to the list container
         buttonContainer.appendChild(githubButtonLi);
         buttonContainer.appendChild(servicesButtonLi);
+        buttonContainer.appendChild(rhButtonLi);
+
 
         // Insert the button list in the DOM just before the tabs list
         tabsList.parentNode.insertBefore(buttonContainer, tabsList);
