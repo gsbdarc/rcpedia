@@ -136,35 +136,19 @@ Threads.nthreads()
 The output of `Threads.nthreads()` should be equal to the number of threads you used to create the kernel.
 
 #### Stata
-* Load Stata module:
+* Install Stata kernel by running this command from a terminal:
+```title="Terminal Command"
+install_stata_kernel
+```
 
-    ```title="Terminal Command"
-    ml statamp/18
+    If everything worked, you should see:
+    ```{ .yaml .no-copy title="Terminal Output" }
+    Configuring Stata kernel...
+    Installation complete!
+    Launch JupyterHub and select Stata notebook
     ```
-
-* Make a new Python `venv` environment, install Stata kernel, and add it to Jupyter:
-
-    ```title="Terminal Commands"
-    /usr/bin/python3 -m venv stata_kernel 
-    source stata_kernel/bin/activate
-    pip install stata_kernel jupyter 
-    python -m stata_kernel.install
-    ```
-
-* Before you test JupyterHub, check that the Stata kernel is using the correct Stata executable.  
-
-    ```title="Terminal Command"
-    cat ~/.stata_kernel.conf
-    ```
-    After you type the above in your terminal, you should see:
-
-    ```{.stata .yaml .no-copy title="Terminal Output"}
-
-    [stata_kernel]
-    
-    stata_path = /software/non-free/stata18/stata-mp
-    ```
-    If you don't see `stata_path = /software/non-free/stata18/stata-mp`, or it goes to a different path, edit the `.stata_kernel.conf` file so that it points to the path listed above.
+    The install script adds a Stata/19 kernel to JupyterHub. 
+ 
     
 * Start JupyterHub.
     
