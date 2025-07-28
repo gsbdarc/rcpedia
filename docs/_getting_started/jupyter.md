@@ -143,7 +143,7 @@ install_stata_kernel
     This command will take a few minutes to run and will do the following:
     - Create a new Python virtual environment named `stata_kernel`
 
-    - Install the `stata_kernel` and jupyter Python packages inside the environment
+    - Install the `stata_kernel` and `jupyter` Python packages inside the environment
 
     - Install the Stata kernel in user JupyterHub
 
