@@ -140,9 +140,22 @@ The output of `Threads.nthreads()` should be equal to the number of threads you 
 ```title="Terminal Command"
 install_stata_kernel
 ```
+    This command will take a few minutes to run and will do the following:
+    - Create a new Python virtual environment named `stata_kernel`
+
+    - Install the `stata_kernel` and jupyter Python packages inside the environment
+
+    - Install the Stata kernel in user JupyterHub
+
+    - Generate a `.stata_kernel.conf` configuration file in your home directory with the correct Stata path and runtime settings
 
     If everything worked, you should see:
     ```{ .yaml .no-copy title="Terminal Output" }
+    Loading Stata module...
+    Creating Python virtual environment for Stata kernel...
+    Activating virtual environment...
+    Installing Stata kernel and Jupyter...
+    Installing Jupyter kernel spec
     Configuring Stata kernel...
     Installation complete!
     Launch JupyterHub and select Stata notebook
