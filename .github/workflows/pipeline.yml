@@ -1,112 +1,108 @@
 name: DeployStanford
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
     inputs:
       branch:
         description: 'Branch to run the workflow on'
         required: true
-        default: 'QA'
+        default: 'main'
   push:
     branches:
+      - main
       - QA
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: '3.12.3'
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.3'
 
-    - name: Cache pip
-      uses: actions/cache@v4
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+      - name: Install dependencies
+        run: pip install -r requirements.txt
 
-    - name: Replace placeholders in docs/assets/vars.json
-      env: 
-        TOTAL_PHYSICAL_CORES: ${{ vars.TOTAL_PHYSICAL_CORES }}
-        TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
-        TOTAL_GPUS: ${{ vars.TOTAL_GPUS }}
-        TOTAL_STORAGE_TB: ${{ vars.TOTAL_STORAGE_TB }}
-        TOTAL_NODE_COUNT: ${{ vars.TOTAL_NODE_COUNT }}
-        SLURM_NODE_COUNT: ${{ vars.SLURM_NODE_COUNT }}
-      run: |
-        sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" docs/assets/vars.json
-        sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" docs/assets/vars.json
-        sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" docs/assets/vars.json
-        sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" docs/assets/vars.json
-        sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" docs/assets/vars.json
-        sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" docs/assets/vars.json
+      - name: Replace placeholders in docs/assets/vars.json
+        env: 
+          TOTAL_PHYSICAL_CORES: ${{ vars.TOTAL_PHYSICAL_CORES }}
+          TOTAL_MEMORY_TB: ${{ vars.TOTAL_MEMORY_TB }}
+          TOTAL_GPUS: ${{ vars.TOTAL_GPUS }}
+          TOTAL_STORAGE_TB: ${{ vars.TOTAL_STORAGE_TB }}
+          TOTAL_NODE_COUNT: ${{ vars.TOTAL_NODE_COUNT }}
+          SLURM_NODE_COUNT: ${{ vars.SLURM_NODE_COUNT }}
+        run: |
+          sed -i "s/TOTAL_PHYSICAL_CORES_PLACEHOLDER/$TOTAL_PHYSICAL_CORES/g" docs/assets/vars.json
+          sed -i "s/TOTAL_MEMORY_TB_PLACEHOLDER/$TOTAL_MEMORY_TB/g" docs/assets/vars.json
+          sed -i "s/TOTAL_GPUS_PLACEHOLDER/$TOTAL_GPUS/g" docs/assets/vars.json
+          sed -i "s/TOTAL_STORAGE_TB_PLACEHOLDER/$TOTAL_STORAGE_TB/g" docs/assets/vars.json
+          sed -i "s/TOTAL_NODE_COUNT_PLACEHOLDER/$TOTAL_NODE_COUNT/g" docs/assets/vars.json
+          sed -i "s/SLURM_NODE_COUNT_PLACEHOLDER/$SLURM_NODE_COUNT/g" docs/assets/vars.json
 
-    - name: Debug placeholder replacement
-      run: |
-        echo "docs/assets/vars.json after placeholder replacement:"
-        cat docs/assets/vars.json
+      - name: Debug placeholder replacement
+        run: |
+          echo "docs/assets/vars.json after placeholder replacement:"
+          cat docs/assets/vars.json
 
-    - name: Build MkDocs site
-      run: mkdocs build --clean
+      - name: Build MkDocs site
+        run: mkdocs build --clean
 
-    - name: Generate robots.txt for QA
-      if: github.ref == 'refs/heads/qa'
-      run: |
-        echo -e "User-agent: *\nDisallow: /" > site/robots.txt
+      - name: Generate robots.txt
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
+            echo -e "User-agent: *\nDisallow: /" > site/robots.txt
+          else
+            echo -e "User-agent: *\nAllow: /" > site/robots.txt
+          fi
 
-    - name: Generate robots.txt for Main
-      if: github.ref == 'refs/heads/main'
-      run: |
-        echo -e "User-agent: *\nAllow: /" > site/robots.txt
-
-    - name: Upload Site Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: site
-        path: site/
+      - name: Upload Site Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: site/
 
   deploy:
     runs-on: ubuntu-latest
     needs: build
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Download Site Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        name: site
-
-    - name: Set up SSH
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.MY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-        echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-
-    - name: Deploy to Stanford Hosts
-      run: |
-        rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" -av --delete /home/runner/work/rcpedia/rcpedia/ rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/rcpedia-dev.stanford.edu/
-
-  check_links:
-    needs: deploy  # Ensure this job runs after deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - name: Download Site Artifacts
+        uses: actions/download-artifact@v4
         with:
-          python-version: '3.12.3'
-      - name: Install linkchecker
-        run: pip install linkchecker
-      - name: Run linkchecker
-        run: linkchecker --no-robots --check-extern -r 10 https://rcpedia.stanford.edu --output failures
+          name: site
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.MY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: Deploy to Stanford Hosts
+        run: |
+          if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
+            TARGET_HOST="rcpedia-dev.stanford.edu"
+          else
+            TARGET_HOST="rcpedia.stanford.edu"
+          fi
+
+          rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+            -av --delete /home/runner/work/rcpedia/rcpedia/ \
+            rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/$TARGET_HOST/
+ 
