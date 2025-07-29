@@ -1,5 +1,5 @@
-site_name: Research Hub
-site_subtitle: Research Computing Resources
+site_name: Research Computing Resources
+site_subtitle: Research Hub
 site_url: https://rcpedia.stanford.edu
 theme:
   name: material
