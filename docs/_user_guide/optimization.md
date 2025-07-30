@@ -427,13 +427,11 @@ cp -r /software/non-free/knitro/14.0.0/examples/R/KnitroR ~/KnitroR
 
 This copies the package to your home directory, from which you can now install it within R.
 
-Launch interactive R:
+Launch interactive R and install the package from your home directory:
 
 ```title="Terminal Command"
  R
 ```
-
-You will then set a couple of necessary environment variables related to `knitro` and its license before installing the `KnitroR` package itself:
 
 ```{ .yaml .no-copy title="Terminal Output" }
 R version 4.3.0 (2023-04-21) -- "Already Tomorrow"
@@ -455,8 +453,6 @@ Type 'q()' to quit R.
 ```
 
 ```R title="R Commands"
-Sys.setenv(KNITRODIR = '/software/non-free/knitro/14.0.0')
-Sys.setenv(ARTELYS_LICENSE_NETWORK_ADDR = 'srcc-license-srcf.stanford.edu')
 install.packages("~/KnitroR", repos = NULL, type = "source")
 ```
 
@@ -587,6 +583,13 @@ $numCGiters
 ```
 
 Quit R. You can now utilize the `KnitroR` package in your `R` scripts and within `RStudio` on JupyterHub, provided that you are using the same version of R as the one used during installation.
+
+Note that if you are using this package within `RStudio` on JupyterHub, you will need to set a couple of environment variables to get the package to work:
+
+```R title="RStudio Commands"
+Sys.setenv(KNITRODIR = '/software/non-free/knitro/14.0.0')
+Sys.setenv(ARTELYS_LICENSE_NETWORK_ADDR = 'srcc-license-srcf.stanford.edu')
+```
 
 ## Integrating with Jupyter Notebooks
 
