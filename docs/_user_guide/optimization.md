@@ -400,6 +400,197 @@ The environment is now set up to run your Python scripts that use AMPL and Knitr
 !!! Important
     You need to load the `ampl` and `knitro` modules and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use AMPL and Knitro.
 
+### Knitro
+
+#### Running Knitro in R
+
+To use Knitro software with R, start by loading both modules:
+
+```title="Terminal Command"
+ml knitro R
+```
+
+This will load the default versions of both modules. To list the currently loaded modules, use:
+
+```title="Terminal Command"
+ ml
+```
+```{ .yaml .no-copy title="Terminal Output" }
+Currently Loaded Modules:
+  1) knitro/14.0.0   2) R/4.3.0
+```
+
+To use Knitro within R, we will need to install [this `KnitroR` package](https://www.artelys.com/app/docs/knitro/3_referenceManual/knitroRreference.html#){:target="_blank"}. This package is provided alongside the Knitro software by the developer and you can retrieve your own copy of it with the following command:
+```title="Terminal Command"
+cp -r /software/non-free/knitro/14.0.0/examples/R/KnitroR ~/KnitroR
+```
+
+This copies the package to your home directory, from which you can now install it within R.
+
+Launch interactive R and install the package from your home directory:
+
+```title="Terminal Command"
+ R
+```
+
+```{ .yaml .no-copy title="Terminal Output" }
+R version 4.3.0 (2023-04-21) -- "Already Tomorrow"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+>
+```
+
+```R title="R Commands"
+install.packages("~/KnitroR", repos = NULL, type = "source")
+```
+
+You can now load the package and run a test to confirm that `knitro` is working:
+
+```R title="R Commands"
+library(KnitroR)
+knitro(objective = function(x) x[1] * x[2], x0 = c(1,1))
+```
+```{.r .yaml .no-copy title="R Output" }
+=======================================
+           Academic License
+       (NOT FOR COMMERCIAL USE)
+         Artelys Knitro 14.0.0
+=======================================
+
+Knitro performing finite-difference gradient computation with 1 thread.
+Knitro presolve eliminated 0 variables and 0 constraints.
+
+concurrent_evals:        0
+The problem is identified as unconstrained.
+
+Problem Characteristics                                 (   Presolved)
+-----------------------
+Objective goal:  Minimize
+Objective type:  general
+Number of variables:                                  2 (           2)
+    bounded below only:                               0 (           0)
+    bounded above only:                               0 (           0)
+    bounded below and above:                          0 (           0)
+    fixed:                                            0 (           0)
+    free:                                             2 (           2)
+Number of constraints:                                0 (           0)
+    linear equalities:                                0 (           0)
+    quadratic equalities:                             0 (           0)
+    gen. nonlinear equalities:                        0 (           0)
+    linear one-sided inequalities:                    0 (           0)
+    quadratic one-sided inequalities:                 0 (           0)
+    gen. nonlinear one-sided inequalities:            0 (           0)
+    linear two-sided inequalities:                    0 (           0)
+    quadratic two-sided inequalities:                 0 (           0)
+    gen. nonlinear two-sided inequalities:            0 (           0)
+Number of nonzeros in Jacobian:                       0 (           0)
+Number of nonzeros in Hessian:                        0 (           3)
+
+Knitro using the Interior-Point/Barrier Direct algorithm.
+
+  Iter      Objective      FeasError   OptError    ||Step||    CGits 
+--------  --------------  ----------  ----------  ----------  -------
+       0    1.000000e+00   0.000e+00
+       1    0.000000e+00   0.000e+00   0.000e+00   1.414e+00        0
+
+EXIT: Locally optimal solution found.
+
+Final Statistics
+----------------
+Final objective value               =   0.00000000000000e+00
+Final feasibility error (abs / rel) =   0.00e+00 / 0.00e+00
+Final optimality error  (abs / rel) =   0.00e+00 / 0.00e+00
+# of iterations                     =          1 
+# of CG iterations                  =          0 
+# of function evaluations           =          8
+# of gradient evaluations           =          0
+Total program time (secs)           =       0.07083 (     0.036 CPU time)
+Time spent in evaluations (secs)    =       0.00001
+
+===============================================================================
+
+$status
+[1] 0
+
+$obj
+[1] 0
+
+$x
+[1] 0 0
+
+$lambda
+[1] 0 0
+
+$objGrad
+[1] 0 0
+
+$objGradIndexVars
+[1] 0 1
+
+$c
+NULL
+
+$r
+NULL
+
+$jac
+NULL
+
+$jacIndexCons
+NULL
+
+$jacIndexVars
+NULL
+
+$rsdJac
+NULL
+
+$rsdJacIndexRsds
+NULL
+
+$rsdJacIndexVars
+NULL
+
+$numFCevals
+[1] 8
+
+$numGAevals
+[1] 0
+
+$numHevals
+[1] 0
+
+$numHVevals
+[1] 0
+
+$numIters
+[1] 1
+
+$numCGiters
+[1] 0
+```
+
+Quit R. You can now utilize the `KnitroR` package in your `R` scripts and within `RStudio` on JupyterHub, provided that you are using the same version of R as the one used during installation.
+
+Note that if you are using this package within `RStudio` on JupyterHub, you will need to set a couple of environment variables to get the package to work:
+
+```R title="RStudio Commands"
+Sys.setenv(KNITRODIR = '/software/non-free/knitro/14.0.0')
+Sys.setenv(ARTELYS_LICENSE_NETWORK_ADDR = 'srcc-license-srcf.stanford.edu')
+```
+
 ## Integrating with Jupyter Notebooks
 
 ### Running Gurobi in Jupyter Notebooks
