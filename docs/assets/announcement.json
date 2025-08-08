@@ -1,6 +1,6 @@
 {
-    "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: August 7 (7 AM PT) – August 8 (12 PM). All Yen servers will be offline for storage upgrades ⚠️.",
+    "type": "INFORMATION",
+    "message": "",
     "examples": [
         {
             "type": "ERROR",
