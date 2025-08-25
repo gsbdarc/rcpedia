@@ -1,6 +1,6 @@
 {
-    "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: August 7 (7 AM PT) – August 8 (12 PM). All Yen servers will be offline for storage upgrades ⚠️.",
+    "type": "INFORMATION",
+    "message": "📢 <strong>Yens Onboarding 2025:</strong>. Hands-on intro to the Yens cluster for PhD students, predocs, postdocs, and faculty. <a href="https://gsb-research-appointment.stanford.edu/event/15236925" target="_blank" >Register here</a>",
     "examples": [
         {
             "type": "ERROR",

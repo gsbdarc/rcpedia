@@ -11,8 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
     // TEMPORARY –– MSG TO BE REMOVED: Announcing the new site
     //setAnnouncmentBar(type="INFORMATION", 'Hey There! 👋 Welcome to the new GSB Research Computing Site! This site is the new and improved version of RCpedia. If you are a member of the Stanford community, please <a href="https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5" target="_blank">join our Slack channel</a> and tell us what you think!');
-    setAnnouncmentBar(type="INFORMATION", '📢 <strong>Yens Onboarding 2025:</strong>. Hands-on intro to the Yens cluster for PhD students, predocs, postdocs, and faculty. <a href="https://gsb-research-appointment.stanford.edu/event/15236925" target="_blank" >Register here</a>');
-
     // 👆      👆      👆      👆      👆      👆       👆      👆       👆        👆 
     //setAnnouncmentBar(type="ALERT", message='⚠️ Scheduled Downtime: July 10 (12 PM) – July 11 (EOD). All Yen servers will be offline for storage upgrades ⚠️..');    
 
