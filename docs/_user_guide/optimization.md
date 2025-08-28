@@ -27,17 +27,19 @@ Let's navigate to the shared project directory:
 ```title="Terminal Command"
 cd <path/to/project>
 ```
-Depending on the version of Gurobi required, the compatible Python version differs. We will only load `gurobi` module when we need to run code that requires Gurobi license. We will install the p
-ython bindings via the `gurobipy` package without loading the module.
+Depending on the version of Gurobi required, the compatible Python version differs. We will only load `gurobi` module when we need to run code that requires Gurobi license. 
+We will install the python bindings via the `gurobipy` package without loading the module.
 
 Create a new virtual environment, named `gurobi_env`:
-    ```
+=== "Gurobi 10 (default, works with Python 3.10)"
+    ```title="Terminal Command"
     # Make a new Python 3.10 virtual environment
     /usr/bin/python3 -m venv gurobi_env
     ```
 
 === "Gurobi 11 / 12 (requires Python 3.11)"
-    ```
+    ```title="Terminal Command"
+    # load Python 3.11 module 
     ml python/3.11
     # Make a new Python 3.11 virtual environment
     python3 -m venv gurobi_env
@@ -45,7 +47,7 @@ Create a new virtual environment, named `gurobi_env`:
 
 You can also choose a different name instead of `gurobi_env` in this step.
 
-Next, activate the virtual environment using the following command:
+Activate the virtual environment using the following command:
 
 ```title="Terminal Command"
 source gurobi_env/bin/activate
@@ -88,12 +90,16 @@ To run code that uses Gurobi, load the version you require:
     ml gurobi/10.0.0
     ```
 
-=== "Gurobi 11 / 12 (requires Python 3.11)"
+=== "Gurobi 11 (requires Python 3.11)"
     ```
     # Load Gurobi 11 with Python 3.11
     ml gurobi/11.0.3 
-    # Or for Gurobi 12:
-    # ml gurobi/12.0.0 
+    ```
+
+=== "Gurobi 12 (requires Python 3.11)"
+    ```
+    # Load Gurobi 12 with Python 3.11
+    ml gurobi/12.0.0
     ```
 
 Finally, start the Python REPL by typing `python`:
@@ -115,7 +121,7 @@ This will display:
 === "Gurobi 11 / 12 (requires Python 3.11)"
 
     ```{ .python .yaml .no-copy title="Terminal Output" }
-    Python 3.11.4 (main, Dec  5 2023, 11:48:11) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] on linux
+    Python 3.11.3 (main, May  6 2023, 14:52:50) [GCC 11.3.0] on linux
     Type "help", "copyright", "credits" or "license" for more information.
     >>>
     ```
@@ -653,26 +659,29 @@ Then, we add the **active** `gurobi_env` virtual environment as a new JupyterHub
 === "Gurobi 10 (default, works with Python 3.10)"
     ```title="Terminal Command"
     ml gurobi
+    source gurobi_env/bin/activate
     python -m ipykernel install --user --name=gurobi_env \
     --env GUROBI_HOME ${GUROBI_HOME} \
     --env GRB_LICENSE_FILE ${GUROBI_HOME}/gurobi.lic \
-    --env PATH ${GUROBI_HOME}/bin:${PATH}' \
-    --env LD_LIBRARY_PATH ${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}'
+    --env PATH ${GUROBI_HOME}/bin:${PATH} \
+    --env LD_LIBRARY_PATH ${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}
     ```
 
 === "Gurobi 11 (requires Python 3.11)"
     ```title="Terminal Command"
     # don't load gurobi module, it might mess with python path
+    source gurobi_env/bin/activate
     python -m ipykernel install --user --name=gurobi_env \
     --env GUROBI_HOME /software/non-free/Gurobi/gurobi1103/linux64 \
     --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1103/linux64/licenses/gurobi.lic \
-    --env PATH /software/non-free/Gurobi/gurobi1103/linux64/bin:${PATH}' \
-    --env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1103/linux64/lib:${LD_LIBRARY_PATH}'
+    --env PATH /software/non-free/Gurobi/gurobi1103/linux64/bin:${PATH} \
+    --env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1103/linux64/lib:${LD_LIBRARY_PATH}
     ```
 
 === "Gurobi 12 (requires Python 3.11)"
     ```title="Terminal Command"
     # don't load gurobi module, it might mess with python path
+    source gurobi_env/bin/activate
     python -m ipykernel install --user --name=gurobi_env \
     --env GUROBI_HOME /software/non-free/Gurobi/gurobi1200/linux64 \
     --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1200/linux64/licenses/gurobi.lic \
