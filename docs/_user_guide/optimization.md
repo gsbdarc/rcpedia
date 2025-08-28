@@ -17,14 +17,7 @@ nonlinear optimization problems. It is designed to express complex problems with
 
 #### Running Gurobi in Python
 
-Because the Yens already have Gurobi software and Gurobi Python interface installed, we simply need to access them by loading the `gurobipy3` [module](/_getting_started/modules/){:target="_blank"}.
-
-Load Gurobi module:
-```title="Terminal Command"
-ml gurobipy3
-```
-
-Next, create a new [Python virtual environment](/_user_guide/python_envs/){:target="_blank"} using the `venv` package.
+First, create a new [Python virtual environment](/_user_guide/python_envs/){:target="_blank"} using the `venv` package.
 This virtual environment will be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel.
 
 To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.
@@ -34,12 +27,22 @@ Let's navigate to the shared project directory:
 ```title="Terminal Command"
 cd <path/to/project>
 ```
+Depending on the version of Gurobi required, the compatible Python version differs. We will only load `gurobi` module when we need to run code that requires Gurobi license. We will install the p
+ython bindings via the `gurobipy` package without loading the module.
 
 Create a new virtual environment, named `gurobi_env`:
+    ```
+    # Make a new Python 3.10 virtual environment
+    /usr/bin/python3 -m venv gurobi_env
+    ```
 
-```title="Terminal Command"
-/usr/bin/python3  -m venv gurobi_env
-```
+=== "Gurobi 11 / 12 (requires Python 3.11)"
+    ```
+    ml python/3.11
+    # Make a new Python 3.11 virtual environment
+    python3 -m venv gurobi_env
+    ```
+
 You can also choose a different name instead of `gurobi_env` in this step.
 
 Next, activate the virtual environment using the following command:
@@ -54,7 +57,7 @@ You should see `(gurobi_env):` prepended to the prompt:
 (gurobi_env): $
 ```
 
-Finally, install the required python packages using `pip` (this step may take some time):
+Next, install the required python packages using `pip` (this step may take some time):
 
 ```title="Terminal Command"
 pip install numpy pandas ipykernel threadpoolctl scipy gurobipy
@@ -62,7 +65,38 @@ pip install numpy pandas ipykernel threadpoolctl scipy gurobipy
 
 The `ipykernel` module is needed to turn this virtual environment into a Jupyter kernel at a later step, the `threadpoolctl` and `scipy` packages are used in the example, and the [`gurobipy`](https://pypi.org/project/gurobipy/){:target="_blank"} package serves as the Python interface to Gurobi.
 
-After the packages are installed, start the Python REPL by typing `python`:
+
+Gurobi is available on the Yens through multiple installed [versions](/_getting_started/modules/){:target="_blank"}. To see them:
+```title="Terminal Command"
+ml avail gurobi
+```
+
+This will show options such as:
+
+```{ .yaml .no-copy title="Terminal Output" }
+   gurobi/8.0.1    gurobi/9.0.2    gurobi/9.5.2    gurobi/10.0.0 (D)    gurobi/11.0.3    gurobi/12.0.0
+
+  Where:
+   D:  Default Module
+```
+
+To run code that uses Gurobi, load the version you require:
+
+=== "Gurobi 10 (default, works with Python 3.10)"
+    ```
+    # Load Gurobi 10 (works with default Python 3.10)
+    ml gurobi/10.0.0
+    ```
+
+=== "Gurobi 11 / 12 (requires Python 3.11)"
+    ```
+    # Load Gurobi 11 with Python 3.11
+    ml gurobi/11.0.3 
+    # Or for Gurobi 12:
+    # ml gurobi/12.0.0 
+    ```
+
+Finally, start the Python REPL by typing `python`:
 
 ```title="Terminal Command"
 python
@@ -70,13 +104,23 @@ python
 
 This will display:
 
-```{ .python .yaml .no-copy title="Terminal Output" }
-Python 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0] on linux
-Type "help", "copyright", "credits" or "license" for more information.
->>>
-```
+=== "Gurobi 10 (default, works with Python 3.10)"
 
-Ensure that you can import `gurobipy`by running the following command:
+    ```{ .python .yaml .no-copy title="Terminal Output" }
+    Python 3.10.12 (main, May 27 2025, 17:12:29) [GCC 11.4.0] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
+    ```
+
+=== "Gurobi 11 / 12 (requires Python 3.11)"
+
+    ```{ .python .yaml .no-copy title="Terminal Output" }
+    Python 3.11.4 (main, Dec  5 2023, 11:48:11) [GCC 4.8.5 20150623 (Red Hat 4.8.5-44)] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>>
+    ```
+   
+Ensure that you can import `gurobipy` by running the following command:
 
 ```python title="Terminal Command"
 from gurobipy import *
@@ -98,7 +142,7 @@ module purge
 The environment is now set up to run your Python scripts that import `gurobipy` on the interactive Yen cluster nodes. Keep in mind that the `module load` command and virtual environment activation are only active in the current shell.
 
 !!! Important
-    You need to load the `gurobipy3` module and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use the `gurobipy` package.
+    You need to load the `gurobi` module and activate your `venv` environment every time you log in to the Yens before running the interactive Python scripts that use the `gurobipy` package.
 
 #### Running Gurobi in R
 
@@ -597,11 +641,6 @@ Sys.setenv(ARTELYS_LICENSE_NETWORK_ADDR = 'srcc-license-srcf.stanford.edu')
 
 To make Gurobi Python interface work on the Yen's JupyterHub, we can take our `gurobi_env` virtual environment and make it into a Jupyter kernel.
 
-Load `gurobipy3` module:
-```title="Terminal Command"
-ml gurobipy3
-```
-
 Activate the virtual environment in your project space:
 
 ```title="Terminal Command"
@@ -611,14 +650,35 @@ source gurobi_env/bin/activate
 
 Then, we add the **active** `gurobi_env` virtual environment as a new JupyterHub kernel and name it as `gurobi_env`:
 
-```title="Terminal Command"
-python -m ipykernel install --user --name=gurobi_env \
---env GUROBI_HOME /software/non-free/Gurobi/gurobi1000/linux64 \
---env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1000/linux64/gurobi.lic \
---env PATH '/software/non-free/Gurobi/gurobi1000/linux64/bin:${PATH}' \
---env LD_LIBRARY_PATH '/software/non-free/Gurobi/gurobi1000/linux64/lib:${LD_LIBRARY_PATH}'
-```
+=== "Gurobi 10 (default, works with Python 3.10)"
+    ```title="Terminal Command"
+    ml gurobi
+    python -m ipykernel install --user --name=gurobi_env \
+    --env GUROBI_HOME ${GUROBI_HOME} \
+    --env GRB_LICENSE_FILE ${GUROBI_HOME}/gurobi.lic \
+    --env PATH ${GUROBI_HOME}/bin:${PATH}' \
+    --env LD_LIBRARY_PATH ${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}'
+    ```
 
+=== "Gurobi 11 (requires Python 3.11)"
+    ```title="Terminal Command"
+    # don't load gurobi module, it might mess with python path
+    python -m ipykernel install --user --name=gurobi_env \
+    --env GUROBI_HOME /software/non-free/Gurobi/gurobi1103/linux64 \
+    --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1103/linux64/licenses/gurobi.lic \
+    --env PATH /software/non-free/Gurobi/gurobi1103/linux64/bin:${PATH}' \
+    --env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1103/linux64/lib:${LD_LIBRARY_PATH}'
+    ```
+
+=== "Gurobi 12 (requires Python 3.11)"
+    ```title="Terminal Command"
+    # don't load gurobi module, it might mess with python path
+    python -m ipykernel install --user --name=gurobi_env \
+    --env GUROBI_HOME /software/non-free/Gurobi/gurobi1200/linux64 \
+    --env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1200/linux64/licenses/gurobi.lic \
+    --env PATH /software/non-free/Gurobi/gurobi1200/linux64/bin:${PATH}' \
+    --env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1200/linux64/lib:${LD_LIBRARY_PATH}'
+    ```
 Notice the extra `--env` arguments to add necessary Gurobi environment variables so that Jupyter kernel can find the software. List all of your Jupyter kernels with the following command:
 
 ```title="Terminal Command"
@@ -673,7 +733,7 @@ Notice the extra `--env` arguments to add necessary Knitro and AMPL environment 
 
 ### Combining Gurobi, Knitro, and AMPL in a Single Kernel
 
-Consider combining the instructions for Gurobi and AMPL/Knitro to make a single "optimization" virtual environment and Jupyter kernel. After loading `gurobipy3`, `ampl` and `knitro` modules, make the virtual environment, activate it, then `pip install` all the required packages - `numpy pandas ipykernel threadpoolctl scipy gurobipy amplpy`.
+Consider combining the instructions for Gurobi and AMPL/Knitro to make a single "optimization" virtual environment and Jupyter kernel. After loading `gurobi`, `ampl` and `knitro` modules, make the virtual environment, activate it, then `pip install` all the required packages - `numpy pandas ipykernel threadpoolctl scipy gurobipy amplpy`.
 
 You can then make that active virtual environment into a new Jupyter kernel combining the environment variables we used previously and name it as `opt_combined`:
 
@@ -717,7 +777,7 @@ To use the optimization software on the [Yen Slurm cluster](/_user_guide/slurm/)
 module purge
 
 # Load software
-module load gurobipy3 ampl knitro
+module load gurobi ampl knitro
 
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt_combined/bin/activate
@@ -826,7 +886,7 @@ except AttributeError:
 
 This Python script can be run with `python gurobi_sensitivity.py` with no command line argument (`a` is set to 0 by default). However, we will run it via the scheduler on the Yen Slurm cluster.
 
-Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`, and runs `gurobi_sensitivity.py` script. Save this Slurm script to a file named `sensitivity_analysis.slurm`:
+Here is an example Slurm script, that loads `gurobi` module, activates `venv`, and runs `gurobi_sensitivity.py` script. Save this Slurm script to a file named `sensitivity_analysis.slurm`:
 
 ```bash linenums="1" title="sensitivity_analysis.slurm"
 #!/bin/bash
@@ -846,7 +906,7 @@ Here is an example Slurm script, that loads `gurobipy3` module, activates `venv`
 module purge
 
 # Load software
-module load gurobipy3
+module load gurobi
 
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt_combined/bin/activate
@@ -894,7 +954,7 @@ Now, our Slurm script should look like below. Save this to `sensitivity_analysis
 module purge
 
 # Load software
-module load gurobipy3
+module load gurobi
 
 # Activate venv (can either be a global or relative path)
 source /zfs/projects/<your-project>/opt_combined/bin/activate
