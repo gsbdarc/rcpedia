@@ -242,7 +242,7 @@ A few important notes here:
 - The path after the = points to the directory where the LoRA adapter files are unpacked.
 
 Relaunch the vLLM server on your GPU node:
-````bash title="Terminal Input on GPU Node"
+```bash title="Terminal Input on GPU Node"
 vllm serve --max-lora-rank 32 &
 ```
 
@@ -250,7 +250,7 @@ By default, vLLM only allows LoRA adapters up to rank 16. Because we trained wit
 
 Then, from the login node, run the fine-tuned inference script on the test set:
 
-```
+```bash title="Terminal Input From Login Node"
 python infer_ft_8b.py
 ```
 
