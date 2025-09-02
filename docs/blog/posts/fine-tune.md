@@ -241,7 +241,7 @@ A few important notes here:
 
 - The path after the = points to the directory where the LoRA adapter files are unpacked.
 
-Restart or relaunch the vLLM server on your GPU node:
+Relaunch the vLLM server on your GPU node:
 ````bash title="Terminal Input on GPU Node"
 vllm serve --max-lora-rank 32 &
 ```
