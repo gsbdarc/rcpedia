@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2025-09-02
+  created: 2025-09-03
 categories:
     - LLM
 authors:
@@ -9,6 +9,8 @@ authors:
 
 # Fine-Tuning Open Source Models with Together + vLLM
 When large language models (LLMs) first appeared, they felt almost magical — you could ask them anything and they’d reply with surprisingly fluent text. But once you start applying them in research or production, the limitations show up quickly. The base model can sort of do your task, but not reliably enough. That’s where fine-tuning comes in.
+
+
 <!-- more -->
 
 ## Why Fine-Tune?
@@ -26,6 +28,8 @@ Fine-tuning is the process of specializing a model. Instead of retraining billio
 
 This makes fine-tuning practical even on research budgets while often yielding big jumps in accuracy.
 
+![Generalist vs Specialist LLM Diagram](/assets/images/fine-tune-lora.png)
+*Figure: Fine-tuning adapts a generalist LLM into a task-specific specialist by adding a lightweight LoRA adapter.*
 
 ## Where to Fine-Tune: Cloud vs. Local
 
@@ -120,9 +124,15 @@ In practice, you can think of LoRA rank as the capacity knob: turning it up allo
     - Together fine-tunes open-source models (like Qwen-8B). You can download the adapter and run it anywhere.
 
 
+Here’s the fine-tuning workflow at a glance: start with a labeled dataset, fine-tune in the cloud with Together, download the LoRA adapter, and run inference locally with vLLM to evaluate results.
+
+![Fine-tuning Workflow Diagram](/assets/images/fine-tune-flowchart.png)
+*Figure: End-to-end fine-tuning workflow combining cloud training with local inference.*
+
 ## Try It Yourself
 
 If you’d like to reproduce this workflow — from preparing training data to running the base and fine-tuned models with vLLM on Sherlock — we’ve published a hands-on guide in our repository: [gsbdarc/vllm_helper](https://github.com/gsbdarc/vllm_helper){target="_blank"}. The repo includes example inference scripts, instructions for launching vLLM on a GPU node, and details on the expected `test.jsonl` format.
+
 
 ### 1. Preparing the Data
 
@@ -236,7 +246,9 @@ In our Reddit classification experiment, the difference was dramatic:
 
 - Final accuracy (adapter): 0.74 over 5,000 labeled examples with a fine-tuned LoRA (rank 32)
 
-That’s nearly double the accuracy — a strong payoff for a fine-tuning job.
+![Evaluation Results Bar Chart](/assets/images/fine-tune-bar-chart-accuracy.png)
+
+*Figure: Accuracy comparison between the base model and fine-tuned model. The LoRA adapter nearly doubled performance.*
 
 ## Conclusion
 
