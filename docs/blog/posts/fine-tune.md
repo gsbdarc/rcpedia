@@ -8,252 +8,238 @@ authors:
 ---
 
 # Fine-Tuning Open Source Models with Together + vLLM
-Fine-tuning is the process of adapting a large pre-trained model to perform well on a narrower task. Instead of retraining billions of parameters from scratch, we attach small, efficient LoRA adapters (Low-Rank Adapters) that learn the task-specific patterns we care about. This makes fine-tuning practical on research hardware while still yielding strong gains in accuracy.
-
-We want to do this because base models are generalists: they can generate text and answer questions across many domains, but they aren’t optimized for specialized tasks. By fine-tuning, we make the model ours — better aligned to the data we care about.
-
-In this example, we fine-tune Qwen3-8B-Base to classify Reddit posts into one of ten subreddits. With no fine-tuning, the base model reached an accuracy of 0.39 on our test set. After fine-tuning with LoRA adapters, accuracy nearly doubled to 0.74.
-
+When large language models (LLMs) first appeared, they felt almost magical — you could ask them anything and they’d reply with surprisingly fluent text. But once you start applying them in research or production, the limitations show up quickly. The base model can sort of do your task, but not reliably enough. That’s where fine-tuning comes in.
 <!-- more -->
 
-In this post, we’ll walk step by step through:
+## Why Fine-Tune?
+Large models are trained as generalists. They’ve seen a massive variety of internet text, which gives them broad coverage. But when you need them to perform well on a specific research task, the base model usually isn’t accurate enough. For example, you might want to:
 
-1. Preparing training data in JSONL format
+- Classify social media posts 
 
-2. Submitting a fine-tuning job to Together
+- Analyze sentiment in financial reports
 
-3. Downloading the LoRA adapter
+- Grade free-text survey responses
 
-4. Running both the base and fine-tuned models locally with vLLM
+In these cases, a fine-tuned model will be much more accurate.
+
+Fine-tuning is the process of specializing a model. Instead of retraining billions of parameters from scratch (which would be extremely expensive), we use LoRA adapters — small, efficient side modules that learn the patterns specific to your task.
+
+This makes fine-tuning practical even on research budgets while often yielding big jumps in accuracy.
 
 
-## Step 1. Define the Task and Dataset
+## Where to Fine-Tune: Cloud vs. Local
 
-Our task is: given the title and body of a Reddit post, predict which subreddit it belongs to.
+There are two main ways to fine-tune:
 
-- Input: title + body
+- On your own clusters (e.g. Yens, Sherlock, Marlowe):
 
-- Output: subreddit name (one of ten choices)
+    - Pros: full control of data and environment, required for sensitive datasets.
 
-We prepared a dataset with:
+    - Cons: more setup (Slurm jobs, GPU scheduling, environment management).
 
-- Training set: 9,800 examples per class 
-- Validation set: 100 examples per class
-- Test set: 500 examples per class
+- On managed cloud platforms (e.g. Together):
 
-Each row is stored as JSONL (JSON Lines). Together expects the following format:
+    - Pros: minimal setup, pay-as-you-go pricing, fast turnaround.
+
+    - Cons: requires sending data to the cloud (not suitable for restricted or sensitive data).
+
+## What is LoRA?
+
+Fine-tuning a large model from scratch would mean adjusting billions of parameters, which is almost always impractical outside of Big Tech. LoRA (Low-Rank Adaptation) solves this problem by adding a small set of trainable weights on top of the frozen base model.
+
+Think of the base model as a huge library of knowledge. LoRA doesn’t rewrite the entire library — it just slips in a few new index cards that redirect the model’s attention toward your specific task.
+
+Concretely:
+
+- The original model weights stay frozen.
+
+- LoRA adds lightweight “adapter” layers inside certain parts of the model (usually the attention layers).
+
+- During fine-tuning, only these adapter weights are trained, while the rest of the model stays fixed.
+
+This approach is far more efficient: instead of needing hundreds of gigabytes of GPU memory, you only need a fraction of that. The adapter weights themselves are small — often just a few hundred megabytes — and can be swapped in and out depending on which task you want the model to specialize on.
+
+
+## What is Together?
+
+[Together](https://www.together.ai/){target="_blank"} is a managed cloud service for training and serving open-source models like Qwen, Mistral, and Llama. You upload your dataset and launch a fine-tuning job through their web interface or CLI.
+
+When training finishes, Together provides a LoRA adapter file (and/or a merged model). 
+
+That adapter is portable: copy it to your cluster and load it into vLLM (a high-performance serving engine) or Ollama.
+
+This gives you the best of both worlds:
+
+- 🚀 Cloud for fast, cheap training
+
+- 🔒 Local clusters for large-scale, private inference
+
+Together also lets you easily (one button click) deploy the fine-tuned model on their infrastructure but it will charge per minute and cost varies depending on GPUs necessary to run the model.
+
+
+## LoRA Rank, Costs, and Tradeoffs 
+The main design choice in LoRA is rank. Rank determines the size of the adapter matrices that the model actually learns during training.
+
+- Low rank (e.g. 8, 16):
+
+    - Fewer parameters to train
+
+    - Faster training, lower GPU memory use
+
+    - Risk of underfitting if the task is complex
+
+- High rank (e.g. 32, 64):
+
+    - More parameters to train
+
+    - Higher training cost, more GPU hours
+
+    - Better ability to capture complex patterns, often higher accuracy
+
+Other factors that affect training cost include:
+
+- Model size: training Qwen-8B is much cheaper than Qwen-32B
+
+- Dataset size: more examples = more GPU time
+
+- Epochs: each full pass over your dataset adds cost
+
+- Batch size: larger batches speed up training but require more memory
+
+In practice, you can think of LoRA rank as the capacity knob: turning it up allows the adapter to learn more, but you’ll pay more in compute. 
+
+## Fine-Tuning vs. Alternatives
+- Fine-tuning vs. Prompting
+
+    Few-shot prompting can work, but on specialized tasks, a fine-tuned adapter usually wins in both accuracy and consistency.
+
+- Together vs. OpenAI Fine-tuning
+
+    - OpenAI fine-tunes proprietary models (like GPT-4o-mini). You can only use them via API.
+
+    - Together fine-tunes open-source models (like Qwen-8B). You can download the adapter and run it anywhere.
+
+
+## Try It Yourself
+
+If you’d like to reproduce this workflow — from preparing training data to running the base and fine-tuned models with vLLM on Sherlock — we’ve published a hands-on guide in our repository: [gsbdarc/vllm_helper](https://github.com/gsbdarc/vllm_helper){target="_blank"}. The repo includes example inference scripts, instructions for launching vLLM on a GPU node, and details on the expected `test.jsonl` format.
+
+### 1. Preparing the Data
+
+Fine-tuning works because you show the model examples of the task you want it to learn. The task might be:
+
+- Classification (map a prompt to a class label)
+
+- Instruction following (map a prompt to a completion)
+
+- Conversation (multi-turn dialogue with user and assistant roles)
+
+- Or even preference tuning (teach the model which of two responses is better)
+
+The important thing is that your data clearly connects inputs to outputs.
+
+Together supports several [formats](https://docs.together.ai/docs/fine-tuning-data-preparation){target="_blank"} for this:
+
+- Instruction-style: prompt + completion pairs (great for classification or short-form tasks).
+
+- Conversational: dialogue history with user and assistant turns.
+
+- Generic text: raw passages, useful for continuing pretraining.
+
+- Preference data: examples where one output is preferred over another.
+
+Under the hood, these are usually stored as JSONL (JSON Lines) files, one example per line.
+
+#### Example
+For our experiment, the task was: given the title (and sometimes body) of a Reddit post, predict which of the ten subreddits it belongs to.
+
+That meant writing prompts that instructed the model to classify the post, and then pairing each with the correct subreddit as the completion. Here are a few examples from our dataset:
 
 ```{.yaml .no-copy title="Expected JSONL format"}
-{"prompt": "Post title\n\nPost body", "completion": "subreddit_name"}
+{"prompt": "Classify the subreddit for this Reddit post.\nReturn just the subreddit name from this list: AskReddit, worldnews, explainlikeimfive, funny, todayilearned, science, sports, LifeProTips, technology, books.\n\nTitle: \"20 Amazing and Essential Non-fiction Books to Enrich Your Library (by Zen Habits)\"\nBody: \"\"\nAnswer:", "completion": "books"}
+{"prompt": "Classify the subreddit for this Reddit post.\nReturn just the subreddit name from this list: AskReddit, worldnews, explainlikeimfive, funny, todayilearned, science, sports, LifeProTips, technology, books.\n\nTitle: \"Psychologists Find: In Election Polls, Response Time Speaks Louder Than Voters' Words\"\nBody: \"\"\nAnswer:", "completion": "science"}
+{"prompt": "Classify the subreddit for this Reddit post.\nReturn just the subreddit name from this list: AskReddit, worldnews, explainlikeimfive, funny, todayilearned, science, sports, LifeProTips, technology, books.\n\nTitle: \"What will life be like, in 2050?\"\nBody: \"\"\nAnswer:", "completion": "AskReddit"}
 ```
 
-This structure is all you need — one input string, one output string per line.
+Each example follows the same pattern:
 
-## Step 2. Set Up the Environment
-On Sherlock we created a Python environment for data prep and training:
-```bash title="Terminal Input From Login Node"
-cd <project-space>/llm-ft
-ml python/3.12.1
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
+- The prompt gives the task instructions and the input text (title + body).
 
-This ensures we can build JSONL files, interact with Together’s API, and later run inference locally.
+- The completion provides the correct label (the subreddit).
 
-## Step 3. Upload Training Files to Together
-With train.jsonl, val.jsonl and test.jsonl ready, we upload the training and (optionally) validation sets:
-```bash title="Terminal Input From Login Node"
-together files upload train.jsonl
-together files upload val.jsonl
-```
+By repeating this structure thousands of times across different categories, we teach the model to output the right subreddit name.
 
-## Step 4. Run a Fine-Tuning Job
-You can launch the fine-tuning job via Together CLI or through the web interface. 
 
-The web interface makes it easy to adjust parameters, track progress, and view checkpoints.
+### 2. Upload Training Files to Together
+Once the dataset is prepared, the next step is to make it available to Together for fine-tuning. You’ll typically create three files:
 
-Login to [Together](https://api.together.xyz/fine-tuning){target="_blank"} and go to Fine-tuning tab to start a new job.
+- train.jsonl — examples the model learns from
 
-First, select the base model.
+- val.jsonl — optional validation set to monitor training progress
 
-We chose `Qwen/Qwen3-8B-Base` model.
+- test.jsonl — held-out examples for final evaluation (not uploaded)
 
-You’ll be prompted to select parameters. For our experiment, we chose the following:
+Together supports two ways to upload training data:
 
-- Epochs: 1
+- [Web interface](https://api.together.xyz/fine-tuning){target="_blank"} — drag and drop your JSONL files directly in the fine-tuning dashboard. This is the fastest way to get started.
 
-- Checkpoints: 1
+- Command-line interface (CLI) — upload files from the terminal, which is convenient for automation or when working on a cluster.
 
-- Evaluations: 4
+After uploading, Together will check your file format (prompt/completion pairs, conversational data, etc.) and confirm it’s valid for training. Once validated, the files are ready to be used in a fine-tuning job.
 
-- Batch size: 8
+### 3. Configure and Run a Fine-Tuning Job 
+With your dataset uploaded, the next step is to start a fine-tuning job. Together lets you do this either from the CLI or through their web interface. The web interface is especially handy because you can pick the base model, adjust parameters, and watch progress in real time.
 
-- LoRA rank: 32
+Once you pick the base model, you’ll be prompted to configure training parameters. Here’s what they mean in practice:
 
-- LoRA alpha: 64
+- Epochs – how many times the model sees your dataset. More epochs mean more training, but also higher cost and risk of overfitting.
 
-- LoRA dropout: 0.05
+- Batch size – how many examples are processed at once. Larger batches train faster but require more GPU memory.
 
-- LoRA trainable modules: q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj
+- LoRA rank – controls the size of the adapter. Higher rank can capture more complex patterns, but increases cost.
 
-- Train on inputs: false
+- Learning rate & scheduler – control how quickly the model adjusts its weights. A schedule like cosine decay starts aggressively and then tapers off, helping the model settle into a good solution.
 
-- Learning rate: 0.0001
+- Dropout & weight decay – techniques to prevent overfitting by making the model less likely to “memorize” the training set.
 
-- Learning rate scheduler: cosine
+- Trainable modules – which parts of the model the LoRA adapters are inserted into (for example, attention projections or feed-forward layers). Choosing more modules gives the model more flexibility to adapt, at the cost of extra compute.
 
-- Warmup ratio: 0.06
+### 4. Run Inference
+Once training is finished, it’s time to put your fine-tuned model to the test. This step is called inference — running the fine-tuned model on new inputs and checking its predictions.
 
-- Scheduler cycles: 3
+You have two main options:
 
-- Max gradient norm: 1
+- Run inference on Together
 
-- Weight decay: 0.01 
+    - Easiest option: no setup, just call the API.
 
-You can optionally connect to your [Weights & Biases](https://wandb.ai/home) project to track training and validation losses graphically. 
+    - Downside: deployment costs money, so large-scale evaluation can add up.
 
-You can experiment with different values depending on your dataset size and task.
+- Run inference locally
 
-When the job completes, you’ll be able to download the resulting LoRA adapter checkpoint (or the merged model). This adapter contains only the learned weights from fine-tuning — a lightweight file we’ll use in combination with the base model.
+    - You download the LoRA adapter and load it into an inference engine such as vLLM (optimized for serving at scale) or Ollama (lightweight and simple).
 
-This training cost $5 and ran in 11 minutes. 
+    - This takes more setup (GPU access, environment, server process), but once it’s running, you can run inference at scale without extra cost.
 
-## Step 5. Download the trained LoRA Adapter
-After training is finished, download the LoRA adapter and copy to your project space on Sherlock.
+#### Evaluation
 
-In this case, we made a models directory in our project space and copy the adapter to `<project-space>/llm-ft/models/qwen3-8b-1epoch-10k-data-32-lora`.
+A key part of inference is evaluation — measuring how the fine-tuned model stacks up against the base model on the same held-out test set. This gives you a clear before-and-after picture.
 
-For inference, we will copy the adapter and unpack it on scratch. 
+- The base model shows what the pretrained LLM can do out of the box.
 
-```bash title="Terminal Input From Login Node"
-export SCRATCH_BASE=$GROUP_SCRATCH/$USER
-mkdir -p $SCRATCH_BASE/vllm/models
-cp -r <project-space>/llm-ft/models/qwen3-8b-1epoch-10k-data-32-lora \
-   "$SCRATCH_BASE/vllm/models"
-cd "$SCRATCH_BASE/vllm/models/qwen3-8b-1epoch-10k-data-32-lora"
-tar --use-compress-program=unzstd -xvf ft-*.tar.zst -C .
-```
+- The fine-tuned model shows how much improvement your LoRA adapter provides.
 
-Now the LoRA weights are unpacked and ready.
+#### Example
+In our Reddit classification experiment, the difference was dramatic:
 
-## Step 6. Launch the vLLM Server on a GPU Node
-With our adapter ready, we now need to launch a vLLM server on a GPU node. This will host the base model (and later the fine-tuned adapter) so we can run inference from a login node.
+- Final accuracy (base): 0.39 over 5,000 labeled examples using Qwen3-8B-Base
 
-First, request a GPU node with enough memory for Qwen3-8B:
+- Final accuracy (adapter): 0.74 over 5,000 labeled examples with a fine-tuned LoRA (rank 32)
 
-```bash title="Terminal Input From Login Node"
-srun -p gpu -G 1 -C "GPU_MEM:80GB" -n 1 -c 16 --mem=50G -t 2:00:00 --pty /bin/bash
-```
+That’s nearly double the accuracy — a strong payoff for a fine-tuning job.
 
-Load the vLLM module:
+## Conclusion
 
-```bash title="Terminal Input on GPU Node"
-ml py-vllm/0.7.0_py312
-```
+Fine-tuning turns a general-purpose language model into a specialist. By preparing a labeled dataset, uploading it to Together for training, and then running inference with vLLM locally, you can create models that perform dramatically better on your specific task.
 
-Clone a repo with a helper wrapper to launch vLLM on available port:
-
-```bash title="Terminal Input on GPU Node"
-git clone https://github.com/gsbdarc/vllm_helper.git
-```
-
-Make the environment:
-
-```
-cd vllm_helper
-python3 -m venv venv
-source venv/bin/activate
-pip install -r requirements.txt
-```
-
-Point scratch directories so large files don’t live on home:
-
-```bash title="Terminal Input on GPU Node"
-export SCRATCH_BASE=$GROUP_SCRATCH/$USER
-export APPTAINER_CACHEDIR=$SCRATCH_BASE/.apptainer
-```
-
-Pull the latest vLLM container and source the wrapper script:
-
-```bash title="Terminal Input on GPU Node"
-apptainer pull vllm-openai.sif docker://vllm/vllm-openai:latest
-source vllm.sh
-```
-
-Export the base model and start the server:
-
-```bash title="Terminal Input on GPU Node"
-export VLLM_MODEL=Qwen/Qwen3-8B-Base
-vllm serve &
-```
-
-You’ll see output with the GPU hostname and port — this confirms the server is running.
-
-## Step 7. Run the Base Model
-Once the server is up, we can run inference from a login node.
-
-
-On the login node:
-```bash title="Terminal Input From Login Node"
-cd vllm_helper/example 
-ml python/3.12.1
-source venv/bin/activate
-pip install -r requirements.txt
-export SCRATCH_BASE=$GROUP_SCRATCH/$USER
-```
-
-Run the baseline inference script on test set:
-
-```bash title="Terminal Input From Login Node"
-python infer_base_8b.py
-```
-
-This will query the running vLLM server and evaluate predictions from the base model.
-
-- Final accuracy (base): 0.39 over 5,000 labeled examples
-
-This is our baseline performance using the Qwen3-8B-Base model.
-
-## Step 8. Run with the Fine-Tuned Adapter
-
-Now let’s load the LoRA adapter we downloaded from Together and repeat the experiment.
-
-Stop and re-start vLLM server:
-```bash title="Terminal Input on GPU Node"
-vllm stop
-```
-
-We will enable LoRA and point vLLM to the adapter path:
-```
-export VLLM_MODEL=Qwen/Qwen3-8B-Base
-export VLLM_ENABLE_LORA=1
-export VLLM_LORAS="reddit=/models/qwen3-8b-1epoch-10k-data-32-lora"
-```
-
-A few important notes here:
-
-- The string before the = (reddit) is the adapter name.
-
-    - In our Python inference script, we refer to this adapter by name (`reddit`) when choosing which fine-tuned weights to apply.
-
-    - You can name it anything you like, but it must match between the environment variable and your code.
-
-- The path after the = points to the directory where the LoRA adapter files are unpacked.
-
-Relaunch the vLLM server on your GPU node:
-```bash title="Terminal Input on GPU Node"
-vllm serve --max-lora-rank 32 &
-```
-
-By default, vLLM only allows LoRA adapters up to rank 16. Because we trained with LoRA rank 32, we need to override this limit by specifying `--max-lora-rank 32`. Without this flag, vLLM won’t load the adapter correctly.
-
-Then, from the login node, run the fine-tuned inference script on the test set:
-
-```bash title="Terminal Input From Login Node"
-python infer_ft_8b.py
-```
-
-- Final accuracy (adapter): 0.74 over 5,000 labeled examples
-
-This shows the impact of fine-tuning: accuracy nearly doubled compared to the base model.
+In our example, a simple LoRA fine-tune nearly doubled accuracy on a classification benchmark — from 39% with the base model to 74% with the fine-tuned adapter. The process was fast, affordable, and flexible: cloud training for convenience, local inference for scale.
