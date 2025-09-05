@@ -82,7 +82,7 @@ Together also lets you easily (one button click) deploy the fine-tuned model on 
 
 
 ## LoRA Rank, Costs, and Tradeoffs 
-The main design choice in LoRA is rank. Rank determines the size of the adapter matrices that the model actually learns during training.
+The main design choice in LoRA is **rank**. Rank determines the size of the adapter matrices that the model actually learns during training.
 
 - Low rank (e.g. 8, 16):
 
@@ -100,17 +100,18 @@ The main design choice in LoRA is rank. Rank determines the size of the adapter 
 
     - Better ability to capture complex patterns, often higher accuracy
 
+In practice, you can think of LoRA rank as the capacity knob: turning it up allows the adapter to learn more, but you’ll pay more in compute.
+
 Other factors that affect training cost include:
 
-- Model size: training Qwen-8B is much cheaper than Qwen-32B
+- **Model size**: training a smaller model like Qwen-8B (≈8 billion parameters) is much cheaper than a larger one like Qwen-32B (≈32 billion parameters). Larger parameter counts generally improve reasoning and accuracy, but they also increase training time, GPU memory needs, and costs. 
 
-- Dataset size: more examples = more GPU time
+- **Dataset size**: the more examples you train on, the longer each epoch takes and the more GPU hours are required. Doubling your dataset size roughly doubles the cost, though it can also improve model generalization. 
 
-- Epochs: each full pass over your dataset adds cost
+- **Epochs**: each full pass over your dataset adds cost. One epoch means the model sees every example once. Multiple epochs let the model learn more, but too many can cause overfitting and drive up the cost.
 
-- Batch size: larger batches speed up training but require more memory
+- **Batch size**: larger batches allow GPUs to process more examples in parallel, speeding up training. However, they require more memory, so you may need larger or more expensive GPUs. Small batch sizes are cheaper on memory but train more slowly. 
 
-In practice, you can think of LoRA rank as the capacity knob: turning it up allows the adapter to learn more, but you’ll pay more in compute. 
 
 ## Fine-Tuning vs. Alternatives
 - Fine-tuning vs. Prompting
@@ -122,6 +123,8 @@ In practice, you can think of LoRA rank as the capacity knob: turning it up allo
     - OpenAI fine-tunes proprietary models (like GPT-4o-mini). You can only use them via API.
 
     - Together fine-tunes open-source models (like Qwen-8B). You can download the adapter and run it anywhere.
+
+The important difference is reproducibility and sharing. Together fine-tunes open-source base models (e.g., Qwen, Mistral, Llama) and produces an open-source adapter file. That means you can freely share the model and others can reproduce your results. In contrast, OpenAI fine-tuned models are proprietary — you can only access them through their API, and you can’t download or distribute the adapted weights.
 
 
 Here’s the fine-tuning workflow at a glance: start with a labeled dataset, fine-tune in the cloud with Together, download the LoRA adapter, and run inference locally with vLLM to evaluate results.
@@ -242,13 +245,15 @@ A key part of inference is evaluation — measuring how the fine-tuned model sta
 #### Example
 In our Reddit classification experiment, the difference was dramatic:
 
-- Final accuracy (base): 0.39 over 5,000 labeled examples using Qwen3-8B-Base
+- Test set accuracy (base): 0.39 over 5,000 labeled examples using Qwen3-8B-Base
 
-- Final accuracy (adapter): 0.74 over 5,000 labeled examples with a fine-tuned LoRA (rank 32)
+- Test set accuracy (adapter): 0.74 over 5,000 labeled examples with a fine-tuned LoRA (rank 32). The training cost was under $5.
+
+- Test set accuracy (GPT-4o): 0.77 using OpenAI’s Batches API with structured outputs. The run cost was just over $1.
 
 ![Evaluation Results Bar Chart](/assets/images/fine-tune-bar-chart-accuracy.png)
 
-*Figure: Accuracy comparison between the base model and fine-tuned model. The LoRA adapter nearly doubled performance.*
+*Figure: Accuracy comparison between the base model, fine-tuned LoRA, and GPT-4o. The LoRA adapter nearly doubled performance over the base, while GPT-4o performed slightly better at very low cost — but remains closed-source and API-restricted.*
 
 ## Conclusion
 
