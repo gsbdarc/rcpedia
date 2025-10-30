@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2025-09-03
+  created: 2025-10-30
 categories:
     - LLM
 authors:
@@ -37,15 +37,14 @@ There are two main ways to fine-tune:
 
 - On your own clusters (e.g. Yens, Sherlock, Marlowe):
 
-    - Pros: full control of data and environment, required for sensitive datasets.
+    - **Pros**: full control of data and environment, required for sensitive datasets.
 
-    - Cons: more setup (Slurm jobs, GPU scheduling, environment management).
+    - **Cons**: more setup (Slurm jobs, GPU scheduling, environment management).
 
 - On managed cloud platforms (e.g. Together):
 
-    - Pros: minimal setup, pay-as-you-go pricing, fast turnaround.
-
-    - Cons: requires sending data to the cloud (not suitable for restricted or sensitive data).
+    - **Pros**: minimal setup, pay-as-you-go pricing, fast turnaround.
+    - **Cons**: requires sending data to the cloud (not suitable for restricted or sensitive data).
 
 ## What is LoRA?
 
@@ -66,11 +65,11 @@ This approach is far more efficient: instead of needing hundreds of gigabytes of
 
 ## What is Together?
 
-[Together](https://www.together.ai/){target="_blank"} is a managed cloud service for training and serving open-source models like Qwen, Mistral, and Llama. You upload your dataset and launch a fine-tuning job through their web interface or CLI.
+[Together](https://www.together.ai/){target="_blank"} is a managed cloud service for fine-tuning and serving fine-tuned open-source models like Qwen, Mistral, and Llama. You upload your dataset and launch a fine-tuning job through their web interface or CLI.
 
 When training finishes, Together provides a LoRA adapter file (and/or a merged model). 
 
-That adapter is portable: copy it to your cluster and load it into vLLM (a high-performance serving engine) or Ollama.
+That adapter is portable: copy it to your cluster and load it into vLLM (a high-performance model serving engine) or Ollama for inference.
 
 This gives you the best of both worlds:
 
@@ -120,7 +119,7 @@ Other factors that affect training cost include:
 
 - Together vs. OpenAI Fine-tuning
 
-    - OpenAI fine-tunes proprietary models (like GPT-4o-mini). You can only use them via API.
+    - OpenAI fine-tunes proprietary models (like GPT-4.1 mini). You can only use them via API.
 
     - Together fine-tunes open-source models (like Qwen-8B). You can download the adapter and run it anywhere.
 
@@ -161,7 +160,7 @@ Together supports several [formats](https://docs.together.ai/docs/fine-tuning-da
 
 - Preference data: examples where one output is preferred over another.
 
-Under the hood, these are usually stored as JSONL (JSON Lines) files, one example per line.
+Under the hood, these are usually stored as JSONL (JSON Lines) files with one example per line.
 
 #### Example
 For our experiment, the task was: given the title (and sometimes body) of a Reddit post, predict which of the ten subreddits it belongs to.
@@ -242,18 +241,39 @@ A key part of inference is evaluation — measuring how the fine-tuned model sta
 
 - The fine-tuned model shows how much improvement your LoRA adapter provides.
 
-#### Example
-In our Reddit classification experiment, the difference was dramatic:
-
-- Test set accuracy (base): 0.39 over 5,000 labeled examples using Qwen3-8B-Base
-
-- Test set accuracy (adapter): 0.74 over 5,000 labeled examples with a fine-tuned LoRA (rank 32). The training cost was under $5.
-
-- Test set accuracy (GPT-4o): 0.77 using OpenAI’s Batches API with structured outputs. The run cost was just over $1.
+#### Example: Comparing Open-Source and GPT Fine-Tuning 
+In our Reddit classification experiment, the goal was to predict which of ten subreddits a post belonged to based on its title and body text.  
+We tested both open-source and closed-source fine-tuning approaches using the same training set of 98,000 examples and the same labeled dataset of 5,000 evaluation examples.
 
 ![Evaluation Results Bar Chart](/assets/images/fine-tune-bar-chart-accuracy.png)
 
-*Figure: Accuracy comparison between the base model, fine-tuned LoRA, and GPT-4o. The LoRA adapter nearly doubled performance over the base, while GPT-4o performed slightly better at very low cost — but remains closed-source and API-restricted.*
+*Figure: Comparison of model accuracies across four setups. The base Qwen3-8B achieved 39% accuracy, while a fine-tuned LoRA adapter nearly doubled performance to 74%. GPT-4.1 mini (base) reached 76% using structured outputs, and fine-tuning GPT-4.1 mini pushed accuracy to 89%.*
+
+
+**Open-source setup (Together + vLLM):**  
+We fine-tuned Qwen3-8B-Base with LoRA adapter (rank = 32) using Together’s managed training service and then ran inference locally with vLLM.  
+
+  - **Base Qwen3-8B:** 0.39 accuracy  
+
+  - **Fine-tuned Qwen3-8B (LoRA):** 0.74 accuracy  
+
+  - **Training cost:** under $5  
+
+The fine-tuned LoRA adapter nearly doubled accuracy over the base model, demonstrating how small, task-specific updates can yield large performance gains while remaining fully reproducible and deployable on local clusters.
+
+**Closed-source setup (GPT-4.1 mini):**  
+To benchmark a smaller proprietary model, we repeated the experiment with GPT-4.1 mini using OpenAI’s Batches API and structured outputs to enforce consistent label formatting.  
+
+  - **Base GPT-4.1 mini:** 0.76 accuracy
+
+  - **Fine-tuned GPT-4.1 mini:** 0.89 accuracy
+ 
+  - **Training + inference cost:** $85
+
+Even with a single-epoch fine-tune on the same dataset, GPT-4.1 mini surpassed both the base and LoRA-tuned open-source models.  
+
+Together, these results illustrate how both open-source LoRA fine-tuning and closed-source API fine-tuning can substantially enhance task performance at different cost and transparency trade-offs. 
+
 
 ## Conclusion
 
