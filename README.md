@@ -22,20 +22,23 @@ Proceed to make changes. After you edit the page, preview in a local browser bef
 
 - Make `venv` that has the packages needed for website build:
 ```bash
-cd rcpedia_mockup
-python3 -m venv mkdocs
-source mkdocs/bin/activate
+cd rcpedia
+python3 -m venv venv
+source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- Build with INSIDERS enabled:
+- Build with `insiders` enabled:
 First install insiders with pip and auth key
 ```
 pip install git+https://{access_key_goes_here}@github.com/squidfunk/mkdocs-material-insiders.git@9.4.2-insiders-4.42.0
 ```
 <br>
 Use this command, to build mkdocs with Insiders turned on:
-```CI=true INSIDERS=true mkdocs build```
+
+```bash
+CI=true INSIDERS=true mkdocs build
+```
 
 - Serve website:
 ```
