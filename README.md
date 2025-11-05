@@ -29,12 +29,21 @@ pip install -r requirements.txt
 ```
 
 - Build with INSIDERS enabled:
-First install insiders with pip and auth key
+First install `insiders` with the auth key:
 ```
 pip install git+https://{access_key_goes_here}@github.com/squidfunk/mkdocs-material-insiders.git@9.4.2-insiders-4.42.0
 ```
+
+For Python 3.13, run:
+```
+# inside your venv
+python -m pip install -U pip setuptools wheel
+
+# install imaging deps compatible with py3.13
+pip install "Pillow>=10.0" "cairosvg>=2.8"
+```
 <br>
-Use this command, to build mkdocs with Insiders turned on:
+Use this command, to build `mkdocs` with `insiders` turned on:
 ```CI=true INSIDERS=true mkdocs build```
 
 - Serve website:
