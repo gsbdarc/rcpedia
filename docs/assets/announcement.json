@@ -1,6 +1,6 @@
 {
-    "type": "INFORMATION",
-    "message": "📢 <b>Yens Onboarding 2025:</b>. Hands-on intro to the Yens cluster for PhD students, predocs, postdocs, and faculty. <a href=\"https://gsb-research-appointment.stanford.edu/event/15236925\" target=\"_blank\" >Register here</a>",
+    "type": "ALERT",
+    "message": "⚠️ Scheduled Downtime: December 4-5 (EOD). All Yen servers will be offline for maintenance and storage upgrades ⚠️",
     "examples": [
         {
             "type": "ERROR",
