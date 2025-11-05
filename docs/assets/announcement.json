@@ -1,6 +1,6 @@
 {
     "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: December 4-5 (EOD). All Yen servers will be offline for maintenance and storage upgrades ⚠️",
+    "message": "⚠️ Scheduled Downtime: December 4 & 5, 2025. All Yen servers will be offline for maintenance and storage upgrades ⚠️",
     "examples": [
         {
             "type": "ERROR",
