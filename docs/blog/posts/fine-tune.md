@@ -5,6 +5,7 @@ categories:
     - LLM
 authors:
     - nrapstin
+    - astorer
 ---
 
 # Fine-Tuning Open Source Models 
