@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2025-11-05
+  created: 2025-11-07
 categories:
     - LLM
 authors:
@@ -273,7 +273,7 @@ A key part of inference is evaluation — measuring how the fine-tuned model sta
 
 - The fine-tuned model shows how much improvement your LoRA adapter provides.
 
-#### Open-Source vs. GPT Fine-Tuning 
+#### ⚙️  Open-Source vs. GPT Fine-Tuning 
 In our Reddit classification experiment, the goal was to predict which of ten subreddits a post belonged to based on its title and body text.  
 We tested both open-source and closed-source fine-tuning approaches using the same training set of 98,000 examples and the same labeled dataset of 5,000 evaluation examples.
 
@@ -281,18 +281,18 @@ We tested both open-source and closed-source fine-tuning approaches using the sa
 **Open-source setup (Together AI + vLLM):**  
 We fine-tuned Qwen3-8B-Base with LoRA adapter (rank = 32) using Together’s managed training service and then ran inference locally with vLLM.  
 
-  - **Base Qwen3-8B:** 0.39 accuracy  
+  - **Base Qwen3-8B:** 0.41 accuracy  
 
-  - **Fine-tuned Qwen3-8B (LoRA):** 0.74 accuracy  
+  - **Fine-tuned Qwen3-8B (LoRA):** 0.78 accuracy  
 
   - **Training cost:** under $5  
 
 The fine-tuned LoRA adapter nearly doubled accuracy over the base model, demonstrating how small, task-specific updates can yield large performance gains while remaining fully reproducible and deployable on local clusters.
 
-**Closed-source setup (GPT-4.1 mini):**  
+#### 🤖 Closed-source setup (GPT-4.1 mini):  
 To benchmark a smaller proprietary model, we repeated the experiment with GPT-4.1 mini using OpenAI’s Batches API and structured outputs to enforce consistent label formatting.  
 
-  - **Base GPT-4.1 mini:** 0.76 accuracy
+  - **Base GPT-4.1 mini:** 0.79 accuracy
 
   - **Fine-tuned GPT-4.1 mini:** 0.89 accuracy
  
@@ -302,7 +302,7 @@ Even with a single-epoch fine-tune on the same dataset, GPT-4.1 mini surpassed b
 
 Together, these results illustrate how both open-source LoRA fine-tuning and closed-source API fine-tuning can substantially enhance task performance at different cost and transparency trade-offs. 
 
-#### Random Forest Benchmark
+#### 🌲 Random Forest Baseline
 To ground the fine-tuning results, we also trained a Random Forest model on the same 98,000 training examples and evaluated it on the same 5,000-example test set.
 
 Each Reddit post’s title and body were converted into TF-IDF features (1–2-gram range), and a 400-tree Random Forest was trained using scikit-learn on CPU.
@@ -311,28 +311,23 @@ Each Reddit post’s title and body were converted into TF-IDF features (1–2-g
 
 - **Evaluation time**: ~1 second for 5,000 examples
 
-- **Test accuracy**: 0.99
+- **Test accuracy**: 0.72
 
-!!! note "Why Random Forest performs so well"
-    For this task, a Random Forest is almost ideal: there are only ten target classes, and we provided nearly one hundred thousand labeled examples.
-    The classes are lexically separable — each subreddit has distinctive vocabulary (“goal,” “NASA,” “book,” “ELI5”), and TF-IDF directly captures those cues.
-    In contrast, LLMs need far more data to reach similar accuracy because they learn at the token-sequence level and must also interpret the natural-language instruction (“Classify the subreddit…”).
-
-The LLM fine-tunes are still valuable, but their strength shows up on harder, semantically driven tasks where the boundaries between classes aren’t as obvious.
+A Random Forest performs well on this task because subreddit language is highly distinctive — for example, “NASA” appears frequently in science, while “book” or “author” cues books. TF-IDF captures these lexical signals efficiently, yielding strong accuracy without complex modeling.
 
 !!! tip "Key takeaway"
-    For $0 in compute cost, you can build a near-perfect model for a simple, well-structured task using time-tested techniques like Random Forests.
-    Fine-tuning large language models still matters — but mostly when the decision boundary is semantic, contextual, or ambiguous in ways that simple models can’t capture.
+    For $0 in compute cost, traditional models like Random Forest can achieve strong baselines on text classification tasks. 
+    Fine-tuned LLMs become most valuable when classification boundaries rely on semantic understanding or contextual nuance rather than simple word patterns.
 
 This comparison reminds us that model choice should match task complexity — the simplest model that works well is often the best starting point.
 
 ![Evaluation Results Bar Chart](/assets/images/fine-tune-bar-chart-accuracy.png)
 
-*Figure: Comparison of model accuracies across five setups. The base Qwen3-8B achieved 39% accuracy, while a fine-tuned LoRA adapter nearly doubled performance to 74%. GPT-4.1 mini (base) reached 76% using structured outputs, and fine-tuning GPT-4.1 mini pushed accuracy to 89%. A classical Random Forest model trained on the same dataset achieved 99% accuracy, highlighting how well classic machine learning classification methods can perform when classes are highly separable.*
+*Figure: Comparison of model accuracies across five setups. The base Qwen3-8B achieved 41% accuracy, while a fine-tuned LoRA adapter nearly doubled performance to 78%. GPT-4.1 mini (base) reached 79% using structured outputs, and fine-tuning GPT-4.1 mini pushed accuracy to 89%. A Random Forest baseline reached 72%, showing that traditional models remain competitive on lexically distinct tasks.* 
 
 
 ## Conclusion
 
 Fine-tuning turns a general-purpose language model into a specialist. By preparing a labeled dataset, uploading it to Together AI for training, and then running inference with vLLM locally, you can create models that perform dramatically better on your specific task.
 
-In our example, a simple LoRA fine-tune nearly doubled accuracy on a classification benchmark — from 39% with the base model to 74% with the fine-tuned adapter. The process was fast, affordable, and flexible: cloud training for convenience, local inference for scale.
+In our example, a simple LoRA fine-tune nearly doubled accuracy on a classification benchmark — from 41% with the base model to 78% with the fine-tuned adapter. The process was fast, affordable, and flexible: cloud training for convenience, local inference for scale.
