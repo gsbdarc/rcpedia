@@ -13,7 +13,7 @@ When your project is nearing completion and you have finished running computatio
 Archiving data will save disk space on the Yens as well as make it easy for you to transfer your full project as one big file.
 
 !!! Warning "The Yens Are Not For Long-Term Storage"
-    The Yens are **not** meant for long-term archiving of files and past projects. You should figure out where you want to archive your projects or talk to the DARC team. Possible long-term and affordable solutions include [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"}, [AWS Glacier](https://aws.amazon.com/glacier/){:target="_blank"}, or [GitLab](https://code.stanford.edu/){:target="_blank"}. You can store the archived files there and move them off of Yens.
+    The Yens are **not** meant for long-term archiving of files and past projects. You should figure out where you want to archive your projects or talk to the DARC team. Possible long-term and affordable solutions include Stanford's [Elm Cold Storage](https://uit.stanford.edu/service/elm-storage){:target="_blank"}, [Google Drive](https://uit.stanford.edu/service/gsuite/drive){:target="_blank"}, [AWS Glacier](https://aws.amazon.com/glacier/){:target="_blank"}, or [GitLab](https://code.stanford.edu/){:target="_blank"}. You can store the archived files there and move them off of Yens.
 
 ## How Do I Archive?
 
