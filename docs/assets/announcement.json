@@ -1,6 +1,6 @@
 {
-    "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: December 4 & 5, 2025. All Yen servers will be offline for maintenance and storage upgrades ⚠️",
+    "type": "WARNING",
+    "message": "☃️ <b>Winter Closure</b> ☃️ Dec. 20, 2025 – Jan. 4, 2026. DARC support unavailable during this period. The Yens remain accessible. For major outages, contact <a href=\"mailto:srcc-support@stanford.edu\" target=\"_blank\">srcc-support@stanford.edu</a>.",
     "examples": [
         {
             "type": "ERROR",
