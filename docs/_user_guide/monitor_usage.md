@@ -28,7 +28,7 @@ Please refer to our [Parallel Processing in R](/_user_guide/parallel_processing_
 Be sure to monitor your processes, particularly when using a new package, to verify that you are using the expected number of cores.
 
 ## Monitoring Disk Usage
-Personal home directories have a 50 GB quota, while faculty project directories on [ZFS](/_user_guide/storage){target="_blank"} are much larger. 
+Personal home directories have a 50 GB quota, while faculty [project directories](/_user_guide/storage){target="_blank"} are much larger. 
 
 !!! danger "Do NOT Exceed Your Home Directory Quota!"
     If you exceed your home directory quota, you cannot access Jupyter or perform many basic system tasks.

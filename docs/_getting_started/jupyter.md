@@ -57,7 +57,7 @@ In addition, any virtual environment created with `venv` can be made into a cust
     ```title="Terminal Command"
     source venv/bin/activate
     ```
-    This command assumes you have [already made](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your ZFS project folder and the name of your virtual environment is `venv`.
+    This command assumes you have [already made](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv){:target=_blank} a `venv` in your project folder and the name of your virtual environment is `venv`.
 
 * Install `ipykernel` package into the active `venv`: 
     ```title="Terminal Command"
@@ -200,7 +200,7 @@ You can also launch a bash terminal from JupyterHub.  This provides access to co
 
 
 ### File Upload and Download
-One very useful feature of JupyterHub is the ability to upload and download files from ZFS.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.
+One very useful feature of JupyterHub is the ability to upload and download files from Yen storage.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.
 
 ![File Upload](/assets/images/jupyter_upload.png)
 

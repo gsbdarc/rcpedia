@@ -36,7 +36,7 @@ Let's navigate to the shared project directory:
 ```title="Terminal Command"
 cd <path/to/project>
 ```
-where `<path/to/project>` is the shared project location on ZFS.
+where `<path/to/project>` is the shared project location on the Yens.
 
 Create a new virtual environment named `my_env` using the system Python path. This will create a directory called `my_env` inside the project directory:
 
