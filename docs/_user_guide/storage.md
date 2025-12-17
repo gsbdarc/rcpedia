@@ -52,9 +52,13 @@ Your home directory is your private working space on the Yens. It’s best used 
     To create a new project directory, submit the [Project Space Request Form](http://darc.stanford.edu/yenstorage){:target="_blank"}. This form allows you to estimate disk usage, and specify any collaborators that should be added to the shared access list. Access to the directory is controlled through Stanford [workgroups](/_policies/workgroups/){:target="_blank"}.
 
 Project directories on the Yens provide shared, scalable storage for research conducted on the Yens.
-Every project space is created by the DARC team in collaboration with the system administrators and mounted at a path:
+Every faculty project space is created by the DARC team in collaboration with the system administrators and mounted at a path:
 ```{ .yaml .no-copy title="Terminal Output" }
-/zfs/projects/<faculty/students?/<your-project-dir>
+/zfs/projects/faculty/<your-project-dir>
+```
+or for a student-lead project:
+```
+/zfs/projects/students/<your-project-dir>
 ```
 
 Project directories are ideal for:
