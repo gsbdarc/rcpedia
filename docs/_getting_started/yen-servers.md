@@ -23,7 +23,7 @@ Even when your laptop is capable of doing the job, you may still want to offload
 
 **Storage**
 
-The project files and any large output should live on [ZFS file system](/_user_guide/storage/#preferred-platforms){:target="_blank"} (not in your home). The ZFS capacity is nearly 1 PB (petabyte).
+The project files and any large output should live in a dedicated [project space](/_user_guide/storage/#project-directory){:target="_blank"} (not in your home). The storage capacity is over 1 PB (petabyte).
 
 **Licensed software**
 

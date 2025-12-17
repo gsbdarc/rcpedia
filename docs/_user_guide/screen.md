@@ -68,7 +68,7 @@ There is a screen on:
 1 Socket in /run/screen/S-nrapstin.
 ```
 
-If you exit out of the server here, you can be assured that the scripts in your screen sessions will continue to run, granted they are accessing ZFS space.
+If you exit out of the server here, you can be assured that the scripts in your screen sessions will continue to run, granted they are accessing the Yen file system. 
 
 To return to any existing screen session, you simply need to type:
 ```title="Terminal Command"
