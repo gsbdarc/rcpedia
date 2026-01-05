@@ -1,6 +1,6 @@
 {
     "type": "ALERT",
-    "message": "⚠️  Notice: Emergency maintenance <b>Jan 6, 3:30–4:30 pm PT<b> to fix a storage configuration issue. No data was lost. All interactive Yen and Jupyter jobs will be killed and must be restarted after maintenance; Slurm jobs are unaffected. We apologize for the inconvenience.",
+    "message": "⚠️ Notice: Emergency maintenance <b>Jan 6, 3:30–4:30 pm PT</b> to fix a storage configuration issue. No data was lost. All interactive Yen and Jupyter jobs will be killed and must be restarted after maintenance; Slurm jobs are unaffected. We apologize for the inconvenience.",
     "examples": [
         {
             "type": "ERROR",
