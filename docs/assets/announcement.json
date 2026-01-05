@@ -1,6 +1,6 @@
 {
-    "type": "WARNING",
-    "message": "☃️ <b>Winter Closure</b> ☃️ Dec. 20, 2025 – Jan. 4, 2026. DARC support unavailable during this period. The Yens remain accessible. For major outages, contact <a href=\"mailto:srcc-support@stanford.edu\" target=\"_blank\">srcc-support@stanford.edu</a>.",
+    "type": "ALERT",
+    "message": "⚠️ Notice: Emergency maintenance <b>Jan 6, 3:30–4:30 pm PT</b> to fix a storage configuration issue. No data was lost. All interactive Yen and Jupyter jobs will be killed and must be restarted after maintenance; Slurm jobs are unaffected. We apologize for the inconvenience.",
     "examples": [
         {
             "type": "ERROR",
