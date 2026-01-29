@@ -119,6 +119,9 @@ There is a large scratch space, accessible from any Yen server, at ```/scratch/s
 
 ## How to Check Home and Project Space Quota
 
+!!! note "Temporarily Unavailable"
+    Currently the gsbquota command will not display usage properly due to new VAST storage system upgrade.  Our system administrators are working on getting this command to work.  Thanks for your patience.
+
 To determine how much of your quota you have used in your home direcotry `/home/users/<SUNet ID>/`, you can simply type:
 
 ```title="Terminal Command"
@@ -143,7 +146,7 @@ gsbquota /zfs/projects/students/<my-project-dir>/
 
 ## How to Recover Deleted Files
 
-Files on the Yens are backed up in **snapshots**, so if you need to recover something you accidentally deleted, luckily you can still access it! Please email the [DARC](mailto:gsb_darcresearch@stanford.edu) team for help.
+Files on the Yens are backed up in **snapshots**, so if you need to recover something you accidentally deleted, luckily you can still access it!
 
 Here is an example of something that might happen:
 
@@ -162,8 +165,13 @@ Note that snapshots are retained according to specific intervals. The current sn
 * <u>Weekly</u> --- retain 2 months of weekly snapshots
 * <u>Monthly</u> --- retain 1 year of monthly snapshots
 
-!!! important "Email Us to Recover Files"
-    Please email [DARC](mailto:gsb_darcresearch@stanford.edu) for help recovering files from snapshots.
+You can find them at the top level of any project folder, so for our example:
+`/zfs/projects/faculty/hello-world/.snapshot`
+
+!!! Note "Snapshots Are Still Being Populated"
+    The snapshots are still being populated in the new file system, eventually we will have a year of snapshots.
+
+We recommend *not* relying on snapshots, just because it's not always available, and usually suggests that you could organize your workflow in a more effective way. Think of the snapshots as "oh thank goodness, I didn't mean to delete that".
 
 
 ## Other Storage Options
