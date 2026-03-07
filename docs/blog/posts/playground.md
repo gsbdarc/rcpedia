@@ -74,7 +74,7 @@ payload = {
 }
 ```
 
-## Known Issues
+## Known Limitations
 
 - **Billing**: You are billed on a monthly basis, and detailed breakdowns of model use and token numbers are not provided.
 - **Speed**: The AI API Gateway is often significantly slower than using commercially available models.
