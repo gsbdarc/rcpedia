@@ -35,7 +35,7 @@ These straightforward access controls make the platform flexible for both admini
 
 The GSB has their own Redivis organization ([StanfordGSBLibrary](https://redivis.com/StanfordGSBLibrary){:target="_blank"}) within the greater [Stanford Data Farm](https://redivis.com/Stanford){:target="_blank"} pool of organizations. To join the GSB's Redivis organization, follow [the directions on this page](https://gsb-research-help.stanford.edu/library/faq/358602){:target="_blank"}. After you join the organization, you can start using the datasets that are already available to you.
 
-Once you have a Redivis account, you can also join the organization hosted by Stanford Libraries ([SUL](https://redivis.com/SUL){:target="_blank"}), which features [an array of datasets](https://redivis.com/SUL/datasets){:target="_blank"} that may be of interest to GSB researchers. Note that the set of datasets in this organization is not maintained by the GSB so you should [contact Research Data Services at SUL](https://docs.google.com/forms/d/e/1FAIpQLSetdXE6wmr5e7Qdor31lCfl9OLsKRm50Ph08tWJbRkACl9dWg/viewform){:target="_blank"} instead for support.
+Once you have a Redivis account, you can also join the organization hosted by Stanford Libraries ([SUL](https://redivis.com/SUL){:target="_blank"}), which features [an array of datasets](https://redivis.com/SUL/datasets){:target="_blank"} that may be of interest to GSB researchers. Note that the set of datasets in this organization is not maintained by the GSB so you should [contact Research Data Services at SUL](mailto:ask-data-services@lists.stanford.edu) instead for support.
 
 ### Access to Datasets
 
