@@ -1,6 +1,6 @@
 {
     "type": "ALERT",
-    "message": "⚠️ Scheduled Downtime: <b>Jan 22, 8 am - 6 pm PT</b>. All Yen servers will be offline. ",
+    "message": "⚠️ Scheduled Downtime: All Yen servers will be offline <b>March 26–27, 2026 </b> (through end of day) as we install new GPU and CPU compute nodes to expand compute capacity ⚠️.",
     "examples": [
         {
             "type": "ERROR",
