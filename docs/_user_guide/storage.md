@@ -97,7 +97,6 @@ Some workflows require fast, short-term storage for intermediate results. The Ye
 
 These locations are **not intended for permanent data** and are **not backed up**.
 
----
 
 #### Node-Local Storage
 
@@ -123,7 +122,6 @@ Use `/tmp` when:
       - `/tmp` is cleared when the job is done and when the node reboots. Always copy important results back to your project directory.
       - Avoid filling `/tmp`. Other jobs on the same node depend on it.
 
----
 
 #### Cluster-Wide Scratch
 
@@ -148,7 +146,7 @@ Use `/scratch/shared` when:
 
 ---
 
-### 🔒 Using Scratch Safely 
+##### 🔒 Using Scratch Safely 
 
 By default, files in `/scratch/shared` may be visible to other users unless you restrict access.
 
@@ -160,20 +158,22 @@ To safely use scratch, you should:
 2. Restrict access with `chmod`
 3. Ensure new files are private using `umask`
 
-#### Step 1: Create a private scratch directory
+**Step 1: Create a private scratch directory**
+
 You can create this directory either manually or directly within your job script:
 ```bash title="Terminal Input"
 mkdir -p /scratch/shared/$USER
 ```
 Using `-p` ensures the command won’t fail if the directory already exists.
 
-#### Step 2: Restrict access to your directory
+**Step 2: Restrict access to your directory**
 ```bash title="Terminal Input"
 chmod 700 /scratch/shared/$USER
 ```
 This ensures only you can access the directory.
 
-#### Step 3: Ensure new files are private
+**Step 3: Ensure new files are private**
+
 ```bash title="Terminal Input"
 umask 077
 ```
@@ -216,7 +216,19 @@ cd $SCRATCH_DIR
 python script.py
 ```
 
+---
 
+##### 🧹Clean Up Your Scratch Space
+Scratch is a shared, temporary resource. You are expected to remove your files when your job is complete.
+
+To clean up your scratch directory:
+
+```bash title="Terminal Command"
+rm -rf /scratch/shared/$USER/*
+``` 
+
+!!! warning "Always move results back to permanent storage"
+      - Files in `/scratch/shared` are not backed up and may be periodically cleared by administrators. Any important results should be moved to your project directory. 
 
 ## How to Check Home and Project Space Quota
 
