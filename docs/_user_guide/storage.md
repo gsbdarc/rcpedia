@@ -30,8 +30,13 @@ Use VAST when:
 
 - You want a shared project directory for collaboration
 
-!!! note "ZFS Paths"
-    Although VAST now provides the underlying storage, the existing `/zfs/...` paths remain in place. You do not need to change your workflows, scripts, or file paths — everything continues to function exactly as before.
+!!! note "Multiple Mount Paths"
+    Project directories are now accessible from both:
+
+      - `/zfs/projects/...`
+      - `/yen/projects/...`
+
+    These paths point to the same underlying VAST storage. You can use either one interchangeably in your workflows.
 
 ### Home Directory
 
@@ -43,7 +48,7 @@ Every Yen user receives a personal home directory:
 Your home directory is your private working space on the Yens. It’s best used for small scripts and utilities.
 
 !!! Danger "Do NOT Store Large Files in Home"
-    Home directories have a strict **50 GB** limit. They are not intended for large datasets, large outputs, or collaborative projects. 
+    Home directories have a strict **80 GB** limit. They are not intended for large datasets, large outputs, or collaborative projects. 
     If your home directory is full, you won't be able to access [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
  
 
@@ -57,7 +62,7 @@ Every faculty project space is created by the DARC team in collaboration with th
 /zfs/projects/faculty/<your-project-dir>
 ```
 or for a student-lead project:
-```
+```{ .yaml .no-copy title="Terminal Output" }
 /zfs/projects/students/<your-project-dir>
 ```
 
@@ -85,54 +90,173 @@ Project directories are ideal for:
 If you would like to discuss specific storage solutions for your project, please email the [DARC](mailto:gsb_darcresearch@stanford.edu){:target=_blank} team to discuss further.
 
 ### Temporary Storage
+Some workflows require fast, short-term storage for intermediate results. The Yen cluster provides two options:
 
-Some workflows require fast, short-term storage for intermediate results or temporary files. The Yen cluster provides two such locations: node-local temporary storage and shared scratch space. These areas are not intended for permanent data and will be purged intermittently.
+- Node-local storage: `/tmp`
+- Shared scratch space: `/scratch/shared`
 
-**`/tmp` - Node-Local Storage**
+These locations are **not intended for permanent data** and are **not backed up**.
 
-Each Yen compute node has a local disk available at `/tmp` path, which is over **1 TB** in size. 
 
-Use `/tmp` when you need:
+#### Node-Local Storage
 
- - Very fast read/write performance
+Each compute node provides local disk space at:
 
-- Temporary files used only by a job running on a single node
+```bash { .yaml .no-copy }
+/tmp
+```
 
-Characteristics:
+This storage is:
 
-- Accessible only from the node where your job is running
+- Very fast (local to the node)
+- Typically **~1 TB per node**
+- Only accessible from the node where your job is running
 
-- Cleared when the node reboots
+Use `/tmp` when:
 
-- Not backed up
+- Your job runs on a **single node**
+- You need maximum I/O performance
+- Files are temporary and disposable
 
-!!! warning "Avoid Filling /tmp"
-    Jobs running on the same node may fail if `/tmp` fills up.
-    Always clean up temporary files after your job finishes.
+!!! warning "Always move results back to permanent storage"
+      - `/tmp` is cleared when the job is done and when the node reboots. Always copy important results back to your project directory.
+      - Avoid filling `/tmp`. Other jobs on the same node depend on it.
 
-**`/scratch/shared` — Cluster-Wide Scratch**
 
-There is a large scratch space, accessible from any Yen server, at ```/scratch/shared```, which is **100 TB** in size. Reads and writes to this space are slower than to local to the node `/tmp` storage.
+#### Cluster-Wide Scratch
 
-!!! warning "Not for Long-Term Storage"
-    `/scratch/shared` is not backed up and may be periodically cleared by administrators. Move any important results to your project directory as soon as possible.
+Shared scratch space is available at:
+
+```bash { .yaml .no-copy}
+/scratch/shared
+```
+
+
+This space is:
+
+- Large (**~100 TB total**)
+- Accessible from all Yen nodes
+- Slower than `/tmp`
+
+Use `/scratch/shared` when:
+
+- Jobs run across multiple nodes
+- Intermediate data must be shared between jobs
+- You need more space than `/tmp`
+
+---
+
+##### 🔒 Using Scratch Safely 
+
+By default, files in `/scratch/shared` may be visible to other users unless you restrict access.
+
+**You are responsible for setting permissions on your scratch directory.**
+
+To safely use scratch, you should:
+
+1. Create your own directory
+2. Restrict access with `chmod`
+3. Ensure new files are private using `umask`
+
+**Step 1: Create a private scratch directory**
+
+You can create this directory either manually or directly within your job script:
+```bash title="Terminal Input"
+mkdir -p /scratch/shared/$USER
+```
+Using `-p` ensures the command won’t fail if the directory already exists.
+
+**Step 2: Restrict access to your directory**
+```bash title="Terminal Input"
+chmod 700 /scratch/shared/$USER
+```
+This ensures only you can access the directory.
+
+**Step 3: Ensure new files are private**
+
+```bash title="Terminal Input"
+umask 077
+```
+This ensures that any new files or directories you create are private by default.
+
+    
+!!! warning "`umask` is session-based" 
+    The `umask` setting only applies to the current terminal session or job. It does not persist automatically and is not tied to a specific directory.
+
+The umask setting only applies to the current terminal session or job. It does not persist automatically and is not tied to a specific directory.
+
+This means:
+
+- You should run `umask 077` each time you start an interactive job, or
+- Include it at the top of every Slurm job script
+
+💻 **Example: Interactive Session**
+
+```bash title="Using scratch in an interactive job"
+cd /scratch/shared
+mkdir -p $USER
+chmod 700 $USER
+cd $USER
+
+umask 077
+python script.py
+```
+
+💻 **Example: Slurm Job**
+```bash title="Using scratch in a slurm job"
+#!/bin/bash
+
+umask 077
+SCRATCH_DIR=/scratch/shared/$USER
+
+mkdir -p $SCRATCH_DIR
+chmod 700 $SCRATCH_DIR
+cd $SCRATCH_DIR
+
+python script.py
+```
+
+---
+
+##### 🧹Clean Up Your Scratch Space
+Scratch is a shared, temporary resource. You are expected to remove your files when your job is complete.
+
+To clean up your scratch directory:
+
+```bash title="Terminal Command"
+rm -rf /scratch/shared/$USER/*
+``` 
+
+!!! warning "Always move results back to permanent storage"
+      - Files in `/scratch/shared` are not backed up and may be periodically cleared by administrators. Any important results should be moved to your project directory. 
 
 ## How to Check Home and Project Space Quota
 
-!!! note "Temporarily Unavailable"
-    Currently the gsbquota command will not display usage properly due to new VAST storage system upgrade. Our system administrators are working on getting this command to work. Thanks for your patience.
-
-To determine how much of your quota you have used in your home direcotry `/home/users/<SUNet ID>/`, you can simply type:
+To check your storage usage of your home directory, `/home/users/<SUNet ID>/`, run:
 
 ```title="Terminal Command"
 gsbquota
 ```
 
-The resulting output will display the actual percentage and gigabytes used, as shwon below:
-
+Example output:
 ```{ .yaml .no-copy title="Terminal Output" }
-/home/users/<SUNet ID>: currently using 50% (25G) of 50G available
+/home/users/<SUNet ID>:
+  using 52% (43GiB) of soft quota 80GiB
+  hard quota: 300GiB
+  time until lockout: no block scheduled
 ```
+
+### How to Interpret This
+- Soft quota (80GiB)
+    Your target limit. You should stay below this for normal operation.
+- Hard quota (300GiB)
+    Absolute maximum. If you exceed this, writes will fail.
+- Time until lockout
+    If you stay above the soft quota too long, you may eventually be locked out of the system.
+
+!!! warning "Stay below soft quota for home" 
+    Stay below the 80GiB soft quota to avoid interruptions to your workflows and access to tools like [JupyterHub](/_getting_started/jupyter/){:target="_blank"}.
+
 
 You can also check size of your project space by passing in a full path to your project space to `gsbquota` command:
 
