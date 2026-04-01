@@ -26,7 +26,7 @@ The downside of this system is that resources can be eaten up rather quickly by 
     <div class="col col-md-2"></div>
   </div>
 
-The `yen-slurm` cluster has 10 nodes (including 3 GPU nodes) with a total of 2,112 available CPU cores, 10.25 TB of memory, and 12 NVIDIA GPU's.
+The `yen-slurm` cluster has 12 nodes (including 4 GPU nodes) with a total of 2,880 available CPU cores, 12.5 TB of memory, and 14 NVIDIA GPU's.
 
 ## What Is A Scheduler?
 
@@ -313,11 +313,10 @@ Run `sinfo -o "%P %D %N"` in a terminal to see available partitions:
 
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo -o "%P %D %N"
-PARTITION NODES NODELIST
-normal* 7 yen[10-11,15-19]
-dev 7 yen[10-11,15-19]
-long 7 yen[10-11,15-19]
-gpu 3 yen-gpu[1-3]
+normal* 8 yen[10-16,20]
+dev 8 yen[10-16,20]
+long 8 yen[10-16,20]
+gpu 4 yen-gpu[1-4]
 ```
 
 The first column PARTITION lists all available partitions. Partitions are the logical subdivision
@@ -330,7 +329,7 @@ The four partitions have the following limits:
 |  normal        |    512             |  3072000               | 3000                  | 2 days  (2 hours)     |
 |  long          |    50              |  3072000               | 3000                  | 7 days (2 hours)      |
 |  dev           |    2               |  48000                 | 46                    | 2 hours (1 hour)      |
-|  gpu           |    64              |  256000                | 250                    | 1 day (2 hours)       |
+|  gpu           |    256              |  768000                | 755                    | 1 day (2 hours)       |
 
 The default unit for memory allocation in Slurm is Megabytes (MB).
 You can request memory using either of the following flags:
@@ -387,23 +386,24 @@ You can pass format options to the `sinfo` command as follows:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo --format="%m | %C"
 MEMORY | CPUS(A/I/O/T)
-257366+ | 1040/1072/0/2112
+MEMORY | CPUS(A/I/O/T)
+257360+ | 2012/868/0/2880
 ```
 
 where MEMORY outputs the minimum size of memory of the `yen-slurm` cluster node in megabytes (256 GB) and CPUS(A/I/O/T) prints the number of CPU's that are allocated / idle / other / total.
-For example, if you see `1040/1072/0/2112` that means 1,040 CPU's are allocated, 1,072 are idle (free) out of 2,112 CPU's total.
+For example, if you see `2012/868/0/2880` that means 1,012 CPU's are allocated, 868 are idle (free) out of 2,880 CPU's total.
 
 You can also run `checkyens` and look at the last line for summary of all pending and running jobs on `yen-slurm`.
 
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ checkyens
 Enter checkyens to get the current server resource loads. Updated every minute.
-yen1 :  2 Users | CPU [#######             36%] | Memory [####                22%] | updated 2024-10-22-00:16:01 
-yen2 :  3 Users | CPU [                     1%] | Memory [########            42%] | updated 2024-10-22-00:16:00 
-yen3 :  6 Users | CPU [                     1%] | Memory [###                 15%] | updated 2024-10-22-00:16:00 
-yen4 :  2 Users | CPU [                     0%] | Memory [###                 16%] | updated 2024-10-22-00:16:00 
-yen5 :  0 Users | CPU [####                21%] | Memory [####                21%] | updated 2024-10-22-00:16:04 
-yen-slurm : 386 jobs, 7 pending | 834 CPUs allocated (53%) | 5142G Memory Allocated (50%) | updated 2024-10-22-00:16:02
+yen1 :  5 Users | CPU [                     0%] | Memory [##                  11%] | updated 2026-04-01-09:44:00
+yen2 :  3 Users | CPU [                     0%] | Memory [##                  13%] | updated 2026-04-01-09:44:00
+yen3 :  2 Users | CPU [                     0%] | Memory [######              33%] | updated 2026-04-01-09:44:00
+yen4 :  3 Users | CPU [                     0%] | Memory [###                 17%] | updated 2026-04-01-09:44:00
+yen5 :  6 Users | CPU [####                23%] | Memory [#                    5%] | updated 2026-04-01-09:44:01
+yen-slurm : 231 jobs, 394 pending | 2016 CPUs allocated (70%) | 8978G Memory Allocated (71%) | updated 2026-04-01-09:44:02
 ```
 
 ### When Will My Job Start?
@@ -437,15 +437,16 @@ as a GPU. These features can be viewed as follows:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo -o "%20N  %5c  %5m  %64f  %10G"
 NODELIST              CPUS   MEMOR  AVAIL_FEATURES                                                    GRES
-yen[10-11,15-19]      128+   10315  (null)                                                            (null)
-yen-gpu1              64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A30,GPU_MEMORY:24GiB  gpu:4
-yen-gpu[2-3]          64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A40,GPU_MEMORY:48GiB  gpu:4
+yen[10-16,20]         128+   10315  (null)                                                            (null)
+yen-gpu1              64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A30,GPU_MEMORY:24GiB  gpu:4(S:0-
+yen-gpu[2-3]          64     25736  GPU_BRAND:NVIDIA,GPU_UARCH:AMPERE,GPU_MODEL:A40,GPU_MEMORY:48GiB  gpu:4(S:0-
+yen-gpu4              256    77322  GPU_BRAND:NVIDIA,GPU_UARCH:HOPPER,GPU_MODEL:H200,GPU_MEMORY:141G  gpu:2(S:0-
 ```
 
-For example, to ensure that your job will run on a node that has an NVIDIA Ampere A40 GPU, you can include the `-C`/`--constraint` option to the `sbatch` command or in an `sbatch` script. Here is a trivial example command that demonstrates this: 
+For example, to ensure that your job will run on a node that has an NVIDIA H200 GPU, you can include the `-C`/`--constraint` option to the `sbatch` command or in an `sbatch` script. Here is a trivial example command that demonstrates this: 
 
 ```bash title="sbatch Command"
-sbatch -C "GPU_MODEL:A30" -G 1 -p gpu --wrap "nvidia-smi"
+sbatch -C "GPU_MODEL:H200" -G 1 -p gpu --wrap "nvidia-smi"
 ```
 
 At present, only GPU-specific features exist, but additional node features may be added over time.
