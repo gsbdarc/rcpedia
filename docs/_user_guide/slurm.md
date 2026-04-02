@@ -386,7 +386,6 @@ You can pass format options to the `sinfo` command as follows:
 ```{.yaml .no-copy title="Terminal Output"}
 USER@yen4:~$ sinfo --format="%m | %C"
 MEMORY | CPUS(A/I/O/T)
-MEMORY | CPUS(A/I/O/T)
 257360+ | 2012/868/0/2880
 ```
 

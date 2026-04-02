@@ -64,5 +64,5 @@ The Yen Slurm nodes can only be accessed using the [Slurm scheduler.](/_user_gui
 
 !!! Important
      **`yen-gpu1`** has **4** NVIDIA Ampere **A30 GPUs**, each with **24 GB of GPU RAM**<br>
-     **`yen-gpu[2-3]`** each has **4** NVIDIA Ampere **A40 GPUs**, each with **48 GB of GPU RAM**
+     **`yen-gpu[2-3]`** each has **4** NVIDIA Ampere **A40 GPUs**, each with **48 GB of GPU RAM** <br>
      **`yen-gpu4`** has **2** NVIDIA Hopper **H200 GPUs**, each with **141 GB of GPU RAM**
