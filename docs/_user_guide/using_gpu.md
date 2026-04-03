@@ -5,8 +5,10 @@
 
 - `yen-gpu1` has 64 threads, 256 G of RAM and 4 A30 NVIDIA GPU's
 - `yen-gpu2` and `yen-gpu3` each have 64 threads, 256 G of RAM and 4 A40 NVIDIA GPU's
+- `yen-gpu4` has 256 threads, 750G of RAM and 2 H200 NVIDIA GPU's
 
-The A30 NVIDIA GPU's have 24 G of GPU RAM while the A40 NVIDIA GPU's have 48 G of GPU RAM.
+The A30 NVIDIA GPU's have 24 G of GPU RAM, the A40 NVIDIA GPU's have 48 G of GPU RAM while H200 NVIDIA GPU's have 141 GB of GPU RAM.
+You can fit much larger LLM's onto H200's. 
 
 ### GPU Partition
 
@@ -14,8 +16,7 @@ To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/sl
 
 ```{.yaml .no-copy title="Terminal Output"}
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-gpu          up 1-00:00:00      1    mix yen-gpu3
-gpu          up 1-00:00:00      2   idle yen-gpu[1-2]
+gpu          up 1-00:00:00      2   idle yen-gpu[1-4]
 ```
 
 !!! warning "Job Time and GPU Limit"
