@@ -118,6 +118,11 @@ nav:
   - Blog:
       - blog/index.md
 
+extra:
+  analytics:
+    provider: google
+    property: G-5P4SRX596V
+
 extra_css:
   - stylesheets/custom.css
 
