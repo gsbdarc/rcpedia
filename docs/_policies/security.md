@@ -33,7 +33,7 @@ While the Yen servers do protect data from unauthorized access, there are no mec
 
 On the Yens, a shared project space is provisioned for each new project and has a faculty owner, as well as collaborators who can access the shared space. Each project space is assigned a project space workgroup (`gsb-rc:[faculty-SUNet]-[projectname]`).
 
-Adding (and removing) users to your shared project space is self-service and can be managed as described [here](/_policies/workgroups/#addingremoving-users-to-your-workgroup){:target="_blank"}. For GSB faculty members, adding [collaborators external to the GSB](/_policies/collaborators/){:target="_blank"} to your workgroup also grants those people access to the Yens.
+Adding (and removing) users to your shared project space is self-service and can be managed as described [here](/_policies/workgroups/#how-to-add-or-remove-users-to-your-workgroup){:target="_blank"}. For GSB faculty members, adding [collaborators external to the GSB](/_policies/collaborators/){:target="_blank"} to your workgroup also grants those people access to the Yens.
 
 Note that it is **your** responsibility to ensure the correct researchers are listed in your project workgroup, that they have the appropriate role (Member or Administrator, discussed [here](/_policies/workgroups/){:target="_blank"}), *and* that they have taken the necessary steps to use any data in your project.
 
@@ -65,13 +65,13 @@ Data licenses can have specific clauses about where the data can be stored, as w
 
 ### Configuration Matters
 
-Tools like Cursor and Claude Code work by scanning files it has access to. It is imperative that you know which files are being provided to these tools, and that you provide only the files that these tools need. If Cursor inadvertently is granted access to a data directory, for instance, that data may be sent to a third party server and stored and processed in unexpected ways. Consider isolating these tools, potentially including running them in a containerized environment that provides another layer of data isolation. If possible, you may be able to configure these tools to emit verbose logs of the actions they take, so that you can confirm that they are only scanning the files that you intend, and save the logs for any potential auditing in the event that a data provider raises concerns in the future. In addition, you can request that these tools do not store your data -- the configurations vary by tool, but whenever possible you should be providing as little code, data and personal information to these tools.
+Tools like Cursor and Claude Code work by scanning the files they have access to. It is imperative that you know which files are being provided to these tools, and that you provide only the files that these tools need. If Cursor inadvertently is granted access to a data directory, for instance, that data may be sent to a third party server and stored and processed in unexpected ways. Consider isolating these tools, potentially including running them in a containerized environment that provides another layer of data isolation. If possible, you may be able to configure these tools to emit verbose logs of the actions they take, so that you can confirm that they are only scanning the files that you intend, and save the logs for any potential auditing in the event that a data provider raises concerns in the future. In addition, you can request that these tools do not store your data -- the configurations vary by tool, but whenever possible you should be providing as little code, data and personal information to these tools.
 
 ### Other Tooling can Help
 
 Claude Code and Cursor are complicated tools, but at their core is one or more large language models. You may be able to use a specific model from, e.g., Stanford's managed [AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){:target="_blank"}, which can reduce your exposure risk. These tools have been vetted by Stanford IT for data security, and will give you an API key that is billed directly back to a Stanford account. In general, it is preferred to use Stanford's tools or locally installed tools to expose as little data as possible.
 
-### Data Risk 
+### Data Risk
 
 Stanford categorizes data risk into three broad categories, low (mostly public data), moderate (mostly private data) and high (data that comes with legal ramifications). High risk data needs to be treated with extreme caution, and if you're using any amount of high risk data, you should avoid using any tools except those explicitly reviewed and approved by Stanford's IT department. Even if you're not using high risk data with Claude Code or Cursor, storing it on the same system means that misconfiguration or accidents could expose the university to legal consequences. 
 
