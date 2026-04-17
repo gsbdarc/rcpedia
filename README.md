@@ -1,9 +1,13 @@
+# RCpedia Website
+
 This is a guide for making edits to new RCpedia website, using `git` to push your changes and testing locally first to preview the changes.
+
+This repo was built and tested with Python v3.13 on MacOS.
 
 If you're doing this for the first time, start by cloning the repo to your local directory:
 
 ```
-git clone https://github.com/gsbdarc/rcpedia_mockup.git
+git clone https://github.com/gsbdarc/rcpedia.git
 ```
 
 Switch to the QA branch first:
