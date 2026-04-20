@@ -123,21 +123,13 @@ jobs:
           max_attempts=5
           delay=15
       
-          for attempt in $(seq 1 "$max_attempts"); do
-            echo "Deploy attempt $attempt/$max_attempts..."
+          for attempt in $$(seq 1 "$$max_attempts"); do
+            echo "Deploy attempt $$attempt/$$max_attempts..."
       
-            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o BatchMode=yes -o ConnectTimeout=20 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
                 -av --delete site/ \
-                "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
+                "$$SSH_USER@$$SSH_HOST:/home/$$SSH_USER/$$TARGET_HOST/"; then
               echo "Deploy succeeded."
               exit 0
             fi
-      
-            echo "Deploy failed; sleeping ${delay}s..."
-            sleep "$delay"
-            delay=$((delay * 2))
-          done
-      
-          echo "Deploy failed after $max_attempts attempts."
-          exit 1
- 
+       
