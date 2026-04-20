@@ -12,21 +12,27 @@ on:
       - main
       - QA
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  SSH_HOST: rcpedia-qa.su.domains
+  SSH_USER: rcpediaq
+  SSH_PORT: "22"
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.12.3'
 
       - name: Cache pip
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.cache/pip
           key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
@@ -69,7 +75,7 @@ jobs:
           fi
 
       - name: Upload Site Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: site
           path: site/
@@ -80,12 +86,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download Site Artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: site
+          path: site
 
       - name: Set up SSH
         run: |
@@ -94,15 +101,43 @@ jobs:
           echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Deploy to Stanford Hosts
+      - name: DNS debug
         run: |
+          getent hosts "$SSH_HOST" || true
+          dig +short "$SSH_HOST" || true
+
+      - name: Show runner public IP
+        run: |
+          curl -s https://api.ipify.org && echo
+          
+      - name: Deploy to Stanford Hosts (with retries)
+        run: |
+          set -euo pipefail
+      
           if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
             TARGET_HOST="rcpedia-dev.stanford.edu"
           else
             TARGET_HOST="rcpedia.stanford.edu"
           fi
-
-          rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
-            -av --delete /home/runner/work/rcpedia/rcpedia/ \
-            rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/$TARGET_HOST/
+      
+          max_attempts=5
+          delay=15
+      
+          for attempt in $(seq 1 "$max_attempts"); do
+            echo "Deploy attempt $attempt/$max_attempts..."
+      
+            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+                -av --delete site/ \
+                "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
+              echo "Deploy succeeded."
+              exit 0
+            fi
+      
+            echo "Deploy failed; sleeping ${delay}s..."
+            sleep "$delay"
+            delay=$((delay * 2))
+          done
+      
+          echo "Deploy failed after $max_attempts attempts."
+          exit 1
  
