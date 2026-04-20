@@ -86,7 +86,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
-          path: site
 
       - name: Set up SSH
         run: |
@@ -95,28 +94,6 @@ jobs:
           echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Debug SSH connectivity
-        run: |
-          set -euxo pipefail
-          echo "github.ref=${{ github.ref }}"
-          echo "Resolve host:"
-          getent hosts rcpedia-qa.su.domains || true
-      
-          echo "Test TCP/22:"
-          timeout 10 bash -c '</dev/tcp/rcpedia-qa.su.domains/22' && echo "22 reachable" || echo "22 NOT reachable"
-      
-          echo "SSH verbose:"
-          ssh -vvv -i ~/.ssh/id_rsa -o BatchMode=yes -o ConnectTimeout=10 rcpediaq@rcpedia-qa.su.domains 'echo ok' || true
-
-      - name: DNS debug
-        run: |
-          getent hosts rcpedia-qa.su.domains || true
-          dig +short rcpedia-qa.su.domains || true
-
-      - name: Show runner public IP
-        run: |
-          curl -s https://api.ipify.org && echo
-          
       - name: Deploy to Stanford Hosts
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
@@ -126,6 +103,6 @@ jobs:
           fi
 
           rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
-            -av --delete site/ \
+            -av --delete /home/runner/work/rcpedia/rcpedia/ \
             rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/$TARGET_HOST/
  
