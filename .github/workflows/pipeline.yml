@@ -14,7 +14,10 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-  
+  SSH_HOST: rcpedia-qa.su.domains
+  SSH_USER: rcpediaq
+  SSH_PORT: "22"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -101,20 +104,13 @@ jobs:
       - name: Debug SSH connectivity
         run: |
           set -euxo pipefail
-          echo "github.ref=${{ github.ref }}"
-          echo "Resolve host:"
-          getent hosts rcpedia-qa.su.domains || true
-      
-          echo "Test TCP/22:"
-          timeout 10 bash -c '</dev/tcp/rcpedia-qa.su.domains/22' && echo "22 reachable" || echo "22 NOT reachable"
-      
-          echo "SSH verbose:"
-          ssh -vvv -i ~/.ssh/id_rsa -o BatchMode=yes -o ConnectTimeout=10 rcpediaq@rcpedia-qa.su.domains 'echo ok' || true
+          getent hosts "$SSH_HOST"
+          timeout 10 bash -c "</dev/tcp/$SSH_HOST/$SSH_PORT"
 
       - name: DNS debug
         run: |
-          getent hosts rcpedia-qa.su.domains || true
-          dig +short rcpedia-qa.su.domains || true
+          getent hosts "$SSH_HOST" || true
+          dig +short "$SSH_HOST" || true
 
       - name: Show runner public IP
         run: |
@@ -127,8 +123,8 @@ jobs:
           else
             TARGET_HOST="rcpedia.stanford.edu"
           fi
-
-          rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+          
+          rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
             -av --delete site/ \
-            rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/$TARGET_HOST/
+            "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"
  
