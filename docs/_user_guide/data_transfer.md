@@ -89,7 +89,7 @@ To copy files/folders from the Yen servers to your local machine, the `<source_p
     ![The Globus File manager page](/assets/images/file-manager.png)
 
 3. On the right-hand side, search for `GSB-Yen` Collection to transfer to. If successful, your `yen`
-home directory will be listed and you can navigate to the folder to which you want to transfer the data.
+home directory will be listed, and you can navigate to the folder to which you want to transfer the data.
 
     ![The Yen endpoint](/assets/images/gsb-yen-endpoint.png)
 
