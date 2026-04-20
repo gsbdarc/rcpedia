@@ -12,6 +12,12 @@ on:
       - main
       - QA
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+  SSH_HOST: rcpedia-qa.su.domains
+  SSH_USER: rcpediaq
+  SSH_PORT: "22"
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -86,6 +92,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: site
+          path: site
 
       - name: Set up SSH
         run: |
@@ -94,6 +101,21 @@ jobs:
           echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
+      - name: Debug SSH connectivity
+        run: |
+          set -euxo pipefail
+          getent hosts "$SSH_HOST"
+          timeout 10 bash -c "</dev/tcp/$SSH_HOST/$SSH_PORT"
+
+      - name: DNS debug
+        run: |
+          getent hosts "$SSH_HOST" || true
+          dig +short "$SSH_HOST" || true
+
+      - name: Show runner public IP
+        run: |
+          curl -s https://api.ipify.org && echo
+          
       - name: Deploy to Stanford Hosts
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
@@ -101,8 +123,8 @@ jobs:
           else
             TARGET_HOST="rcpedia.stanford.edu"
           fi
-
-          rsync -e "ssh -i ~/.ssh/id_rsa -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
-            -av --delete /home/runner/work/rcpedia/rcpedia/ \
-            rcpediaq@rcpedia-qa.su.domains:/home/rcpediaq/$TARGET_HOST/
+          
+          rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+            -av --delete site/ \
+            "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"
  
