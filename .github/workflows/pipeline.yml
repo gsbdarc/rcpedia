@@ -110,15 +110,34 @@ jobs:
         run: |
           curl -s https://api.ipify.org && echo
           
-      - name: Deploy to Stanford Hosts
+      - name: Deploy to Stanford Hosts (with retries)
         run: |
+          set -euo pipefail
+      
           if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
             TARGET_HOST="rcpedia-dev.stanford.edu"
           else
             TARGET_HOST="rcpedia.stanford.edu"
           fi
-          
-          rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
-            -av --delete site/ \
-            "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"
+      
+          max_attempts=5
+          delay=15
+      
+          for attempt in $(seq 1 "$max_attempts"); do
+            echo "Deploy attempt $attempt/$max_attempts..."
+      
+            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+                -av --delete site/ \
+                "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
+              echo "Deploy succeeded."
+              exit 0
+            fi
+      
+            echo "Deploy failed; sleeping ${delay}s..."
+            sleep "$delay"
+            delay=$((delay * 2))
+          done
+      
+          echo "Deploy failed after $max_attempts attempts."
+          exit 1
  
