@@ -126,7 +126,7 @@ jobs:
           for attempt in $(seq 1 "$max_attempts"); do
             echo "Deploy attempt $attempt/$max_attempts..."
       
-            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=20 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
+            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o ConnectTimeout=600 -o ServerAliveInterval=30 -o ServerAliveCountMax=5" \
                 -av --delete site/ \
                 "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
               echo "Deploy succeeded."
