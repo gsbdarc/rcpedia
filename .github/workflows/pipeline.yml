@@ -101,17 +101,6 @@ jobs:
           echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
-      - name: Debug SSH connectivity
-        run: |
-          set -euxo pipefail
-          getent hosts "$SSH_HOST"
-          if timeout 30 bash -c "</dev/tcp/$SSH_HOST/$SSH_PORT"; then
-            echo "Port $SSH_PORT reachable"
-          else
-            echo "Port $SSH_PORT NOT reachable from this runner"
-            exit 1
-          fi
-
       - name: DNS debug
         run: |
           getent hosts "$SSH_HOST" || true
