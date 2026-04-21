@@ -63,6 +63,13 @@ jobs:
           echo "docs/assets/vars.json after placeholder replacement:"
           cat docs/assets/vars.json
 
+      - name: Remove analytics for QA build
+        if: github.ref == 'refs/heads/QA'
+        run: |
+          sed -i 's/^extra:$/extra: {}/; /^  analytics:/d; /^    provider: google/d; /^    property: /d' mkdocs.yml
+          echo "mkdocs.yml after removing analytics:"
+          grep -A3 "^extra" mkdocs.yml || true
+
       - name: Build MkDocs site
         run: mkdocs build --clean
 
