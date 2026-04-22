@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2026-04-20
+  created: 2026-04-22
 categories:
     - LLM
 authors:
@@ -39,7 +39,13 @@ Key advantages of NIM:
 
 1. **Create an NVIDIA Developer account** — if you don't already have one, sign up at [developer.nvidia.com](https://developer.nvidia.com){target="_blank"}.
 
-2. **Generate an NGC API key** — navigate to the [Gemma 4 31B IT model card](https://build.nvidia.com/google/gemma-4-31b-it){target="_blank"} on NVIDIA's Build portal and click **Get API Key** at the top of the Python code example. Save this key securely — you will need it to pull the container image and authenticate at runtime.
+2. **Generate an NGC API key** — navigate to the [Gemma 4 31B IT model card](https://build.nvidia.com/google/gemma-4-31b-it){target="_blank"} on NVIDIA's Build portal and click on `Deploy` Tab. 
+
+![Gemma 4 Model Card on NVIDIA Developer Site](/assets/images/nvidia-nim.png)
+
+Then select `Self-Hosted Deployments` and click on **Get API Key** button in Step 1 Generate API Key. Save this key securely — you will need it to pull the container image and authenticate at runtime.
+
+![Generate API Key](/assets/images/nvidia-deploy.png)
 
 !!! note "Some models require accepting license terms"
     Gemma does not require accepting a license, but other NIM models (such as GPT OSS 120B) may require you to accept terms on the model card before you can generate a key and pull the container.
@@ -49,16 +55,16 @@ Key advantages of NIM:
 
 ## Step 1: Request a GPU Node
 
-Gemma 4 31B IT fits comfortably on a single H200 GPU. Request an interactive allocation:
+Gemma 4 31B IT fits comfortably on a single H200 GPU. Start a terminal on GPU node with an interactive allocation:
 
 ```bash title="Request an H200 GPU on the Yens"
-salloc -p gpu -G 1 -C "GPU_MODEL:H200" -t 5:00:00
+srun -p gpu --mem=100G -c 25 -G 1 -C "GPU_MODEL:H200" -t 5:00:00 --pty /bin/bash
 ```
 
-Once Slurm grants the allocation, connect to `yen-gpu4`:
+Once Slurm grants the allocation, you will be on `yen-gpu4`:
 
-```bash title="SSH into the GPU node"
-ssh yen-gpu4
+```{ .bash .no-copy title="You should see yen-gpu4 in your prompt" }
+$USER@yen-gpu4:~$
 ```
 
 ## Step 2: Set Up the Environment
@@ -68,56 +74,43 @@ On the GPU node, load the Singularity module and configure directories. NIM need
 ```bash title="Load Singularity and create directories"
 ml singularity
 
-export BASE_DIR="/scratch/shared/$USER/nim"
-export LOCAL_NIM_CACHE="$BASE_DIR/cache"
-export LOCAL_NIM_WORK="$BASE_DIR/work"
+# Set your unified NIM project directory
+export NIM_ROOT="/scratch/shared/$USER/nim"
 
-mkdir -p "$LOCAL_NIM_CACHE"
-mkdir -p "$LOCAL_NIM_WORK/nginx"
-mkdir -p "$LOCAL_NIM_WORK/configs"
-mkdir -p "$BASE_DIR/tmp"
-mkdir -p "$BASE_DIR/singularity_cache"
-mkdir -p "$BASE_DIR/singularity_config"
-mkdir -p "$BASE_DIR/triton"
+# Create directories in a single command
+mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,singularity_config,triton}
 
-export SINGULARITY_TMPDIR="$BASE_DIR/tmp"
-export SINGULARITY_CACHEDIR="$BASE_DIR/singularity_cache"
-export SINGULARITY_CONFIGDIR="$BASE_DIR/singularity_config"
-export TRITON_CACHE_DIR="$BASE_DIR/triton"
+# Configure Singularity and Triton cache paths
+export SINGULARITY_TMPDIR="$NIM_ROOT/tmp"
+export SINGULARITY_CACHEDIR="$NIM_ROOT/singularity_cache"
+export SINGULARITY_CONFIGDIR="$NIM_ROOT/singularity_config"
+export TRITON_CACHE_DIR="$NIM_ROOT/triton"
 
-chmod -R 777 "$BASE_DIR"
-cd "$BASE_DIR"
+# Set permissions
+chmod -R 777 "$NIM_ROOT"
 ```
 
 !!! tip "Why `/scratch/shared/`?"
     The NIM container image and model cache can be tens of gigabytes. The `/scratch/shared/` filesystem on the Yens is designed for this kind of temporary, large-file storage. Files on scratch are not backed up and may be purged periodically, so don't store anything you can't regenerate.
 
-!!! warning "Singularity and Triton caches can fill your home directory"
-    By default, Singularity writes cache and configuration files to `~/.singularity` and Triton caches compiled GPU kernels in `~/.triton`. Both can grow to several gigabytes and fill your home directory quota. The setup above redirects them to scratch by setting `SINGULARITY_CACHEDIR`, `SINGULARITY_CONFIGDIR`, and `TRITON_CACHE_DIR`. If you've already run NIM without these settings, you can safely clean up with:
-
-        rm -rf ~/.singularity ~/.triton
-
 
 ## Step 3: Authenticate with NVIDIA's Container Registry
 
-Set your NGC API key as an environment variable, then log into NVIDIA's container registry:
+Set your NGC API key and configure Singularity's registry credentials. Singularity uses these environment variables automatically when pulling from `nvcr.io` — no separate login command is needed:
 
-```bash title="Export your NGC API key"
+```bash title="Set NGC credentials"
 export NGC_API_KEY="<your-ngc-api-key>"
-```
 
-```bash title="Log into the NVIDIA container registry"
-singularity remote login -u '$oauthtoken' docker://nvcr.io
+export SINGULARITY_DOCKER_USERNAME='$oauthtoken'
+export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
 ```
-
-When prompted for a password, paste your NGC API key.
 
 ## Step 4: Pull the Container Image
 
 Download the Gemma 4 31B IT NIM container. This is a large download and may take several minutes:
 
 ```bash title="Pull the NIM container image"
-singularity pull "$BASE_DIR/gemma-4-31b-it.sif" docker://nvcr.io/nim/google/gemma-4-31b-it:latest
+singularity pull "$NIM_ROOT/gemma-4-31b-it.sif" docker://nvcr.io/nim/google/gemma-4-31b-it:latest
 ```
 
 !!! note
@@ -131,13 +124,15 @@ NIM ships with multiple optimization profiles tuned for different GPU architectu
 ```bash title="List available model profiles"
 singularity run --nv --cleanenv \
     --writable-tmpfs \
-    --bind "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
-    --bind "$LOCAL_NIM_WORK/nginx:/opt/nim/nginx" \
-    --bind "$LOCAL_NIM_WORK/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/cache:/opt/nim/.cache" \
+    --bind "$NIM_ROOT/work/nginx:/opt/nim/nginx" \
+    --bind "$NIM_ROOT/work/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/triton:/tmp/triton_cache" \
+    --env TRITON_CACHE_DIR="/tmp/triton_cache" \
     --env NGC_API_KEY=$NGC_API_KEY \
     --env NIM_TENSOR_PARALLEL_SIZE=1 \
-    --env TRITON_CACHE_DIR=$TRITON_CACHE_DIR \
-    "$BASE_DIR/gemma-4-31b-it.sif" list-model-profiles
+    --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
+    "$NIM_ROOT/gemma-4-31b-it.sif" list-model-profiles
 ```
 
 NIM automatically selects the best compatible profile for your GPU at launch. To force a specific profile, add the `NIM_MODEL_PROFILE` environment variable to the launch command in the next step:
@@ -153,20 +148,20 @@ Start the NIM container with GPU access. The `--nv` flag enables NVIDIA GPU pass
 ```bash title="Run the NIM container"
 singularity run --nv --cleanenv \
     --writable-tmpfs \
-    --bind "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
-    --bind "$LOCAL_NIM_WORK/nginx:/opt/nim/nginx" \
-    --bind "$LOCAL_NIM_WORK/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/cache:/opt/nim/.cache" \
+    --bind "$NIM_ROOT/work/nginx:/opt/nim/nginx" \
+    --bind "$NIM_ROOT/work/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/triton:/tmp/triton_cache" \
+    --env TRITON_CACHE_DIR="/tmp/triton_cache" \
     --env NGC_API_KEY=$NGC_API_KEY \
     --env NIM_TENSOR_PARALLEL_SIZE=1 \
-    --env CUDA_VISIBLE_DEVICES=1 \
-    --env TRITON_CACHE_DIR=$TRITON_CACHE_DIR \
-    "$BASE_DIR/gemma-4-31b-it.sif"
+    --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
+    "$NIM_ROOT/gemma-4-31b-it.sif"
 ```
 
-!!! warning "Set `CUDA_VISIBLE_DEVICES` to match your allocated GPU"
-    Some GPU nodes (e.g., `yen-gpu4`) have multiple GPUs. `CUDA_VISIBLE_DEVICES` tells NIM which GPU to use. Check which device was assigned to your allocation — for example, if Slurm gave you device `0`, set `--env CUDA_VISIBLE_DEVICES=0`. Using the wrong device ID will either fail or collide with another user's job.
+Slurm automatically sets `CUDA_VISIBLE_DEVICES` based on your allocation.
 
-The container will download model weights on first launch (cached for subsequent runs), compile optimized inference kernels, and start serving on port **8000**. This startup process can take several minutes — wait until you see log output indicating the server is ready.
+The container will download model weights on first launch (cached for subsequent runs), compile optimized inference kernels, and start serving on port 8000. This startup process can take several minutes — wait until you see log output indicating the server is ready.
 
 !!! note "Port Access and Choosing a Different Port"
     NIM serves on port `8000` by default. This port is accessible to **any user on the Yen cluster** — there is no authentication on the endpoint, so anyone who knows the hostname and port can send requests to your running model.
@@ -257,7 +252,7 @@ rm -rf /scratch/shared/$USER/nim
 
 | Step | What happens |
 |---|---|
-| Request GPU | `salloc` reserves an H200 node |
+| Request GPU | `srun` reserves a GPU on an H200 node |
 | Set up environment | Create scratch directories for NIM cache and configs |
 | Authenticate | Log into NVIDIA's container registry with your NGC key |
 | Pull image | Download the NIM container (one-time) |
@@ -268,7 +263,7 @@ rm -rf /scratch/shared/$USER/nim
 
 The interactive workflow above is useful for testing, but for longer-running inference you can submit a Slurm batch script instead. This starts the NIM server on a GPU node in the background so you can query it from any Yen login node.
 
-Create a file called `run_nim_server.slurm`:
+Create a file called `run_nim_server.slurm`. This script mirrors the interactive setup from the steps above:
 
 ```bash title="run_nim_server.slurm"
 #!/bin/bash
@@ -277,49 +272,46 @@ Create a file called `run_nim_server.slurm`:
 #SBATCH -C "GPU_MODEL:H200"
 #SBATCH -G 1
 #SBATCH -n 1
-#SBATCH -c 4
+#SBATCH -c 25
+#SBATCH --mem=100
 #SBATCH -t 5:00:00
 #SBATCH -o nim-server-%j.out
 #SBATCH --mail-type=ALL
-#SBATCH --mail-user=youremail@stanford.edu
+#SBATCH --mail-user=user@stanford.edu
 
 ml singularity
 
-export BASE_DIR="/scratch/shared/$USER/nim"
-export LOCAL_NIM_CACHE="$BASE_DIR/cache"
-export LOCAL_NIM_WORK="$BASE_DIR/work"
+# 1. Define Paths & Credentials
+export NIM_ROOT="/scratch/shared/$USER/nim"
 export NGC_API_KEY="<your-ngc-api-key>"
+export SINGULARITY_DOCKER_USERNAME='$oauthtoken'
+export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
 
-mkdir -p "$LOCAL_NIM_CACHE"
-mkdir -p "$LOCAL_NIM_WORK/nginx"
-mkdir -p "$LOCAL_NIM_WORK/configs"
-mkdir -p "$BASE_DIR/tmp"
-mkdir -p "$BASE_DIR/singularity_cache"
-mkdir -p "$BASE_DIR/singularity_config"
-mkdir -p "$BASE_DIR/triton"
+# 2. Setup directories
+mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,triton}
+chmod -R 777 "$NIM_ROOT"
 
-export SINGULARITY_TMPDIR="$BASE_DIR/tmp"
-export SINGULARITY_CACHEDIR="$BASE_DIR/singularity_cache"
-export SINGULARITY_CONFIGDIR="$BASE_DIR/singularity_config"
-export TRITON_CACHE_DIR="$BASE_DIR/triton"
+# 3. Download SIF if not found
+if [ ! -f "$NIM_ROOT/gemma-4-31b-it.sif" ]; then
+    echo "SIF file not found. Downloading..."
+    singularity pull "$NIM_ROOT/gemma-4-31b-it.sif" docker://nvcr.io/nim/google/gemma-4-31b-it:latest
+else
+    echo "SIF file found. Skipping download."
+fi
 
-chmod -R 777 "$BASE_DIR"
-
-echo "Starting NIM server on $(hostname)"
-
+# 4. Launch NIM
 singularity run --nv --cleanenv \
     --writable-tmpfs \
-    --bind "$LOCAL_NIM_CACHE:/opt/nim/.cache" \
-    --bind "$LOCAL_NIM_WORK/nginx:/opt/nim/nginx" \
-    --bind "$LOCAL_NIM_WORK/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/cache:/opt/nim/.cache" \
+    --bind "$NIM_ROOT/work/nginx:/opt/nim/nginx" \
+    --bind "$NIM_ROOT/work/configs:/opt/nim/generated_configs" \
+    --bind "$NIM_ROOT/triton:/tmp/triton_cache" \
+    --env TRITON_CACHE_DIR="/tmp/triton_cache" \
     --env NGC_API_KEY=$NGC_API_KEY \
     --env NIM_TENSOR_PARALLEL_SIZE=1 \
     --env CUDA_VISIBLE_DEVICES=$CUDA_VISIBLE_DEVICES \
-    --env TRITON_CACHE_DIR=$TRITON_CACHE_DIR \
-    "$BASE_DIR/gemma-4-31b-it.sif"
+    "$NIM_ROOT/gemma-4-31b-it.sif"
 ```
-
-Slurm sets `CUDA_VISIBLE_DEVICES` automatically based on which GPU was allocated to the job. The `--cleanenv` flag strips host environment variables from the container, so we pass it through explicitly with `--env`.
 
 Submit the job:
 
