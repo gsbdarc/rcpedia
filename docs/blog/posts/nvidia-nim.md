@@ -324,10 +324,10 @@ Submit the job:
 sbatch run_nim_server.slurm
 ```
 
-Once the job is running, check the log file to find the GPU node hostname:
+Once the job is running, check the log file to see that the NIM is deployed:
 
 ```bash title="Check the log for the hostname"
-cat nim-server-<jobid>.out
+tail -f nim-server-<jobid>.out
 ```
 
 Then query the model from any Yen login node:
