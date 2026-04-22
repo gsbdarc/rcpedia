@@ -326,7 +326,7 @@ sbatch run_nim_server.slurm
 
 Once the job is running, check the log file to see that the NIM is deployed:
 
-```bash title="Check the log for the hostname"
+```bash title="Check the log file"
 tail -f nim-server-<jobid>.out
 ```
 
