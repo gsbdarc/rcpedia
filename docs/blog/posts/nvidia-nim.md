@@ -273,19 +273,24 @@ Create a file called `run_nim_server.slurm`. This script mirrors the interactive
 #SBATCH -G 1
 #SBATCH -n 1
 #SBATCH -c 25
-#SBATCH --mem=100
+#SBATCH --mem=100G
 #SBATCH -t 5:00:00
 #SBATCH -o nim-server-%j.out
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=user@stanford.edu
 
-ml singularity
 
 # 1. Define Paths & Credentials
-export NIM_ROOT="/scratch/shared/$USER/nim"
 export NGC_API_KEY="<your-ngc-api-key>"
+
+export NIM_ROOT="/scratch/shared/$USER/nim"
+export SINGULARITY_CACHEDIR="$NIM_ROOT/singularity_cache"
+export SINGULARITY_TMPDIR="$NIM_ROOT/tmp"
+export SINGULARITY_CONFIGDIR="$NIM_ROOT/singularity_config"
 export SINGULARITY_DOCKER_USERNAME='$oauthtoken'
 export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
+
+ml singularity
 
 # 2. Setup directories
 mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,triton}
@@ -319,10 +324,10 @@ Submit the job:
 sbatch run_nim_server.slurm
 ```
 
-Once the job is running, check the log file to find the GPU node hostname:
+Once the job is running, check the log file to see that the NIM is deployed:
 
-```bash title="Check the log for the hostname"
-cat nim-server-<jobid>.out
+```bash title="Check the log file"
+tail -f nim-server-<jobid>.out
 ```
 
 Then query the model from any Yen login node:
