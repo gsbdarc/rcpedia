@@ -30,6 +30,9 @@ Key advantages of NIM:
 
 - **Data stays local**: like Ollama, everything runs on the Yen cluster — no data leaves Stanford's infrastructure, making it suitable for sensitive or licensed datasets.
 
+!!! warning "Check Your Data License"
+    Running a model locally does not automatically mean you can use it on any dataset. Many data licenses carry their own AI and machine learning restrictions. Before using self-hosted LLMs on licensed data, review the terms of your data agreement and Stanford's [Usage Policy for Licensed Resources](https://www.gsb.stanford.edu/library/research-resources/usage-policy){target="_blank"}.
+
 - **Reproducible deployments**: the container image pins a specific model version, runtime, and optimization profile. Anyone pulling the same image gets identical behavior.
 
 !!! info "Marlowe Users"
