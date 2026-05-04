@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2026-04-22
+  created: 2026-04-23
 categories:
     - LLM
 authors:
@@ -30,6 +30,9 @@ Key advantages of NIM:
 
 - **Data stays local**: like Ollama, everything runs on the Yen cluster — no data leaves Stanford's infrastructure, making it suitable for sensitive or licensed datasets.
 
+!!! warning "Check Your Data License"
+    Running a model locally does not automatically mean you can use it on any dataset. Many data licenses carry their own AI and machine learning restrictions. Before using self-hosted LLMs on licensed data, review the terms of your data agreement and Stanford's [Usage Policy for Licensed Resources](https://www.gsb.stanford.edu/library/research-resources/usage-policy){target="_blank"}.
+
 - **Reproducible deployments**: the container image pins a specific model version, runtime, and optimization profile. Anyone pulling the same image gets identical behavior.
 
 !!! info "Marlowe Users"
@@ -43,17 +46,63 @@ Key advantages of NIM:
 
 ![Gemma 4 Model Card on NVIDIA Developer Site](/assets/images/nvidia-nim.png)
 
-Then select `Self-Hosted Deployments` and click on **Get API Key** button in Step 1 Generate API Key. Save this key securely — you will need it to pull the container image and authenticate at runtime.
+Then select `Self-Hosted Deployments` and click on **Get API Key** button in Step 1 Generate API Key. Once you have the key, save it on the Yens in a restricted file so your scripts can reference it without hardcoding credentials:
 
 ![Generate API Key](/assets/images/nvidia-deploy.png)
+
+```bash title="Save your NGC API key on the Yens"
+mkdir -p ~/.secrets
+echo "your-ngc-api-key" > ~/.secrets/ngc_api_key
+chmod 600 ~/.secrets/ngc_api_key
+```
 
 !!! note "Some models require accepting license terms"
     Gemma does not require accepting a license, but other NIM models (such as GPT OSS 120B) may require you to accept terms on the model card before you can generate a key and pull the container.
 
 !!! danger "Do Not Hardcode API Keys"
-    Never paste your NGC API key directly into scripts or commit it to version control. Store it in an environment variable or a `.env` file excluded from git.
+    Never paste your NGC API key directly into scripts or commit it to version control. Always read it from `~/.secrets/ngc_api_key` as shown above.
 
-## Step 1: Request a GPU Node
+## Step 1: Set Up the Environment
+
+Before requesting GPU resources, initialize your workspace on any Yen login node. This keeps H200 time dedicated strictly to inference.
+First, load the Singularity software module to ensure the necessary tools are in your path. Then, define your project root in the `/scratch/shared/` directory, which is optimized for the large files associated with LLM containers.
+
+```bash title="Define paths and load modules"
+ml singularity
+
+export NIM_ROOT="/scratch/shared/$USER/nim"
+export SINGULARITY_CACHEDIR="$NIM_ROOT/singularity_cache"
+export SINGULARITY_TMPDIR="$NIM_ROOT/tmp"
+export SINGULARITY_CONFIGDIR="$NIM_ROOT/singularity_config"
+```
+
+!!! tip "Why `/scratch/shared/`?"
+    The NIM container image and model cache can be tens of gigabytes. The `/scratch/shared/` filesystem on the Yens is designed for this kind of temporary, large-file storage. Files on scratch are not backed up and may be purged periodically, so don't store anything you can't regenerate.
+
+
+Next, create the necessary directory structure for the NIM cache, NGINX proxy, and temporary files. We use `chmod -R 700` to ensure these files are only accessible by your user account, which is a critical security best practice on shared clusters.
+
+```bash title="Create secure directories"
+mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,singularity_config,triton}
+chmod -R 700 "$NIM_ROOT"
+```
+
+Finally, authenticate with the NVIDIA NGC registry using the API key saved in the previous step and pull the container image:
+
+```bash title="Authenticate and pull the image"
+export NGC_API_KEY=$(cat ~/.secrets/ngc_api_key)
+
+export SINGULARITY_DOCKER_USERNAME='$oauthtoken'
+export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
+
+singularity pull "$NIM_ROOT/gemma-4-31b-it.sif" docker://nvcr.io/nim/google/gemma-4-31b-it:latest
+```
+
+!!! note
+    The `.sif` file is the Singularity container image. Once pulled, you can reuse it across multiple sessions without re-downloading — just make sure the file persists on scratch between jobs.
+
+## Step 2: Request a GPU node
+With the image now stored on scratch and your environment configured, you are ready to request the H200 node.
 
 Gemma 4 31B IT fits comfortably on a single H200 GPU. Start a terminal on GPU node with an interactive allocation:
 
@@ -67,57 +116,8 @@ Once Slurm grants the allocation, you will be on `yen-gpu4`:
 $USER@yen-gpu4:~$
 ```
 
-## Step 2: Set Up the Environment
 
-On the GPU node, load the Singularity module and configure directories. NIM needs several writable paths for its cache, NGINX proxy, and generated configurations. We use `/scratch/shared/` since these files can be large:
-
-```bash title="Load Singularity and create directories"
-ml singularity
-
-# Set your unified NIM project directory
-export NIM_ROOT="/scratch/shared/$USER/nim"
-
-# Create directories in a single command
-mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,singularity_config,triton}
-
-# Configure Singularity and Triton cache paths
-export SINGULARITY_TMPDIR="$NIM_ROOT/tmp"
-export SINGULARITY_CACHEDIR="$NIM_ROOT/singularity_cache"
-export SINGULARITY_CONFIGDIR="$NIM_ROOT/singularity_config"
-export TRITON_CACHE_DIR="$NIM_ROOT/triton"
-
-# Set permissions
-chmod -R 777 "$NIM_ROOT"
-```
-
-!!! tip "Why `/scratch/shared/`?"
-    The NIM container image and model cache can be tens of gigabytes. The `/scratch/shared/` filesystem on the Yens is designed for this kind of temporary, large-file storage. Files on scratch are not backed up and may be purged periodically, so don't store anything you can't regenerate.
-
-
-## Step 3: Authenticate with NVIDIA's Container Registry
-
-Set your NGC API key and configure Singularity's registry credentials. Singularity uses these environment variables automatically when pulling from `nvcr.io` — no separate login command is needed:
-
-```bash title="Set NGC credentials"
-export NGC_API_KEY="<your-ngc-api-key>"
-
-export SINGULARITY_DOCKER_USERNAME='$oauthtoken'
-export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
-```
-
-## Step 4: Pull the Container Image
-
-Download the Gemma 4 31B IT NIM container. This is a large download and may take several minutes:
-
-```bash title="Pull the NIM container image"
-singularity pull "$NIM_ROOT/gemma-4-31b-it.sif" docker://nvcr.io/nim/google/gemma-4-31b-it:latest
-```
-
-!!! note
-    The `.sif` file is the Singularity container image. Once pulled, you can reuse it across multiple sessions without re-downloading — just make sure the file persists on scratch between jobs.
-
-
-## Step 5: Check Available Profiles
+## Step 3: Run the NIM container 
 
 NIM ships with multiple optimization profiles tuned for different GPU architectures and precision modes. Before launching, you can list the profiles available for your hardware:
 
@@ -141,7 +141,7 @@ NIM automatically selects the best compatible profile for your GPU at launch. To
 --env NIM_MODEL_PROFILE="<profile-id-from-list>"
 ```
 
-## Step 6: Launch the Model
+## Step 4: Launch the model
 
 Start the NIM container with GPU access. The `--nv` flag enables NVIDIA GPU passthrough, and the bind mounts give the container access to its required working directories:
 
@@ -179,9 +179,9 @@ The launch command above uses the following environment variables:
 | Variable | Description |
 |---|---|
 | `NGC_API_KEY` | Your NVIDIA NGC API key. Required to download model weights on first launch. |
-| `CUDA_VISIBLE_DEVICES` | Which GPU device to use. Nodes like `yen-gpu4` have two H200 GPUs (devices `0` and `1`) — set this to the device assigned to your Slurm allocation. Using the wrong device will either fail or collide with another user's job. |
+| `CUDA_VISIBLE_DEVICES` | Which GPU device to use. The `yen-gpu4` node has two H200 GPUs (devices `0` and `1`) | 
 | `NIM_TENSOR_PARALLEL_SIZE` | Number of GPUs to shard the model across. Set to `1` when running on a single GPU. Increase this if your Slurm allocation includes multiple GPUs and the model is too large to fit on one. |
-| `TRITON_CACHE_DIR` | Where Triton stores compiled GPU kernels. We redirect this to scratch to avoid filling your home directory (see the [warning above](#step-2-set-up-the-environment)). |
+| `TRITON_CACHE_DIR` | Where Triton stores compiled GPU kernels. We redirect this to scratch to avoid filling your home directory (see the [warning above](#step-1-set-up-the-environment)). |
 
 You can also tune inference behavior with additional variables that are not included in the command above:
 
@@ -193,7 +193,7 @@ You can also tune inference behavior with additional variables that are not incl
 For a full list of configuration options, see the [NVIDIA NIM configuration documentation](https://docs.nvidia.com/nim/large-language-models/latest/configuration.html){target="_blank"}.
 
 
-## Step 7: Query the Model from a Login Node
+## Step 5: Query the Model from a Login Node
 Once the server is running, open a **second terminal** on any interactive Yen node and send a request using `curl`:
 
 ```bash title="Send a chat completion request"
@@ -252,12 +252,11 @@ rm -rf /scratch/shared/$USER/nim
 
 | Step | What happens |
 |---|---|
-| Request GPU | `srun` reserves a GPU on an H200 node |
-| Set up environment | Create scratch directories for NIM cache and configs |
-| Authenticate | Log into NVIDIA's container registry with your NGC key |
-| Pull image | Download the NIM container (one-time) |
-| Launch | Start the container — model weights are cached after first run |
-| Query | Hit the OpenAI-compatible API on port 8000 |
+| Set up environment | Load modules, create scratch directories, authenticate with NGC, and pull the container image |
+| Request GPU | `srun` reserves an H200 GPU on `yen-gpu4` |
+| List profiles | Check available optimization profiles for your hardware (optional) |
+| Launch | Start the NIM container — model weights are cached after first run |
+| Query | Hit the OpenAI-compatible API on port 8000 from any Yen login node |
 
 ## Running as a Batch Job
 
@@ -279,9 +278,8 @@ Create a file called `run_nim_server.slurm`. This script mirrors the interactive
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=user@stanford.edu
 
-
 # 1. Define Paths & Credentials
-export NGC_API_KEY="<your-ngc-api-key>"
+export NGC_API_KEY=$(cat /home/users/$USER/.secrets/ngc_api_key)
 
 export NIM_ROOT="/scratch/shared/$USER/nim"
 export SINGULARITY_CACHEDIR="$NIM_ROOT/singularity_cache"
@@ -293,8 +291,8 @@ export SINGULARITY_DOCKER_PASSWORD="$NGC_API_KEY"
 ml singularity
 
 # 2. Setup directories
-mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,triton}
-chmod -R 777 "$NIM_ROOT"
+mkdir -p "$NIM_ROOT"/{cache,work/{nginx,configs},tmp,singularity_cache,singularity_config,triton}
+chmod -R 700 "$NIM_ROOT"
 
 # 3. Download SIF if not found
 if [ ! -f "$NIM_ROOT/gemma-4-31b-it.sif" ]; then
