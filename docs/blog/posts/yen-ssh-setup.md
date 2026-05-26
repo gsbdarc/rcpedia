@@ -7,16 +7,45 @@ authors:
     - nrapstin
 ---
 
-# Passwordless SSH Between Interactive Yen Nodes
-When working on the Yen cluster, you may occasionally want to connect from one Yen node to another—for example, to check a running process or run a command on a different node.
+# SSH Setup for the Yen Servers
+When working on the Yen cluster, you may occasionally open multiple SSH sessions from your local computer or connect from one Yen node to another to check a running process or run a command on a different node.
 
-You can avoid entering your password each time by setting up **SSH key authentication**.
+You can make these workflows smoother by configuring SSH multiplexing on your local computer and setting up **SSH key authentication** between Yen nodes.
 
 <!-- more -->
 
+## Local SSH Multiplexing for the Yens
+
+On your local computer, add or merge the following settings into `~/.ssh/config`. This lets SSH reuse an existing authenticated connection when you open additional `ssh`, `scp`, or `rsync` sessions to the Yen servers.
+
+```title="Local ~/.ssh/config"
+IgnoreUnknown GSSAPIKeyExchange
+
+Host yen yen? yen??
+  HostName %h.stanford.edu
+
+Host yen yen.stanford.edu yen? yen?? yen?.stanford.edu yen??.stanford.edu
+  HostKeyAlias yen.stanford.edu
+
+Host yen yen.stanford.edu yen? yen?? yen?.stanford.edu yen??.stanford.edu
+  ControlMaster auto
+  ControlPersist yes
+  GSSAPIDelegateCredentials yes
+
+Host *
+  ControlPath ~/.ssh/%r@%h:%p
+  GSSAPIKeyExchange yes
+  GSSAPIAuthentication yes
+  ServerAliveInterval 60
+```
+
+After this is configured, the first connection still requires normal authentication, but later connections can reuse the existing control connection while it persists.
+
+## Passwordless SSH Between Interactive Yen Nodes
+
 To follow the steps below, first open a terminal on an [interactive Yen node](/_getting_started/yen-servers/#how-to-connect){target="_blank"}.
 
-## Step 1 — Create a Dedicated SSH Key
+### Step 1 — Create a Dedicated SSH Key
 Create a key specifically for connecting between Yen nodes.
 
 ```bash title="Create a new SSH key for Yen nodes"
@@ -29,7 +58,7 @@ This creates:
 ~/.ssh/yen_ed25519.pub
 ```
 
-## Step 2 — Add the Key to `authorized_keys`
+### Step 2 — Add the Key to `authorized_keys`
 
 Allow this key to authenticate your account:
 
@@ -38,7 +67,7 @@ cat ~/.ssh/yen_ed25519.pub >> ~/.ssh/authorized_keys
 ```
 
 
-## Step 3 — Configure SSH for Yen Nodes
+### Step 3 — Configure SSH for Yen Nodes
 
 Create an SSH configuration so the correct key is automatically used.
 
@@ -51,7 +80,7 @@ Host yen1 yen2 yen3 yen4 yen5
 EOF
 ```
 
-## Step 4 — Test the Connection
+### Step 4 — Test the Connection
 
 Try connecting to another Yen node:
 
