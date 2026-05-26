@@ -9,7 +9,7 @@ subtitle:
 ---
 # LLM Evaluations for Data Extraction
 
-For social science or business research, data often comes from dense tables in PDFs. Some examples might be city council meeting notes, SEC filings, or historical TV Guides — printed weekly schedules that listed every channel, time slot, and program for a given market. These documents are a rich source of media history, but the data locked inside them isn't easily searchable or analyzable without first being digitized.
+For social science or business research, data often comes from dense tables in PDFs. Some examples might be city council meeting notes, SEC filings, or historical TV Guides (printed weekly schedules that listed every channel, time slot, and program for a given market). These documents are a rich source of media history, but the data locked inside them isn't easily searchable or analyzable without first being digitized.
 
 ![tv_guide_example](../../assets/images/llm_eval_tv_guide_example.png)
 
@@ -19,9 +19,12 @@ In the past these images might get outsourced to a third party or a student with
 
 ## The Solution: Designing an LLM Evaluation Framework
 
-Designing LLM Evaluation Frameworks may sound niche, but it's actually an essential part of any AI workflow, especially for data extraction tasks like the one described above. An LLM Evaluation Framework is a systematic way of testing how accurately different AI models can complete a specific task—in our case, extracting structured data from historical TV Guide images. 
+Designing LLM Evaluation Frameworks may sound niche, but it's actually an essential part of any AI workflow, especially for data extraction tasks like the one described above. An LLM Evaluation Framework is a systematic way of testing how accurately different AI models can complete a specific task, in our case extracting structured data from historical TV Guide images. 
 
-A robust framework allows researchers to quickly benchmark how different models perform across a representative sample of their data before committing to one for production use. This article will cover the thought process behind how we designed our own LLM Evaluation Framework for a TV Guide data extraction project, the results, and learnings along the way. To recreate and customize your own framework, you can find our GitHub [here](https://github.com/gsbdarc/LLM_benchmarks).
+A robust framework allows researchers to quickly benchmark how different models perform across a representative sample of their data before committing to one for production use. 
+
+!!! note
+    This article will cover the thought process behind how we designed our own LLM Evaluation Framework for a TV Guide data extraction project, the results, and learnings along the way. To recreate and customize your own framework, you can find our GitHub [here](https://github.com/gsbdarc/LLM_benchmarks).
 
 ## Exploring AI Alternatives
 
@@ -49,7 +52,7 @@ This is where setting up an automated pipeline becomes crucial. You can find a v
 
 ### Selecting Inputs
 
-Benchmarks: these are what you want the model to do/what type of information the model should extract. This will include prompts and what type of output we're looking for (string, array, etc.).
+- **Benchmarks**: these are what you want the model to do/what type of information the model should extract. This will include prompts and what type of output we're looking for (string, array, etc.).
 
 ```json
 {
@@ -66,13 +69,14 @@ Benchmarks: these are what you want the model to do/what type of information the
 }
 ```
 
-Images: where the LLM will extract data from. We did some preprocessing by converting color PDFs into greyscale PNGs to ensure we were able to fit within the context limits (the maximum amount of data a model can process at once) of each model.
+- **Images**: where the LLM will extract data from. We did some preprocessing by converting color PDFs into greyscale PNGs to ensure we were able to fit within the context limits (the maximum amount of data a model can process at once) of each model.
 
-Models: which LLMS are doing the extraction.
+- **Models**: which LLMS are doing the extraction.
 
 ### Extraction
 
-LLMs on the Stanford AI Playground can be accessed on the Yens via the [API](https://uit.stanford.edu/service/ai-api-gateway). You will need to apply and get approval for an API key.
+!!! warning
+    LLMs on the Stanford AI Playground can be accessed on the Yens via the [API](https://uit.stanford.edu/service/ai-api-gateway). You will need to apply and get approval for an API key.
 
 Once inputs have been selected we can feed the prompts and images into the models we've chosen via the API.
 
@@ -92,28 +96,27 @@ For every TV Guide used in our pipeline we had a corresponding ground truth docu
 
 ![benchmark_pic_2](../../assets/images/llm_eval_benchmark_pic_2.png)
 
-Easy (Grey):
-- Simple metadata extraction tasks
-- Same location across documents, high resolution
+#### Easy
 
-- Newspaper Name
-- Newspaper Date
+| Task | Description |
+|---|---|
+| Newspaper Name | Simple metadata extraction, fixed location across documents, high resolution. |
+| Newspaper Date | Simple metadata extraction, fixed location across documents, high resolution. |
 
-Medium (Yellow):
-- TV Guide Day Of Week
-    - Location can change across image
-    - Closer to actual table, mixed resolutions
+#### Medium
 
-- TV Guide Date
-    - Reasoning: LLM needs to combine Newspaper Date and TV Guide Day of Week without being explicitly told to do so
+| Task | Description |
+|---|---|
+| TV Guide Day of Week | Varied location, mixed resolution, data found in scanned PDF. |
+| TV Guide Date | Reasoning: answer is derived by combining both Newspaper Date and TV Guide Day of Week without being explicitly prompted. |
 
-Hard (Grid):
-- Data is found within the grid itself
-- Smallest font, lowest resolution
-- Variation in placement across images
+#### Hard
 
-- First Channel
-- First Program
+| Task | Description |
+|---|---|
+| First Channel | Data found within grid, smallest font, lowest resolution, variability (color, placement, size) |
+| First Program | Data found within grid, smallest font, lowest resolution, variability (color, placement, size) |
+
 
 ## Initial Results
 
@@ -127,7 +130,8 @@ The best image (#22) had a 40 pt. difference compared to our worst image (#23). 
 
 ![best_and_worst](../../assets/images/llm_eval_best_and_worst.png)
 
-Answer: Image 22 is on the left and image 23 is on the right. Was that what you guessed? 
+??? question "Answer"
+    Image 22 is on the left and image 23 is on the right. Was that what you guessed? 
 
 For images that seem pretty similar at first glance they had drastically different results, showing that how LLMs understand images remains a bit of a black box.
 
@@ -135,9 +139,10 @@ For images that seem pretty similar at first glance they had drastically differe
 
 ![model_ranking](../../assets/images/llm_eval_model_ranking.png)
 
-Across all images and benchmarks our best performing model was gemini-2.5-pro with 72% accuracy and a total token cost of $8.76. Our worst performing model was claude-3-haiku with 51% accuracy and a total token cost of $0.35. 
+Across all images and benchmarks our best performing model was gemini-2.5-pro with 72% accuracy and a total token cost of $8.76. Our worst performing model was claude-3-haiku with 51% accuracy and a total token cost of $0.35.
 
-Most other models in the Playground fell somewhere between the two in both accuracy and cost. The only exception would be o1 which was the most expensive model with a total cost of $41.35. Based on these results we would recommend avoiding this model for tabular data extraction.
+!!! tip
+    Most other models in the Playground fell somewhere between the two in both accuracy and cost. The only exception would be o1 which was the most expensive model with a total cost of $41.35. Based on these results we would recommend avoiding this model for tabular data extraction.
 
 ### Results by Benchmark
 
@@ -167,23 +172,31 @@ While Llama-4 and gemini-2.5-pro were the best performing models for these bench
 
 ![rd_task](../../assets/images/llm_eval_rd_task.png)
 
-Going back to our earlier questions we can use them to help identify areas for improvement. Let's start with task. 
+Going back to our earlier questions we can use them to help identify areas for improvement. Let's start with task.
 
 How well is what we're trying to do being reflected in the prompt we're giving the model?
 
-First Program User Prompt (v1): "Return the name of the program for the first channel listed and for the earliest time slot shown."
+#### v1
 
-This prompt we initially used is only one sentence. It feels pretty vague and doesn't give the model all that much guidance.
+> Return the name of the program for the first channel listed and for the earliest time slot shown.
 
-*What changed in v2: added explicit grid structure and step-by-step navigation instructions.*
+This prompt is only one sentence. It feels pretty vague and doesn't give the model all that much guidance.
 
-First Program User Prompt (v2): "Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block.  4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title."
+!!! tip "What changed in v2"
+    Added explicit grid structure and step-by-step navigation instructions.
+
+#### v2
+
+> Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
 
 In our second iteration we looked at the instructions we'd previously given the third party transcription service and used it as a starting point. The prompt now gives the model explicit instructions to think about the image as a grid with rows and columns. It also gives clear guidance on where the key information is located within the grid.
 
-*What changed in v3: narrowed the output to the title only, filtering out metadata like captions and codes.*
+!!! tip "What changed in v3"
+    Narrowed the output to the title only, filtering out metadata like captions and codes.
 
-First Program User Prompt (v3): "Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block.  4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title."
+#### v3
+
+> Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
 
 In our third iteration we adjusted the last line of our prompt to focus on the name itself and ignore all other miscellaneous information. This better reflected what an actual research question might be and helped narrow the focus of the LLM.
 
@@ -197,27 +210,25 @@ When we think about improving a score it makes sense to review our responses. Bu
 
 ![daytona](../../assets/images/llm_eval_daytona.png)
 
-For the above image what do you think is the right output for first program?
+For the above image, what do you think is the right output for first program?
 
-A. 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season. (N) (cc)
+- **A.** 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season. (N) (cc)
+- **B.** 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season.
+- **C.** 2015 Daytona 500
 
-B. 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season.
+??? question "Correct answer"
+    It depends.
 
-C. 2015 Daytona 500
-
-Correct answer: it depends.
-
-Hmm, let's try another one. For the below image what should the first channel output be?
+Hmm, let's try another one. For the below image, what should the first channel output be?
 
 ![khon](../../assets/images/llm_eval_khon.png)
 
-A. 2 3 003 2 KHON
+- **A.** 2 3 003 2 KHON
+- **B.** 2 3 003 2
+- **C.** KHON
 
-B. 2 3 003 2
-
-C. KHON
-
-Correct answer: it also depends.
+??? question "Correct answer"
+    It also depends.
 
 For a seemingly simple question there can be a lot of different "right" answers. The ground truth is dependent on the research question that's being answered. Are we looking at how many programs offered closed captions? Do we care about all the different channel numbers associated with a network?
 
@@ -285,7 +296,11 @@ Across all benchmarks and images gemini-2.5-pro remained our top performing mode
 
 Looking back on my project the major accomplishments can be summarized into two categories:
 
-1. Speed and Ease: the pipeline design allowed us to easily add new models, benchmarks, or images. Tasks were able to be processed in parallel, results were stored directly in a database, and metrics were calculated dynamically. This framework can be adapted by any researcher looking to evaluate LLMs for structured document extraction.
+1. **Speed and Ease**
 
-2. Quality of results: above anything else good results came from a well defined research question and a solid understanding of the variability and outliers in our data. Only from there could we create tasks, build prompts, and choose the right metrics.
+    The pipeline design allowed us to easily add new models, benchmarks, or images. Tasks were able to be processed in parallel, results were stored directly in a database, and metrics were calculated dynamically. This framework can be adapted by any researcher looking to evaluate LLMs for structured document extraction.
+
+2. **Quality of results**
+
+    Above anything else, good results came from a well defined research question and a solid understanding of the variability and outliers in our data. Only from there could we create tasks, build prompts, and choose the right metrics.
 
