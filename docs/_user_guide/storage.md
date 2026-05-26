@@ -102,7 +102,7 @@ These locations are **not intended for permanent data** and are **not backed up*
 
 Each compute node provides local disk space at:
 
-```bash { .yaml .no-copy }
+```{ .yaml .no-copy title="Terminal Output" }
 /tmp
 ```
 
@@ -127,7 +127,7 @@ Use `/tmp` when:
 
 Shared scratch space is available at:
 
-```bash { .yaml .no-copy}
+```{ .yaml .no-copy title="Terminal Output" }
 /scratch/shared
 ```
 
@@ -339,4 +339,3 @@ You can transfer files to and from AFS using [OpenAFS](https://uit.stanford.edu/
     AFS is no longer mounted. If you still wish to access your AFS space (afs-home), you can SSH into SRC's [rice nodes](https://srcc.stanford.edu/farmshare/connecting){:target="_blank"}. These nodes are part of the University's FarmShare system and you can access them with `ssh <SUnetID>@rice.stanford.edu`.
 
     WebAFS has been retired and is no longer available to use. For its alternatives, visit this [page](https://uit.stanford.edu/service/afs){:target="_blank"}.
-
