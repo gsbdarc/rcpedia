@@ -32,16 +32,16 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-- Build with `insiders` enabled:
-First install insiders with pip and auth key
+- Build with MkDocs Material:
+If you need to install MkDocs Material separately from the pinned requirements, install the public package from PyPI:
 ```
-pip install git+https://{access_key_goes_here}@github.com/squidfunk/mkdocs-material-insiders.git@9.4.2-insiders-4.42.0
+pip install mkdocs-material
 ```
 <br>
-Use this command, to build mkdocs with Insiders turned on:
+Use this command to build the site:
 
 ```bash
-CI=true INSIDERS=true mkdocs build
+mkdocs build
 ```
 
 - Serve website:
@@ -81,5 +81,4 @@ git pull origin <branch_name>
 ```
 
 View the changes locally. Assuming you have a venv described above, activate it and run “mkdocs serve”.
-
 
