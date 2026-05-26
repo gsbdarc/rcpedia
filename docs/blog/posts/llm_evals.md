@@ -13,6 +13,8 @@ For social science or business research, data often comes from dense tables in P
 
 ![tv_guide_example](../../assets/images/llm_eval_tv_guide_example.png)
 
+<!-- more -->
+
 In the past these images might get outsourced to a third party or a student with instructions to go cell by cell and transcribe all of the information into a Google Sheets document. A supervisor would then review the outputs to help minimize errors. Overall this is a time-intensive and manual task.
 
 ## The Solution: Designing an LLM Evaluation Framework
