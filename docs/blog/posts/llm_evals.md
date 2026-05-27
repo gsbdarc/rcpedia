@@ -84,31 +84,6 @@ As part of my intern project I evaluated how well LLMs did on a set of data extr
 
 ![tv_guide_pic](../../assets/images/llm_eval_tv_guide_example.png)
 
-### Updating Prompts
-
-One of the benchmarks that the models intially struggled with was extracting the name of the first program that appeared in the guide. We considered this a hard task because it was often the smallest font and lowest resolution within the TV guide grid. There was also additional variability in size, resolution, and color across the guides.
-
-We used our metrics as a signal and adjusted our prompt several times to see if we could get better results. You can see the prompts we used below and how each model performed across all images.
-
-=== "v1"
-    **Short, one sentence prompt.**
-
-    Return the name of the program for the first channel listed and for the earliest time slot shown.
-
-    ![first_program](../../assets/images/llm_eval_first_program.png)
-=== "v2"
-    **Added explicit grid structure and step-by-step navigation instructions.**
-
-    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
-
-    ![first_program_2](../../assets/images/llm_eval_first_program_2.png)
-=== "v3"
-    **Narrowed the output to the title only, filtering out metadata like captions and codes.**
-
-    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
-
-    ![first_program_3](../../assets/images/llm_eval_first_program_3.png)
-
 ### Challenges with "Ground Truth"
 
 One of the biggest roadblocks we ran into was coming up with a standardized "ground truth" across all of the guides in our dataset. What made it challenging was how dependent it was on the specific research question and data that we were working with.
@@ -126,7 +101,32 @@ The so called "right" answer depends on whether the research question cares abou
 !!! tip
     Hand transcribing 5 to 10 images yourself can be enormously helpful in understanding the data that is available and how much variability you might be dealing with.
 
-## Learnings
+### Updating Prompts
+
+One of the benchmarks that the models intially struggled with was extracting the name of the first program that appeared in the guide. We considered this a hard task because it was often the smallest font and lowest resolution within the TV guide grid. There was also additional variability in size, resolution, and color across the guides.
+
+We used our metrics as a signal and adjusted our prompt several times to see if we could get better results. You can see the prompts we used below and how each model performed across all images.
+
+=== "First Program v1"
+    **Short, one sentence prompt.**
+
+    Return the name of the program for the first channel listed and for the earliest time slot shown.
+
+    ![first_program](../../assets/images/llm_eval_first_program.png)
+=== "First Program v2"
+    **Added explicit grid structure and step-by-step navigation instructions.**
+
+    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
+
+    ![first_program_2](../../assets/images/llm_eval_first_program_2.png)
+=== "First Program v3"
+    **Narrowed the output to the title only, filtering out metadata like captions and codes.**
+
+    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
+
+    ![first_program_3](../../assets/images/llm_eval_first_program_3.png)
+
+## Takeaways:
 
 Looking back on my project, the major accomplishments can be summarized into two categories:
 
