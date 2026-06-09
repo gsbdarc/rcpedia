@@ -127,7 +127,7 @@ extra_css:
   - stylesheets/custom.css
 
 extra_javascript:
-#  - js/announcement-banner.js
+  - js/announcement-banner.js
   - js/footer.js
 
 watch:
