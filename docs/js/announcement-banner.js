@@ -184,6 +184,13 @@ document.addEventListener("DOMContentLoaded", function () {
             banner.remove();
         }
     }
+
+    function removeAnnouncementContainer() {
+        const bannerContainer = document.querySelector(".announcement-banner-container");
+        if (bannerContainer) {
+            bannerContainer.remove();
+        }
+    }
     
     // ============== READ JSON AND DECIDE WHETHER TO SHOW BANNER ====================
     fetch('/assets/announcement.json')
@@ -193,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
     
             if (!message || message.trim() === "" || !type) {
                 console.warn("⚠️ No current announcement.");
+                removeAnnouncementContainer();
                 return;
             }
     
@@ -217,9 +225,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log("Announcement is unchanged or dismissed");
             }
         })
-        .catch(error => console.error("Failed to load announcement.json:", error)); 
+        .catch(error => {
+            removeAnnouncementContainer();
+            console.error("Failed to load announcement.json:", error);
+        }); 
 
 });
-
 
 
