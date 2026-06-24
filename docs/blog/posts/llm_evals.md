@@ -16,7 +16,7 @@ Large Language Models (LLMs) offer a powerful alternative to manual data extract
 <!-- more -->
 
 !!! note
-    This article will cover how to design LLM benchmarks for research related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"}  and our GitHub [here](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
+    This article will cover how to design LLM benchmarks for research related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"} and our [GitHub](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
 
 ## Our Data
 
@@ -38,7 +38,7 @@ For our LLM evaluation pipeline, one benchmark asked the model to extract the da
 By establishing fixed criteria, a benchmark allows researchers to:
 
 - **Navigate Tradeoffs**: Systematically balance budget constraints against accuracy requirements.
-- **Reproducibility**: Guarantee objective, reproducible results rather than relying on a few lucky outputs.
+- **Ensure Reproducibility**: Guarantee objective, reproducible results rather than relying on a few lucky outputs.
 - **Track Progress**: Confidently measure whether a prompt tweak or model switch actually improves performance or causes a regression.
 
 ### Evaluation Framework
@@ -57,30 +57,32 @@ The framework we used has four components; in a well-designed benchmark, each fo
 The research question anchors the entire framework. Everything downstream (what you extract, how you prompt, how you score) should trace back to it.
 
 !!! example "In our pipeline"
-    *How did historical TV programming vary across channels and time periods?*
+    How did historical TV programming vary across channels and time periods?
 
 **Task**
 
 A task translates the research question into a concrete extraction operation. One research question may require several tasks; each should be narrow enough to prompt clearly and score objectively.
 
 !!! example "In our pipeline"
-    "Extract the show title of the first program listed in the TV-listings grid for the earliest time slot shown": a consistent, well-defined data point present on every newspaper page.
+    Get the name of the first channel from each image.
+
 
 **Prompt**
 
 The prompt translates the task into explicit, machine-readable instructions. Precision matters: a vague prompt doesn't just produce inconsistent outputs, it makes it harder to diagnose whether poor results reflect a model limitation or an underspecified instruction.
 
 !!! example "In our pipeline"
-    The prompt needed to specify where in the grid to look and exactly what to return. See [Updating Prompts](#updating-prompts) for how it evolved across three iterations.
+    Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).
 
 **Metric**
 
-The metric defines what counts as a correct answer, and the choice has real consequences for how you interpret results.
+The metric defines what counts as a correct answer and measures how close an output is to the ground truth.
 
 !!! example "In our pipeline"
-    We scored each model response against the **ground truth**: the verified, hand-transcribed correct answer for each image. For the *first program* task, the ground truth was the show **title** only: the show name stripped of episode descriptions, closed-captioning markers, and VCR codes.
-
-    We started with exact string matching, but this penalized nearly correct outputs (e.g., "Daytona 500" gets a 0 when the ground truth is "2015 Daytona 500".) We switched to fuzzy matching (Levenshtein similarity ratio) to better capture partial accuracy.
+    LLM Output: "Food Channel"  
+    Ground Truth: "Food Network"  
+    Metric: word_iou (fraction of common words between two strings)  
+    Score: 0.5
 
 **The Feedback Loop**
 
@@ -95,73 +97,94 @@ In practice, this framework is iterative, not linear. Poor scores are a diagnost
 - Does your prompt properly explain what you want the LLM to do?
 - Is your metric appropriate for what the prompt is actually asking?
 
-In our pipeline, a one-sentence prompt returned poor results; iterating on it significantly improved performance across models. At the scale of this project (18 models, 35 images, 6 benchmarks), that's nearly 3,800 task combinations per iteration — a reusable pipeline turns each prompt change into a configuration update rather than a full re-run.
+In our pipeline, a one-sentence prompt returned poor results; iterating on it significantly improved performance across models.
 
 ### Executing at Scale
 
-To handle this scale efficiently, we built the following pipeline:
+Our project scaled quickly (18 models, 35 images, 6 benchmarks) with nearly 3,800 task combinations per iteration. To handle this volume efficiently, we built the following pipeline:
 
 <figure markdown>
   ![The evaluation pipeline](../../assets/images/llm_eval_pipeline.png){ width="700" }
   <figcaption>The end-to-end evaluation pipeline used in our project.</figcaption>
 </figure>
 
-After configuring our inputs (benchmarks, models, and images) and converting PDFs to greyscale PNGs, we accessed models through the [Stanford Playground API](https://uit.stanford.edu/aiplayground){target="_blank"}. Outputs and benchmark evaluation results were stored in [MongoDB](https://www.mongodb.com){target="_blank"}, our centralized database. 
+After configuring our inputs (benchmarks, models, and images) and converting PDFs to greyscale PNGs, we accessed models through the [Stanford Playground AI API](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"}. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The API allowed us to get outputs from models without the need for a web interface.
+
+!!! note "Stanford AI Playground"
+    Note: models are continuously deprecated and added to the Playground. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.
+
+Outputs and benchmark evaluation results were stored in [MongoDB](https://www.mongodb.com){target="_blank"}, our centralized database with the following schema:
+
+| Field | Type | Example | Notes |
+| --- | --- | --- | --- |
+| `_id` | string | `"3023_2_processed"` | Primary key that captures the task ID and run ID of a successful LLM output |
+| `benchmark_id` | string | `"2"` | Unique integer identifier for the prompt |
+| `benchmark_name` | string | `"newspaper_date"` | Unique name identifier for the prompt |
+| `completion_tokens` | integer | `15` | Token usage associated with the LLM output |
+| `error` | string | `null` | Error message if the LLM was not able to return an output |
+| `image_id` | string | `"1"` | Unique integer identifier for the image used |
+| `model_id` | string | `"1"` | Unique integer identifier for the LLM |
+| `model_name` | string | `"Llama-4"` | Unique name identifier for the LLM |
+| `output_name` | string | `"Sun, Nov 16, 1997"` | Output from the LLM |
+| `run_id` | integer | `1` | The ith iteration of a given task |
+| `status` | string | `"processed"` | `processed` if the LLM returned an output without error, otherwise `unprocessed` |
+| `task_id` | string | `"2416"` | Unique ID associated with the combination of benchmark, image, and model |
+| `total_tokens` | integer | `4000` | Token usage associated with the input prompt and LLM output |
+| `updated_at` | datetime | `2026-04-08 15:45:50` | Time when the LLM returned an output |
+
 
 Storing results means you can compare across runs: did the new prompt do better or worse than the last version? Did switching models cause a regression on a benchmark that was previously working? Without it, answering those questions requires re-running everything from scratch.
 
 We processed all tasks in a few hours using the [Yen](https://rcpedia.stanford.edu/_getting_started/how_access_yens/?h=yens){target="_blank"} servers for compute and [SLURM](https://rcpedia.stanford.edu/_user_guide/slurm/?h=slurm){target="_blank"} array jobs to process tasks in parallel.
-
-!!! note "Stanford AI Playground"
-    We used the Stanford AI Playground because it gave us access to multiple multimodal models through a single Stanford managed API. The playground is approved for [high risk](https://uit.stanford.edu/news/stanford-ai-playground-now-approved-high-risk-data){target="_blank"} data. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models.
-
-    You will need to apply and get approval for an [API](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} key.
-
-    Note: models are continuously deprecated and added to the Playground. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.
 
 ## In Practice: Iterating on Historical TV Guides
 
 Here's how we applied this framework in practice.
 
 <figure markdown>
-  ![Example newspaper pages with TV-listings grids from our dataset](../../assets/images/llm_eval_tv_guide_example.png){ width="700" }
+  ![Example newspaper page with TV-listings grids from our dataset](../../assets/images/llm_eval_tv_guide_example.png){ width="700" }
   <figcaption>Example newspaper pages with TV-listings grids from our dataset.</figcaption>
 </figure>
 
 ### Selecting Benchmarks
 
-We selected tasks with clear, verifiable answers and assigned each a difficulty level based on expected extraction challenge; these levels were later confirmed by our results. We started with six benchmarks:
+We selected tasks with clear, verifiable answers and assigned each a difficulty level based on expected extraction challenge. We started with six benchmarks:
 
 <figure markdown>
-  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_pic_1.png){ width="700" }
-  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid.</figcaption>
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_easy.png){ width="700" }
+  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Easy benchmark answers are in grey boxes.</figcaption>
 </figure>
+
+**Easy (Grey)**
+
+  | Task | Description |
+  |---|---|
+  | Newspaper Name | Simple metadata extraction, fixed location across documents, high resolution. |
+  | Newspaper Date | Simple metadata extraction, fixed location across documents, high resolution. |
 
 <figure markdown>
-  ![Second example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_pic_2.png){ width="700" }
-  <figcaption>A second sample page illustrating layout variability across the dataset.</figcaption>
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_medium.png){ width="700" }
+  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Medium benchmark answers are in yellow boxes.</figcaption>
 </figure>
 
-=== "Easy (Grey)"
+**Medium (Yellow)**
 
-    | Task | Description |
-    |---|---|
-    | Newspaper Name | Simple metadata extraction, fixed location across documents, high resolution. |
-    | Newspaper Date | Simple metadata extraction, fixed location across documents, high resolution. |
+  | Task | Description |
+  |---|---|
+  | TV Guide Day of Week | Varied location, mixed resolution, data found in scanned PDF. |
+  | TV Guide Date | Reasoning: answer is derived by combining both Newspaper Date and TV Guide Day of Week without being explicitly prompted. |
 
-=== "Medium (Yellow) "
+<figure markdown>
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_hard.png){ width="700" }
+  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Hard benchmark answers are in red boxes. </figcaption>
+</figure>
 
-    | Task | Description |
-    |---|---|
-    | TV Guide Day of Week | Varied location, mixed resolution, data found in scanned PDF. |
-    | TV Guide Date | Reasoning: answer is derived by combining both Newspaper Date and TV Guide Day of Week without being explicitly prompted. |
+**Hard (Red)**
 
-=== "Hard (Red)"
-
-    | Task | Description |
-    |---|---|
-    | First Channel | Data found within grid, smallest font, lowest resolution, variability (color, placement, size). |
-    | First Program | Data found within grid, smallest font, lowest resolution, variability (color, placement, size). |
+  | Task | Description |
+  |---|---|
+  | First Channel | Data found within grid, smallest font, lowest resolution, variability (color, placement, size). |
+  | First Program | Data found within grid, smallest font, lowest resolution, variability (color, placement, size). |
 
 ### Challenges with "Ground Truth"
 
@@ -187,7 +210,7 @@ The so-called "right" answer depends on what your prompt is actually asking for 
 
 With ground truth defined, our scores became the signal for iteration. One benchmark that models initially struggled with was extracting the first program name — the hardest task in the set, with small font, low resolution, and significant variability across guides.
 
-We adjusted our prompt several times to see if we could get better results. You can see the prompts we used below and how each model performed across all images.
+We adjusted our prompt several times to see if we could get better results. You can see the prompts we used below and how each model performed across all images. The model with the best performance across each prompt is highlighted in red.
 
 === "First Program v1"
     **Short, one sentence prompt.**
@@ -209,7 +232,7 @@ We adjusted our prompt several times to see if we could get better results. You 
     </figure>
 
     !!! note "Why did GPT-5 score 0%?"
-        Under fuzzy matching, even a hallucination produces some character overlap and scores above zero — so exactly 0% means the model returned null rather than any answer at all. On this prompt version, gpt-5 and gpt-5-mini consistently abstained when the target text was too small or low-resolution to read confidently, rather than attempt an uncertain extraction.
+        Under fuzzy matching (scoring partial overlap rather than requiring an exact match), even a hallucination produces some character overlap and scores above zero — so exactly 0% means the model returned null rather than any answer at all. On this prompt version, gpt-5 and gpt-5-mini consistently abstained when the target text was too small or low-resolution to read confidently, rather than attempt an uncertain extraction.
 
         ![Example model outputs for image #19 with ground truth "Politically"](../../assets/images/llm_eval_example_outputs.png)
 === "First Program v3"
@@ -225,50 +248,70 @@ We adjusted our prompt several times to see if we could get better results. You 
 ### Results
 
 === "Average Accuracy by Benchmark"
-    Across our initial benchmarks and all models, scores followed the difficulty gradient we predicted before running.
 
     <figure markdown>
       ![Average score by benchmark across all images and models](../../assets/images/llm_eval_benchmark_results_1.png){ width="700" }
       <figcaption>Average accuracy by benchmark across all models and images.</figcaption>
     </figure>
 
-    Easy metadata tasks (newspaper name and newspaper date) scored above 94% on average. The hard grid reading tasks (first channel, first program) averaged 26% and 20% respectively, reflecting the challenges of small fonts and low scan resolution.
+    Our best performing benchmarks were easy metadata tasks like newspaper name and newspaper date, which scored 99% and 95% respectively. 
+
+    The worst performing benchmark was TV Guide Date with an overall score of 42.7%. Low scores were indicative of vague prompting and additional complexity from reasoning compared to other data extraction benchmarks.'
+
+    We added additional benchmarks "all times" and "all channels" to evaluate how well the models did on extracting larger arrays of information.
+
+
 === "Average Accuracy by Model"
-    Looking across six benchmarks, the model leaderboard for accuracy averaged across all tasks was:
+    Looking across all benchmarks, the model leaderboard for accuracy averaged across all tasks was:
 
     <figure markdown>
       ![Top-8 and bottom-8 models by overall accuracy and total cost](../../assets/images/llm_eval_model_ranking.png){ width="700" }
       <figcaption>Top-8 and bottom-8 models ranked by overall accuracy, with total cost per model.</figcaption>
     </figure>
 
-    Gemini-2.5-pro topped the leaderboard at 71.9% overall while claude-3-haiku could only produce accurate results 51% of the time. Notably, our most expensive model was o1, which cost almost 5x more than gemini-2.5-pro but had an accuracy of 61%.
+    Gemini-2.5-pro topped the leaderboard at 78.6% overall while claude-3-haiku could only produce accurate results 48% of the time. Notably, our most expensive model was o1, which cost almost 5x more than gemini-2.5-pro but had an accuracy of 58%.
+
+### Temperature and Reasoning Models
+
+**Accuracy Rates Across Runs**
+
+<figure markdown>
+  ![Accuracy rate for benchmarks across runs](../../assets/images/llm_eval_variability.png){ width="500" }
+  <figcaption> Variability across runs for day of week and tv guide date (all models and images).  </figcaption>
+</figure>
+
+We set `temperature=0` for all models to keep extraction deterministic (the same prompt on the same image should produce the same output every time). Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.
+
+**Reasoning**
+
+Some models also support a **reasoning effort** parameter that controls how much internal chain-of-thought the model performs before responding; however, this setting is not consistently available across all models in the Stanford Playground, so we used each model's default.
+
+One benchmark where reasoning capability genuinely mattered was **TV Guide Date**: unlike the other tasks, the correct date isn't printed explicitly anywhere in the grid. Instead, the model must derive it by combining the newspaper's publication date (from the fixed header) with the day of week label in the TV guide. Tasks like this, which require inference rather than direct transcription, are where tuning reasoning effort (or choosing a reasoning-optimized model) is most likely to pay off.
 
 ### Cost
 
 One practical question for any researcher considering this approach: how much does it actually cost to run?
 
 <figure markdown>
-  ![Best-performing model per benchmark with total cost](../../assets/images/llm_eval_benchmark_total_cost.png){ width="500" }
-  <figcaption> Total cost per benchmark across 35 images and 18 models. </figcaption>
+  ![Best-performing model per benchmark with total cost](../../assets/images/llm_eval_total_cost.png){ width="500" }
+  <figcaption> Total cost per task across 35 images and 18 models. </figcaption>
 </figure>
 
-Running the entire evaluation pipeline (approx. 3,800 unique tasks) cost $93.36. For easy benchmarks (newspaper name, newspaper date) the total cost was approximately $11 across all 35 images and 18 models. Our harder benchmarks were more expensive: first channel cost $18.46 and first program, our most expensive benchmark, cost $27.48. 
-
-Higher costs reflect longer, more complex prompts and greater model effort per extraction. If cost is a concern, one option is to test a smaller set of models or use a smaller image sample.
-
-### Reasoning Models and Temperature
-
-We set `temperature=0` for all models to keep extraction deterministic (the same prompt on the same image should produce the same output every time), making results easier to compare. Some models also support a **reasoning effort** parameter that controls how much internal chain-of-thought the model performs before responding; however, this setting is not consistently available across all models in the Stanford Playground, so we used each model's default.
-
-One benchmark where reasoning capability genuinely mattered was **TV Guide Date**: unlike the other tasks, the correct date isn't printed explicitly anywhere in the grid. Instead, the model must derive it by combining the newspaper's publication date (from the fixed header) with the day of week label in the TV guide. Tasks like this, which require inference rather than direct transcription, are where tuning reasoning effort (or choosing a reasoning-optimized model) is most likely to pay off.
+Running the entire evaluation pipeline multiple times (approx. 11,100 tasks) cost $106.06. We noticed that simple metadata extraction tasks tended to be cheaper ($0.006/task) while more complex tasks that required lengthy prompts, larger outputs, and/or more reasoning drove up costs.
 
 ## Takeaways
 
-1. **Speed and Reusability**
+Building a benchmark was less about finding the one "right" model and more about setting up a process we could keep refining as our questions, data, and the available models change. A few lessons stood out from our work:
 
-     The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Once built, adding new models, benchmarks, or images is an easy configuration update, making it straightforward to adapt for other document extraction workflows.
+1. **Start with your research question**
 
-2. **Start with your research question**
+    Good results depend first on a well-defined research question and a clear understanding of our data's variability. Tasks, prompts, and metrics all follow from there; getting that foundation right is what separates a useful benchmark from one that just produces numbers.
 
-    Good results depend first on a well-defined research question and a clear understanding of your data's variability. Tasks, prompts, and metrics all follow from there; getting that foundation right is what separates a useful benchmark from one that just produces numbers.
+2. **Treat it as an iterative process**
+
+    A benchmark has many knobs to turn — the prompt, the metric, the ground truth, and the choice of model — and the first setting is rarely the best one. Prompting carried a lot of weight: on our hardest task, rewriting a single-sentence prompt into explicit, step-by-step instructions lifted scores across nearly every model. Treat early results as a diagnostic signal, not a final verdict, and expect to loop back a few times before things click.
+
+3. **Build once, reuse easily**
+
+    The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are just configuration, the cost of change is low. When a new model is released, we can point the pipeline at it and get back a full set of evaluations without re-running or rewriting anything and the same is true for a new prompt, a new task, or a fresh batch of documents.
 
