@@ -33,7 +33,7 @@ Jobs submitted to [Yen Slurm](/_user_guide/slurm/){target="_blank"} have the fol
 | Partition      | CPU Limit Per User | Memory Limit (MB)      | Memory Limit (GB)     | Time Limit (default)  |
 | -------------- | :----------------: | :--------------------: | :-------------------: | :-------------------: |
 |  normal        |    512             |  3072000               | 3000                  | 2 days  (2 hours)     |
-|  long          |    50              |  3072000               | 3000                  | 7 days (2 hours)      |
+|  long          |    256             |  3072000               | 3000                  | 7 days (2 hours)      |
 |  dev           |    2               |  48000                 | 46                    | 2 hours (1 hour)      |
 |  gpu           |    64              |  256000                | 250                    | 1 day (2 hours)       |
 
