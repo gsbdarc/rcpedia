@@ -16,11 +16,11 @@ Large Language Models (LLMs) offer a powerful alternative to manual data extract
 <!-- more -->
 
 !!! note
-    This article will cover how to design LLM benchmarks for research related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"} and our [GitHub](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
+    This article will cover how to design LLM benchmarks for research-related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"} and our [GitHub](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
 
 ## Our Data
 
-Throughout this article we'll use one running example: historical newspaper pages containing printed **TV Guides**, dense, grid-shaped program schedules. We chose them as a stand-in for other tabular historical documents (census records, financial ledgers, etc.) because they share the hard parts: small fonts, mixed scan quality, and layouts that shift from one paper to the next.
+Throughout this article we'll use one type of image as an example: historical newspaper pages containing printed **TV Guides**, dense, grid-shaped program schedules. We chose them as a stand-in for other tabular historical documents (census records, financial ledgers, etc.) because they share the hard parts: small fonts, mixed scan quality, and layouts that shift from one paper to the next.
 
 <figure markdown>
   ![A historical newspaper page with a printed TV-listings grid](../../assets/images/llm_eval_open_source.jpg){ width="700" }
@@ -49,7 +49,7 @@ The framework we used has four components; in a well-designed benchmark, each fo
 
 <figure markdown>
   ![The four-component evaluation framework](../../assets/images/llm_eval_rq_workflow.png){ width="700" }
-  <figcaption>The four component framework used in our benchmark design.</figcaption>
+  <figcaption>The four-component framework used in our benchmark design.</figcaption>
 </figure>
 
 **Research Question**
@@ -64,8 +64,7 @@ The research question anchors the entire framework. Everything downstream (what 
 A task translates the research question into a concrete extraction operation. One research question may require several tasks; each should be narrow enough to prompt clearly and score objectively.
 
 !!! example "In our pipeline"
-    Get the name of the first channel from each image.
-
+    We have newspaper TV guides that list historical programming by date, channel, and time. As a first step, we should extract the name of the first channel from each TV guide.
 
 **Prompt**
 
@@ -79,16 +78,15 @@ The prompt translates the task into explicit, machine-readable instructions. Pre
 The metric defines what counts as a correct answer and measures how close an output is to the ground truth.
 
 !!! example "In our pipeline"
-    LLM Output: "Food Channel"  
-    Ground Truth: "Food Network"  
-    Metric: word_iou (fraction of common words between two strings)  
-    Score: 0.5
+    Metric: fraction of common words between two strings.
+
+Word IoU is a good choice for measuring how much two strings overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").
 
 **The Feedback Loop**
 
 <figure markdown>
   ![The four-component evaluation framework](../../assets/images/llm_eval_rq_workflow_2.png){ width="700" }
-  <figcaption>The iterative four component benchmark design framework.</figcaption>
+  <figcaption>The iterative four-component benchmark design framework.</figcaption>
 </figure>
 
 In practice, this framework is iterative, not linear. Poor scores are a diagnostic signal, not just a verdict on the model. Trace back through the framework to find where alignment broke down:
@@ -101,17 +99,17 @@ In our pipeline, a one-sentence prompt returned poor results; iterating on it si
 
 ### Executing at Scale
 
-Our project scaled quickly (18 models, 35 images, 6 benchmarks) with nearly 3,800 task combinations per iteration. To handle this volume efficiently, we built the following pipeline:
+Our initial project pipeline scaled quickly (18 models, 35 images, 6 benchmarks) with nearly 3,800 task combinations per iteration. To handle this volume efficiently, we built the following pipeline:
 
 <figure markdown>
   ![The evaluation pipeline](../../assets/images/llm_eval_pipeline.png){ width="700" }
   <figcaption>The end-to-end evaluation pipeline used in our project.</figcaption>
 </figure>
 
-After configuring our inputs (benchmarks, models, and images) and converting PDFs to greyscale PNGs, we accessed models through the [Stanford Playground AI API](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"}. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The API allowed us to get outputs from models without the need for a web interface.
+After configuring our inputs (benchmarks, models, and images) and converting PDFs to greyscale PNGs, we accessed models through the [Stanford AI API Gateway](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"}. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The Stanford AI API Gateway allowed us to get outputs from models without the need for a web interface.
 
-!!! note "Stanford AI Playground"
-    Note: models are continuously deprecated and added to the Playground. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.
+!!! note "Stanford AI API Gateway"
+    Models are continuously deprecated and added to the Gateway. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.
 
 Outputs and benchmark evaluation results were stored in [MongoDB](https://www.mongodb.com){target="_blank"}, our centralized database with the following schema:
 
@@ -125,7 +123,7 @@ Outputs and benchmark evaluation results were stored in [MongoDB](https://www.mo
 | `image_id` | string | `"1"` | Unique integer identifier for the image used |
 | `model_id` | string | `"1"` | Unique integer identifier for the LLM |
 | `model_name` | string | `"Llama-4"` | Unique name identifier for the LLM |
-| `output_name` | string | `"Sun, Nov 16, 1997"` | Output from the LLM |
+| `output` | string | `"Sun, Nov 16, 1997"` | Output from the LLM |
 | `run_id` | integer | `1` | The ith iteration of a given task |
 | `status` | string | `"processed"` | `processed` if the LLM returned an output without error, otherwise `unprocessed` |
 | `task_id` | string | `"2416"` | Unique ID associated with the combination of benchmark, image, and model |
@@ -153,6 +151,7 @@ We selected tasks with clear, verifiable answers and assigned each a difficulty 
 <figure markdown>
   ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_easy.png){ width="700" }
   <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Easy benchmark answers are in grey boxes.</figcaption>
+  <!-- The next two figures reuse this same page, re-annotated for medium and hard benchmarks. -->
 </figure>
 
 **Easy (Grey)**
@@ -164,7 +163,7 @@ We selected tasks with clear, verifiable answers and assigned each a difficulty 
 
 <figure markdown>
   ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_medium.png){ width="700" }
-  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Medium benchmark answers are in yellow boxes.</figcaption>
+  <figcaption>The same page, with medium benchmark answers in yellow boxes. The TV Guide Date is derived: the newspaper is dated Sun, Dec 17, 2000, and the grid lists a Wednesday schedule, giving a TV Guide Date of Wed, Dec 20, 2000.</figcaption>
 </figure>
 
 **Medium (Yellow)**
@@ -176,7 +175,7 @@ We selected tasks with clear, verifiable answers and assigned each a difficulty 
 
 <figure markdown>
   ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_hard.png){ width="700" }
-  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Hard benchmark answers are in red boxes. </figcaption>
+  <figcaption>The same page, with hard benchmark answers in red boxes.</figcaption>
 </figure>
 
 **Hard (Red)**
@@ -191,7 +190,7 @@ We selected tasks with clear, verifiable answers and assigned each a difficulty 
 Defining ground truth (the correct answer you score an LLM output against) is harder than it sounds. In our dataset, what counted as the right answer depended heavily on the specific research question and the variability in the data itself.
 
 <figure markdown>
-  ![A row from a TV-listings grid showing the 2015 Daytona 500](../../assets/images/llm_eval_daytona.png){ width="700" }
+  ![A row from a TV-listings grid showing the 2015 Daytona 500](../../assets/images/llm_eval_daytona.png){ width="900" }
   <figcaption>A row from a TV-listings grid showing the 2015 Daytona 500 entry.</figcaption>
 </figure>
 
@@ -230,11 +229,6 @@ We adjusted our prompt several times to see if we could get better results. You 
       ![Average first_program score per model using Prompt v2](../../assets/images/llm_eval_first_program_2.png){ width="700" }
       <figcaption>Average first_program score per model using Prompt v2.</figcaption>
     </figure>
-
-    !!! note "Why did GPT-5 score 0%?"
-        Under fuzzy matching (scoring partial overlap rather than requiring an exact match), even a hallucination produces some character overlap and scores above zero — so exactly 0% means the model returned null rather than any answer at all. On this prompt version, gpt-5 and gpt-5-mini consistently abstained when the target text was too small or low-resolution to read confidently, rather than attempt an uncertain extraction.
-
-        ![Example model outputs for image #19 with ground truth "Politically"](../../assets/images/llm_eval_example_outputs.png)
 === "First Program v3"
     **Narrowed the output to the title only, filtering out metadata like captions and codes.**
 
@@ -244,6 +238,23 @@ We adjusted our prompt several times to see if we could get better results. You 
       ![Average first_program score per model using Prompt v3](../../assets/images/llm_eval_first_program_3.png){ width="700" }
       <figcaption>Average first_program score per model using Prompt v3.</figcaption>
     </figure>
+
+### How Models Behave When Uncertain
+
+All models were given the same system prompt for first_program_2 and first_program_3:
+
+> "You are a precise OCR assistant specialized in extracting structured data from historical American newspaper TV guide grids. These are dense, low-resolution scans with small fonts, abbreviations, and tightly packed columns. Extract only text that is visibly present. Never guess, infer, or autocomplete. If a specific piece of information is illegible or missing, return null."
+
+Under fuzzy matching (scoring partial overlap rather than requiring an exact match), even a hallucination produces some character overlap and scores above zero — so an exact 0% means the model returned null rather than any answer at all. That is exactly what happened with gpt-5 and gpt-5-mini.
+
+According to the [GPT-5 system card](https://arxiv.org/html/2601.03267v1){target="_blank"}, GPT-5 models were tuned to abstain from answering at a higher rate than earlier models when data is missing or hard to read. On this prompt version, gpt-5 and gpt-5-mini consistently abstained when the target text was too small or low-resolution to read confidently — in effect, correctly following the "never guess" instruction. Our scoring, however, penalized that as a flat 0%.
+
+Some of the other models behaved differently: once they hit the same uncertainty threshold (poor resolution, small font), they guessed anyway rather than abstaining. Those guesses produced hallucinated answers, which is what drove their accuracy down.
+
+<figure markdown>
+  ![Example model outputs for image #19 with ground truth "Politically"](../../assets/images/llm_eval_example_outputs.png)
+  <figcaption>Example model outputs for image #19 (first program ground truth: "Politically"). GPT-5 abstains while some other models hallucinated.</figcaption>
+</figure>
 
 ### Results
 
@@ -256,7 +267,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 
     Our best performing benchmarks were easy metadata tasks like newspaper name and newspaper date, which scored 99% and 95% respectively. 
 
-    The worst performing benchmark was TV Guide Date with an overall score of 42.7%. Low scores were indicative of vague prompting and additional complexity from reasoning compared to other data extraction benchmarks.'
+    The worst performing benchmark was TV Guide Date with an overall score of 42.7%. Low scores were indicative of vague prompting and additional complexity from reasoning compared to other data extraction benchmarks.
 
     We added additional benchmarks "all times" and "all channels" to evaluate how well the models did on extracting larger arrays of information.
 
@@ -277,14 +288,14 @@ We adjusted our prompt several times to see if we could get better results. You 
 
 <figure markdown>
   ![Accuracy rate for benchmarks across runs](../../assets/images/llm_eval_variability.png){ width="500" }
-  <figcaption> Variability across runs for day of week and tv guide date (all models and images).  </figcaption>
+  <figcaption>Variability across runs for Day of Week and TV Guide Date (all models and images).</figcaption>
 </figure>
 
 We set `temperature=0` for all models to keep extraction deterministic (the same prompt on the same image should produce the same output every time). Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.
 
 **Reasoning**
 
-Some models also support a **reasoning effort** parameter that controls how much internal chain-of-thought the model performs before responding; however, this setting is not consistently available across all models in the Stanford Playground, so we used each model's default.
+Some models also support a **reasoning effort** parameter that controls how much internal chain-of-thought the model performs before responding; however, this setting is not consistently available across all models in the Stanford AI API Gateway, so we used each model's default.
 
 One benchmark where reasoning capability genuinely mattered was **TV Guide Date**: unlike the other tasks, the correct date isn't printed explicitly anywhere in the grid. Instead, the model must derive it by combining the newspaper's publication date (from the fixed header) with the day of week label in the TV guide. Tasks like this, which require inference rather than direct transcription, are where tuning reasoning effort (or choosing a reasoning-optimized model) is most likely to pay off.
 
@@ -299,6 +310,14 @@ One practical question for any researcher considering this approach: how much do
 
 Running the entire evaluation pipeline multiple times (approx. 11,100 tasks) cost $106.06. We noticed that simple metadata extraction tasks tended to be cheaper ($0.006/task) while more complex tasks that required lengthy prompts, larger outputs, and/or more reasoning drove up costs.
 
+**Context Windows**
+
+Context window limits are another factor to watch. A model's context limit bounds both its input (system prompts, user prompts, and images) and its output. Input limits range widely, from 95K (gpt-4.1) to 1M tokens (gemini-2.5-pro). They also depend on how a model is served: our 95K figure for gpt-4.1 reflects its Azure deployment via the Gateway, not the model's native window. And because these limits shift as models update, it's worth checking the latest figures before running your pipeline.
+
+Some of our original color PNGs exceeded these limits, so we converted them to greyscale to shrink their input size and test more models on each image. Preprocessing like this (adjusting color scale or resolution) helps when you hit context limits, but it can also make inputs harder for models to parse accurately.
+
+Output limits weren't an issue for us, since our largest outputs were short arrays of strings. If you need models to produce more than that, keep those limits in mind too.
+
 ## Takeaways
 
 Building a benchmark was less about finding the one "right" model and more about setting up a process we could keep refining as our questions, data, and the available models change. A few lessons stood out from our work:
@@ -309,9 +328,9 @@ Building a benchmark was less about finding the one "right" model and more about
 
 2. **Treat it as an iterative process**
 
-    A benchmark has many knobs to turn — the prompt, the metric, the ground truth, and the choice of model — and the first setting is rarely the best one. Prompting carried a lot of weight: on our hardest task, rewriting a single-sentence prompt into explicit, step-by-step instructions lifted scores across nearly every model. Treat early results as a diagnostic signal, not a final verdict, and expect to loop back a few times before things click.
+    A benchmark has many knobs to turn — the prompt, the metric, the ground truth, and the choice of model — and the first setting is rarely the best one. Prompting carried a lot of weight: on our hardest task, rewriting a single-sentence prompt into explicit, step-by-step instructions lifted scores significantly for our best model. Treat early results as a diagnostic signal, not a final verdict, and expect to loop back a few times before things click.
 
 3. **Build once, reuse easily**
 
-    The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are just configuration, the cost of change is low. When a new model is released, we can point the pipeline at it and get back a full set of evaluations without re-running or rewriting anything and the same is true for a new prompt, a new task, or a fresh batch of documents.
+    The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are just configuration, the cost of change is low. When a new model is released, we can point the pipeline at it and get back a full set of evaluations without re-running or rewriting anything. The same is true for a new prompt, a new task, or a fresh batch of documents.
 
