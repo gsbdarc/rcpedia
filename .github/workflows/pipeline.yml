@@ -88,7 +88,7 @@ jobs:
           path: site/
 
   deploy:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     needs: build
     timeout-minutes: 20
 
@@ -106,15 +106,12 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.MY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-          printf '%s\n' "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa || \
-            printf '%s\n' "${{ secrets.MY_SSH_KEY }}" | base64 -D > ~/.ssh/id_rsa
+          echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
 
       - name: DNS debug
         run: |
-          if command -v getent >/dev/null 2>&1; then
-            getent hosts "$SSH_HOST" || true
-          fi
+          getent hosts "$SSH_HOST" || true
           dig +short "$SSH_HOST" || true
 
       - name: Show runner public IP
@@ -123,7 +120,7 @@ jobs:
 
       - name: Verify SSH connection
         run: |
-          ssh -i ~/.ssh/id_rsa -p "$SSH_PORT" \
+          timeout 45s ssh -i ~/.ssh/id_rsa -p "$SSH_PORT" \
             -o BatchMode=yes \
             -o ConnectTimeout=30 \
             -o ServerAliveInterval=10 \
@@ -146,7 +143,7 @@ jobs:
           for attempt in $(seq 1 "$max_attempts"); do
             echo "Deploy attempt $attempt/$max_attempts..."
       
-            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o BatchMode=yes -o ConnectTimeout=60 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
+            if timeout 300s rsync --timeout=60 -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o BatchMode=yes -o ConnectTimeout=60 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
                 -av --delete site/ \
                 "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
               echo "Deploy succeeded."
