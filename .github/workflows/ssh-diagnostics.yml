@@ -1,0 +1,78 @@
+name: SSH Diagnostics
+
+on:
+  workflow_dispatch:
+    inputs:
+      host:
+        description: 'SSH host to test'
+        required: true
+        default: 'rcpedia-qa.su.domains'
+      user:
+        description: 'SSH user'
+        required: true
+        default: 'rcpediaq'
+      port:
+        description: 'SSH port'
+        required: true
+        default: '22'
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  ssh-diagnostics:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.MY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+          echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+      - name: DNS debug
+        env:
+          HOST: ${{ inputs.host }}
+        run: |
+          getent hosts "$HOST" || true
+          dig +short "$HOST" || true
+
+      - name: Show runner public IP
+        run: |
+          curl -s https://api.ipify.org && echo
+
+      - name: TCP port check
+        env:
+          HOST: ${{ inputs.host }}
+          PORT: ${{ inputs.port }}
+        run: |
+          nc -vz -w 10 "$HOST" "$PORT" || true
+
+      - name: ssh-keyscan
+        env:
+          HOST: ${{ inputs.host }}
+          PORT: ${{ inputs.port }}
+        run: |
+          ssh-keyscan -p "$PORT" -T 10 "$HOST" || true
+
+      - name: SSH auth test
+        env:
+          HOST: ${{ inputs.host }}
+          USER: ${{ inputs.user }}
+          PORT: ${{ inputs.port }}
+        run: |
+          ssh -vvv -i ~/.ssh/id_rsa -p "$PORT" \
+            -o BatchMode=yes -o ConnectTimeout=120 \
+            -o ServerAliveInterval=10 -o ServerAliveCountMax=3 \
+            "$USER@$HOST" 'echo SSH_OK; hostname; whoami; pwd' || true
+
+      - name: rsync dry-run
+        env:
+          HOST: ${{ inputs.host }}
+          USER: ${{ inputs.user }}
+          PORT: ${{ inputs.port }}
+        run: |
+          rsync -e "ssh -i ~/.ssh/id_rsa -p $PORT -o BatchMode=yes -o ConnectTimeout=120 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
+            -avn --list-only \
+            "$USER@$HOST:/home/$USER/" || true
