@@ -14,9 +14,10 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
-  SSH_HOST: rcpedia-qa.su.domains
-  SSH_USER: rcpediaq
-  SSH_PORT: "22"
+
+# Needed so GITHUB_TOKEN can force-push the built site to the deploy-* branch.
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -81,71 +82,17 @@ jobs:
             echo -e "User-agent: *\nAllow: /" > site/robots.txt
           fi
 
-      - name: Upload Site Artifacts
-        uses: actions/upload-artifact@v7
-        with:
-          name: site
-          path: site/
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-
-      - name: Download Site Artifacts
-        uses: actions/download-artifact@v8
-        with:
-          name: site
-          path: site
-
-      - name: Set up SSH
+      # Publish the built site to a per-environment deploy branch. A cPanel cron job on
+      # the Stanford host pulls this branch over HTTPS and rsyncs it into the docroot,
+      # replacing the old inbound SSH/rsync deploy that the firewall now blocks.
+      - name: Publish built site to deploy branch
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
         run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.MY_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
-          echo "${{ secrets.MY_SSH_KEY }}" | base64 --decode > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-
-      - name: DNS debug
-        run: |
-          getent hosts "$SSH_HOST" || true
-          dig +short "$SSH_HOST" || true
-
-      - name: Show runner public IP
-        run: |
-          curl -s https://api.ipify.org && echo
-          
-      - name: Deploy to Stanford Hosts (with retries)
-        run: |
-          set -euo pipefail
-      
-          if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
-            TARGET_HOST="rcpedia-dev.stanford.edu"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if [ "${{ github.ref }}" = "refs/heads/QA" ]; then
+            B=deploy-qa
           else
-            TARGET_HOST="rcpedia.stanford.edu"
+            B=deploy-main
           fi
-      
-          max_attempts=5
-          delay=15
-      
-          for attempt in $(seq 1 "$max_attempts"); do
-            echo "Deploy attempt $attempt/$max_attempts..."
-      
-            if rsync -e "ssh -i ~/.ssh/id_rsa -p $SSH_PORT -o BatchMode=yes -o ConnectTimeout=120 -o ServerAliveInterval=10 -o ServerAliveCountMax=3" \
-                -av --delete site/ \
-                "$SSH_USER@$SSH_HOST:/home/$SSH_USER/$TARGET_HOST/"; then
-              echo "Deploy succeeded."
-              exit 0
-            fi
-      
-            if [[ "$attempt" -lt "$max_attempts" ]]; then
-              echo "Deploy failed; sleeping ${delay}s..."
-              sleep "$delay"
-              delay=$((delay * 2))
-            else
-              echo "Deploy failed after $max_attempts attempts."
-              exit 1
-            fi
-          done
+          ghp-import -n -f -p -b "$B" -m "deploy ${{ github.sha }}" site
