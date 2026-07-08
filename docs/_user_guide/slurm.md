@@ -327,7 +327,7 @@ The four partitions have the following limits:
 | Partition      | CPU Limit Per User | Memory Limit (MB)      | Memory Limit (GB)     | Time Limit (default)  |
 | -------------- | :----------------: | :--------------------: | :-------------------: | :-------------------: |
 |  normal        |    512             |  3072000               | 3000                  | 2 days  (2 hours)     |
-|  long          |    50              |  3072000               | 3000                  | 7 days (2 hours)      |
+|  long          |    256             |  3072000               | 3000                  | 7 days (2 hours)      |
 |  dev           |    2               |  48000                 | 46                    | 2 hours (1 hour)      |
 |  gpu           |    256              |  768000                | 755                    | 1 day (2 hours)       |
 
