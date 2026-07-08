@@ -15,8 +15,8 @@ Large Language Models (LLMs) offer a powerful alternative to manual data extract
 
 <!-- more -->
 
-!!! note
-    This article will cover how to design LLM benchmarks for research-related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"} and our [GitHub](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
+!!! note "What this article covers"
+    This article will focus on how to design LLM benchmarks for research-related data extraction and provide examples from our own implementation. For additional context you can reference our [Hub How-To](https://gsbresearchhub.stanford.edu/training-workshops){target="_blank"} and our [GitHub](https://github.com/gsbdarc/LLM_benchmarks){target="_blank"}.
 
 ## Our Data
 
@@ -33,19 +33,19 @@ Throughout this article we'll use one type of image as an example: historical ne
 
 A model might perform perfectly on a single document but still fail across your full dataset due to variability in layout, font size, and resolution. You need a benchmark: a standardized measure of how different LLMs perform specific tasks across a representative sample of your data.
 
-For our LLM evaluation pipeline, one benchmark asked the model to extract the day of week the TV guide was for: a straightforward task with a consistent, verifiable answer. A harder benchmark asked for the first program listed in the TV-listings grid, requiring the model to read small, low-resolution text with significant variability across documents. Covering a range of difficulty reveals not just whether a model performs well on average, but where it starts to break down.
+For our LLM evaluation pipeline, one benchmark asked the model a straightforward question with a single verifiable answer: which day of the week does this TV guide cover? A harder benchmark asked for the first program listed in the TV-listings grid, which requires reading small, low-resolution text that varies significantly from one document to the next. Covering a range of difficulty reveals not just whether a model performs well on average, but where it starts to break down.
 
 By establishing fixed criteria, a benchmark allows researchers to:
 
 - **Navigate Tradeoffs**: Systematically balance budget constraints against accuracy requirements.
-- **Ensure Reproducibility**: Guarantee objective, reproducible results rather than relying on a few lucky outputs.
+- **Measure Reproducibly**: Get an objective, repeatable measurement of model performance rather than relying on a few lucky outputs.
 - **Track Progress**: Confidently measure whether a prompt tweak or model switch actually improves performance or causes a regression.
 
 ### Evaluation Framework
 
 Popular LLM benchmarks like [MMLU](https://arxiv.org/abs/2009.03300){target="_blank"} or [BIG-Bench](https://arxiv.org/abs/2206.04615){target="_blank"} compare models at a high level, but they don't tell you whether a model can handle your specific documents or research question. For data extraction, you need to design your own.
 
-The framework we used has four components; in a well-designed benchmark, each follows from the last.
+The framework we used has four components — **research question**, **task**, **prompt**, and **metric**. In a well-designed benchmark each follows from the last: the research question determines the task, the task shapes the prompt, and the prompt dictates the metric you score the output against.
 
 <figure markdown>
   ![The four-component evaluation framework](../../assets/images/llm_eval_rq_workflow.png){ width="700" }
@@ -56,31 +56,43 @@ The framework we used has four components; in a well-designed benchmark, each fo
 
 The research question anchors the entire framework. Everything downstream (what you extract, how you prompt, how you score) should trace back to it.
 
-!!! example "In our pipeline"
-    How did historical TV programming vary across channels and time periods?
+<div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
+
+How did historical TV programming vary across channels and time periods?
+</div>
 
 **Task**
 
 A task translates the research question into a concrete extraction operation. One research question may require several tasks; each should be narrow enough to prompt clearly and score objectively.
 
-!!! example "In our pipeline"
-    We have newspaper TV guides that list historical programming by date, channel, and time. As a first step, we should extract the name of the first channel from each TV guide.
+<div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
+
+We have newspaper TV guides that list historical programming by date, channel, and time. As a first step, we should extract the name of the first channel from each TV guide.
+</div>
 
 **Prompt**
 
 The prompt translates the task into explicit, machine-readable instructions. Precision matters: a vague prompt doesn't just produce inconsistent outputs, it makes it harder to diagnose whether poor results reflect a model limitation or an underspecified instruction.
 
-!!! example "In our pipeline"
-    Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).
+<div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
+
+> Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).
+</div>
 
 **Metric**
 
 The metric defines what counts as a correct answer and measures how close an output is to the ground truth.
 
-!!! example "In our pipeline"
-    Metric: fraction of common words between two strings.
+<div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
 
-Word IoU is a good choice for measuring how much two strings overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").
+Metric: Word IoU
+</div>
+
+**Word IoU** (Intersection over Union) — the fraction of words two strings share — is a good choice for measuring how much they overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").
 
 **The Feedback Loop**
 
@@ -127,11 +139,11 @@ Outputs and benchmark evaluation results were stored in [MongoDB](https://www.mo
 | `run_id` | integer | `1` | The ith iteration of a given task |
 | `status` | string | `"processed"` | `processed` if the LLM returned an output without error, otherwise `unprocessed` |
 | `task_id` | string | `"2416"` | Unique ID associated with the combination of benchmark, image, and model |
-| `total_tokens` | integer | `4000` | Token usage associated with the input prompt and LLM output |
+| `total_tokens` | integer | `4000` | Token usage across the input prompt, LLM output, and the model's thinking tokens (reasoning models only) |
 | `updated_at` | datetime | `2026-04-08 15:45:50` | Time when the LLM returned an output |
 
 
-Storing results means you can compare across runs: did the new prompt do better or worse than the last version? Did switching models cause a regression on a benchmark that was previously working? Without it, answering those questions requires re-running everything from scratch.
+Storing results lets you compare across prompt versions and models: did a new prompt (a new `benchmark_id`) do better or worse than the last version? Did switching models (`model_id`) cause a regression on a benchmark that was previously working? Repeated iterations of the same task are tracked separately by `run_id`, so you can also average over them to smooth out run-to-run variation. Without stored results, answering these questions means re-running everything from scratch.
 
 We processed all tasks in a few hours using the [Yen](https://rcpedia.stanford.edu/_getting_started/how_access_yens/?h=yens){target="_blank"} servers for compute and [SLURM](https://rcpedia.stanford.edu/_user_guide/slurm/?h=slurm){target="_blank"} array jobs to process tasks in parallel.
 
@@ -140,8 +152,8 @@ We processed all tasks in a few hours using the [Yen](https://rcpedia.stanford.e
 Here's how we applied this framework in practice.
 
 <figure markdown>
-  ![Example newspaper page with TV-listings grids from our dataset](../../assets/images/llm_eval_tv_guide_example.png){ width="700" }
-  <figcaption>Example newspaper pages with TV-listings grids from our dataset.</figcaption>
+  ![Example newspaper page with TV-listings grids from our dataset](../../assets/images/llm_eval_tv_guide_example_os.png){ width="700" }
+  <figcaption> Example newspaper page with a TV-listings grid.</figcaption>
 </figure>
 
 ### Selecting Benchmarks
@@ -149,32 +161,32 @@ Here's how we applied this framework in practice.
 We selected tasks with clear, verifiable answers and assigned each a difficulty level based on expected extraction challenge. We started with six benchmarks:
 
 <figure markdown>
-  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_easy.png){ width="700" }
-  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Easy benchmark answers are in grey boxes.</figcaption>
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_easy_os.png){ width="700" }
+  <figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Easy benchmark answers are in green boxes.</figcaption>
   <!-- The next two figures reuse this same page, re-annotated for medium and hard benchmarks. -->
 </figure>
 
-**Easy (Grey)**
+**Easy (Green)**
 
   | Task | Description |
   |---|---|
-  | Newspaper Name | Simple metadata extraction, fixed location across documents, high resolution. |
-  | Newspaper Date | Simple metadata extraction, fixed location across documents, high resolution. |
+  | Newspaper Name | Simple metadata extraction, similar locations across documents, relatively high resolution. |
+  | Newspaper Date | Simple metadata extraction, similar locations across documents, relatively high resolution. |
 
 <figure markdown>
-  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_medium.png){ width="700" }
-  <figcaption>The same page, with medium benchmark answers in yellow boxes. The TV Guide Date is derived: the newspaper is dated Sun, Dec 17, 2000, and the grid lists a Wednesday schedule, giving a TV Guide Date of Wed, Dec 20, 2000.</figcaption>
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_medium_os.png){ width="700" }
+  <figcaption>The same page, with medium benchmark answers in yellow boxes. The TV Guide Date is derived: the newspaper is dated Sun, Jan 2, 2000, and the grid lists a Monday schedule, giving a TV Guide Date of Mon, Jan 3, 2000.</figcaption>
 </figure>
 
 **Medium (Yellow)**
 
   | Task | Description |
   |---|---|
-  | TV Guide Day of Week | Varied location, mixed resolution, data found in scanned PDF. |
+  | TV Guide Day of Week | Varied location, mixed resolution, data found in the TV Guide grid. |
   | TV Guide Date | Reasoning: answer is derived by combining both Newspaper Date and TV Guide Day of Week without being explicitly prompted. |
 
 <figure markdown>
-  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_hard.png){ width="700" }
+  ![First example newspaper page from our benchmark dataset](../../assets/images/llm_eval_benchmark_hard_os.png){ width="700" }
   <figcaption>The same page, with hard benchmark answers in red boxes.</figcaption>
 </figure>
 
@@ -190,19 +202,19 @@ We selected tasks with clear, verifiable answers and assigned each a difficulty 
 Defining ground truth (the correct answer you score an LLM output against) is harder than it sounds. In our dataset, what counted as the right answer depended heavily on the specific research question and the variability in the data itself.
 
 <figure markdown>
-  ![A row from a TV-listings grid showing the 2015 Daytona 500](../../assets/images/llm_eval_daytona.png){ width="900" }
-  <figcaption>A row from a TV-listings grid showing the 2015 Daytona 500 entry.</figcaption>
+  ![A row from a TV-listings grid; the first program listed is Baywatch Hawaii](../../assets/images/llm_eval_baywatch.png){ width="675" }
+  <figcaption>A single FOX channel row from a TV-listings grid. Reading left to right across the time slots: <em>Baywatch Hawaii</em>, <em>Earth: Final Conflict</em>, then <em>Animal Rescue</em>. The "first program" is the earliest entry — Baywatch Hawaii.</figcaption>
 </figure>
 
 To better illustrate this challenge, when asking an LLM to extract the "first program" from the above, what is the correct answer?
 
-- **A.** 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season. (N) (cc)
-- **B.** 2015 Daytona 500 The 57th running of the event. The race consists of 200 laps and is the first race of the season.
-- **C.** 2015 Daytona 500
+- **A.** Baywatch Hawaii "Shark Island" (R) (S) (cc)
+- **B.** Baywatch Hawaii "Shark Island"
+- **C.** Baywatch Hawaii
 
 The so-called "right" answer depends on what your prompt is actually asking for — and it can change as your prompt evolves. In our pipeline, we maintained separate ground truth sets for each task and prompt version to ensure our metric always matched what we were asking the model to do.
 
-!!! tip
+!!! tip "Transcribe a few images by hand first"
     Hand transcribing 5 to 10 images yourself can be enormously helpful in understanding the data that is available and how much variability you might be dealing with.
 
 ### Updating Prompts
@@ -214,7 +226,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v1"
     **Short, one sentence prompt.**
 
-    Return the name of the program for the first channel listed and for the earliest time slot shown.
+    > Return the name of the program for the first channel listed and for the earliest time slot shown.
 
     <figure markdown>
       ![Average first_program score per model using Prompt v1](../../assets/images/llm_eval_first_program.png){ width="700" }
@@ -223,7 +235,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v2"
     **Added explicit grid structure and step-by-step navigation instructions.**
 
-    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
+    > Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
 
     <figure markdown>
       ![Average first_program score per model using Prompt v2](../../assets/images/llm_eval_first_program_2.png){ width="700" }
@@ -232,7 +244,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v3"
     **Narrowed the output to the title only, filtering out metadata like captions and codes.**
 
-    Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
+    > Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
 
     <figure markdown>
       ![Average first_program score per model using Prompt v3](../../assets/images/llm_eval_first_program_3.png){ width="700" }
@@ -291,7 +303,7 @@ Some of the other models behaved differently: once they hit the same uncertainty
   <figcaption>Variability across runs for Day of Week and TV Guide Date (all models and images).</figcaption>
 </figure>
 
-We set `temperature=0` for all models to keep extraction deterministic (the same prompt on the same image should produce the same output every time). Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.
+Temperature is a setting that controls how much randomness a model introduces when generating its response: higher values produce more varied output, while `temperature=0` makes it as predictable as the model allows. We set it to 0 for all models so that, in principle, the same prompt on the same image should produce the same output every time. Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.
 
 **Reasoning**
 
@@ -303,10 +315,9 @@ One benchmark where reasoning capability genuinely mattered was **TV Guide Date*
 
 One practical question for any researcher considering this approach: how much does it actually cost to run?
 
-<figure markdown>
-  ![Best-performing model per benchmark with total cost](../../assets/images/llm_eval_total_cost.png){ width="500" }
-  <figcaption> Total cost per task across 35 images and 18 models. </figcaption>
-</figure>
+| Total Cost | Total Tasks (All Runs) | Cost / Task |
+| --- | --- | --- |
+| $106.06 | 11,138 | $0.0095 |
 
 Running the entire evaluation pipeline multiple times (approx. 11,100 tasks) cost $106.06. We noticed that simple metadata extraction tasks tended to be cheaper ($0.006/task) while more complex tasks that required lengthy prompts, larger outputs, and/or more reasoning drove up costs.
 
@@ -332,5 +343,5 @@ Building a benchmark was less about finding the one "right" model and more about
 
 3. **Build once, reuse easily**
 
-    The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are just configuration, the cost of change is low. When a new model is released, we can point the pipeline at it and get back a full set of evaluations without re-running or rewriting anything. The same is true for a new prompt, a new task, or a fresh batch of documents.
+    The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are defined in configuration files rather than hard-coded into the pipeline, the cost of change is low. When a new model is released, we add it to the config and point the pipeline at it — there's no pipeline code to rewrite and no need to re-run the models we've already evaluated. We still have to run the evaluations for the new model itself, but everything around it is reused. The same is true for a new prompt, a new task, or a fresh batch of documents.
 
