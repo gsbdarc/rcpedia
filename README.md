@@ -82,3 +82,13 @@ git pull origin <branch_name>
 
 View the changes locally. Assuming you have a venv described above, activate it and run “mkdocs serve”.
 
+## Deployment
+
+Merging to `QA` (→ https://rcpedia-dev.stanford.edu) or `main` (→ https://rcpedia.stanford.edu)
+triggers the GitHub Actions workflow, which builds the site and publishes it for the Stanford
+host to pull. Deploys are **pull-based**: GitHub publishes the built site to a `deploy-qa` /
+`deploy-main` branch, and a cron job on the host syncs it into the docroot (the old inbound SSH
+deploy is blocked by a Stanford firewall change). Propagation takes up to ~5 minutes.
+
+See [`deploy/README.md`](deploy/README.md) for the mechanism, server setup, and rollback steps.
+
