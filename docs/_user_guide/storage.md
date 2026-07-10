@@ -241,7 +241,7 @@ gsbquota
 Example output:
 ```{ .yaml .no-copy title="Terminal Output" }
 /home/users/<SUNet ID>:
-  using 52% (43GiB) of soft quota 80GiB
+  using 56% (46GiB) of soft quota 80GiB
   hard quota: 300GiB
   time until lockout: no block scheduled
 ```

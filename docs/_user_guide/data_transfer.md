@@ -10,7 +10,7 @@ If you’re working with smaller files, the most straightforward method is to tr
 ![Uploading files via JupyterHub](/assets/images/data_transfer_jupyterhub_upload.png){:target="_blank"}
 
 !!! danger "Do Not Exceed Your Quota!"
-	Your home directory has a 50 GB limit. If you exceed that limit, you will no longer be able to access JupyterHub.
+	Your home directory has an 80 GB limit. If you exceed that limit, you will no longer be able to access JupyterHub.
 
 ## SCP
 
