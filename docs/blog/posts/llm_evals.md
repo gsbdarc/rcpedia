@@ -1,6 +1,6 @@
 ---
 date:
-  created: 2026-05-19
+  created: 2026-07-14
 categories:
     - LLM
 authors:
@@ -79,7 +79,7 @@ The prompt translates the task into explicit, machine-readable instructions. Pre
 <div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
 <span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
 
-> Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).
+<code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).</code>
 </div>
 
 **Metric**
@@ -89,10 +89,10 @@ The metric defines what counts as a correct answer and measures how close an out
 <div markdown="1" style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
 <span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span>
 
-Metric: Word IoU
+Word Intersection over Union (IoU): the fraction of words two strings share.
 </div>
 
-**Word IoU** (Intersection over Union) — the fraction of words two strings share — is a good choice for measuring how much they overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").
+When both the output and the ground truth are short phrases, Word IoU is a good choice for measuring how much they overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").
 
 **The Feedback Loop**
 
@@ -118,7 +118,7 @@ Our initial project pipeline scaled quickly (18 models, 35 images, 6 benchmarks)
   <figcaption>The end-to-end evaluation pipeline used in our project.</figcaption>
 </figure>
 
-After configuring our inputs (benchmarks, models, and images) and converting PDFs to greyscale PNGs, we accessed models through the [Stanford AI API Gateway](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"}. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The Stanford AI API Gateway allowed us to get outputs from models without the need for a web interface.
+After configuring our inputs (benchmarks, models, and images) and converting PDFs to grayscale PNGs, we accessed models through the [Stanford AI API Gateway](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"}. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The Stanford AI API Gateway allowed us to get outputs from models without the need for a web interface.
 
 !!! note "Stanford AI API Gateway"
     Models are continuously deprecated and added to the Gateway. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.
@@ -226,7 +226,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v1"
     **Short, one sentence prompt.**
 
-    > Return the name of the program for the first channel listed and for the earliest time slot shown.
+    <code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Return the name of the program for the first channel listed and for the earliest time slot shown.</code>
 
     <figure markdown>
       ![Average first_program score per model using Prompt v1](../../assets/images/llm_eval_first_program.png){ width="700" }
@@ -235,7 +235,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v2"
     **Added explicit grid structure and step-by-step navigation instructions.**
 
-    > Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.
+    <code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.</code>
 
     <figure markdown>
       ![Average first_program score per model using Prompt v2](../../assets/images/llm_eval_first_program_2.png){ width="700" }
@@ -244,7 +244,7 @@ We adjusted our prompt several times to see if we could get better results. You 
 === "First Program v3"
     **Narrowed the output to the title only, filtering out metadata like captions and codes.**
 
-    > Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.
+    <code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.</code>
 
     <figure markdown>
       ![Average first_program score per model using Prompt v3](../../assets/images/llm_eval_first_program_3.png){ width="700" }
@@ -253,9 +253,9 @@ We adjusted our prompt several times to see if we could get better results. You 
 
 ### How Models Behave When Uncertain
 
-All models were given the same system prompt for first_program_2 and first_program_3:
+All models were given the same system prompt for First Program v2 and First Program v3:
 
-> "You are a precise OCR assistant specialized in extracting structured data from historical American newspaper TV guide grids. These are dense, low-resolution scans with small fonts, abbreviations, and tightly packed columns. Extract only text that is visibly present. Never guess, infer, or autocomplete. If a specific piece of information is illegible or missing, return null."
+<code style="background:none; padding:0; box-shadow:none; font-size:inherit;">You are a precise OCR assistant specialized in extracting structured data from historical American newspaper TV guide grids. These are dense, low-resolution scans with small fonts, abbreviations, and tightly packed columns. Extract only text that is visibly present. Never guess, infer, or autocomplete. If a specific piece of information is illegible or missing, return null.</code>
 
 Under fuzzy matching (scoring partial overlap rather than requiring an exact match), even a hallucination produces some character overlap and scores above zero — so an exact 0% means the model returned null rather than any answer at all. That is exactly what happened with gpt-5 and gpt-5-mini.
 
@@ -264,7 +264,7 @@ According to the [GPT-5 system card](https://arxiv.org/html/2601.03267v1){target
 Some of the other models behaved differently: once they hit the same uncertainty threshold (poor resolution, small font), they guessed anyway rather than abstaining. Those guesses produced hallucinated answers, which is what drove their accuracy down.
 
 <figure markdown>
-  ![Example model outputs for image #19 with ground truth "Politically"](../../assets/images/llm_eval_example_outputs.png)
+  ![Example model outputs for image #19 with ground truth "Politically"](../../assets/images/llm_eval_example_outputs.png){ width="675" }
   <figcaption>Example model outputs for image #19 (first program ground truth: "Politically"). GPT-5 abstains while some other models hallucinated.</figcaption>
 </figure>
 
@@ -277,11 +277,11 @@ Some of the other models behaved differently: once they hit the same uncertainty
       <figcaption>Average accuracy by benchmark across all models and images.</figcaption>
     </figure>
 
-    Our best performing benchmarks were easy metadata tasks like newspaper name and newspaper date, which scored 99% and 95% respectively. 
+    Our best performing benchmarks were easy metadata tasks like newspaper name and newspaper date, which scored 99% and 95% respectively.
 
     The worst performing benchmark was TV Guide Date with an overall score of 42.7%. Low scores were indicative of vague prompting and additional complexity from reasoning compared to other data extraction benchmarks.
 
-    We added additional benchmarks "all times" and "all channels" to evaluate how well the models did on extracting larger arrays of information.
+    We added benchmarks "all times" and "all channels" to evaluate how well the models did on extracting larger arrays of information.
 
 
 === "Average Accuracy by Model"
@@ -300,7 +300,7 @@ Some of the other models behaved differently: once they hit the same uncertainty
 
 <figure markdown>
   ![Accuracy rate for benchmarks across runs](../../assets/images/llm_eval_variability.png){ width="500" }
-  <figcaption>Variability across runs for Day of Week and TV Guide Date (all models and images).</figcaption>
+  <figcaption>Variability across runs for TV Guide Day of Week and TV Guide Date (all models and images).</figcaption>
 </figure>
 
 Temperature is a setting that controls how much randomness a model introduces when generating its response: higher values produce more varied output, while `temperature=0` makes it as predictable as the model allows. We set it to 0 for all models so that, in principle, the same prompt on the same image should produce the same output every time. Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.
@@ -325,7 +325,7 @@ Running the entire evaluation pipeline multiple times (approx. 11,100 tasks) cos
 
 Context window limits are another factor to watch. A model's context limit bounds both its input (system prompts, user prompts, and images) and its output. Input limits range widely, from 95K (gpt-4.1) to 1M tokens (gemini-2.5-pro). They also depend on how a model is served: our 95K figure for gpt-4.1 reflects its Azure deployment via the Gateway, not the model's native window. And because these limits shift as models update, it's worth checking the latest figures before running your pipeline.
 
-Some of our original color PNGs exceeded these limits, so we converted them to greyscale to shrink their input size and test more models on each image. Preprocessing like this (adjusting color scale or resolution) helps when you hit context limits, but it can also make inputs harder for models to parse accurately.
+Some of our original color PNGs exceeded these limits, so we converted them to grayscale to shrink their input size and test more models on each image. Preprocessing like this (adjusting color scale or resolution) helps when you hit context limits, but it can also make inputs harder for models to parse accurately.
 
 Output limits weren't an issue for us, since our largest outputs were short arrays of strings. If you need models to produce more than that, keep those limits in mind too.
 
