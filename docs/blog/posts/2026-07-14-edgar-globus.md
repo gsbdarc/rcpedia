@@ -65,7 +65,7 @@ The `filename` column in the output CSV contains the relative path for each fili
 !!! tip
     Filter your results as narrowly as possible before exporting. EDGAR contains millions of filings and transferring more than you need wastes time and storage.
 
-### Step 2: Run the Transfer Script on Sherlock
+### Step 2: Run Transfer on Sherlock
 
 With your CSV in hand, copy it to your home directory (or other space) on Sherlock along with [this example transfer script](../../assets/scripts/run_transfer.sh){:target="_blank"}. You can run this script on Sherlock like this:
 
@@ -96,7 +96,7 @@ The script will:
 
     Both the [SRCC Sherlock](https://app.globus.org/file-manager/collections/6881ae2e-db26-11e5-9772-22000b9da45e/overview){:target="_blank"} and [SRCC Oak](https://app.globus.org/file-manager/collections/8b3a8b64-d4ab-4551-b37e-ca0092f769a7/overview){:target="_blank"} endpoints are managed by SRCC.
 
-### Step 3: Monitoring Your Transfer
+### Step 3: Monitor Your Transfer
 
 After running the above script, a Task ID and links you can use to check on the transfer will be printed in your terminal:
 
