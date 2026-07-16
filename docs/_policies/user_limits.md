@@ -44,7 +44,7 @@ The maximum job array size is set to **512** on Yen-Slurm.
 
 ## Storage Limits
 
-Home directories have a limit of 50G, and are designed to store personal files, not project work. Learn more about [storage on the Yens](/_user_guide/storage/#yen-file-system){target="_blank"}.
+Home directories have a limit of 80G, and are designed to store personal files, not project work. Learn more about [storage on the Yens](/_user_guide/storage/#yen-file-system){target="_blank"}.
 
 !!! danger "Do NOT exceed your quota!"
     If you exceed your home directory quota, you cannot access Jupyter or perform many basic system tasks.
@@ -55,7 +55,10 @@ gsbquota
 ```
 You will see the space used in your home directory:
 ```{.yaml .no-copy title="Terminal Output"}
-/home/users/$USER: currently using X% (XG) of 50G available
+/home/users/$USER:
+  using X% (XGiB) of soft quota 80GiB
+  hard quota: 300GiB
+  time until lockout: no block scheduled
 ```
 
 ### Identifying Large Files

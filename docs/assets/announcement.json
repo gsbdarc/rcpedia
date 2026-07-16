@@ -1,6 +1,6 @@
 {
-    "type": "",
-    "message": "",
+    "type": "ALERT",
+    "message": "⚠️ Scheduled Downtime: <b>Thursday, July 23, 2026</b>. All Yen servers will be offline for the day ⚠️.",
     "examples": [
         {
             "type": "ERROR",
