@@ -268,7 +268,7 @@ rm -rf /scratch/shared/$USER/*
 ``` 
 
 !!! warning "Scratch is not backed up and will be cleared"
-      Files on scratch are not backed up and **will** be periodically cleared. Per-user scratch (`/scratch/users/$SUNET`) is cleared at each scheduled downtime (about every two months) for files older than **90 days**; shared scratch (`/scratch/shared`) is cleared by administrators. Move any important results to your [project directory](#project-directory){:target="_blank"}.
+      Files on scratch are not backed up and **will** be periodically cleared. `/scratch` files older than **90 days** are deleted at each scheduled downtime (about every two months). Move any important results to your [project directory](#project-directory){:target="_blank"}.
 
 ## How to Check Home and Project Space Quota
 
