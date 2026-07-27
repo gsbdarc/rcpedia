@@ -93,6 +93,7 @@ If you would like to discuss specific storage solutions for your project, please
 Some workflows require fast, short-term storage for intermediate results. The Yen cluster provides two options:
 
 - Node-local storage: `/tmp`
+- Per-user scratch space: `/scratch/users/$SUNET`
 - Shared scratch space: `/scratch/shared`
 
 These locations are **not intended for permanent data** and are **not backed up**.
@@ -123,6 +124,38 @@ Use `/tmp` when:
       - Avoid filling `/tmp`. Other jobs on the same node depend on it.
 
 
+#### Per-User Scratch
+
+Each user also has a **private, per-user scratch directory** on the shared VAST file system, created automatically at:
+
+```{ .yaml .no-copy title="Terminal Output" }
+/scratch/users/$SUNET
+```
+
+This space is:
+
+- Private to you and created automatically
+- Large — up to **100 TB** of shared scratch capacity
+- Accessible from all Yen nodes
+- Slower than `/tmp`
+
+Unlike `/scratch/shared`, your per-user scratch is private by default, so you do not need to set permissions manually.
+
+Check your scratch usage by passing the path to the `gsbquota` command:
+
+```bash title="Terminal Command"
+gsbquota /scratch/users/$SUNET
+```
+
+```{ .yaml .no-copy title="Terminal Output" }
+/scratch/users/<SUNetID>: currently using 22% (22T) of 100T available
+```
+
+!!! warning "Per-user scratch is cleared periodically"
+    Per-user scratch is temporary and **not backed up**. At each scheduled downtime (about every two months), files older than **90 days** are automatically deleted. Move anything you want to keep to your [project directory](#project-directory){:target="_blank"}.
+
+---
+
 #### Cluster-Wide Scratch
 
 Shared scratch space is available at:
@@ -146,7 +179,10 @@ Use `/scratch/shared` when:
 
 ---
 
-##### 🔒 Using Scratch Safely 
+##### 🔒 Using Shared Scratch Safely 
+
+!!! note "Per-user scratch needs no setup"
+    These permission steps apply to **`/scratch/shared` only**. Your per-user scratch (`/scratch/users/$SUNET`) is private by default, so you can skip this section for it.
 
 By default, files in `/scratch/shared` may be visible to other users unless you restrict access.
 
@@ -218,17 +254,21 @@ python script.py
 
 ---
 
-##### 🧹Clean Up Your Scratch Space
-Scratch is a shared, temporary resource. You are expected to remove your files when your job is complete.
+#### 🧹 Cleaning Up Scratch Space
+Scratch is a temporary resource. You are expected to remove your files when your job is complete.
 
-To clean up your scratch directory:
+To clean up your scratch directories:
 
 ```bash title="Terminal Command"
+# per-user scratch
+rm -rf /scratch/users/$SUNET/*
+
+# shared scratch
 rm -rf /scratch/shared/$USER/*
 ``` 
 
-!!! warning "Always move results back to permanent storage"
-      - Files in `/scratch/shared` are not backed up and may be periodically cleared by administrators. Any important results should be moved to your project directory. 
+!!! warning "Scratch is not backed up and will be cleared"
+      Files on scratch are not backed up and **will** be periodically cleared. `/scratch` files older than **90 days** are deleted at each scheduled downtime (about every two months). Move any important results to your [project directory](#project-directory){:target="_blank"}.
 
 ## How to Check Home and Project Space Quota
 
