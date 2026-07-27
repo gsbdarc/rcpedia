@@ -179,7 +179,10 @@ Use `/scratch/shared` when:
 
 ---
 
-##### 🔒 Using Scratch Safely 
+##### 🔒 Using Shared Scratch Safely 
+
+!!! note "Per-user scratch needs no setup"
+    These permission steps apply to **`/scratch/shared` only**. Your per-user scratch (`/scratch/users/$SUNET`) is private by default, so you can skip this section for it.
 
 By default, files in `/scratch/shared` may be visible to other users unless you restrict access.
 
@@ -251,17 +254,21 @@ python script.py
 
 ---
 
-##### 🧹Clean Up Your Scratch Space
-Scratch is a shared, temporary resource. You are expected to remove your files when your job is complete.
+#### 🧹 Cleaning Up Scratch Space
+Scratch is a temporary resource. You are expected to remove your files when your job is complete.
 
-To clean up your scratch directory:
+To clean up your scratch directories:
 
 ```bash title="Terminal Command"
+# per-user scratch
+rm -rf /scratch/users/$SUNET/*
+
+# shared scratch
 rm -rf /scratch/shared/$USER/*
 ``` 
 
-!!! warning "Always move results back to permanent storage"
-      - Files in `/scratch/shared` are not backed up and may be periodically cleared by administrators. Any important results should be moved to your project directory. 
+!!! warning "Scratch is not backed up and will be cleared"
+      Files on scratch are not backed up and **will** be periodically cleared. Per-user scratch (`/scratch/users/$SUNET`) is cleared at each scheduled downtime (about every two months) for files older than **90 days**; shared scratch (`/scratch/shared`) is cleared by administrators. Move any important results to your [project directory](#project-directory){:target="_blank"}.
 
 ## How to Check Home and Project Space Quota
 
