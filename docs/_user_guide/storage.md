@@ -93,6 +93,7 @@ If you would like to discuss specific storage solutions for your project, please
 Some workflows require fast, short-term storage for intermediate results. The Yen cluster provides two options:
 
 - Node-local storage: `/tmp`
+- Per-user scratch space: `/scratch/users/$SUNET`
 - Shared scratch space: `/scratch/shared`
 
 These locations are **not intended for permanent data** and are **not backed up**.
@@ -122,6 +123,38 @@ Use `/tmp` when:
       - `/tmp` is cleared when the job is done and when the node reboots. Always copy important results back to your project directory.
       - Avoid filling `/tmp`. Other jobs on the same node depend on it.
 
+
+#### Per-User Scratch
+
+Each user also has a **private, per-user scratch directory** on the shared VAST file system, created automatically at:
+
+```{ .yaml .no-copy title="Terminal Output" }
+/scratch/users/$SUNET
+```
+
+This space is:
+
+- Private to you and created automatically
+- Large — up to **100 TB** of shared scratch capacity
+- Accessible from all Yen nodes
+- Slower than `/tmp`
+
+Unlike `/scratch/shared`, your per-user scratch is private by default, so you do not need to set permissions manually.
+
+Check your scratch usage by passing the path to the `gsbquota` command:
+
+```bash title="Terminal Command"
+gsbquota /scratch/users/$SUNET
+```
+
+```{ .yaml .no-copy title="Terminal Output" }
+/scratch/users/<SUNetID>: currently using 22% (22T) of 100T available
+```
+
+!!! warning "Per-user scratch is cleared periodically"
+    Per-user scratch is temporary and **not backed up**. At each scheduled downtime (about every two months), files older than **90 days** are automatically deleted. Move anything you want to keep to your [project directory](#project-directory){:target="_blank"}.
+
+---
 
 #### Cluster-Wide Scratch
 
