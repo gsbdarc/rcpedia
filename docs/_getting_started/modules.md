@@ -13,8 +13,12 @@ Here's a list of software packages currently available on the Yen servers:
 - AWS CLI
 - Bats
 - Bbcp
+- Claude Code
+- Codex
 - Dotnet
 - Emacs
+- Gemini CLI
+- GitHub CLI
 - Google Cloud
 - Google Drive
 - Go
@@ -108,6 +112,16 @@ module load <module_name>
 
 !!! Tip
     You may also use the `ml` command as a shorthand for `module load`.
+
+!!! danger "AI Agents Carry Data Responsibilities"
+    AI coding agents such as `claude-code`, `gemini`, and `codex` are available as modules.
+    These tools send the files they can access to external providers, and their usage is
+    audited. It is **your** responsibility to know what data may be shared with AI tools and
+    to keep data covered by a signed DUA or NDA out of them. See
+    [AI Coding Agents](/_user_guide/ai_agents/){target="_blank"} before loading these modules,
+    and contact
+    [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}
+    with any questions.
 
 For example, to load R, run:
     
