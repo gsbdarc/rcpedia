@@ -134,7 +134,7 @@ git clone https://github.com/gsbdarc/saml-fullstack-stanford.git
 cd saml-fullstack-stanford
 cp .env.example .env
 docker compose -f docker-compose.dev.yml up --build
-open http://localhost:8080
+# Then visit http://localhost:8080 in your browser
 ```
 
 This shows a mock user, their mock workgroups, and a visit counter backed
