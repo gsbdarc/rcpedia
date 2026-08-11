@@ -20,51 +20,69 @@ below **before** you load or run any of these tools.
       (DUA)** or **NDA**, or with licensed data whose terms restrict AI use. Check Stanford's
       [guidance on which AI services are approved for which data](https://uit.stanford.edu/ai/services/explore){target="_blank"}
       before you begin.
+    - **Do not** feed data licensed by the GSB Library into an external AI tool. The library's
+      [eResources Usage Policy](https://www.gsb.stanford.edu/library/research-resources/usage-policy){target="_blank"}
+      has an **"AI or LLM usage"** section covering what is and is not permitted with
+      licensed content.
     - Even if you are not using restricted data with an agent, storing restricted data on the
       same system means a misconfiguration or accident could expose it.
-    - **Usage of these tools is audited.**
     - If you are unsure whether your data can be used with AI tools, **contact the GSB Library
       and data governance team at
       [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}
       before you use them.**
 
-## Loading the Modules
+## Load an Agent Module
 
-The AI agents are available via the `module` command like any other software on the Yens.
-See the available tools with:
-
-```title="Terminal Input"
-module avail claude-code
-```
-
-Load an agent with the `module load` command (or the `ml` shorthand):
+On the Yens, the AI agents are available via the `module` command. See all currently
+installed versions with:
 
 ```title="Terminal Input"
-ml claude-code
+module avail claude-code codex gemini
 ```
+
+You will see the available agent versions listed:
+
+```{.yaml .no-copy title="Terminal Output"}
+
+------------------------------------------------------------------------ Global Aliases -------------------------------------------------------------------------
+
+
+-------------------------------------------------------------------- /software/modules/Core ---------------------------------------------------------------------
+   claude-code/2.1.220    codex/0.146.0    gemini/0.53.1
+```
+
+To use an agent, load its module:
+
+=== "Claude Code"
+    ```title="Terminal Input"
+    ml claude-code
+    ```
+
+=== "Gemini CLI"
+    ```title="Terminal Input"
+    ml gemini
+    ```
+
+=== "Codex"
+    ```title="Terminal Input"
+    ml codex
+    ```
+
+This loads the default version. To pin a specific one:
 
 ```title="Terminal Input"
-ml gemini
+ml claude-code/2.1.220
 ```
-
-```title="Terminal Input"
-ml codex
-```
-
-!!! note "You Will See a Data Responsibility Reminder"
-    When you load one of these modules — and when you launch the agent — a reminder about
-    your data-governance responsibilities is displayed. This reminder does not replace your
-    responsibility to know what data may be shared with AI tools.
 
 For a refresher on how modules work, see [Modules](/_getting_started/modules/){target="_blank"}.
 
 ## Claude Code
 
 [Claude Code](https://docs.claude.com/en/docs/claude-code/overview){target="_blank"} is
-Anthropic's agentic coding tool. Load the module and launch it from your project directory:
+Anthropic's agentic coding tool. With the module loaded, launch it from your project
+directory:
 
 ```title="Terminal Input"
-ml claude-code
 claude
 ```
 
@@ -91,25 +109,44 @@ guidance on isolating these tools.
 ## Gemini
 
 [Gemini CLI](https://google-gemini.github.io/gemini-cli/){target="_blank"} is Google's
-agentic coding tool. Load the module and launch it:
+agentic coding tool. With the module loaded, launch it:
 
 ```title="Terminal Input"
-ml gemini
 gemini
 ```
 
 ### Authenticating
 
-Unlike Claude Code and Codex, the Gemini CLI is **not** covered by Stanford's
-[Gemini Enterprise AI](https://uit.stanford.edu/service/gemini-enterprise-ai){target="_blank"}
-service. To use it on the Yens, you need an API key from Stanford's
-[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} —
-[request a key](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=fd75ec563b90265079a53434c3e45a65){target="_blank"}
-tied to your Stanford account, and set it before launching:
+!!! warning "Gemini CLI Is Not Covered by Stanford's Enterprise Agreement"
+    Unlike Claude Code and Codex, the Gemini CLI falls **outside** Stanford's
+    [Gemini Enterprise AI](https://uit.stanford.edu/service/gemini-enterprise-ai){target="_blank"}
+    service. Stanford's agreements with Anthropic and OpenAI govern how your data is used,
+    retained, and whether it trains the vendors' models — **none of that applies here**.
+    Anything you send through the Gemini CLI goes to Google outside those protections, so
+    treat it as an unapproved external service and keep non-public research data out of it.
+
+The first time you run `gemini`, it asks how you want to authenticate — **Sign in with
+Google**, **Use Gemini API Key**, or **Vertex AI**. None of these route through a Stanford
+agreement.
+
+The simplest option is a [Gemini API key](https://aistudio.google.com/apikey){target="_blank"}
+from Google AI Studio, which has a free tier. Set it before launching and the CLI will detect
+it automatically:
 
 ```title="Terminal Input"
 export GEMINI_API_KEY=<your-api-key>
 ```
+
+This is a **personal** key, and on Google's
+[free tier](https://ai.google.dev/gemini-api/terms){target="_blank"} your prompts and
+responses may be read by human reviewers and used to improve Google's models.
+
+A key from Stanford's
+[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} is not a
+drop-in substitute: the Gateway exposes an OpenAI-compatible endpoint, while the Gemini CLI
+speaks Google's own API format. Stanford publishes Gateway
+[setup guides](https://uit.stanford.edu/service/ai-api-gateway/userguide){target="_blank"}
+for Codex CLI, Cline, and Roo Code, but not for the Gemini CLI.
 
 If you prefer a browser-based experience with your **Stanford Google account (SUNet ID)**,
 you can use
@@ -121,10 +158,9 @@ list of Stanford's AI services.
 ## Codex
 
 [Codex CLI](https://developers.openai.com/codex/cli/){target="_blank"} is OpenAI's agentic
-coding tool. Load the module and launch it:
+coding tool. With the module loaded, launch it:
 
 ```title="Terminal Input"
-ml codex
 codex
 ```
 
@@ -133,13 +169,21 @@ codex
 Codex is available to Stanford users through Stanford's
 [**ChatGPT Edu**](https://uit.stanford.edu/service/openai-chatgpt-edu){target="_blank"}
 service, which covers use of the CLI. When you first run `codex`, sign in with your **Stanford account**.
-Alternatively, you can use an OpenAI API key from Stanford's
-[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} by setting
-an environment variable before launching:
+
+Alternatively, you can route Codex through Stanford's
+[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}. This takes
+more than an environment variable — the Gateway is not OpenAI's endpoint, so Codex has to be
+pointed at it explicitly in `~/.codex/config.toml`, which also stops it from falling back to
+ChatGPT sign-in. Follow Stanford's
+[Codex CLI setup guide](https://uit.stanford.edu/service/ai-api-gateway/userguide/openai-codex-cli-setup){target="_blank"},
+which uses the base URL `https://aiapi-prod.stanford.edu/v1` and reads your key from:
 
 ```title="Terminal Input"
-export OPENAI_API_KEY=<your-api-key>
+export STANFORD_AI_API_KEY=<your-api-key>
 ```
+
+Note that the Gateway is a **chargeback service** — it bills monthly against a PTA, and you set
+a maximum monthly budget when you request a key.
 
 As with the other agents, run Codex from a directory scoped to only the files the tool needs.
 

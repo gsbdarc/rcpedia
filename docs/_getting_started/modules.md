@@ -115,9 +115,9 @@ module load <module_name>
 
 !!! danger "AI Agents Carry Data Responsibilities"
     AI coding agents such as `claude-code`, `gemini`, and `codex` are available as modules.
-    These tools send the files they can access to external providers, and their usage is
-    audited. It is **your** responsibility to know what data may be shared with AI tools and
-    to keep data covered by a signed DUA or NDA out of them. See
+    These tools send the files they can access to external providers. It is **your**
+    responsibility to know what data may be shared with AI tools and to keep data covered
+    by a signed DUA or NDA out of them. See
     [AI Coding Agents](/_user_guide/ai_agents/){target="_blank"} before loading these modules,
     and contact
     [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}
