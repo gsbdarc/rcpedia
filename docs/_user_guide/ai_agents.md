@@ -2,8 +2,8 @@
 
 Several AI coding agents are available on the Yens as modules, including
 [Claude Code](https://docs.claude.com/en/docs/claude-code/overview){target="_blank"},
-[Gemini CLI](https://google-gemini.github.io/gemini-cli/){target="_blank"}, and
-[Codex CLI](https://developers.openai.com/codex/cli/){target="_blank"}. These are agentic
+[Codex CLI](https://developers.openai.com/codex/cli/){target="_blank"}, and
+[Gemini CLI](https://google-gemini.github.io/gemini-cli/){target="_blank"}. These are agentic
 command-line tools: they read files in your working directory, run commands on your behalf,
 and send that context to an external model provider to generate responses.
 
@@ -58,14 +58,14 @@ To use an agent, load its module:
     ml claude-code
     ```
 
-=== "Gemini CLI"
-    ```title="Terminal Input"
-    ml gemini
-    ```
-
 === "Codex"
     ```title="Terminal Input"
     ml codex
+    ```
+
+=== "Gemini CLI"
+    ```title="Terminal Input"
+    ml gemini
     ```
 
 This loads the default version. To pin a specific one:
@@ -103,6 +103,27 @@ project directory that contains only the files the tool needs, never from a dire
 also holds restricted or licensed data. See
 [Configuration Matters](/_policies/security/#configuration-matters){target="_blank"} for
 guidance on isolating these tools.
+
+## Codex
+
+[Codex CLI](https://developers.openai.com/codex/cli/){target="_blank"} is OpenAI's agentic
+coding tool. With the module loaded, launch it:
+
+```title="Terminal Input"
+codex
+```
+
+### Authenticating
+
+Codex is available to Stanford users through Stanford's
+[**ChatGPT Edu**](https://uit.stanford.edu/service/openai-chatgpt-edu){target="_blank"}
+service, which covers use of the CLI. When you first run `codex`, sign in with your **Stanford account**.
+
+This is the recommended route — your usage falls under Stanford's agreement with OpenAI. To
+use Stanford's AI API Gateway instead, see
+[Using the AI API Gateway](#using-the-ai-api-gateway) below.
+
+As with the other agents, run Codex from a directory scoped to only the files the tool needs.
 
 ## Gemini
 
@@ -146,43 +167,13 @@ or the [Stanford AI Playground](https://uit.stanford.edu/aiplayground){target="_
 directly. See [University IT AI](https://uit.stanford.edu/ai){target="_blank"} for the full
 list of Stanford's AI services.
 
-## Codex
-
-[Codex CLI](https://developers.openai.com/codex/cli/){target="_blank"} is OpenAI's agentic
-coding tool. With the module loaded, launch it:
-
-```title="Terminal Input"
-codex
-```
-
-### Authenticating
-
-Codex is available to Stanford users through Stanford's
-[**ChatGPT Edu**](https://uit.stanford.edu/service/openai-chatgpt-edu){target="_blank"}
-service, which covers use of the CLI. When you first run `codex`, sign in with your **Stanford account**.
-
-This is the recommended route — your usage falls under Stanford's agreement with OpenAI. To
-use Stanford's AI API Gateway instead, see
-[Using the AI API Gateway](#using-the-ai-api-gateway) below.
-
-As with the other agents, run Codex from a directory scoped to only the files the tool needs.
-
 ## Using the AI API Gateway
 
 Stanford's [AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}
 is a different way to reach these models: an **OpenAI-compatible API** you call from your own
-code, rather than a way to sign in to an agent.
-[Request a key](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=fd75ec563b90265079a53434c3e45a65){target="_blank"},
-pick a model from Stanford's list, and POST to
-`https://aiapi-prod.stanford.edu/v1/chat/completions` with your key as a bearer token. It
-covers models from Anthropic, OpenAI, and Google under Stanford's terms.
-
-!!! warning "The Gateway Charges for Every Call"
-    Unlike signing in with your Stanford account, the Gateway is a **chargeback service**: you
-    pay per API call, priced by input and output tokens, and it bills monthly against a
-    **PTA**. Rates vary by model and change often — check the current
-    [AI API Gateway rates](https://uit.stanford.edu/service/ai-api-gateway/rates){target="_blank"}
-    before you start, and set a maximum monthly budget when you request your key.
+code, rather than a way to sign in to an agent. See
+[Stanford's LLM API Tools](/blog/2026/03/06/stanfords-llm-api-tools/){target="_blank"} for how
+to request a key and start making calls.
 
 For the agents on this page, signing in with your Stanford account is simpler and is already
 covered by Stanford's agreements. If you do want to route an agent through the Gateway, each
@@ -190,8 +181,6 @@ one needs its own configuration — follow Stanford's setup guides for
 [Claude Code](https://uit.stanford.edu/service/ai-api-gateway/userguide/claude-cli-setup){target="_blank"}
 and
 [Codex CLI](https://uit.stanford.edu/service/ai-api-gateway/userguide/openai-codex-cli-setup){target="_blank"}.
-The Gemini CLI cannot use the Gateway at all, since the Gateway exposes nothing in Google's
-API format.
 
 ## Your Responsibilities
 
