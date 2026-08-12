@@ -91,13 +91,16 @@ claude
 Claude Code is available to Stanford users through Stanford's
 [**Claude for Education**](https://uit.stanford.edu/service/claude){target="_blank"} service,
 which covers use of the CLI. When you first run `claude`, follow the prompts to sign
-in with your **Stanford account**. Alternatively, you can use an Anthropic API key from
-Stanford's [AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}
-by setting an environment variable before launching:
+in with your **Stanford account**.
 
-```title="Terminal Input"
-export ANTHROPIC_API_KEY=<your-api-key>
-```
+Alternatively, you can route Claude Code through Stanford's
+[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}. A key on
+its own is not enough: Claude Code sends requests to Anthropic unless you also point it at the
+Gateway with `ANTHROPIC_BASE_URL`, and because the Gateway authenticates with a bearer token,
+the credential goes in `ANTHROPIC_AUTH_TOKEN` rather than `ANTHROPIC_API_KEY`. Follow
+Stanford's
+[Claude Code CLI setup guide](https://uit.stanford.edu/service/ai-api-gateway/userguide/claude-cli-setup){target="_blank"}
+(Stanford login required) for the current base URL and values.
 
 Claude Code works by scanning the files it has access to, starting from the directory where
 you launch it. **Be deliberate about which directory you run it in** — launch it from a
@@ -143,10 +146,10 @@ responses may be read by human reviewers and used to improve Google's models.
 
 A key from Stanford's
 [AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} is not a
-drop-in substitute: the Gateway exposes an OpenAI-compatible endpoint, while the Gemini CLI
-speaks Google's own API format. Stanford publishes Gateway
+drop-in substitute. The Gateway's documented endpoints use the OpenAI and Anthropic API
+formats, not Google's, and Stanford publishes Gateway
 [setup guides](https://uit.stanford.edu/service/ai-api-gateway/userguide){target="_blank"}
-for Codex CLI, Cline, and Roo Code, but not for the Gemini CLI.
+for Claude Code, Codex CLI, and Cline — but none for the Gemini CLI.
 
 If you prefer a browser-based experience with your **Stanford Google account (SUNet ID)**,
 you can use
