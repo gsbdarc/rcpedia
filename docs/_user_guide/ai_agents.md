@@ -17,9 +17,9 @@ below **before** you load or run any of these tools.
     external providers.
 
     - **Do not** use these tools with any data covered by a signed **Data Use Agreement
-      (DUA)** or **NDA**, or with licensed data whose terms restrict AI use. Check Stanford's
-      [guidance on which AI services are approved for which data](https://uit.stanford.edu/ai/services/explore){target="_blank"}
-      before you begin.
+      (DUA)** or **NDA**, or with licensed data whose terms restrict AI use.
+    - Before you begin, check Stanford's
+      [guidance on which AI services are approved for which data](https://uit.stanford.edu/ai/services/explore){target="_blank"}.
     - **Do not** feed data licensed by the GSB Library into an external AI tool. The library's
       [eResources Usage Policy](https://www.gsb.stanford.edu/library/research-resources/usage-policy){target="_blank"}
       has an **"AI or LLM usage"** section covering what is and is not permitted with
