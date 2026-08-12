@@ -139,10 +139,6 @@ This is a **personal** key, and on Google's
 [free tier](https://ai.google.dev/gemini-api/terms){target="_blank"} your prompts and
 responses may be read by human reviewers and used to improve Google's models.
 
-A key from Stanford's AI API Gateway will **not** work here — the Gateway speaks the OpenAI
-API format, and the Gemini CLI only speaks Google's. See
-[Using the AI API Gateway](#using-the-ai-api-gateway) below.
-
 If you prefer a browser-based experience with your **Stanford Google account (SUNet ID)**,
 you can use
 [Gemini Enterprise AI](https://uit.stanford.edu/service/gemini-enterprise-ai){target="_blank"}
