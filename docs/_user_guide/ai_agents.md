@@ -18,17 +18,17 @@ below **before** you load or run any of these tools.
 
     - **Do not** use these tools with any data covered by a signed **Data Use Agreement
       (DUA)** or **NDA**, or with licensed data whose terms restrict AI use.
-    - Before you begin, check Stanford's
-      [guidance on which AI services are approved for which data](https://uit.stanford.edu/ai/services/explore){target="_blank"}.
     - **Do not** feed data licensed by the GSB Library into an external AI tool. The library's
       [eResources Usage Policy](https://www.gsb.stanford.edu/library/research-resources/usage-policy){target="_blank"}
       has an **"AI or LLM usage"** section covering what is and is not permitted with
       licensed content.
     - Even if you are not using restricted data with an agent, storing restricted data on the
-      same system means a misconfiguration or accident could expose it.
-    - If you are unsure whether your data can be used with AI tools, **contact the GSB Library
-      and data governance team at
-      [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}
+      same system means a misconfiguration or accident could expose it. Check Stanford's
+      [guidance on which AI services are approved for which data](https://uit.stanford.edu/ai/services/explore){target="_blank"}
+      before you begin.
+    - If you are unsure whether your data can be used with AI tools, **contact the
+      [GSB Data Acquisition and Governance team](https://gsbresearchhub.stanford.edu/support-units/data-acquisition-and-governance){target="_blank"}
+      at [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}
       before you use them.**
 
 ## Load an Agent Module
@@ -189,8 +189,9 @@ When you use an AI agent, keep the following in mind:
 - **Licensed data and DUAs.** Data licenses and Data Use Agreements can have specific clauses
   about where data may be stored and whether AI tools can be used on it. It is **your**
   responsibility to understand the limits of your data before pointing an AI agent at it. If
-  you have any questions, contact the GSB Library and data governance team at
-  [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}.
+  you have any questions, contact the
+  [GSB Data Acquisition and Governance team](https://gsbresearchhub.stanford.edu/support-units/data-acquisition-and-governance){target="_blank"}
+  at [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){target="_blank"}.
 - **Check what is approved.** Stanford's Information Security Office maintains the
   [GenAI Tool Evaluation Matrix](https://uit.stanford.edu/ai/genai-tool-matrix){target="_blank"}
   of reviewed and approved services.

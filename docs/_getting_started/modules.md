@@ -114,7 +114,7 @@ module load <module_name>
     You may also use the `ml` command as a shorthand for `module load`.
 
 !!! danger "AI Agents Carry Data Responsibilities"
-    AI coding agents such as `claude-code`, `gemini`, and `codex` are available as modules.
+    AI coding agents such as `claude-code`, `codex`, and `gemini` are available as modules.
     These tools send the files they can access to external providers. It is **your**
     responsibility to know what data may be shared with AI tools and to keep data covered
     by a signed DUA or NDA out of them. See

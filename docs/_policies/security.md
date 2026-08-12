@@ -49,14 +49,14 @@ If you are using licensed data, the storage, processing, sharing and publication
 
 For data licensed by the GSB Library, please refer to this [eResources Guide](https://www.gsb.stanford.edu/library/research-resources/usage-policy) for additional requirements including limitations on scraping, sharing credentials and external distribution.
 
-If you have any questions or concerns about use of your data, please [contact the GSB Research Hub library and data governance team](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"} to discuss your specific situation.
+If you have any questions or concerns about use of your data, please contact the [GSB Data Acquisition and Governance team](https://gsbresearchhub.stanford.edu/support-units/data-acquisition-and-governance){:target="_blank"} at [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"} to discuss your specific situation.
 
 ## AI Tooling, Claude Code & Cursor
 
 When working with AI tools, there are additional considerations for researchers.
 
 !!! note "Using AI Coding Agents on the Yens"
-    AI coding agents such as `claude-code`, `gemini`, and `codex` are installed as modules on the Yens. For how to load and use them — and your data-governance responsibilities — see [AI Coding Agents](/_user_guide/ai_agents/){:target="_blank"}.
+    AI coding agents such as `claude-code`, `codex`, and `gemini` are installed as modules on the Yens. For how to load and use them — and your data-governance responsibilities — see [AI Coding Agents](/_user_guide/ai_agents/){:target="_blank"}.
 
 !!! danger "University Approved Systems"
     Stanford's Information Security Office maintains a list of reviewed and approved (or discouraged) services at the [GenAI Tool Evaluation Matrix](https://uit.stanford.edu/ai/genai-tool-matrix){:target="_blank"}.
@@ -64,7 +64,7 @@ When working with AI tools, there are additional considerations for researchers.
 
 ### Licensed Data
 
-Data licenses can have specific clauses about where the data can be stored, as well as the degree to which AI can (or can't) be used on that data. When we license these data sets, it's important that we do our best to follow those licenses, which can sometimes require some interpretation or guidance. If you have any questions or concerns about using AI with your data, please [contact the GSB Research Hub library and data governance team](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"}.
+Data licenses can have specific clauses about where the data can be stored, as well as the degree to which AI can (or can't) be used on that data. When we license these data sets, it's important that we do our best to follow those licenses, which can sometimes require some interpretation or guidance. If you have any questions or concerns about using AI with your data, please contact the [GSB Data Acquisition and Governance team](https://gsbresearchhub.stanford.edu/support-units/data-acquisition-and-governance){:target="_blank"} at [gsb-library_research-data-coordination@stanford.edu](mailto:gsb-library_research-data-coordination@stanford.edu){:target="_blank"}.
 
 ### Configuration Matters
 
