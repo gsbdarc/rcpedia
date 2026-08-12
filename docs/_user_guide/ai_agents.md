@@ -93,14 +93,9 @@ Claude Code is available to Stanford users through Stanford's
 which covers use of the CLI. When you first run `claude`, follow the prompts to sign
 in with your **Stanford account**.
 
-Alternatively, you can route Claude Code through Stanford's
-[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}. A key on
-its own is not enough: Claude Code sends requests to Anthropic unless you also point it at the
-Gateway with `ANTHROPIC_BASE_URL`, and because the Gateway authenticates with a bearer token,
-the credential goes in `ANTHROPIC_AUTH_TOKEN` rather than `ANTHROPIC_API_KEY`. Follow
-Stanford's
-[Claude Code CLI setup guide](https://uit.stanford.edu/service/ai-api-gateway/userguide/claude-cli-setup){target="_blank"}
-(Stanford login required) for the current base URL and values.
+This is the recommended route — your usage falls under Stanford's agreement with Anthropic. To
+use Stanford's AI API Gateway instead, see
+[Using the AI API Gateway](#using-the-ai-api-gateway) below.
 
 Claude Code works by scanning the files it has access to, starting from the directory where
 you launch it. **Be deliberate about which directory you run it in** — launch it from a
@@ -144,12 +139,9 @@ This is a **personal** key, and on Google's
 [free tier](https://ai.google.dev/gemini-api/terms){target="_blank"} your prompts and
 responses may be read by human reviewers and used to improve Google's models.
 
-A key from Stanford's
-[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"} is not a
-drop-in substitute. The Gateway's documented endpoints use the OpenAI and Anthropic API
-formats, not Google's, and Stanford publishes Gateway
-[setup guides](https://uit.stanford.edu/service/ai-api-gateway/userguide){target="_blank"}
-for Claude Code, Codex CLI, and Cline — but none for the Gemini CLI.
+A key from Stanford's AI API Gateway will **not** work here — the Gateway speaks the OpenAI
+API format, and the Gemini CLI only speaks Google's. See
+[Using the AI API Gateway](#using-the-ai-api-gateway) below.
 
 If you prefer a browser-based experience with your **Stanford Google account (SUNet ID)**,
 you can use
@@ -173,22 +165,37 @@ Codex is available to Stanford users through Stanford's
 [**ChatGPT Edu**](https://uit.stanford.edu/service/openai-chatgpt-edu){target="_blank"}
 service, which covers use of the CLI. When you first run `codex`, sign in with your **Stanford account**.
 
-Alternatively, you can route Codex through Stanford's
-[AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}. This takes
-more than an environment variable — the Gateway is not OpenAI's endpoint, so Codex has to be
-pointed at it explicitly in `~/.codex/config.toml`, which also stops it from falling back to
-ChatGPT sign-in. Follow Stanford's
-[Codex CLI setup guide](https://uit.stanford.edu/service/ai-api-gateway/userguide/openai-codex-cli-setup){target="_blank"},
-which uses the base URL `https://aiapi-prod.stanford.edu/v1` and reads your key from:
-
-```title="Terminal Input"
-export STANFORD_AI_API_KEY=<your-api-key>
-```
-
-Note that the Gateway is a **chargeback service** — it bills monthly against a PTA, and you set
-a maximum monthly budget when you request a key.
+This is the recommended route — your usage falls under Stanford's agreement with OpenAI. To
+use Stanford's AI API Gateway instead, see
+[Using the AI API Gateway](#using-the-ai-api-gateway) below.
 
 As with the other agents, run Codex from a directory scoped to only the files the tool needs.
+
+## Using the AI API Gateway
+
+Stanford's [AI API Gateway](https://uit.stanford.edu/service/ai-api-gateway){target="_blank"}
+is a different way to reach these models: an **OpenAI-compatible API** you call from your own
+code, rather than a way to sign in to an agent.
+[Request a key](https://stanford.service-now.com/it_services?id=sc_cat_item&sys_id=fd75ec563b90265079a53434c3e45a65){target="_blank"},
+pick a model from Stanford's list, and POST to
+`https://aiapi-prod.stanford.edu/v1/chat/completions` with your key as a bearer token. It
+covers models from Anthropic, OpenAI, and Google under Stanford's terms.
+
+!!! warning "The Gateway Charges for Every Call"
+    Unlike signing in with your Stanford account, the Gateway is a **chargeback service**: you
+    pay per API call, priced by input and output tokens, and it bills monthly against a
+    **PTA**. Rates vary by model and change often — check the current
+    [AI API Gateway rates](https://uit.stanford.edu/service/ai-api-gateway/rates){target="_blank"}
+    before you start, and set a maximum monthly budget when you request your key.
+
+For the agents on this page, signing in with your Stanford account is simpler and is already
+covered by Stanford's agreements. If you do want to route an agent through the Gateway, each
+one needs its own configuration — follow Stanford's setup guides for
+[Claude Code](https://uit.stanford.edu/service/ai-api-gateway/userguide/claude-cli-setup){target="_blank"}
+and
+[Codex CLI](https://uit.stanford.edu/service/ai-api-gateway/userguide/openai-codex-cli-setup){target="_blank"}.
+The Gemini CLI cannot use the Gateway at all, since the Gateway exposes nothing in Google's
+API format.
 
 ## Your Responsibilities
 
