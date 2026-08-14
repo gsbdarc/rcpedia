@@ -100,6 +100,7 @@ nav:
           - Running R Interactively: _user_guide/r.md
           - RStudio: _user_guide/rstudio.md
           - Best Practices in R: _user_guide/parallel_processing_r.md
+      - AI Coding Agents: _user_guide/ai_agents.md
       - Matlab: _user_guide/matlab_interactive.md
       - Julia: _user_guide/julia.md
       - SAS: _user_guide/sas.md          
