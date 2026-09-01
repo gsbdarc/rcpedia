@@ -71,6 +71,39 @@ jobs:
           echo "mkdocs.yml after removing analytics:"
           grep -A3 "^extra" mkdocs.yml || true
 
+      # A page listed in mkdocs.yml but renamed on disk only produces a plugin WARNING
+      # (the build still succeeds, the page just vanishes from /llms.txt); a page added on
+      # disk but never listed produces no message at all. Both fail the build here, so
+      # /llms.txt cannot silently drift out of sync with docs/.
+      - name: Check llms.txt sections match docs/
+        run: |
+          python - <<'EOF'
+          import pathlib, re, sys
+
+          # docs/index.md is a template shell (template: home.html) with no prose to serve.
+          EXCLUDE = {"docs/index.md"}
+
+          config = pathlib.Path("mkdocs.yml").read_text()
+          block = config.split("      sections:", 1)[1]
+          block = re.split(r"^[a-z_]", block, maxsplit=1, flags=re.M)[0]
+          listed = {"docs/" + p for p in re.findall(r"^          - ([^:\s]+\.md)", block, flags=re.M)}
+          on_disk = {p.as_posix() for p in pathlib.Path("docs").rglob("*.md")} - EXCLUDE
+
+          unlisted = sorted(on_disk - listed)
+          missing = sorted(listed - on_disk)
+          if unlisted:
+              print("Not listed under plugins.llmstxt.sections in mkdocs.yml, so invisible")
+              print("to AI agents reading /llms.txt - add each with a one-line description:")
+              print("".join("  " + p + "\n" for p in unlisted), end="")
+          if missing:
+              print("Listed under plugins.llmstxt.sections in mkdocs.yml but not on disk -")
+              print("renamed or deleted? Update or drop the entry:")
+              print("".join("  " + p + "\n" for p in missing), end="")
+          if unlisted or missing:
+              sys.exit(1)
+          print(f"ok: all {len(on_disk)} pages are listed")
+          EOF
+
       - name: Build MkDocs site
         run: mkdocs build --clean
 

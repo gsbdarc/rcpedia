@@ -1,6 +1,7 @@
 site_name: Research Computing Resources
 site_subtitle: Research Hub
 site_url: https://rcpedia.stanford.edu
+site_description: Documentation for the Yen research computing cluster at the Stanford Graduate School of Business.
 theme:
   name: material
   custom_dir: overrides
@@ -48,6 +49,101 @@ plugins:
       plugins:
         - optimize:
             optimize_png: false
+
+  # Publishes /llms.txt and /llms-full.txt so AI coding agents can read RCpedia
+  # accurately instead of guessing from training data. See llmstxt.org. Listed last
+  # so blog pages exist by the time it runs. Descriptions below are what a model
+  # actually reads to decide which page to open - keep them specific.
+  - llmstxt:
+      full_output: llms-full.txt
+      markdown_description: |-
+        RCpedia documents the Yen cluster, the shared research computing environment run
+        by the Data, Analytics, and Research Computing (DARC) group at Stanford GSB. It
+        covers getting access over SSH and JupyterHub, the yen-slurm batch scheduler and
+        its GPU partition, storage and data transfer, usage limits and data-security
+        policies, AI coding agents, and per-language guides for Python, R, Julia, Stata,
+        SAS, Matlab, and optimization solvers.
+
+        The Optional section is the DARC blog - an index plus individual posts, newest
+        first, each tagged with its publication date. Posts are worth reading, but an
+        older one may refer to software versions, module names, or paths that have since
+        changed; prefer the sections above when the two disagree.
+      sections:
+        Getting Started:
+          - status.md: live cluster status, outages, and maintenance windows - check here first if something is broken
+          - _getting_started/yen-servers.md: the Yen cluster - what the nodes are, their specs, and which one to use
+          - _getting_started/how_access_yens.md: who is eligible, SSH access, VPN, and sponsored accounts
+          - _getting_started/jupyter.md: JupyterHub web-based notebooks and terminals on yen1-yen5
+          - _getting_started/modules.md: software installed on the Yens and loading specific versions with module
+          - _user_guide/index.md: map of the rest of the user guide
+        Slurm and Batch Jobs:
+          - _user_guide/slurm.md: the yen-slurm scheduler - writing sbatch scripts, submitting jobs, and checking the queue
+          - _user_guide/migrating_from_jupyter.md: moving a long-running process off JupyterHub onto yen-slurm
+          - _user_guide/job_arrays.md: running one script over many inputs with Slurm job arrays
+          - _user_guide/using_gpu.md: the yen-slurm gpu partition and requesting GPUs in a job script
+        Languages and Software:
+          - _user_guide/python.md: running Python interactively on the Yens
+          - _user_guide/python_envs.md: creating Python virtual environments (venv, Virtualenv, Pipenv) and installing packages
+          - _user_guide/parallel_processing_python.md: parallelizing Python and capping how many cores a library takes
+          - _user_guide/r.md: running R interactively via the module command
+          - _user_guide/rstudio.md: using RStudio through JupyterHub
+          - _user_guide/parallel_processing_r.md: parallel processing in R - building clusters without oversubscribing shared nodes
+          - _user_guide/ai_agents.md: running AI coding agents (Claude Code, Codex CLI, Gemini) and the Stanford AI API gateway
+          - _user_guide/matlab_interactive.md: running Matlab interactively
+          - _user_guide/julia.md: running Julia interactively
+          - _user_guide/sas.md: running SAS interactively
+          - _user_guide/stata.md: running Stata interactively
+          - _user_guide/optimization.md: licensed Gurobi, Knitro, and AMPL solvers, interactively and in Slurm
+        Interactive Sessions and Resource Use:
+          - _user_guide/monitor_usage.md: checking your own CPU and memory usage with htop and related tools
+          - _user_guide/screen.md: keeping a job running after you log out, and why Slurm is usually the better answer
+          - _user_guide/using_gui.md: graphical applications via JupyterHub or SSH X-forwarding
+        Storage and Data:
+          - _user_guide/storage.md: where research data lives and the quota on each - home 80 GB, project space 1 TB faculty / 200 GB student, ~100 TB shared scratch
+          - _user_guide/data_transfer.md: moving data to and from the Yens, from small uploads to large transfers
+          - _user_guide/file_management.md: naming conventions and keeping the file count in a directory manageable
+          - _user_guide/archiving.md: cleaning up and archiving data when a project wraps up
+        Troubleshooting:
+          - status.md: live cluster status - check here first before debugging anything else
+          - _user_guide/jupyter_does_not_work.md: JupyterHub will not start or load - browser, access, and quota causes
+          - _user_guide/man_in_middle.md: the SSH host key changed warning - what it means and how to clear it
+          - _user_guide/julia_on_jupyter.md: installing a Julia kernel so Julia appears in JupyterHub
+        Beyond the Yens:
+          - _user_guide/sherlock.md: Stanford's Sherlock HPC cluster and when to use it instead of the Yens
+          - _user_guide/redivis.md: Redivis for querying multi-TB datasets, as an alternative to storing them on the Yens
+        Policies:
+          - _policies/user_limits.md: CPU, memory, and storage limits on the interactive nodes yen1-yen5 and on JupyterHub
+          - _policies/security.md: Stanford data risk levels and whether high risk data (PHI, HIPAA, PII) may go on the Yens
+          - _policies/humanSubjectsResearch.md: human subjects data and when your study needs IRB approval
+          - _policies/darc.md: DARC services and request forms, including requesting a new project space or more quota
+          - _policies/collaborators.md: SUNet ID sponsorship and Yen access for collaborators outside the GSB
+          - _policies/workgroups.md: Stanford workgroups, which control Yen logins and project space access
+          - _policies/acknowledgements.md: how to acknowledge or cite the Yens and the DARC team in publications
+          - _policies/leavingGSB.md: what happens to your SUNet ID, Yen access, and data when you leave GSB
+        Optional:
+          - blog/index.md: chronological index of DARC blog posts
+          - blog/posts/llm_evals.md: "2026-07-14 - benchmarking LLMs for research use"
+          - blog/posts/nvidia-nim.md: "2026-04-23 - self-hosting an LLM endpoint on the Yen GPUs with NVIDIA NIM"
+          - blog/posts/yen-ssh-setup.md: "2026-03-17 - SSH keys and config for faster Yen logins"
+          - blog/posts/playground.md: "2026-03-06 - Stanford's AI API Gateway for LLM access"
+          - blog/posts/fine-tune.md: "2025-11-07 - fine-tuning open source models on the Yen GPUs"
+          - blog/posts/ollama.md: "2025-05-12 - running Ollama locally on the Yens and Sherlock"
+          - blog/posts/2024-12-06-redivis_features.md: "2024-12-06 - getting started with Redivis"
+          - blog/posts/download_files_to_the_Yens.md: "2024-11-21 - downloading straight to the Yens with wget"
+          - blog/posts/finBERT.md: "2024-03-28 - fine-tuning BERT for sentiment analysis on financial news"
+          - blog/posts/2024-03-28-colab_gpu.md: "2024-03-28 - using Google Colab GPUs (off-cluster), not the Yen GPUs"
+          - blog/posts/reproducibility_tips.md: "2024-02-28 - documenting inputs, outputs, and READMEs"
+          - blog/posts/edit-files-with-vim.md: "2023-09-20 - editing files with Vim from the command line"
+          - blog/posts/rclone.md: "2023-09-18 - copying files between the Yens and Google Drive with rclone"
+          - blog/posts/howRenvJupyterKernel.md: "2023-08-23 - exporting an R environment as a JupyterHub kernel"
+          - blog/posts/how_to_uncompress_large_files.md: "2023-08-18 - extracting large compressed archives on the Yens"
+          - blog/posts/using_twarc.md: "2023-08-08 - scraping Twitter with the twarc Python package"
+          - blog/posts/SECfilings.md: "2023-05-16 - data sources and sample workflows for SEC filings"
+          - blog/posts/merging_data_sets_dask.md: "2023-02-09 - merging data sets too big for memory with Dask"
+          - blog/posts/2022-11-14_installing_software.md: "2022-11-14 - installing your own software when no module exists"
+          - blog/posts/work_with_large_zip_files_in_python.md: "2022-10-10 - reading large zip files in Python without extracting them"
+          - blog/posts/performance.md: "2021-01-20 - adapting code to the Yens' shared architecture"
+          - blog/posts/wordEmbeddings.md: "2020-03-04 - what word embeddings are, with a worked example"
 
 markdown_extensions:
     - attr_list # Enables links open in new tab with {:target="_blank"} syntax 
