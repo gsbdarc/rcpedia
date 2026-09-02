@@ -179,3 +179,7 @@ data/
 output/
 temp/
 site/
+
+# Claude Code
+#  settings.local.json is per-developer; the shared settings.json and CLAUDE.md stay tracked.
+.claude/settings.local.json
