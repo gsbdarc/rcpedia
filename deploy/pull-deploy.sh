@@ -17,6 +17,17 @@ set -euo pipefail
 
 CODELOAD="https://codeload.github.com/gsbdarc/rcpedia/tar.gz/refs/heads"
 
+# This host has no working route to Azure IP space, and GitHub's newer ranges live
+# there: 172.182.0.0/16 and 20.29.128.0/17 time out 100% of the time, while GitHub's
+# own ASN ranges below route fine. codeload.github.com resolves into all three
+# depending on which resolver answers, so plain DNS reaches it only about one attempt
+# in three -- which is what made deploys take hours. See README for the measurements.
+REACHABLE_PREFIXES="140.82. 185.199."
+CODELOAD_FALLBACK_IPS="140.82.116.10 140.82.116.9 140.82.114.10 140.82.112.10"
+
+# Set by pick_codeload(): either empty (use DNS) or a --resolve argument.
+RESOLVE=""
+
 # A file every build produces. Checked before syncing, because --delete-after means
 # syncing a truncated or unexpected extract would strip the live docroot.
 SENTINEL="index.html"
@@ -33,6 +44,47 @@ SENTINEL="index.html"
 # pulls started failing.
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*"; }
 err() { log "ERROR: $*" >&2; }
+
+# Codeload addresses this host can actually route to. The DoH lookup is opportunistic:
+# it often returns an Azure address that gets filtered out here, so in practice the
+# static list carries it -- but the lookup means a newly rotated 140.82/185.199 address
+# is picked up without editing this file. If every candidate stops working, GitHub has
+# moved codeload off its own ASN and CODELOAD_FALLBACK_IPS needs updating; the error
+# from pick_codeload() says so.
+codeload_candidates() {
+  local ips out="" ip pfx
+  ips="$(curl -sS --connect-timeout 5 --max-time 8 \
+          'https://dns.google/resolve?name=codeload.github.com&type=A' 2>/dev/null \
+          | tr ',' '\n' | sed -n 's/.*"data":"\([0-9.]*\)".*/\1/p')"
+  for ip in $ips $CODELOAD_FALLBACK_IPS; do
+    for pfx in $REACHABLE_PREFIXES; do
+      case "$ip" in "$pfx"*) out="$out $ip" ;; esac
+    done
+  done
+  echo $out | tr ' ' '\n' | awk 'NF && !seen[$0]++'
+}
+
+# Choose a codeload endpoint this host can reach. Plain DNS is tried first so the
+# script self-heals if the Azure routing is ever fixed, and no pinning happens on a
+# healthy network.
+pick_codeload() {
+  if curl -sS -o /dev/null --connect-timeout 5 --max-time 5 \
+       https://codeload.github.com/ 2>/dev/null; then
+    RESOLVE=""
+    return 0
+  fi
+  local ip
+  for ip in $(codeload_candidates); do
+    if curl -sS -o /dev/null --connect-timeout 5 --max-time 5 \
+         --resolve "codeload.github.com:443:$ip" https://codeload.github.com/ 2>/dev/null; then
+      RESOLVE="--resolve codeload.github.com:443:$ip"
+      log "codeload: DNS address unreachable, pinned to $ip"
+      return 0
+    fi
+  done
+  err "codeload.github.com unreachable by DNS and by every candidate IP"
+  return 1
+}
 
 deploy() {
   local branch="$1"
@@ -53,7 +105,7 @@ deploy() {
   mkdir -p "$work"
   code="$(curl -sS --location --max-time 10 --retry 1 --retry-delay 3 \
             --head --dump-header "$hdrs" --output /dev/null \
-            --write-out '%{http_code}' "$CODELOAD/$branch" 2>"$errf" || echo 000)"
+            --write-out '%{http_code}' $RESOLVE "$CODELOAD/$branch" 2>"$errf" || echo 000)"
   # --retry makes curl emit --write-out once per attempt, so three failures arrive
   # concatenated as "000000000". Keep the last attempt's code.
   code="${code: -3}"
@@ -87,7 +139,7 @@ deploy() {
   mkdir -p "$extract"
 
   curl -sS --fail --location --max-time 120 --retry 1 --retry-delay 3 \
-       --output "$tarball" "$CODELOAD/$branch" 2>"$errf" \
+       --output "$tarball" $RESOLVE "$CODELOAD/$branch" 2>"$errf" \
     || { err "download failed for $branch: $(tr '\n' ' ' < "$errf")"; return 1; }
   tar -xzf "$tarball" -C "$extract" --strip-components=1 2>"$errf" \
     || { err "could not extract the $branch tarball: $(tr '\n' ' ' < "$errf")"; return 1; }
@@ -114,6 +166,7 @@ deploy() {
 # Run both environments even if one fails, but exit non-zero if either did, so a real
 # outage shows up as a failed cron job instead of passing silently.
 status=0
+pick_codeload || exit 1
 deploy deploy-qa   "$HOME/rcpedia-dev.stanford.edu" || status=1
 deploy deploy-main "$HOME/rcpedia.stanford.edu"     || status=1
 exit "$status"

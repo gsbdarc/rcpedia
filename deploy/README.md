@@ -11,27 +11,47 @@ the built site to a branch, and the host pulls it.
 
 ## Why tarballs and not git
 
-The host cannot reach `github.com` or `api.github.com` — outbound connections to the GitHub
-IP ranges those resolve to time out. General outbound HTTPS is fine (`example.com` returns
-200) and `codeload.github.com` is reachable, so specific GitHub ranges are being dropped,
-not GitHub as a whole. Confirmed 2026-09-02 from `stanford01`:
+This host has **no working route to Azure IP space**, and GitHub's newer address ranges
+live there. Measured from `stanford01` on 2026-09-02:
 
-| Host | Result |
-|---|---|
-| `example.com` | 200 |
-| `github.com` (172.182.252.133, a published GitHub `/32`) | connection timed out |
-| `api.github.com` | connection timed out |
-| `codeload.github.com` | reachable |
+| Target | Range | Result |
+|---|---|---|
+| `github.com` → 172.182.252.133 | `172.182.0.0/16` (Azure) | times out, 100% |
+| `api.github.com` → 172.182.252.137 | `172.182.0.0/16` (Azure) | times out, 100% |
+| pinned 20.29.134.23 | `20.29.128.0/17` (Azure) | times out |
+| pinned 140.82.121.4 | `140.82.112.0/20` (GitHub ASN) | **200** |
+| `raw.githubusercontent.com` → 185.199.111.133 | `185.199.108.0/22` (GitHub ASN) | **works** |
+| `login.microsoftonline.com` → 20.190.190.193 | Azure | times out |
+| `management.azure.com` → 4.150.240.10 | Azure | times out |
+| `www.microsoft.com` → 23.45.137.206 | Akamai CDN | **200** |
+| `example.com`, `pypi.org`, `www.stanford.edu` | — | **all fine** |
 
-`pull-deploy.sh` therefore fetches a branch tarball from `codeload.github.com` instead of
-using `git clone`/`git fetch`. Change detection uses the archive's `ETag` from a `HEAD`
-request — a content hash, stable per commit, and free of any body transfer — because reading
-the branch SHA from `api.github.com` is not possible from this host.
+So general outbound HTTPS is healthy, Microsoft properties on CDNs are fine, and only
+Azure-hosted addresses fail. This is not GitHub-specific; GitHub is collateral damage.
 
-The git-based version reported this outage as `SKIP: remote branch not found` and exited 0,
-so cron stayed green while the site silently stopped updating. See issue #268. If the range
-block is ever lifted, git would work again, but the tarball path needs no git on the host and
-has fewer moving parts.
+`codeload.github.com` resolves into all three ranges depending on which resolver answers
+(1.1.1.1 → 172.182.x, 8.8.8.8 → 140.82.x, 9.9.9.9 → 20.29.x), so plain DNS reaches it
+only about one attempt in three. That is why deploys appeared to hang for hours and then
+suddenly succeed — the 2026-09-02 QA deploy took roughly two hours of failed cron runs
+before one drew a routable address.
+
+Two consequences for this script:
+
+1. **Tarballs, not git.** `git` needs `github.com`, which is unreachable. `codeload` serves
+   branch archives and lives (sometimes) in a routable range. Change detection uses the
+   archive `ETag` from a `HEAD` request, because reading the branch SHA from
+   `api.github.com` is not possible from here.
+2. **Pin to a routable address.** `pick_codeload()` tries plain DNS first, so nothing is
+   pinned on a healthy network and the script self-heals if the routing is ever fixed. If
+   that fails it pins to a candidate in `140.82.112.0/20` via `curl --resolve`, logging
+   `codeload: DNS address unreachable, pinned to <ip>`.
+
+Reclaim is not expected to change this, so the pinning is the durable fix rather than a
+stopgap. If GitHub ever moves codeload off its own ASN entirely, every candidate will fail
+and `pick_codeload()` will say so; `CODELOAD_FALLBACK_IPS` then needs new addresses.
+
+The git-based predecessor reported all of this as `SKIP: remote branch not found` and
+exited 0, so cron stayed green while the site silently went stale. See issue #268.
 
 ## How it works
 
@@ -118,8 +138,10 @@ The live site is static files, so a bad build/cron never takes it down — only 
 
 ## Host constraints (for reference)
 
-- **Inbound SSH is firewall-blocked**, and outbound HTTPS reaches `codeload.github.com` but
-  not `github.com` / `api.github.com` (see "Why tarballs and not git").
+- **Inbound SSH is firewall-blocked** (a separate Stanford-side issue, #248), and outbound
+  routing to Azure IP space is broken, which takes out `github.com` and `api.github.com`
+  (see "Why tarballs and not git"). Note this also means Microsoft SSO endpoints such as
+  `login.microsoftonline.com` are unreachable from this host.
 - Long-lived processes are reaped on this shared host, so a persistent self-hosted runner is
   not viable — hence cron.
 - Both docroots live on the single `rcpediaq` account (not a personal account like `astorers`).
