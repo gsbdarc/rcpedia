@@ -51,11 +51,23 @@ Sections follow the *subgroups* in `nav`, not its four top-level tabs, so no sin
 long enough to be hard to scan. Pages may be listed in two sections when that genuinely helps
 (`status.md` appears under both Getting Started and Troubleshooting).
 
-These descriptions are for `llms.txt` only. They are **not** the HTML `<meta name="description">`
-tag — pages currently have none. Don't add a top-level `site_description:` to `mkdocs.yml` to
-fill that gap: it is a single site-wide string, so it stamps the identical meta tag onto all
-~110 pages, which is neutral at best for search. Real per-page meta descriptions belong in each
-page's `description:` front matter, and that is a content change across 40+ files.
+These descriptions are for `llms.txt` only. They are **not** the HTML
+`<meta name="description">` tag, which comes from a separate `description:` key in each page's
+front matter — see below. Keep both in mind when adding a page; they serve different readers.
+
+### Page descriptions (front matter)
+
+Every page under `docs/` carries a `description:` in its YAML front matter. Material renders it
+as that page's `<meta name="description">`, which is what search engines and link previews show.
+
+- **A new page needs one.** Nothing enforces this yet, so it is on the author.
+- Write a sentence for a person scanning search results, not a fragment for a model. Roughly
+  100-150 characters — much longer and it gets truncated.
+- Make it specific to the page. Don't reuse another page's, and don't add a top-level
+  `site_description:` to `mkdocs.yml` as a shortcut: that is a single site-wide string, so it
+  stamps the identical tag onto all ~110 pages, which is neutral at best for search.
+- Blog archive and category pages have no source file, so they have no description. That is
+  expected, not a gap to fill.
 
 ### The CI guard
 
