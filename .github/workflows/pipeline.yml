@@ -107,6 +107,22 @@ jobs:
       - name: Build MkDocs site
         run: mkdocs build --clean
 
+      # Lets the DeployMonitor workflow tell from outside whether the published site is
+      # current. Nothing on the web host reports its own health, and a stalled pull-based
+      # deploy is silent, so this is the only signal that the live site has gone stale.
+      - name: Write build-info.json
+        run: |
+          cat > site/build-info.json <<EOF
+          {
+            "commit": "${{ github.sha }}",
+            "ref": "${{ github.ref }}",
+            "run_id": "${{ github.run_id }}",
+            "built_at": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+            "built_at_epoch": $(date -u +%s)
+          }
+          EOF
+          cat site/build-info.json
+
       - name: Generate robots.txt
         run: |
           if [[ "${{ github.ref }}" == "refs/heads/QA" ]]; then
