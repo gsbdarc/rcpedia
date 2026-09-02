@@ -1,3 +1,7 @@
+---
+description: "Use the licensed Gurobi, Knitro, and AMPL optimization solvers on the Yen servers, interactively, in Jupyter notebooks, and in Slurm jobs."
+---
+
 # Optimization
 
 We have licensed and installed optimization software on the Yens that the GSB researchers can use including

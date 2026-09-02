@@ -5,6 +5,7 @@ categories:
     - Yen
 authors:
     - nrapstin
+description: "Configure SSH multiplexing and key authentication for the Yen cluster to speed up repeated logins and hops between Yen nodes."
 ---
 
 # SSH Setup for the Yen Servers

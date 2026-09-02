@@ -5,6 +5,7 @@ categories:
     - LLM
 authors:
     - nrapstin
+description: "Deploy an optimized large language model on a Yen H200 GPU node with NVIDIA NIM and Singularity, served over an OpenAI-compatible endpoint."
 ---
 
 # Self-Hosting LLMs with NVIDIA NIM on the Yens

@@ -1,3 +1,7 @@
+---
+description: "What the SSH host key verification warning means when connecting to the Yen servers, and how to safely remove the stale key."
+---
+
 # What is a "man-in-the-middle" warning?
 
 ## Understanding the warning

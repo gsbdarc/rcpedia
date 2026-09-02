@@ -7,6 +7,7 @@ categories:
     - Code Optimization Tips 
 authors:
     - astorer
+description: "Adapt code for the Yen servers' shared architecture, including reducing slow disk writes, to get better performance than a naive port."
 ---
 
 # Optimizing Performance on the Yens

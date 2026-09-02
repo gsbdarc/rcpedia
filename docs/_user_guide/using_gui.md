@@ -1,3 +1,7 @@
+---
+description: "Run graphical applications on the Yen servers through JupyterHub, or over SSH with X-forwarding for software such as Stata and SAS."
+---
+
 ## JupyterHub as a Graphical Environment
 
 Many research applications, including RStudio, Matlab and Jupyter Notebooks are now available natively on the web through the [JupyterHub Interface](/_getting_started/jupyter/){:target=_blank}.

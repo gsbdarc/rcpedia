@@ -7,6 +7,7 @@ categories:
 authors:
     - nrapstin
 subtitle: Reproducible Research Essentials
+description: "Foundations of reproducible research: documenting fixed inputs and expected outputs, and writing a README that others can follow."
 ---
 
 # Reproducible Research Essentials

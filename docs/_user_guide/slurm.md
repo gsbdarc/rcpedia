@@ -1,3 +1,7 @@
+---
+description: "Submit and manage batch jobs on the yen-slurm cluster at Stanford GSB: writing sbatch scripts, choosing a partition, and monitoring the queue."
+---
+
 
 # Yen Slurm
 You may be used to using a job scheduler on [other Stanford compute resources](https://srcc.stanford.edu/systems){:target="_blank"} (e.g. Sherlock, etc.) or servers from other institutions. However, the Yen servers have traditionally run without a scheduler in order to make them more accessible and intuitive to our users. The ability to log onto a machine with considerably more resources than your laptop and immediately start running scripts as if it was still your laptop has been very popular with our users. This is the case on `yen1`, `yen2`, `yen3`, `yen4` and `yen5`.

@@ -1,3 +1,7 @@
+---
+description: "Parallelize Python on the Yen servers and limit how many cores libraries such as numpy, scikit-learn, and PyTorch use on shared nodes."
+---
+
 # Parallel Processing in Python
 
 ## Common Python Libraries (`numpy`, `sklearn`, `pytorch`, etc...)

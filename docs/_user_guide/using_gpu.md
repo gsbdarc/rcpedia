@@ -1,3 +1,7 @@
+---
+description: "Request NVIDIA GPUs on the yen-slurm gpu partition and run CUDA, PyTorch, TensorFlow, and Keras jobs, with example job scripts."
+---
+
 # Run Jobs on the GPU Partition
 
 ## GPU Partition Overview

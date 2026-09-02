@@ -1,3 +1,7 @@
+---
+description: "How Stanford workgroups control login access to the Yen servers and read and write permissions on project space directories."
+---
+
 # Workgroup Management
 
 ## What is a Workgroup?

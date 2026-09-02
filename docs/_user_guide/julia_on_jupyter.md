@@ -1,3 +1,7 @@
+---
+description: "Install a Julia kernel on the Yen servers so that Julia notebooks are available in JupyterHub."
+---
+
 # How Do I Install Julia on JupyterHub?
 
 ## Step 1: Log onto the Yens

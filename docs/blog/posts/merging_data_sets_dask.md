@@ -7,6 +7,7 @@ categories:
     - Merging data sets
 authors:
     - nrapstin
+description: "Merge data sets too large for memory on the Yen servers using Python Dask, which follows pandas syntax with lower memory use."
 ---
 
 # Merging Big Data Sets with Python Dask 

@@ -1,3 +1,7 @@
+---
+description: "Use RStudio on the Yen servers through JupyterHub to edit and run R code in a graphical environment."
+---
+
 # RStudio
 
 On the Yens, RStudio is available via JupyterHub. You can access your files and scripts and develop R code in a convenient environment.

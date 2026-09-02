@@ -7,6 +7,7 @@ categories:
 authors:
     - nrapstin 
 subtitle: Download Files Directly to the Yens Server
+description: "Download files straight to the Yen servers with wget, instead of downloading to your laptop and transferring them up."
 ---
 
 # Download Files Directly to the Yen Servers

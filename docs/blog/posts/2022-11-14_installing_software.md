@@ -6,6 +6,7 @@ categories:
     - Software
 authors:
     - nrapstin
+description: "Install your own software on the Yen servers into a home or shared project directory when no module is available."
 ---
 # Installing Software On The Yen Servers
 

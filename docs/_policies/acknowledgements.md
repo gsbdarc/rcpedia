@@ -1,3 +1,7 @@
+---
+description: "Sample text for acknowledging the Yen servers and the Stanford GSB DARC team in publications, presentations, and grant reports."
+---
+
 # Acknowledging Us
 
 Researchers who would like to acknowledge the use of the Yens or the consulting services of the DARC team in publications/presentations can do so in the Acknowledgement and/or Methods sections. 

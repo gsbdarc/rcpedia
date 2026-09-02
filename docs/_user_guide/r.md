@@ -1,3 +1,7 @@
+---
+description: "Run R interactively on the Yen servers at Stanford GSB, including available versions and loading them with the module command."
+---
+
 # Running R Interactively
 
 On the Yens, R is available via the `module` command.

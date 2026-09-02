@@ -9,6 +9,7 @@ authors:
     - mason
 subtitle: Introduction to Using Redivis
 
+description: "Getting started with Redivis at Stanford GSB, with common use cases and tips for working with the library's hosted big datasets."
 ---
 
 # Introduction to Using Redivis

@@ -6,6 +6,7 @@ categories:
 authors:
     - nrapstin
     - astorer
+description: "Why and how to fine-tune an open source large language model for a specific research task when the base model is not accurate enough."
 ---
 
 # Fine-Tuning Open Source Models 

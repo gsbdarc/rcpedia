@@ -1,3 +1,7 @@
+---
+description: "Storage options for research data at Stanford GSB: home directories, project space, VAST, and scratch, with quotas and how to check your usage."
+---
+
 # Storage Solutions
 GSB researchers work with datasets that often exceed the capacity of personal machines. To support this work, Stanford provides several storage platforms optimized for performance and collaboration. This page summarizes the storage options available and when to use each one.
 

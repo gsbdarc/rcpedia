@@ -1,3 +1,7 @@
+---
+description: "Research computing and data services from the Stanford GSB DARC team, with request forms for project space, software, and project support."
+---
+
 # Services
 
 As part of the Research Hub's extensive [Service Catalog](https://gsbresearchhub.stanford.edu/services){:target="_blank"}, DARC provides a range of services to support research at the Graduate School of Business, and has developed specific request forms for common issues. Please note that these services are available to different audiences.

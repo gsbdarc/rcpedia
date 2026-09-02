@@ -1,3 +1,7 @@
+---
+description: "Run Julia interactively on the Yen servers at Stanford GSB, including available versions and loading them with the module command."
+---
+
 # Running Julia Interactively
 
 On the Yens, Julia is available via the `module` command. 
