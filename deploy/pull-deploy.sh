@@ -21,6 +21,12 @@ CODELOAD="https://codeload.github.com/gsbdarc/rcpedia/tar.gz/refs/heads"
 # syncing a truncated or unexpected extract would strip the live docroot.
 SENTINEL="index.html"
 
+# curl budgets are deliberately tight. Cron runs this every 5 minutes under `flock -n`,
+# which exits silently when the lock is held -- so a run that outlives its interval makes
+# every later run a silent no-op. Worst case here is ~25s per branch for the HEAD and
+# ~245s for a failing download, and the cron line wraps the script in `timeout` as a
+# backstop. Do not raise these without re-checking that total against the interval.
+
 log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*"; }
 err() { log "ERROR: $*" >&2; }
 
@@ -40,7 +46,7 @@ deploy() {
   local hdrs code etag
   hdrs="$work/head.txt"
   mkdir -p "$work"
-  code="$(curl -sS --location --max-time 60 --retry 3 --retry-delay 5 \
+  code="$(curl -sS --location --max-time 10 --retry 1 --retry-delay 3 \
             --head --dump-header "$hdrs" --output /dev/null \
             --write-out '%{http_code}' "$CODELOAD/$branch" || echo 000)"
   # --retry makes curl emit --write-out once per attempt, so three failures arrive
@@ -75,7 +81,7 @@ deploy() {
   rm -rf "$extract" "$tarball"
   mkdir -p "$extract"
 
-  curl -sS --fail --location --max-time 600 --retry 3 --retry-delay 5 \
+  curl -sS --fail --location --max-time 120 --retry 1 --retry-delay 3 \
        --output "$tarball" "$CODELOAD/$branch" \
     || { err "download failed for $branch"; return 1; }
   tar -xzf "$tarball" -C "$extract" --strip-components=1 \

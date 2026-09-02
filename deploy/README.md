@@ -60,10 +60,18 @@ bash ~/deploy/pull-deploy.sh    # first run: clones the deploy branches and popu
 Add a cron job in **cPanel → Cron Jobs** (every 5 minutes):
 
 ```
-*/5 * * * * flock -n $HOME/deploy/.lock -c "/bin/bash $HOME/deploy/pull-deploy.sh" >> $HOME/deploy/deploy.log 2>&1
+*/5 * * * * flock -n $HOME/deploy/.lock -c "timeout 270 /bin/bash $HOME/deploy/pull-deploy.sh" >> $HOME/deploy/deploy.log 2>&1
 ```
 
-`flock -n` prevents overlapping runs. For an immediate deploy (e.g. right after a merge),
+`flock -n` prevents overlapping runs, and `timeout 270` guarantees a run cannot outlive its
+5-minute interval. Both matter: `flock -n` exits **silently** when the lock is held, so a run
+that hangs past 5 minutes turns every subsequent run into a no-op that logs nothing. The old
+git-based script had no timeouts at all and could wedge the lock indefinitely. If deploys stop
+happening and the log is quiet, check for a stuck process first:
+
+```bash
+ps -u rcpediaq -o pid,etime,cmd | grep -E 'pull-deploy|curl' | grep -v grep
+``` For an immediate deploy (e.g. right after a merge),
 run `bash ~/deploy/pull-deploy.sh` manually — it is idempotent.
 
 ## Updating the script
