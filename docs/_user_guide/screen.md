@@ -1,3 +1,7 @@
+---
+description: "Keep a job running on the Yen servers after you log out using screen, and why the Slurm scheduler is usually the better choice."
+---
+
 # Run a Job That Continues After Logging Out
 
 We highly recommend that you consider using the [Slurm scheduler](/_user_guide/slurm){:target="_blank"} to submit and run jobs that persist after you log out. 

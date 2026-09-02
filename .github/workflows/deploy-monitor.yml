@@ -1,0 +1,111 @@
+name: DeployMonitor
+
+# Checks the published sites from outside, because nothing on the web host reports
+# its own health. The deploy is pull-based: cron on the cPanel account syncs a deploy
+# branch into the docroot. When that stops working it stops *silently* -- a wedged
+# flock, a disabled cron, or the host's broken route to GitHub's Azure ranges all look
+# identical to "nothing to deploy" (see issue #268).
+#
+# So this measures the thing that actually matters -- is the live site current -- rather
+# than whether a script believed it succeeded. It runs on GitHub, needs no access to the
+# web host, and a failed scheduled run notifies via the usual GitHub email.
+
+on:
+  schedule:
+    - cron: '17 * * * *'   # hourly, off the hour to avoid the crowd
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # Full history so we can read the commit date of each branch tip.
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Compare live sites against their source branches
+        env:
+          # A deploy legitimately takes a few minutes. It has also taken ~2 hours while
+          # the host loses the DNS lottery against GitHub's unroutable Azure ranges, so
+          # this is deliberately generous -- tighten it once that is fixed.
+          STALE_AFTER_SECONDS: '7200'
+        run: |
+          set -uo pipefail
+          status=0
+          now=$(date -u +%s)
+
+          # name|source branch|url
+          ENVS="
+          production|main|https://rcpedia.stanford.edu
+          dev|QA|https://rcpedia-dev.stanford.edu
+          "
+
+          for row in $ENVS; do
+            name="${row%%|*}"; rest="${row#*|}"
+            branch="${rest%%|*}"; url="${rest#*|}"
+            echo "::group::$name ($branch -> $url)"
+
+            head_sha=$(git rev-parse "origin/$branch")
+            head_at=$(git log -1 --format=%ct "origin/$branch")
+            head_age=$(( now - head_at ))
+            echo "source tip:   $head_sha ($head_age s ago)"
+
+            # --write-out already prints 000 on a connection failure, so do not append
+            # another one; and keep only the last code in case curl ever emits more.
+            code=$(curl -sS -o /tmp/bi.json -w '%{http_code}' \
+                     --connect-timeout 15 --max-time 30 "$url/build-info.json" || true)
+            code="${code: -3}"
+
+            if [ "$code" = "000" ]; then
+              echo "::error title=$name unreachable::$url did not respond. The site may be down, \
+          or the host is unreachable."
+              status=1
+              echo "::endgroup::"; continue
+            fi
+
+            if [ "$code" = "404" ]; then
+              # Expected until each environment has had one deploy carrying the pipeline
+              # change that writes this file.
+              echo "::warning title=$name has no build-info.json::$url/build-info.json returned 404. \
+          Expected until $branch has deployed once with the build-info step; investigate if it persists."
+              echo "::endgroup::"; continue
+            fi
+
+            if [ "$code" != "200" ]; then
+              echo "::error title=$name returned HTTP $code::$url/build-info.json returned $code."
+              status=1
+              echo "::endgroup::"; continue
+            fi
+
+            live_sha=$(jq -r '.commit // empty' /tmp/bi.json)
+            live_at=$(jq -r '.built_at_epoch // empty' /tmp/bi.json)
+            echo "live build:   ${live_sha:-unknown} (built $(jq -r '.built_at // "?"' /tmp/bi.json))"
+
+            if [ -z "$live_sha" ]; then
+              echo "::error title=$name build-info.json malformed::No .commit field at $url/build-info.json."
+              status=1
+              echo "::endgroup::"; continue
+            fi
+
+            if [ "$live_sha" = "$head_sha" ]; then
+              echo "current"
+            elif [ "$head_age" -lt "$STALE_AFTER_SECONDS" ]; then
+              # Source moved recently; the host may simply not have pulled yet.
+              echo "::notice title=$name deploy pending::$name is on $live_sha but $branch is at \
+          $head_sha, pushed $((head_age / 60)) min ago. Within the ${STALE_AFTER_SECONDS}s window."
+            else
+              age_min=$(( (now - ${live_at:-$head_at}) / 60 ))
+              echo "::error title=$name is STALE::$url is serving $live_sha but $branch has been at \
+          $head_sha for $((head_age / 60)) min. Live build is ${age_min} min old. The cPanel cron is \
+          not syncing -- check for a stuck process holding \$HOME/deploy/.lock, whether the cron job is \
+          enabled, and \$HOME/deploy/deploy.log. See issue #268."
+              status=1
+            fi
+            echo "::endgroup::"
+          done
+
+          exit $status

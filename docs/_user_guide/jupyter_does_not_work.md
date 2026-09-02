@@ -1,3 +1,7 @@
+---
+description: "Troubleshoot JupyterHub on the Yen servers when it will not start or load, covering browser, account access, and quota causes."
+---
+
 There are several common reasons why JupyterHub might not be working for you.
 
 ## Are You Using Safari?

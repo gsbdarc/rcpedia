@@ -4,6 +4,7 @@ template: home.html
 hide:
   - navigation
   - toc
+description: "Documentation for the Yen research computing cluster at Stanford GSB: getting access, running jobs with Slurm, storage, and language-specific guides."
 ---
 
 ---

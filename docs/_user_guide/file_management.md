@@ -1,3 +1,7 @@
+---
+description: "Best practices for organizing a research project directory on the Yen servers, including naming conventions and limiting files per directory."
+---
+
 # File Management
 
 A research project’s working directory can quickly become cluttered and disorganized if files are not managed carefully. Without proper naming conventions or organization, you might find yourself dealing with thousands of cryptically named files like `1.csv`, `2.csv`, `10.csv`, `100.csv`, and so on, all stored in one directory without any meaningful index or metadata to describe their contents. This issue is especially common when running automated tasks that rapidly generate data. Such disorganization can lead to confusion for researchers and introduce risks, such as errors in processes that monitor the file system or difficulties during audits.

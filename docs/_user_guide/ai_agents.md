@@ -1,3 +1,7 @@
+---
+description: "Run AI coding agents on the Yen servers, including Claude Code, Codex CLI, and Gemini, plus the Stanford AI API gateway and your responsibilities."
+---
+
 # AI Coding Agents on the Yens
 
 Several AI coding agents are available on the Yens as modules, including

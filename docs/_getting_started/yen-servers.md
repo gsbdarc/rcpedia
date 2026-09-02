@@ -1,3 +1,7 @@
+---
+description: "Hardware and specifications for the Yen servers at Stanford GSB, who is eligible to use them, and how to choose between yen1 through yen5."
+---
+
 # Yen Servers
 
 ##  Introduction to the Yen Servers

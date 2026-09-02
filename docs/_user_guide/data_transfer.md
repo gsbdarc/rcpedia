@@ -1,3 +1,7 @@
+---
+description: "Transfer data to and from the Yen servers, from small JupyterHub uploads to large transfers with SCP, SFTP, rclone, and Globus."
+---
+
 # Data Transfer on the Yen Servers
 
 Data transfer is an essential part of working with the Yen servers. You may need to transfer data to and from the Yen servers for various reasons, such as uploading datasets, downloading results, or sharing files with collaborators. This page will cover some of the best practices for transferring data to and from the Yen servers.

@@ -1,3 +1,7 @@
+---
+description: "Guides for working on the Yen servers at Stanford GSB: running jobs, the Slurm scheduler, storage, and language-specific documentation."
+---
+
 # User Guide
 
 Welcome to the User Guide! Here, you'll find detailed documentation and best practices for using the Yens, including:

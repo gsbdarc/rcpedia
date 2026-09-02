@@ -6,6 +6,7 @@ categories:
 authors:
     - jeffotter
 subtitle: Working with Large Zip Files in Python
+description: "Read data out of large zip files in Python on the Yen servers without copying and extracting the whole archive first."
 ---
 
 # Working with Large Zip Files in Python

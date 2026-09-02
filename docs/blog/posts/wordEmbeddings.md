@@ -9,6 +9,7 @@ authors:
     - jeffotter
 
  
+description: "What word embeddings are and how they translate text into numeric vectors that computational methods can accept, with a worked example."
 ---
 
 # Word Embeddings

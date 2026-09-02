@@ -1,3 +1,7 @@
+---
+description: "Stanford's data risk classifications and which categories of data, including high risk data such as PHI, may be stored on the Yen servers."
+---
+
 # Security
 
 Stanford is committed to protecting the privacy of its students, alumni, faculty, and staff, as well as protecting the confidentiality, integrity, and availability of information important to the University's mission. 

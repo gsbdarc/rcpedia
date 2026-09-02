@@ -1,3 +1,7 @@
+---
+description: "CPU, memory, and storage limits for the interactive Yen nodes and JupyterHub at Stanford GSB, and the guidelines for sharing these systems."
+---
+
 # User Limits
 
 ## Interactive Compute Limits

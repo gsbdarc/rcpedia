@@ -1,3 +1,7 @@
+---
+description: "Run SAS interactively on the Yen servers at Stanford GSB, including available versions and loading them with the module command."
+---
+
 # Running SAS Interactively
 
 On the Yens, SAS is available via the `module` command. 

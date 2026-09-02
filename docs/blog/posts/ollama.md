@@ -6,6 +6,7 @@ categories:
 authors:
     - nrapstin
     - jeffotter 
+description: "Run a large language model locally on Stanford computing clusters with Ollama, and query it from a Jupyter notebook on the Yens."
 ---
 
 # Running Ollama on Stanford Computing Clusters

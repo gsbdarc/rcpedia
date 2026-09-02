@@ -1,3 +1,7 @@
+---
+description: "Run one script across many inputs on yen-slurm using Slurm job arrays, with a worked example passing the task ID as an argument."
+---
+
 
 # Slurm Job Array Examples
 
