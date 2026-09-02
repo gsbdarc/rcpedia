@@ -7,6 +7,7 @@ categories:
     - Google Drive
 authors:
     - nrapstin
+description: "Use rclone on the Yen servers to transfer files to Google Drive, and to other destinations such as Amazon S3, Dropbox, and SFTP endpoints."
 ---
 # `rclone` files from Yens to Google Drive
 [`rclone`](https://rclone.org/){:target="_blank"} is a versatile and convenient tool for executing data transfers in and out of the Yens as it supports various sources/destinations, including Google Drive, Amazon S3, Dropbox, SFTP endpoints, etc. In this post, we will illustrate how to use `rclone` to transfer files from the Yens to Google Drive.

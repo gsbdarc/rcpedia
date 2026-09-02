@@ -1,3 +1,7 @@
+---
+description: "Check your CPU and memory usage on the Yen servers with htop and related tools, to stay within the shared resource limits."
+---
+
 # How Do I Check My Resource Usage on the Yens?
 Monitoring your resource usage is important to be a good citizen of the GSB Research Computing community, but also to be able to effectively estimate your needs on scheduled systems.
 

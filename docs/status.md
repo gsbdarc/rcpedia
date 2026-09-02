@@ -1,6 +1,7 @@
 ---
 hide:
   - navigation
+description: "Live status of the Yen cluster at Stanford GSB, including current outages, degraded services, and scheduled maintenance windows."
 ---
 # Yen Cluster Status
 

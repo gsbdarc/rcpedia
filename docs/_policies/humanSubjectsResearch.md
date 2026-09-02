@@ -1,3 +1,7 @@
+---
+description: "When research involving human subjects requires IRB approval at Stanford, and what that means for handling participant data on the Yens."
+---
+
 If your research uses human subjects, directly or indirectly, you may be subject to additional regulations designed to protect subjects and their data. The information below highlights some important considerations for human subjects research, summarizing information from Stanford's [Human Research Protection Program](https://researchcompliance.stanford.edu/panels/hs/policies).
 
 !!! tip "Questions? Get in Touch with IRB"

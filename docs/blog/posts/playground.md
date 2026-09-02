@@ -5,6 +5,7 @@ categories:
     - LLM
 authors:
     - astorer
+description: "Use Stanford's AI API Gateway for LLM access, covering API keys, billing to a Stanford account, and which data risk levels are approved."
 ---
 
 # Stanford's LLM API Tools

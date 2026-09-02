@@ -5,6 +5,7 @@ categories:
     - File Editing
 authors:
     - nrapstin 
+description: "Edit files directly from the command line on the Yen servers with Vim, useful for quick changes to a Slurm script before submitting."
 ---
 
 # Editing Files on the Command Line

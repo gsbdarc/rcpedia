@@ -7,6 +7,7 @@ categories:
     - Python
 authors:
     - nrapstin
+description: "Scrape Twitter data on the Yen servers with the twarc Python package, installed into a conda environment."
 ---
 
 # Using Twarc Python Package to Scrape Twitter

@@ -5,6 +5,7 @@ categories:
     - zip
 authors:
     - nrapstin
+description: "Uncompress large archives on the Yen servers, covering zip, tar, and other common compression formats."
 ---
 
 # How Do I Extract Compressed Files?

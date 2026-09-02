@@ -1,3 +1,7 @@
+---
+description: "Run Python interactively on the Yen servers at Stanford GSB, including which versions are available and how to load them."
+---
+
 # Running Python Interactively
 
 To use the system Python software on the Yen servers, simply type `python3`.

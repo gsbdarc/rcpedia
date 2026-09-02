@@ -8,6 +8,7 @@ categories:
     - Sentiment Analysis
 authors:
     - nrapstin
+description: "Fine-tune a BERT transformer model for sentiment analysis on financial news using the Stanford GSB Yens GPU partition."
 ---
 
 

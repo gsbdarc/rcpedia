@@ -6,6 +6,7 @@ categories:
 authors:
     - ltdarc
 subtitle: 
+description: "How to measure whether a large language model is reliable enough to extract research data from scanned filings, tables, and newspaper pages."
 ---
 # LLM Benchmarks for Researchers
 

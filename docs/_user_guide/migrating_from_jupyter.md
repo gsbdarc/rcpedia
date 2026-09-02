@@ -1,3 +1,7 @@
+---
+description: "When and how to move a long-running process off JupyterHub onto the yen-slurm scheduler for more CPU, memory, and runtime."
+---
+
 # Migrating Processes from JupyterHub to `yen-slurm`
 
 [JupyterHub](/_getting_started/jupyter){:target=_blank} and the interactive Yens are a great resource for developing and debugging code, but is not intended to be final stop for your research computing needs.  If your process requires more resources than the [technical limits](/_policies/user_limits/){:target="_blank"} of JupyterHub and Yens 1-5, migrating your process to the [`yen-slurm`](/_user_guide/slurm/){:target="_blank"} scheduler</a> will allow you to access more resources.

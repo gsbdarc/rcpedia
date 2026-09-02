@@ -1,3 +1,7 @@
+---
+description: "Clean up and archive research data at the end of a project on the Yen servers, including what to keep and where to store it long term."
+---
+
 # Archive Data
 
 ## Why Should I Archive?

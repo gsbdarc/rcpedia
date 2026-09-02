@@ -1,3 +1,7 @@
+---
+description: "Run Matlab interactively on the Yen servers at Stanford GSB, including available versions and loading them with the module command."
+---
+
 # Running Matlab Interactively
 
 On the Yens, Matlab is available via the `module` command.

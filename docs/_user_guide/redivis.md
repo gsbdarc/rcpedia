@@ -1,3 +1,7 @@
+---
+description: "Use Redivis to query and analyze multi-terabyte datasets at Stanford GSB, on a platform built on Google Cloud BigQuery."
+---
+
 # Redivis
 <a href="https://redivis.com/">
   <img src="/assets/images/redivis_logo.png" alt="Redivis Logo" style="float: right; width: 275px; height: auto;">

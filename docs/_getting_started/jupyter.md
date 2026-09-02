@@ -1,3 +1,7 @@
+---
+description: "Run Jupyter notebooks, terminals, and RStudio in a web browser on the Yen servers through JupyterHub on yen1 through yen5."
+---
+
 # Web-based Computing
 
 Web-based computing is available on the Yen servers with JupyterHub. JupyterHub is a platform designed to allow multiple users to launch their own Jupyter notebook servers on a shared system with minimal user effort. 

@@ -6,6 +6,7 @@ categories:
     - Environments
 authors:
     - mason
+description: "Export an R virtual environment from the Yen servers so it appears as a selectable kernel in JupyterHub."
 ---
 
 # How Do I Export My R Environment To JupyterHub?

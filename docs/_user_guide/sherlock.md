@@ -1,3 +1,7 @@
+---
+description: "Stanford's Sherlock HPC cluster, how its partitions and condo model differ from the Yens, and when to move your computing there."
+---
+
 # Sherlock
 <img src="/assets/images/sherlock_logo.png" alt="Sherlock Narwhal Logo" style="float: right; width: 350px; height: auto;">
 

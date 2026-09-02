@@ -1,3 +1,7 @@
+---
+description: "Create and manage Python virtual environments on the Yen servers with venv, Virtualenv, and Pipenv, and install packages into them."
+---
+
 # Python Environments
 
 Python environments play a vital role in professional Python development, enabling developers to isolate and manage Python packages and dependencies tailored to specific projects or tasks. This isolation is essential for maintaining a clean and organized development workspace, as it prevents conflicts between packages used in different projects. Additionally, virtual environments ensure that projects are reproducible and can be shared with others without compatibility issues, as all necessary dependencies are clearly defined and contained within the environment.

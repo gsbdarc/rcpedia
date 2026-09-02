@@ -1,3 +1,7 @@
+---
+description: "Parallel processing in R on the Yen servers: creating worker clusters without oversubscribing cores on shared nodes."
+---
+
 # Parallel Processing in R 
 
 ## Tips for Being a Good Citizen

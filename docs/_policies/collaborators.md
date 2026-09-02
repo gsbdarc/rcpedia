@@ -1,3 +1,7 @@
+---
+description: "How to give collaborators outside Stanford GSB access to the Yen servers, covering SUNet ID sponsorship and project workgroup membership."
+---
+
 # Collaborators on the Yens
 
 The Yen cluster is a resource for research at Stanford GSB. Our policy is to provide access to collaborators on faculty-led projects.

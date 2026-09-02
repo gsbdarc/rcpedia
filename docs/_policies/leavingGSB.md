@@ -3,6 +3,7 @@ date:
   created: 2024-09-14
 categories:
     - Research
+description: "What happens to your SUNet ID, Yen account, project space, and research data when you leave Stanford GSB, and how to hand off access."
 ---
 <!--
 ---

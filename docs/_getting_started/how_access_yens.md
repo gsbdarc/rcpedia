@@ -1,3 +1,7 @@
+---
+description: "Who can get a Yen account at Stanford GSB, how to connect over SSH, when the Stanford VPN is required, and how sponsored access works."
+---
+
 # How to Access the Yens
 
 ## Access Eligibility  

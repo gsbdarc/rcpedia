@@ -1,3 +1,7 @@
+---
+description: "Run Stata interactively on the Yen servers at Stanford GSB, including available versions and loading them with the module command."
+---
+
 # Running Stata Interactively
 
 On the Yens, Stata is available via the `module` command. 
