@@ -64,25 +64,36 @@ codeload_candidates() {
   echo $out | tr ' ' '\n' | awk 'NF && !seen[$0]++'
 }
 
-# Choose a codeload endpoint this host can reach. Plain DNS is tried first so the
-# script self-heals if the Azure routing is ever fixed, and no pinning happens on a
-# healthy network.
+# Choose a codeload endpoint this host can reach, and pin to it.
+#
+# Pinning comes FIRST and a plain-DNS probe is only the last resort. That ordering is
+# load-bearing: codeload returns a different address on every lookup, rotating across
+# GitHub's own ASN and two Azure ranges this host cannot route to. So a plain probe
+# proves nothing -- it can succeed, leave the requests unpinned, and then every actual
+# request draws a fresh address with a ~2/3 chance of being unroutable. That is exactly
+# how the first version of this passed its own check and then failed both deploys.
 pick_codeload() {
-  if curl -sS -o /dev/null --connect-timeout 5 --max-time 5 \
-       https://codeload.github.com/ 2>/dev/null; then
-    RESOLVE=""
-    return 0
-  fi
   local ip
   for ip in $(codeload_candidates); do
     if curl -sS -o /dev/null --connect-timeout 5 --max-time 5 \
          --resolve "codeload.github.com:443:$ip" https://codeload.github.com/ 2>/dev/null; then
       RESOLVE="--resolve codeload.github.com:443:$ip"
-      log "codeload: DNS address unreachable, pinned to $ip"
+      log "codeload: pinned to $ip"
       return 0
     fi
   done
-  err "codeload.github.com unreachable by DNS and by every candidate IP"
+
+  # No candidate reachable. Unpinned is a gamble on DNS returning a routable address,
+  # but it is better than not trying, and it is the path that keeps working if GitHub
+  # moves codeload off the addresses listed above.
+  if curl -sS -o /dev/null --connect-timeout 5 --max-time 5 \
+       https://codeload.github.com/ 2>/dev/null; then
+    RESOLVE=""
+    log "codeload: no candidate IP reachable, falling back to unpinned DNS (may be flaky)"
+    return 0
+  fi
+
+  err "codeload.github.com unreachable by every candidate IP and by DNS"
   return 1
 }
 
