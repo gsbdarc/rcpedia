@@ -1,7 +1,6 @@
 site_name: Research Computing Resources
 site_subtitle: Research Hub
 site_url: https://rcpedia.stanford.edu
-site_description: Documentation for the Yen research computing cluster at the Stanford Graduate School of Business.
 theme:
   name: material
   custom_dir: overrides
