@@ -4,41 +4,85 @@
 #
 # The GitHub Actions workflow (.github/workflows/pipeline.yml) builds the site and
 # force-pushes it to a per-environment branch: QA -> deploy-qa, main -> deploy-main.
-# This script runs from cron on the `rcpediaq` cPanel account, fetches those branches
-# over outbound HTTPS (the Stanford firewall blocks the old inbound SSH deploy), and
-# rsyncs them into the docroots. See deploy/README.md for setup.
+# This script runs from cron on the `rcpediaq` cPanel account and syncs those branches
+# into the docroots. See deploy/README.md for setup.
+#
+# It fetches tarballs from codeload.github.com instead of using git, because this host
+# cannot reach github.com or api.github.com -- outbound connections to the GitHub IP
+# ranges those resolve to time out, while codeload.github.com stays reachable. The old
+# git-based version reported that outage as "remote branch not found" and exited 0, so
+# the site silently stopped updating. See issue #268.
 #
 set -euo pipefail
-REPO="https://github.com/gsbdarc/rcpedia.git"
+
+CODELOAD="https://codeload.github.com/gsbdarc/rcpedia/tar.gz/refs/heads"
+
+# A file every build produces. Checked before syncing, because --delete-after means
+# syncing a truncated or unexpected extract would strip the live docroot.
+SENTINEL="index.html"
+
+log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*"; }
+err() { log "ERROR: $*" >&2; }
 
 deploy() {
   local branch="$1"
   local docroot="$2"
-  local src="$HOME/deploy/src-$branch"
   local marker="$HOME/deploy/.deployed-$branch"
+  local work="$HOME/deploy/work-$branch"
+  local tarball="$work/site.tar.gz"
+  local extract="$work/extract"
 
-  [ -d "$docroot" ] || { echo "SKIP: docroot $docroot missing"; return 0; }
+  [ -d "$docroot" ] || { err "docroot $docroot missing"; return 1; }
 
-  # Skip cleanly if the deploy branch doesn't exist yet (e.g. before prod rollout).
-  if ! git ls-remote --exit-code --heads "$REPO" "$branch" >/dev/null 2>&1; then
-    echo "SKIP: remote branch $branch not found"; return 0
-  fi
+  # Change detection: a HEAD returns the archive's ETag (a content hash) and no body,
+  # so this costs one small request per branch regardless of how big the site is.
+  # api.github.com would be the obvious way to read the branch SHA, but it is blocked.
+  local hdrs code etag
+  hdrs="$work/head.txt"
+  mkdir -p "$work"
+  code="$(curl -sS --location --max-time 60 --retry 3 --retry-delay 5 \
+            --head --dump-header "$hdrs" --output /dev/null \
+            --write-out '%{http_code}' "$CODELOAD/$branch" || echo 000)"
+  # --retry makes curl emit --write-out once per attempt, so three failures arrive
+  # concatenated as "000000000". Keep the last attempt's code.
+  code="${code: -3}"
 
-  if [ ! -d "$src/.git" ]; then
-    git clone --branch "$branch" --single-branch --depth 1 "$REPO" "$src"
-  fi
-  cd "$src"
-  git fetch --depth 1 origin "$branch"
-  git reset --hard FETCH_HEAD >/dev/null
-  local sha
-  sha="$(git rev-parse HEAD)"
+  case "$code" in
+    200) ;;
+    404)
+      # Benign: the branch does not exist yet (e.g. before a prod rollout).
+      log "skip: branch $branch does not exist"
+      return 0
+      ;;
+    000)
+      err "cannot reach codeload.github.com for $branch -- network failure, not a missing branch"
+      return 1
+      ;;
+    *)
+      err "unexpected HTTP $code from codeload for $branch"
+      return 1
+      ;;
+  esac
 
-  # Deploy when this commit hasn't been deployed yet (marker missing or stale) —
-  # a marker (not HEAD-vs-remote) is required so the FIRST run after a fresh clone,
-  # where HEAD already equals the tip, still deploys.
-  if [ -f "$marker" ] && [ "$(cat "$marker")" = "$sha" ]; then
+  etag="$(awk 'tolower($1) == "etag:" { gsub(/[\r"]/, "", $2); print $2 }' "$hdrs" | tail -1)"
+  [ -n "$etag" ] || { err "no ETag in codeload response for $branch"; return 1; }
+
+  if [ -f "$marker" ] && [ "$(cat "$marker")" = "$etag" ]; then
     return 0
   fi
+
+  log "deploying $branch ($etag)"
+  rm -rf "$extract" "$tarball"
+  mkdir -p "$extract"
+
+  curl -sS --fail --location --max-time 600 --retry 3 --retry-delay 5 \
+       --output "$tarball" "$CODELOAD/$branch" \
+    || { err "download failed for $branch"; return 1; }
+  tar -xzf "$tarball" -C "$extract" --strip-components=1 \
+    || { err "could not extract the $branch tarball"; return 1; }
+
+  [ -f "$extract/$SENTINEL" ] \
+    || { err "$branch extract has no $SENTINEL -- refusing to sync it into $docroot"; return 1; }
 
   # One-generation backup of the live docroot for instant rollback.
   if [ -n "$(ls -A "$docroot" 2>/dev/null)" ]; then
@@ -48,10 +92,17 @@ deploy() {
   # --delay-updates: stage new files, flip them in together at the end (near-atomic)
   # --delete-after: remove stale files AFTER transfers, never before their replacement
   #                 (--delete-after works on older rsync; --delete-delayed needs rsync 3.0+)
-  rsync -a --delay-updates --delete-after --exclude='.git' "$src/" "$docroot/"
-  echo "$sha" > "$marker"
-  echo "$(date) deployed $branch@$sha -> $docroot"
+  rsync -a --delay-updates --delete-after --exclude='.git' "$extract/" "$docroot/" \
+    || { err "rsync into $docroot failed"; return 1; }
+
+  echo "$etag" > "$marker"
+  log "deployed $branch ($etag) -> $docroot"
+  rm -rf "$tarball" "$extract"
 }
 
-deploy deploy-qa   "$HOME/rcpedia-dev.stanford.edu"
-deploy deploy-main "$HOME/rcpedia.stanford.edu"
+# Run both environments even if one fails, but exit non-zero if either did, so a real
+# outage shows up as a failed cron job instead of passing silently.
+status=0
+deploy deploy-qa   "$HOME/rcpedia-dev.stanford.edu" || status=1
+deploy deploy-main "$HOME/rcpedia.stanford.edu"     || status=1
+exit "$status"
