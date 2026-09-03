@@ -9,6 +9,17 @@ name: DeployMonitor
 # So this measures the thing that actually matters -- is the live site current -- rather
 # than whether a script believed it succeeded. It runs on GitHub, needs no access to the
 # web host, and a failed scheduled run notifies via the usual GitHub email.
+#
+# IMPORTANT LIMITATION: Stanford/Reclaim block GitHub's runner ranges -- that is why the
+# deploy is pull-based rather than a push (#248, #249). It is not limited to port 22 and
+# it is intermittent: on 2026-09-03 this workflow saw seven consecutive successes and
+# then a run where BOTH sites timed out on port 443 while being reachable in 60ms from
+# elsewhere. So a runner reporting "unreachable" tells us nothing about the site.
+#
+# Therefore: unreachable is a WARNING, never a failure. A 200 response with a stale
+# commit is trustworthy and stays a hard error. That keeps the staleness check -- the
+# actual purpose -- while removing false alarms, which matter because an alert that
+# cries wolf gets ignored and then misses the real thing.
 
 on:
   schedule:
@@ -55,15 +66,28 @@ jobs:
             echo "source tip:   $head_sha ($head_age s ago)"
 
             # --write-out already prints 000 on a connection failure, so do not append
-            # another one; and keep only the last code in case curl ever emits more.
-            code=$(curl -sS -o /tmp/bi.json -w '%{http_code}' \
+            # another one; and keep only the last attempt's code, since --retry emits one
+            # per attempt.
+            code=$(curl -sS -o /tmp/bi.json -w '%{http_code}' --retry 2 --retry-delay 5 \
                      --connect-timeout 15 --max-time 30 "$url/build-info.json" || true)
             code="${code: -3}"
 
             if [ "$code" = "000" ]; then
-              echo "::error title=$name unreachable::$url did not respond. The site may be down, \
-          or the host is unreachable."
-              status=1
+              # Cannot distinguish "site is down" from "this runner is blocked" from here,
+              # so probe a control host to at least say which is more likely -- and warn
+              # rather than fail either way. See the limitation note at the top.
+              control=$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 10 \
+                          --max-time 15 https://example.com/ || true)
+              if [ "${control: -3}" = "200" ]; then
+                echo "::warning title=$name unreachable from this runner::Could not connect to \
+          $url, but example.com returned 200, so this runner has working egress. Most likely the \
+          GitHub-runner block described in #248 rather than a site outage -- verify from a \
+          non-GitHub network before acting. Not failing the run."
+              else
+                echo "::warning title=$name unreachable, runner egress also failing::Could not \
+          connect to $url, and example.com failed too, so this runner has no useful network. \
+          Verdict is meaningless; not failing the run."
+              fi
               echo "::endgroup::"; continue
             fi
 
