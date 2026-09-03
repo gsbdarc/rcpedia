@@ -1,0 +1,4447 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Use the licensed Gurobi, Knitro, and AMPL optimization solvers on the Yen servers, interactively, in Jupyter notebooks, and in Slurm jobs.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/_user_guide/optimization/">
+      
+      
+        <link rel="prev" href="../stata/">
+      
+      
+        <link rel="next" href="../storage/">
+      
+      
+      <link rel="icon" href="../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Optimization Software - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-5P4SRX596V"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-5P4SRX596V",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-5P4SRX596V",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#optimization" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Optimization Software
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_getting_started/yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#software-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-interactively-on-the-yens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Software Interactively on the Yens
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Software Interactively on the Yens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gurobi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gurobi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gurobi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in R
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ampl-with-knitro-solver" class="md-nav__link">
+    <span class="md-ellipsis">
+      AMPL with Knitro Solver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AMPL with Knitro Solver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-ampl-with-knitro-solver-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running AMPL with Knitro Solver in Python
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knitro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Knitro
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knitro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-knitro-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Knitro in R
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrating with Jupyter Notebooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrating with Jupyter Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in Jupyter Notebooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-amplknitro-in-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running AMPL/Knitro in Jupyter Notebooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-gurobi-knitro-and-ampl-in-a-single-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combining Gurobi, Knitro, and AMPL in a Single Kernel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-on-slurm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Software on Slurm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Software on Slurm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-batch-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Batch Jobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-job-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Job Arrays
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Job Arrays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gurobi-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gurobi Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#software-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Software Overview
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-interactively-on-the-yens" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Software Interactively on the Yens
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Software Interactively on the Yens">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gurobi" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gurobi
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Gurobi">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in R
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ampl-with-knitro-solver" class="md-nav__link">
+    <span class="md-ellipsis">
+      AMPL with Knitro Solver
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="AMPL with Knitro Solver">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-ampl-with-knitro-solver-in-python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running AMPL with Knitro Solver in Python
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#knitro" class="md-nav__link">
+    <span class="md-ellipsis">
+      Knitro
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Knitro">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-knitro-in-r" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Knitro in R
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integrating-with-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Integrating with Jupyter Notebooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Integrating with Jupyter Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-gurobi-in-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Gurobi in Jupyter Notebooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-amplknitro-in-jupyter-notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running AMPL/Knitro in Jupyter Notebooks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combining-gurobi-knitro-and-ampl-in-a-single-kernel" class="md-nav__link">
+    <span class="md-ellipsis">
+      Combining Gurobi, Knitro, and AMPL in a Single Kernel
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-software-on-slurm" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Software on Slurm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Software on Slurm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-batch-jobs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Batch Jobs
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-job-arrays" class="md-nav__link">
+    <span class="md-ellipsis">
+      Running Job Arrays
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running Job Arrays">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gurobi-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Gurobi Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="optimization">Optimization</h1>
+<p>We have licensed and installed optimization software on the Yens that the GSB researchers can use including
+<a href="https://www.gurobi.com" target="_blank">Gurobi</a>, <a href="https://www.artelys.com/solvers/knitro" target="_blank">Knitro</a>, and <a href="https://ampl.com" target="_blank">AMPL</a>. In this guide, we will show how to use the licensed optimization software interactively on the Yens, in Jupyter notebooks and in Slurm.</p>
+<h2 id="software-overview">Software Overview</h2>
+<ul>
+<li><strong>Gurobi</strong> is a state-of-the-art mathematical optimization solver that delivers high-performance solutions for linear programming (LP), mixed-integer linear programming (MILP), quadratic programming (QP), mixed-integer quadratic programming (MIQP), and other related problems. Known for its robustness and speed, Gurobi is designed to efficiently solve large-scale optimization problems.</li>
+<li><strong>Knitro</strong> is an advanced solver for nonlinear optimization. It offers algorithms for both smooth and non-smooth
+problems, making it particularly effective for solving large-scale, complex nonlinear problems. Knitro is well-suited for applications requiring high precision.</li>
+<li><strong>AMPL</strong> (A Mathematical Programming Language) is a powerful and flexible algebraic modeling language for linear and
+nonlinear optimization problems. It is designed to express complex problems with simple, readable formulations. AMPL's strength lies in its ability to integrate with various solvers, including Gurobi and Knitro.</li>
+</ul>
+<h2 id="running-software-interactively-on-the-yens">Running Software Interactively on the Yens</h2>
+<h3 id="gurobi">Gurobi</h3>
+<h4 id="running-gurobi-in-python">Running Gurobi in Python</h4>
+<p>First, create a new <a href="/_user_guide/python_envs/" target="_blank">Python virtual environment</a> using the <code>venv</code> package.
+This virtual environment will be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel.</p>
+<p>To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.</p>
+<p>Let's navigate to the shared project directory:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cd &lt;path/to/project&gt;
+</code></pre></div>
+Depending on the version of Gurobi required, the compatible Python version differs. We will only load <code>gurobi</code> module when we need to run code that requires Gurobi license. 
+We will install the python bindings via the <code>gurobipy</code> package without loading the module.</p>
+<p>Create a new virtual environment, named <code>gurobi_env</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Gurobi 10 (default, works with Python 3.10)</label><label for="__tabbed_1_2">Gurobi 11 / 12 (requires Python 3.11)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code># Make a new Python 3.10 virtual environment
+/usr/bin/python3 -m venv gurobi_env
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code># load Python 3.11 module 
+ml python/3.11
+# Make a new Python 3.11 virtual environment
+python3 -m venv gurobi_env
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>You can also choose a different name instead of <code>gurobi_env</code> in this step.</p>
+<p>Activate the virtual environment using the following command:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>source gurobi_env/bin/activate
+</code></pre></div>
+<p>You should see <code>(gurobi_env):</code> prepended to the prompt:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">(gurobi_env)</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$</span>
+</code></pre></div>
+<p>Next, install the required python packages using <code>pip</code> (this step may take some time):</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>pip install numpy pandas ipykernel threadpoolctl scipy gurobipy
+</code></pre></div>
+<p>The <code>ipykernel</code> module is needed to turn this virtual environment into a Jupyter kernel at a later step, the <code>threadpoolctl</code> and <code>scipy</code> packages are used in the example, and the <a href="https://pypi.org/project/gurobipy/" target="_blank"><code>gurobipy</code></a> package serves as the Python interface to Gurobi.</p>
+<p>Gurobi is available on the Yens through multiple installed <a href="/_getting_started/modules/" target="_blank">versions</a>. To see them:
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml avail gurobi
+</code></pre></div></p>
+<p>This will show options such as:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">gurobi/8.0.1    gurobi/9.0.2    gurobi/9.5.2    gurobi/10.0.0 (D)    gurobi/11.0.3    gurobi/12.0.0</span>
+
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Where</span><span class="p p-Indicator">:</span>
+<span class="w">   </span><span class="nt">D</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">Default Module</span>
+</code></pre></div>
+<p>To run code that uses Gurobi, load the version you require:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Gurobi 10 (default, works with Python 3.10)</label><label for="__tabbed_2_2">Gurobi 11 (requires Python 3.11)</label><label for="__tabbed_2_3">Gurobi 12 (requires Python 3.11)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># Load Gurobi 10 (works with default Python 3.10)
+ml gurobi/10.0.0
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># Load Gurobi 11 with Python 3.11
+ml gurobi/11.0.3 
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><pre><span></span><code># Load Gurobi 12 with Python 3.11
+ml gurobi/12.0.0
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Finally, start the Python REPL by typing <code>python</code>:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>python
+</code></pre></div>
+<p>This will display:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Gurobi 10 (default, works with Python 3.10)</label><label for="__tabbed_3_2">Gurobi 11 / 12 (requires Python 3.11)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="yaml no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="n">Python</span> <span class="mf">3.10.12</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">May</span> <span class="mi">27</span> <span class="mi">2025</span><span class="p">,</span> <span class="mi">17</span><span class="p">:</span><span class="mi">12</span><span class="p">:</span><span class="mi">29</span><span class="p">)</span> <span class="p">[</span><span class="n">GCC</span> <span class="mf">11.4.0</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="yaml no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="n">Python</span> <span class="mf">3.11.3</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">May</span>  <span class="mi">6</span> <span class="mi">2023</span><span class="p">,</span> <span class="mi">14</span><span class="p">:</span><span class="mi">52</span><span class="p">:</span><span class="mi">50</span><span class="p">)</span> <span class="p">[</span><span class="n">GCC</span> <span class="mf">11.3.0</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Ensure that you can import <code>gurobipy</code> by running the following command:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code><span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="o">*</span>
+</code></pre></div>
+<p>To exit the REPL, type:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>exit()
+</code></pre></div>
+<p>When you are finished working interactively and want to deactivate the virtual environment and unload all modules, run the following commands:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>deactivate
+module purge
+</code></pre></div>
+<p>The environment is now set up to run your Python scripts that import <code>gurobipy</code> on the interactive Yen cluster nodes. Keep in mind that the <code>module load</code> command and virtual environment activation are only active in the current shell.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You need to load the <code>gurobi</code> module and activate your <code>venv</code> environment every time you log in to the Yens before running the interactive Python scripts that use the <code>gurobipy</code> package.</p>
+</div>
+<h4 id="running-gurobi-in-r">Running Gurobi in R</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The default Gurobi 10 version is not compatible with the default R 4.3 version. To ensure proper functionality, you need to use R 4.2 instead. Running <code>ml gurobi R</code> with an incompatible version will result in an error. For more details on which Gurobi versions work with specific R versions, please refer to the information provided <a href="https://support.gurobi.com/hc/en-us/articles/360025593712-Which-R-versions-are-supported-by-Gurobi" target="_blank">here</a>. </p>
+</div>
+<p>Similar to running Gurobi in Python, Gurobi R package is also installed and available system-wide to use on the Yens. You do not need to install anything into your user R library.</p>
+<p>To use Gurobi software with R, simply load both modules:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml gurobi R/4.2
+</code></pre></div>
+<p>To list the currently loaded modules, use:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code> ml
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">Currently Loaded Modules</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1) gurobi/10.0.0   2) R/4.2.1</span>
+</code></pre></div></p>
+<p>Launch interactive R:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code> R
+</code></pre></div>
+<p>Then you can load the <code>gurobi</code> R package:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">R version 4.2.1 (2022-06-23) -- &quot;Funny-Looking Kid&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">Copyright (C) 2022 The R Foundation for Statistical Computing</span>
+<span class="l l-Scalar l-Scalar-Plain">Platform</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64-pc-linux-gnu (64-bit)</span>
+
+<span class="l l-Scalar l-Scalar-Plain">R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span class="l l-Scalar l-Scalar-Plain">You are welcome to redistribute it under certain conditions.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;license()&#39; or &#39;licence()&#39; for distribution details.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">R is a collaborative project with many contributors.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;contributors()&#39; for more information and</span>
+<span class="s">&#39;citation()&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">on how to cite R or R packages in publications.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;demo()&#39; for some demos, &#39;help()&#39; for on-line help, or</span>
+<span class="s">&#39;help.start()&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">for an HTML browser interface to help.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;q()&#39; to quit R.</span>
+<span class="p p-Indicator">&gt;</span>
+</code></pre></div>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="s">&quot;gurobi&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">Loading required package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slam</span>
+<span class="p p-Indicator">&gt;</span>
+</code></pre></div></p>
+<p>You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen cluster nodes.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You need to load the <code>gurobi</code> and <code>R</code> modules every time you log in to the Yens before running the interactive R scripts that use <code>gurobi</code> R package.</p>
+</div>
+<p>Note that if you want to use an older Gurobi version, you will need to install <code>gurobi</code> R package to your user R library.</p>
+<p>Load R and the older Gurobi module:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>module purge
+ml R/4.2 gurobi/9.5.2
+</code></pre></div>
+<p>Start R by typing <code>R</code>:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>R
+</code></pre></div>
+<p>Then install a personal <code>gurobi</code> package that links to Gurobi 9:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>install.packages(&quot;/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz&quot;, repos=NULL)
+</code></pre></div>
+<div class="yaml no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">repos</span><span class="o">=</span><span class="kc">NULL</span><span class="p">)</span>
+<span class="n">Warning</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;/software/non-free/Gurobi/gurobi952/linux64/R/gurobi_9.5-2_R_4.2.0.tar.gz&quot;</span><span class="p">,</span><span class="w">  </span><span class="o">:</span>
+<span class="w">  </span><span class="s">&#39;lib = &quot;/software/free/R/R-4.2.1/lib/R/library&quot;&#39;</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">not</span><span class="w"> </span><span class="n">writable</span>
+<span class="n">Would</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">use</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">personal</span><span class="w"> </span><span class="n">library</span><span class="w"> </span><span class="n">instead</span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="o">/</span><span class="n">No</span><span class="o">/</span><span class="n">cancel</span><span class="p">)</span><span class="w"> </span><span class="n">yes</span>
+<span class="n">Would</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">like</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">create</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">personal</span><span class="w"> </span><span class="n">library</span>
+‘<span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">users</span><span class="o">/$</span><span class="n">USER</span><span class="o">/</span><span class="n">R</span><span class="o">/</span><span class="n">x86_64</span><span class="o">-</span><span class="n">pc</span><span class="o">-</span><span class="n">linux</span><span class="o">-</span><span class="n">gnu</span><span class="o">-</span><span class="n">library</span><span class="o">/</span><span class="m">4.2</span>’
+<span class="n">to</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">packages</span><span class="w"> </span><span class="n">into</span><span class="o">?</span><span class="w"> </span><span class="p">(</span><span class="n">yes</span><span class="o">/</span><span class="n">No</span><span class="o">/</span><span class="n">cancel</span><span class="p">)</span><span class="w"> </span><span class="n">yes</span>
+<span class="o">*</span><span class="w"> </span><span class="n">installing</span><span class="w"> </span><span class="o">*</span><span class="n">binary</span><span class="o">*</span><span class="w"> </span><span class="n">package</span><span class="w"> </span>‘<span class="n">gurobi</span>’<span class="w"> </span><span class="kc">...</span>
+<span class="o">*</span><span class="w"> </span><span class="nf">DONE </span><span class="p">(</span><span class="n">gurobi</span><span class="p">)</span>
+</code></pre></div></p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="s">&quot;gurobi&quot;</span><span class="p">)</span>
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">Loading required package</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">slam</span>
+<span class="p p-Indicator">&gt;</span>
+</code></pre></div></p>
+<p>Quit R. You can now run the R scripts to solve the optimization problem using Gurobi on interactive Yen cluster nodes.</p>
+<h3 id="ampl-with-knitro-solver">AMPL with Knitro Solver</h3>
+<h4 id="running-ampl-with-knitro-solver-in-python">Running AMPL with Knitro Solver in Python</h4>
+<p>Because the Yens already have Knitro and AMPL software installed, we simply need to load the appropriate <a href="/_getting_started/modules/" target="_blank">modules</a>.</p>
+<p>Load both modules:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml ampl knitro
+</code></pre></div>
+<p>You can check currently loaded modules with:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">Currently Loaded Modules</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1) ampl/20231031   2) knitro/14.0.0</span>
+</code></pre></div></p>
+<p>You can get details about a specific module with:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml show knitro
+</code></pre></div>
+<p>which displays useful details about <code>PATH</code> modifications when the module is loaded:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">---------------------------------------------------------------------------------------------------------------------</span>
+<span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">/software/modules/Core/knitro/14.0.0.lua</span><span class="p p-Indicator">:</span>
+<span class="l l-Scalar l-Scalar-Plain">---------------------------------------------------------------------------------------------------------------------</span>
+<span class="l l-Scalar l-Scalar-Plain">whatis(&quot;Name</span><span class="p p-Indicator">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">knitro&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">whatis(&quot;Version</span><span class="p p-Indicator">:</span><span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">14.0.0&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">whatis(&quot;Category</span><span class="p p-Indicator">:</span><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">math, optimization&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">whatis(&quot;URL</span><span class="p p-Indicator">:</span><span class="w">         </span><span class="l l-Scalar l-Scalar-Plain">https://www.artelys.com/en/optimization-tools/knitro&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">whatis(&quot;Description</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Artelys Knitro is an optimization solver for difficult large-scale nonlinear problems.&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">pushenv(&quot;KNITRODIR&quot;,&quot;/software/non-free/knitro/14.0.0&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">pushenv(&quot;ARTELYS_LICENSE_NETWORK_ADDR&quot;,&quot;srcc-license-srcf.stanford.edu&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;PATH&quot;,&quot;/software/non-free/knitro/14.0.0/knitroampl&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;LIBRARY_PATH&quot;,&quot;/software/non-free/knitro/14.0.0/lib&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;LD_LIBRARY_PATH&quot;,&quot;/software/non-free/knitro/14.0.0/lib&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;CPATH&quot;,&quot;/software/non-free/knitro/14.0.0/include&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;MATLABPATH&quot;,&quot;/software/non-free/knitro/14.0.0/knitromatlab&quot;)</span>
+<span class="l l-Scalar l-Scalar-Plain">prepend_path(&quot;PYTHONPATH&quot;,&quot;/software/non-free/knitro/14.0.0/examples/Python&quot;)</span>
+</code></pre></div>
+<p>Next, create a new <a href="/_user_guide/python_envs/" target="_blank">Python virtual environment</a> using the <code>venv</code> package.
+This virtual environment will also be used across interactive Yen cluster nodes, Slurm nodes, and as a Jupyter kernel. The process is the same as the one we set up for Gurobi above.</p>
+<p>To ensure the virtual environment is sharable, create it in a shared location on the Yen cluster, such as a faculty project directory, rather than in a user’s home directory.</p>
+<p>Let's navigate to the shared project directory:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cd &lt;path/to/project&gt;
+</code></pre></div>
+<p>Create a new virtual environment, named <code>opt</code>:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>/usr/bin/python3  -m venv opt
+</code></pre></div>
+You can also choose a different name instead of <code>opt</code> in this step.</p>
+<p>Next, activate the virtual environment using the following command:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>source opt/bin/activate
+</code></pre></div>
+<p>You should see <code>(opt):</code> prepended to the prompt:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">(opt)</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">$</span>
+</code></pre></div></p>
+<p>Finally, install the required python packages using <code>pip</code> (this step may take some time):</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>pip install numpy pandas ipykernel amplpy
+</code></pre></div>
+<p>The <code>ipykernel</code> module is needed to turn this virtual environment into a Jupyter kernel at a later step and the <a href="https://pypi.org/project/amplpy" target="_blank"><code>amplpy</code></a> package serves as the Python interface to AMPL.</p>
+<p>We can now use both AMPL and Knitro on interactive Yen cluster nodes. After the packages are installed, start the Python REPL by typing <code>python</code>:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>python
+</code></pre></div>
+<p>This will display:</p>
+<div class="yaml no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="n">Python</span> <span class="mf">3.10.12</span> <span class="p">(</span><span class="n">main</span><span class="p">,</span> <span class="n">Sep</span> <span class="mi">11</span> <span class="mi">2024</span><span class="p">,</span> <span class="mi">15</span><span class="p">:</span><span class="mi">47</span><span class="p">:</span><span class="mi">36</span><span class="p">)</span> <span class="p">[</span><span class="n">GCC</span> <span class="mf">11.4.0</span><span class="p">]</span> <span class="n">on</span> <span class="n">linux</span>
+<span class="n">Type</span> <span class="s2">&quot;help&quot;</span><span class="p">,</span> <span class="s2">&quot;copyright&quot;</span><span class="p">,</span> <span class="s2">&quot;credits&quot;</span> <span class="ow">or</span> <span class="s2">&quot;license&quot;</span> <span class="k">for</span> <span class="n">more</span> <span class="n">information</span><span class="o">.</span>
+<span class="o">&gt;&gt;&gt;</span>
+</code></pre></div>
+<p>Ensure that you can import <code>amplpy</code> and verify that AMPL is accessible and the license is a network floating license by running the following code. You can save it to <code>knitro_test.py</code>and run it in the terminal:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">knitro_test.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">amplpy</span> <span class="kn">import</span> <span class="n">AMPL</span><span class="p">,</span> <span class="n">Environment</span>
+
+<span class="c1"># Initialize the AMPL instance with a specific AMPL license</span>
+<span class="n">ampl</span> <span class="o">=</span> <span class="n">AMPL</span><span class="p">(</span><span class="n">Environment</span><span class="p">(</span><span class="s2">&quot;/software/non-free/ampl/20231031/&quot;</span><span class="p">))</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Execute an AMPL command to check the version</span>
+    <span class="n">ampl</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;option version;&quot;</span><span class="p">)</span>    
+
+    <span class="c1"># Set Knitro as the solver for an optimization problem</span>
+    <span class="n">ampl</span><span class="o">.</span><span class="n">setOption</span><span class="p">(</span><span class="s1">&#39;solver&#39;</span><span class="p">,</span> <span class="s2">&quot;/software/non-free/knitro/14.0.0/knitroampl/knitroampl&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Define and solve an optimization problem</span>
+    <span class="n">ampl</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s1">&#39;&#39;&#39;</span>
+<span class="s1">    # Simple Linear Optimization Problem</span>
+<span class="s1">    var x &gt;= 0;   # Decision variable x</span>
+<span class="s1">    var y &gt;= 0;   # Decision variable y</span>
+<span class="s1">    maximize objective: x + 2 * y;  # Objective function</span>
+<span class="s1">    subject to Constraint1: 3 * x + 4 * y &lt;= 24;  # Constraint 1</span>
+<span class="s1">    &#39;&#39;&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Solve the defined optimization problem</span>
+    <span class="n">ampl</span><span class="o">.</span><span class="n">solve</span><span class="p">()</span>
+
+<span class="k">finally</span><span class="p">:</span>
+    <span class="c1"># Output the results of the optimization</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Objective value: </span><span class="si">{</span><span class="n">ampl</span><span class="o">.</span><span class="n">getObjective</span><span class="p">(</span><span class="s1">&#39;objective&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;x = </span><span class="si">{</span><span class="n">ampl</span><span class="o">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;y = </span><span class="si">{</span><span class="n">ampl</span><span class="o">.</span><span class="n">getVariable</span><span class="p">(</span><span class="s1">&#39;y&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">value</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Properly close the AMPL instance to free resources</span>
+    <span class="n">ampl</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></td></tr></table></div>
+<p>We point to the AMPL floating network license with <code>AMPL(Environment("/software/non-free/ampl/20231031"))</code> call.</p>
+<p>The <code>ampl.eval()</code> call should indicate that we have checked out the license:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">option version &#39;AMPL Development Version 20231213 (Linux-5.15.0-1052-azure, 64-bit)\</span>
+<span class="l l-Scalar l-Scalar-Plain">Licensed to Stanford University, Natalya Rapstine &lt;nrapstin@stanford.edu&gt; (srcc-license-srcf).\</span>
+<span class="l l-Scalar l-Scalar-Plain">Temporary license expires 20250131.\</span>
+<span class="l l-Scalar l-Scalar-Plain">Using license file &quot;/software/non-free/ampl/20231031/ampl.lic&quot;.\</span>
+<span class="l l-Scalar l-Scalar-Plain">&#39;;</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>To ensure that the AMPL instance is always properly released (even in cases of errors or exceptions), we must properly close <code>ampl</code> instance. The <code>try</code> and <code>finally</code> logic does that in which we release the AMPL license with <code>ampl.close()</code> call. Be sure to shut down the Jupyter kernel when using AMPL in a Jupyter notebook, as only one floating license is available.</p>
+</div>
+<p>We also point to the Knitro license on the Yens with <code>ampl.setOption()</code> call.</p>
+<p>After defining the problem, the <code>ampl.solve()</code> call should print out the Knitro license information and the problem solution.</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">=======================================</span>
+<span class="w">           </span><span class="l l-Scalar l-Scalar-Plain">Academic License</span>
+<span class="w">       </span><span class="l l-Scalar l-Scalar-Plain">(NOT FOR COMMERCIAL USE)</span>
+<span class="w">         </span><span class="l l-Scalar l-Scalar-Plain">Artelys Knitro 14.0.0</span>
+<span class="l l-Scalar l-Scalar-Plain">=======================================</span>
+
+<span class="l l-Scalar l-Scalar-Plain">No start point provided -- Knitro computing one.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Knitro presolve eliminated 0 variables and 0 constraints.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">concurrent_evals</span><span class="p p-Indicator">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">datacheck</span><span class="p">:</span><span class="w">               </span><span class="l l-Scalar l-Scalar-Plain">0</span>
+<span class="nt">hessian_no_f</span><span class="p">:</span><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="l l-Scalar l-Scalar-Plain">The problem is identified as an LP.</span>
+</code></pre></div>
+<p>To exit the REPL, type:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>exit()
+</code></pre></div>
+<p>When you are finished working interactively and want to deactivate the virtual environment and unload all modules, run the following commands:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>deactivate
+module purge
+</code></pre></div>
+<p>The environment is now set up to run your Python scripts that use AMPL and Knitro on the interactive Yen cluster nodes. Keep in mind that the <code>module load</code> command and virtual environment activation are only active in the current shell.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>You need to load the <code>ampl</code> and <code>knitro</code> modules and activate your <code>venv</code> environment every time you log in to the Yens before running the interactive Python scripts that use AMPL and Knitro.</p>
+</div>
+<h3 id="knitro">Knitro</h3>
+<h4 id="running-knitro-in-r">Running Knitro in R</h4>
+<p>To use Knitro software with R, start by loading both modules:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml knitro R
+</code></pre></div>
+<p>This will load the default versions of both modules. To list the currently loaded modules, use:</p>
+<p><div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code> ml
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">Currently Loaded Modules</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">1) knitro/14.0.0   2) R/4.3.0</span>
+</code></pre></div></p>
+<p>To use Knitro within R, we will need to install <a href="https://www.artelys.com/app/docs/knitro/3_referenceManual/knitroRreference.html#" target="_blank">this <code>KnitroR</code> package</a>. This package is provided alongside the Knitro software by the developer and you can retrieve your own copy of it with the following command:
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cp -r /software/non-free/knitro/14.0.0/examples/R/KnitroR ~/KnitroR
+</code></pre></div></p>
+<p>This copies the package to your home directory, from which you can now install it within R.</p>
+<p>Launch interactive R and install the package from your home directory:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code> R
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">R version 4.3.0 (2023-04-21) -- &quot;Already Tomorrow&quot;</span>
+<span class="l l-Scalar l-Scalar-Plain">Copyright (C) 2023 The R Foundation for Statistical Computing</span>
+<span class="l l-Scalar l-Scalar-Plain">Platform</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">x86_64-pc-linux-gnu (64-bit)</span>
+
+<span class="l l-Scalar l-Scalar-Plain">R is free software and comes with ABSOLUTELY NO WARRANTY.</span>
+<span class="l l-Scalar l-Scalar-Plain">You are welcome to redistribute it under certain conditions.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;license()&#39; or &#39;licence()&#39; for distribution details.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">R is a collaborative project with many contributors.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;contributors()&#39; for more information and</span>
+<span class="s">&#39;citation()&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">on how to cite R or R packages in publications.</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;demo()&#39; for some demos, &#39;help()&#39; for on-line help, or</span>
+<span class="s">&#39;help.start()&#39;</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">for an HTML browser interface to help.</span>
+<span class="l l-Scalar l-Scalar-Plain">Type &#39;q()&#39; to quit R.</span>
+<span class="p p-Indicator">&gt;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">R Commands</span><pre><span></span><code><span class="nf">install.packages</span><span class="p">(</span><span class="s">&quot;~/KnitroR&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">repos</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">NULL</span><span class="p">,</span><span class="w"> </span><span class="n">type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;source&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>You can now load the package and run a test to confirm that <code>knitro</code> is working:</p>
+<p><div class="highlight"><span class="filename">R Commands</span><pre><span></span><code><span class="nf">library</span><span class="p">(</span><span class="n">KnitroR</span><span class="p">)</span>
+<span class="nf">knitro</span><span class="p">(</span><span class="n">objective</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="w"> </span><span class="n">x0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+</code></pre></div>
+<div class="yaml no-copy highlight"><span class="filename">R Output</span><pre><span></span><code><span class="o">=======================================</span>
+<span class="w">           </span><span class="n">Academic</span><span class="w"> </span><span class="nf">License</span>
+<span class="nf">       </span><span class="p">(</span><span class="n">NOT</span><span class="w"> </span><span class="n">FOR</span><span class="w"> </span><span class="n">COMMERCIAL</span><span class="w"> </span><span class="n">USE</span><span class="p">)</span>
+<span class="w">         </span><span class="n">Artelys</span><span class="w"> </span><span class="n">Knitro</span><span class="w"> </span><span class="m">14.0</span><span class="n">.</span><span class="m">0</span>
+<span class="o">=======================================</span>
+
+<span class="n">Knitro</span><span class="w"> </span><span class="n">performing</span><span class="w"> </span><span class="n">finite</span><span class="o">-</span><span class="n">difference</span><span class="w"> </span><span class="n">gradient</span><span class="w"> </span><span class="n">computation</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="n">thread.</span>
+<span class="n">Knitro</span><span class="w"> </span><span class="n">presolve</span><span class="w"> </span><span class="n">eliminated</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">variables</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="n">constraints.</span>
+
+<span class="n">concurrent_evals</span><span class="o">:</span><span class="w">        </span><span class="m">0</span>
+<span class="n">The</span><span class="w"> </span><span class="n">problem</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">identified</span><span class="w"> </span><span class="n">as</span><span class="w"> </span><span class="n">unconstrained.</span>
+
+<span class="n">Problem</span><span class="w"> </span><span class="nf">Characteristics                                 </span><span class="p">(</span><span class="w">   </span><span class="n">Presolved</span><span class="p">)</span>
+<span class="o">-----------------------</span>
+<span class="n">Objective</span><span class="w"> </span><span class="n">goal</span><span class="o">:</span><span class="w">  </span><span class="n">Minimize</span>
+<span class="n">Objective</span><span class="w"> </span><span class="n">type</span><span class="o">:</span><span class="w">  </span><span class="n">general</span>
+<span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">variables</span><span class="o">:</span><span class="w">                                  </span><span class="m">2</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">2</span><span class="p">)</span>
+<span class="w">    </span><span class="n">bounded</span><span class="w"> </span><span class="n">below</span><span class="w"> </span><span class="n">only</span><span class="o">:</span><span class="w">                               </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">bounded</span><span class="w"> </span><span class="n">above</span><span class="w"> </span><span class="n">only</span><span class="o">:</span><span class="w">                               </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">bounded</span><span class="w"> </span><span class="n">below</span><span class="w"> </span><span class="n">and</span><span class="w"> </span><span class="n">above</span><span class="o">:</span><span class="w">                          </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">fixed</span><span class="o">:</span><span class="w">                                            </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">free</span><span class="o">:</span><span class="w">                                             </span><span class="m">2</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">2</span><span class="p">)</span>
+<span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">constraints</span><span class="o">:</span><span class="w">                                </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">linear</span><span class="w"> </span><span class="n">equalities</span><span class="o">:</span><span class="w">                                </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">quadratic</span><span class="w"> </span><span class="n">equalities</span><span class="o">:</span><span class="w">                             </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">gen.</span><span class="w"> </span><span class="n">nonlinear</span><span class="w"> </span><span class="n">equalities</span><span class="o">:</span><span class="w">                        </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">linear</span><span class="w"> </span><span class="n">one</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">quadratic</span><span class="w"> </span><span class="n">one</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">                 </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">gen.</span><span class="w"> </span><span class="n">nonlinear</span><span class="w"> </span><span class="n">one</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">            </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">linear</span><span class="w"> </span><span class="n">two</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">                    </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">quadratic</span><span class="w"> </span><span class="n">two</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">                 </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">gen.</span><span class="w"> </span><span class="n">nonlinear</span><span class="w"> </span><span class="n">two</span><span class="o">-</span><span class="n">sided</span><span class="w"> </span><span class="n">inequalities</span><span class="o">:</span><span class="w">            </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">nonzeros</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">Jacobian</span><span class="o">:</span><span class="w">                       </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">0</span><span class="p">)</span>
+<span class="n">Number</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">nonzeros</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">Hessian</span><span class="o">:</span><span class="w">                        </span><span class="m">0</span><span class="w"> </span><span class="p">(</span><span class="w">           </span><span class="m">3</span><span class="p">)</span>
+
+<span class="n">Knitro</span><span class="w"> </span><span class="n">using</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">Interior</span><span class="o">-</span><span class="n">Point</span><span class="o">/</span><span class="n">Barrier</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">algorithm.</span>
+
+<span class="w">  </span><span class="n">Iter</span><span class="w">      </span><span class="n">Objective</span><span class="w">      </span><span class="n">FeasError</span><span class="w">   </span><span class="n">OptError</span><span class="w">    </span><span class="o">||</span><span class="n">Step</span><span class="o">||</span><span class="w">    </span><span class="n">CGits</span><span class="w"> </span>
+<span class="o">--------</span><span class="w">  </span><span class="o">--------------</span><span class="w">  </span><span class="o">----------</span><span class="w">  </span><span class="o">----------</span><span class="w">  </span><span class="o">----------</span><span class="w">  </span><span class="o">-------</span>
+<span class="w">       </span><span class="m">0</span><span class="w">    </span><span class="m">1.000000e+00</span><span class="w">   </span><span class="m">0.000e+00</span>
+<span class="w">       </span><span class="m">1</span><span class="w">    </span><span class="m">0.000000e+00</span><span class="w">   </span><span class="m">0.000e+00</span><span class="w">   </span><span class="m">0.000e+00</span><span class="w">   </span><span class="m">1.414e+00</span><span class="w">        </span><span class="m">0</span>
+
+<span class="n">EXIT</span><span class="o">:</span><span class="w"> </span><span class="n">Locally</span><span class="w"> </span><span class="n">optimal</span><span class="w"> </span><span class="n">solution</span><span class="w"> </span><span class="n">found.</span>
+
+<span class="n">Final</span><span class="w"> </span><span class="n">Statistics</span>
+<span class="o">----------------</span>
+<span class="n">Final</span><span class="w"> </span><span class="n">objective</span><span class="w"> </span><span class="n">value</span><span class="w">               </span><span class="o">=</span><span class="w">   </span><span class="m">0.00000000000000e+00</span>
+<span class="n">Final</span><span class="w"> </span><span class="n">feasibility</span><span class="w"> </span><span class="nf">error </span><span class="p">(</span><span class="n">abs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">rel</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w">   </span><span class="m">0.00e+00</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">0.00e+00</span>
+<span class="n">Final</span><span class="w"> </span><span class="n">optimality</span><span class="w"> </span><span class="nf">error  </span><span class="p">(</span><span class="n">abs</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">rel</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w">   </span><span class="m">0.00e+00</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">0.00e+00</span>
+<span class="c1"># of iterations                     =          1 </span>
+<span class="c1"># of CG iterations                  =          0 </span>
+<span class="c1"># of function evaluations           =          8</span>
+<span class="c1"># of gradient evaluations           =          0</span>
+<span class="n">Total</span><span class="w"> </span><span class="n">program</span><span class="w"> </span><span class="nf">time </span><span class="p">(</span><span class="n">secs</span><span class="p">)</span><span class="w">           </span><span class="o">=</span><span class="w">       </span><span class="m">0.07083</span><span class="w"> </span><span class="p">(</span><span class="w">     </span><span class="m">0.036</span><span class="w"> </span><span class="n">CPU</span><span class="w"> </span><span class="n">time</span><span class="p">)</span>
+<span class="n">Time</span><span class="w"> </span><span class="n">spent</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nf">evaluations </span><span class="p">(</span><span class="n">secs</span><span class="p">)</span><span class="w">    </span><span class="o">=</span><span class="w">       </span><span class="m">0.00001</span>
+
+<span class="o">===============================================================================</span>
+
+<span class="o">$</span><span class="n">status</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">obj</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">x</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">lambda</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">objGrad</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">objGradIndexVars</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>
+
+<span class="o">$</span><span class="n">c</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">r</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">jac</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">jacIndexCons</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">jacIndexVars</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">rsdJac</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">rsdJacIndexRsds</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">rsdJacIndexVars</span>
+<span class="kc">NULL</span>
+
+<span class="o">$</span><span class="n">numFCevals</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">8</span>
+
+<span class="o">$</span><span class="n">numGAevals</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">numHevals</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">numHVevals</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+
+<span class="o">$</span><span class="n">numIters</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">1</span>
+
+<span class="o">$</span><span class="n">numCGiters</span>
+<span class="p">[</span><span class="m">1</span><span class="p">]</span><span class="w"> </span><span class="m">0</span>
+</code></pre></div></p>
+<p>Quit R. You can now utilize the <code>KnitroR</code> package in your <code>R</code> scripts and within <code>RStudio</code> on JupyterHub, provided that you are using the same version of R as the one used during installation.</p>
+<p>Note that if you are using this package within <code>RStudio</code> on JupyterHub, you will need to set a couple of environment variables to get the package to work:</p>
+<div class="highlight"><span class="filename">RStudio Commands</span><pre><span></span><code><span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">KNITRODIR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;/software/non-free/knitro/14.0.0&#39;</span><span class="p">)</span>
+<span class="nf">Sys.setenv</span><span class="p">(</span><span class="n">ARTELYS_LICENSE_NETWORK_ADDR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#39;srcc-license-srcf.stanford.edu&#39;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="integrating-with-jupyter-notebooks">Integrating with Jupyter Notebooks</h2>
+<h3 id="running-gurobi-in-jupyter-notebooks">Running Gurobi in Jupyter Notebooks</h3>
+<p>To make Gurobi Python interface work on the Yen's JupyterHub, we can take our <code>gurobi_env</code> virtual environment and make it into a Jupyter kernel.</p>
+<p>Activate the virtual environment in your project space:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cd &lt;path/to/project&gt;
+source gurobi_env/bin/activate
+</code></pre></div>
+<p>Then, we add the <strong>active</strong> <code>gurobi_env</code> virtual environment as a new JupyterHub kernel and name it as <code>gurobi_env</code>:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Gurobi 10 (default, works with Python 3.10)</label><label for="__tabbed_4_2">Gurobi 11 (requires Python 3.11)</label><label for="__tabbed_4_3">Gurobi 12 (requires Python 3.11)</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml gurobi
+source gurobi_env/bin/activate
+python -m ipykernel install --user --name=gurobi_env \
+--env GUROBI_HOME ${GUROBI_HOME} \
+--env GRB_LICENSE_FILE ${GUROBI_HOME}/gurobi.lic \
+--env PATH ${GUROBI_HOME}/bin:${PATH} \
+--env LD_LIBRARY_PATH ${GUROBI_HOME}/lib:${LD_LIBRARY_PATH}
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code># don&#39;t load gurobi module, it might mess with python path
+source gurobi_env/bin/activate
+python -m ipykernel install --user --name=gurobi_env \
+--env GUROBI_HOME /software/non-free/Gurobi/gurobi1103/linux64 \
+--env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1103/linux64/licenses/gurobi.lic \
+--env PATH /software/non-free/Gurobi/gurobi1103/linux64/bin:${PATH} \
+--env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1103/linux64/lib:${LD_LIBRARY_PATH}
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code># don&#39;t load gurobi module, it might mess with python path
+source gurobi_env/bin/activate
+python -m ipykernel install --user --name=gurobi_env \
+--env GUROBI_HOME /software/non-free/Gurobi/gurobi1200/linux64 \
+--env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1200/linux64/licenses/gurobi.lic \
+--env PATH /software/non-free/Gurobi/gurobi1200/linux64/bin:${PATH}&#39; \
+--env LD_LIBRARY_PATH /software/non-free/Gurobi/gurobi1200/linux64/lib:${LD_LIBRARY_PATH}&#39;
+</code></pre></div>
+</div>
+</div>
+</div>
+<p>Notice the extra <code>--env</code> arguments to add necessary Gurobi environment variables so that Jupyter kernel can find the software. List all of your Jupyter kernels with the following command:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>jupyter kernelspec list
+</code></pre></div>
+<p>To remove a kernel, run:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>jupyter kernelspec uninstall &lt;kernel-name&gt;
+</code></pre></div>
+<p>where <code>&lt;kernel-name&gt;</code> is the name of the kernel you want to uninstall from JupyterHub.</p>
+<p>On <a href="/_getting_started/jupyter/" target="_blank">JupyterHub</a>, launch the new <code>gurobi_env</code> kernel and test the package imports:
+<br></p>
+<p><img alt="gurobi kernel image" src="/assets/images/gurobi-kernel.png" /></p>
+<h3 id="running-amplknitro-in-jupyter-notebooks">Running AMPL/Knitro in Jupyter Notebooks</h3>
+<p>To make AMPL/Knitro Python interface work on the Yen's JupyterHub, we can take our <code>opt</code> virtual environment and make it into a Jupyter kernel.</p>
+<p>Load AMPL and Knitro modules:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>ml ampl knitro
+</code></pre></div>
+<p>Activate the virtual environment in your project space:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cd &lt;path/to/project&gt;
+source opt/bin/activate
+</code></pre></div>
+<p>Then, we add the <strong>active</strong> <code>opt</code> virtual environment as a new JupyterHub kernel and name it as <code>opt</code>:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>python -m ipykernel install --user --name=opt \
+--env KNITRODIR /software/non-free/knitro/14.0.0 \
+--env ARTELYS_LICENSE_NETWORK_ADDR srcc-license-srcf.stanford.edu \
+--env LD_LIBRARY_PATH &#39;/software/non-free/knitro/14.0.0/lib:${LD_LIBRARY_PATH}&#39; \
+--env PYTHONPATH &#39;/software/non-free/knitro/14.0.0/examples/Python:${PYTHONPATH}&#39;
+</code></pre></div>
+<p>Notice the extra <code>--env</code> arguments to add necessary Knitro and AMPL environment variables so that Jupyter kernel can find the licenses. Launch the new <code>opt</code> kernel and test the <code>ampl</code> and <code>knitro</code> imports.
+<br></p>
+<p><img alt="knitro jupyter kernel image" src="/assets/images/opt_kernel.png" />
+<img alt="knitro license info image" src="/assets/images/opt_kernel-2.png" /></p>
+<h3 id="combining-gurobi-knitro-and-ampl-in-a-single-kernel">Combining Gurobi, Knitro, and AMPL in a Single Kernel</h3>
+<p>Consider combining the instructions for Gurobi and AMPL/Knitro to make a single "optimization" virtual environment and Jupyter kernel. After loading <code>gurobi</code>, <code>ampl</code> and <code>knitro</code> modules, make the virtual environment, activate it, then <code>pip install</code> all the required packages - <code>numpy pandas ipykernel threadpoolctl scipy gurobipy amplpy</code>.</p>
+<p>You can then make that active virtual environment into a new Jupyter kernel combining the environment variables we used previously and name it as <code>opt_combined</code>:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>python -m ipykernel install --user --name=opt_combined \
+--env GUROBI_HOME /software/non-free/Gurobi/gurobi1000/linux64 \
+--env GRB_LICENSE_FILE /software/non-free/Gurobi/gurobi1000/linux64/gurobi.lic \
+--env KNITRODIR /software/non-free/knitro/14.0.0 \
+--env ARTELYS_LICENSE_NETWORK_ADDR srcc-license-srcf.stanford.edu \
+--env LD_LIBRARY_PATH &#39;/software/non-free/knitro/14.0.0/lib:${LD_LIBRARY_PATH}&#39; \
+--env PATH &#39;/software/non-free/Gurobi/gurobi1000/linux64/bin:${PATH}&#39; \
+--env PYTHONPATH &#39;/software/non-free/knitro/14.0.0/examples/Python:${PYTHONPATH}&#39;
+</code></pre></div>
+<p>On <a href="/_getting_started/jupyter/" target="_blank">JupyterHub</a>, launch the new <code>opt_combined</code> kernel and test the package imports for <code>amplpy</code>, <code>gurobipy</code> and all other previous imports.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Since we already have a Jupyter kernel named <code>opt</code>, we chose a different name <code>opt_combined</code> for the combined Gurobi, AMPL and Knitro kernel. If you choose the same kernel name <code>opt</code>, the <code>opt</code> kernel will be overwritten to reference the latest kernel install from the active environment.</p>
+</div>
+<h2 id="running-software-on-slurm">Running Software on Slurm</h2>
+<h3 id="running-batch-jobs">Running Batch Jobs</h3>
+<p>To use the optimization software on the <a href="/_user_guide/slurm/" target="_blank">Yen Slurm cluster</a>, we first need to load the required modules and activate the virtual Python environment before calling python in the Slurm script. Let's save the following Slurm script to a file named <code>opt_test.slurm</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">opt_test.slurm</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Example of running Gurobi, AMPL and Knitro on Yens</span>
+
+<span class="c1">#SBATCH -J opt</span>
+<span class="c1">#SBATCH -p normal</span>
+<span class="c1">#SBATCH -c 1                    # one core per task</span>
+<span class="c1">#SBATCH -t 1:00:00</span>
+<span class="c1">##SBATCH --mem=1gb              # uncomment/set to request total RAM need</span>
+<span class="c1">#SBATCH -o opt-%j.out</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=your_email@stanford.edu</span>
+
+<span class="c1"># Clean modules first</span>
+module<span class="w"> </span>purge
+
+<span class="c1"># Load software</span>
+module<span class="w"> </span>load<span class="w"> </span>gurobi<span class="w"> </span>ampl<span class="w"> </span>knitro
+
+<span class="c1"># Activate venv (can either be a global or relative path)</span>
+<span class="nb">source</span><span class="w"> </span>/zfs/projects/&lt;your-project&gt;/opt_combined/bin/activate
+
+<span class="c1"># Run Python script</span>
+python<span class="w"> </span>&lt;my_script.py&gt;
+</code></pre></div></td></tr></table></div>
+<p>In this example, we load all three optimization software, but you can omit the ones you don't need.</p>
+<p>Submit this Slurm script to test:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>sbatch opt_test.slurm
+</code></pre></div>
+<p>See your job in the queue:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>squeue
+</code></pre></div>
+<p>Display the <code>.out</code> file once the job is done.</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>cat *.out
+</code></pre></div>
+<h3 id="running-job-arrays">Running Job Arrays</h3>
+<p>A Slurm job array is a way to launch multiple jobs in parallel. One use case is when you want to change input parameters in your script (such as a Python, Julia, or R script). Instead of manually changing the input parameters and rerunning the script multiple times, you can achieve this with a single job array.</p>
+<h4 id="gurobi-example">Gurobi Example</h4>
+<p>We will work with the following Python script that was modified from <a href="https://docs.gurobi.com/current/" target="_blank">Gurobi documentation</a> that performs sensitivity analysis using the Gurobi optimization library.</p>
+<p>Specifically, this script formulates and solves a simple Mixed Integer Programming (MIP) model using the Gurobi matrix API:</p>
+<p><img alt="gurobi equation image" src="/assets/images/gurobi-eq.png" /></p>
+<p>Save this Python script to a new file named <code>gurobi_sensitivity.py</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gurobi_sensitivity.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span>
+<span class="normal">52</span>
+<span class="normal">53</span>
+<span class="normal">54</span>
+<span class="normal">55</span>
+<span class="normal">56</span>
+<span class="normal">57</span>
+<span class="normal">58</span>
+<span class="normal">59</span>
+<span class="normal">60</span>
+<span class="normal">61</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.sparse</span> <span class="k">as</span> <span class="nn">sp</span>
+<span class="kn">import</span> <span class="nn">gurobipy</span> <span class="k">as</span> <span class="nn">gp</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">threadpoolctl</span> <span class="kn">import</span> <span class="n">threadpool_limits</span>
+<span class="kn">from</span> <span class="nn">gurobipy</span> <span class="kn">import</span> <span class="n">GRB</span>
+
+<span class="c1"># Limits the number of cores for numpy BLAS</span>
+<span class="n">threadpool_limits</span><span class="p">(</span><span class="n">limits</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">user_api</span> <span class="o">=</span> <span class="s1">&#39;blas&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set total number of threads for Gurobi to</span>
+<span class="n">__gurobi_threads</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Define the coefficients to run sensitivity analysis</span>
+    <span class="n">capacity_coefficients</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">num</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+
+    <span class="c1"># Assign a based on command line input - default is 0</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&lt;</span> <span class="mi">31</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">capacity_coefficients</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">])]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># Create a new model</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">gp</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="s2">&quot;matrix1&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set the total number of Gurobi threads for model &quot;m&quot;</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">Params</span><span class="o">.</span><span class="n">threads</span> <span class="o">=</span> <span class="n">__gurobi_threads</span>
+
+    <span class="c1"># Create variables</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">addMVar</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">vtype</span><span class="o">=</span><span class="n">GRB</span><span class="o">.</span><span class="n">BINARY</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;x&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set objective</span>
+    <span class="n">obj</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">setObjective</span><span class="p">(</span><span class="n">obj</span> <span class="o">@</span> <span class="n">x</span><span class="p">,</span> <span class="n">GRB</span><span class="o">.</span><span class="n">MAXIMIZE</span><span class="p">)</span>
+
+    <span class="c1"># Build (sparse) constraint matrix</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+    <span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">sp</span><span class="o">.</span><span class="n">csr_matrix</span><span class="p">((</span><span class="n">data</span><span class="p">,</span> <span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+    <span class="c1"># Build rhs vector</span>
+    <span class="n">rhs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">4.0</span> <span class="o">+</span> <span class="n">a</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+
+    <span class="c1"># Add constraints</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">addConstr</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">rhs</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;c&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Optimize model</span>
+    <span class="n">m</span><span class="o">.</span><span class="n">optimize</span><span class="p">()</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Solved LP with a = </span><span class="si">{</span><span class="n">a</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Optimal Solution: </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">X</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Obj: </span><span class="si">{</span><span class="n">m</span><span class="o">.</span><span class="n">objVal</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="n">gp</span><span class="o">.</span><span class="n">GurobiError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Error code </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">errno</span><span class="p">)</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Encountered an attribute error&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>This Python script can be run with <code>python gurobi_sensitivity.py</code> with no command line argument (<code>a</code> is set to 0 by default). However, we will run it via the scheduler on the Yen Slurm cluster.</p>
+<p>Here is an example Slurm script, that loads <code>gurobi</code> module, activates <code>venv</code>, and runs <code>gurobi_sensitivity.py</code> script. Save this Slurm script to a file named <code>sensitivity_analysis.slurm</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sensitivity_analysis.slurm</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Example of running a single Gurobi run for sensitivity analysis</span>
+
+<span class="c1">#SBATCH -J gurobi</span>
+<span class="c1">#SBATCH -p normal</span>
+<span class="c1">#SBATCH -c 1                     # one core per task</span>
+<span class="c1">#SBATCH -t 1:00:00</span>
+<span class="c1">##SBATCH --mem=1gb</span>
+<span class="c1">#SBATCH -o gurobi-%j.out</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=your_email@stanford.edu</span>
+
+<span class="c1"># Clean modules first</span>
+module<span class="w"> </span>purge
+
+<span class="c1"># Load software</span>
+module<span class="w"> </span>load<span class="w"> </span>gurobi
+
+<span class="c1"># Activate venv (can either be a global or relative path)</span>
+<span class="nb">source</span><span class="w"> </span>/zfs/projects/&lt;your-project&gt;/opt_combined/bin/activate
+
+<span class="c1"># Run Python script</span>
+<span class="c1"># With no command line argument: a = 0 in the script</span>
+python<span class="w"> </span>gurobi_sensitivity.py
+</code></pre></div></td></tr></table></div>
+<p>You will need to modify the path to your <code>venv</code> enviroment as well as your email address. After that, you can submit the script to run with <code>sbatch sensitivity_analysis.slurm</code></p>
+<p>Next, we will modify this Slurm script to run as a job array. Each task in a job array will run the same Python script with a unique argument.</p>
+<p>We will pass an index as a command line argument to the Python script, which performs sensitivity analysis. The Python script will set the value of <code>a</code> based on the corresponding array element. For example, if we run the Python script with the argument <code>5</code>, the script will assign the value corresponding to the 5th element in the user-defined capacity coefficient array.</p>
+<p>We also want to ensure that we limit the threads to 1 in both <code>numpy</code> and <code>gurobi</code> since we will be launching one task per CPU core. The following lines in the Python script accomplish this:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">gurobi_sensitivity.py</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1"># Limits the number of cores for numpy BLAS</span>
+<span class="n">threadpool_limits</span><span class="p">(</span><span class="n">limits</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">user_api</span> <span class="o">=</span> <span class="s1">&#39;blas&#39;</span><span class="p">)</span>
+
+<span class="c1"># Set total number of threads for Gurobi to</span>
+<span class="n">__gurobi_threads</span> <span class="o">=</span> <span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+<p>Now, our Slurm script should look like below. Save this to <code>sensitivity_analysis_array.slurm</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">sensitivity_analysis_array.slurm</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1"># Example of running a job array to run Gurobi python script for sensitivity analysis.</span>
+
+<span class="c1">#SBATCH --array=0-31        # there is a max array size - 512 tasks</span>
+<span class="c1">#SBATCH -J gurobi</span>
+<span class="c1">#SBATCH -p normal</span>
+<span class="c1">#SBATCH -c 1                # one core per task</span>
+<span class="c1">#SBATCH -t 1:00:00</span>
+<span class="c1">##SBATCH --mem=1gb</span>
+<span class="c1">#SBATCH -o gurobi-%A-%a.out</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=your_email@stanford.edu</span>
+
+<span class="c1"># Clean modules first</span>
+module<span class="w"> </span>purge
+
+<span class="c1"># Load software</span>
+module<span class="w"> </span>load<span class="w"> </span>gurobi
+
+<span class="c1"># Activate venv (can either be a global or relative path)</span>
+<span class="nb">source</span><span class="w"> </span>/zfs/projects/&lt;your-project&gt;/opt_combined/bin/activate
+
+<span class="c1"># Run Python script with a command line arg from --array option</span>
+<span class="c1"># It will be an input index from 0 to 31</span>
+<span class="hll">python<span class="w"> </span>gurobi_sensitivity.py<span class="w"> </span><span class="nv">$SLURM_ARRAY_TASK_ID</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Again, you will have to modify the script to use your <code>venv</code> environment and your email.</p>
+<p>Note that in this case, we specify Slurm option <code>#SBATCH --array=0-31</code> to run 32 tasks in parallel. The maximum job array index is 511 (<code>--array=0-511</code>) on Yen Slurm. All tasks will be launched as independent jobs. There is a limit of 512 concurrent jobs per user that could be running at the same time. Each task will generate a unique log file <code>gurobi-%A-%a.out</code> where <code>%A</code> will be the unique job ID and <code>%a</code> will be the unique task ID (from 0 to 31).</p>
+<p>You can see the limits for the <code>normal</code> partition with:</p>
+<p><div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>sacctmgr<span class="w"> </span>show<span class="w"> </span>qos<span class="w"> </span>normal
+</code></pre></div>
+Look for values in <code>MaxSubmitPU</code> and <code>MaxJobsPU</code> columns which list the maximum number of jobs allowed to be submitted by a user and the maximum number of jobs that can be running at the same time, respectively.</p>
+<p>After modifying the path to your <code>venv</code> environment, submit the <code>sensitivity_analysis_array.slurm</code> script to the scheduler to run the job array on the cluster. It will launch all 32 tasks at the same time (some might sit in the queue while others are going to run right away). To submit, run:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>sbatch sensitivity_analysis_array.slurm
+</code></pre></div>
+<p>Monitor your jobs with <code>watch squeue -u $USER</code> where <code>$USER</code> is your SUNet ID. Identify any failed job array tasks and rerun them by setting <code>--array=</code> to include only the failed indices.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/announcement-banner.js"></script>
+      
+        <script src="../../js/footer.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,107 @@
+# Research Computing Resources
+
+RCpedia documents the Yen cluster, the shared research computing environment run
+by the Data, Analytics, and Research Computing (DARC) group at Stanford GSB. It
+covers getting access over SSH and JupyterHub, the yen-slurm batch scheduler and
+its GPU partition, storage and data transfer, usage limits and data-security
+policies, AI coding agents, and per-language guides for Python, R, Julia, Stata,
+SAS, Matlab, and optimization solvers.
+
+The Optional section is the DARC blog - an index plus individual posts, newest
+first, each tagged with its publication date. Posts are worth reading, but an
+older one may refer to software versions, module names, or paths that have since
+changed; prefer the sections above when the two disagree.
+
+## Getting Started
+
+- [Status](https://rcpedia.stanford.edu/status/index.md): live cluster status, outages, and maintenance windows - check here first if something is broken
+- [Yen Servers](https://rcpedia.stanford.edu/_getting_started/yen-servers/index.md): the Yen cluster - what the nodes are, their specs, and which one to use
+- [Access the Yens](https://rcpedia.stanford.edu/_getting_started/how_access_yens/index.md): who is eligible, SSH access, VPN, and sponsored accounts
+- [Jupyter](https://rcpedia.stanford.edu/_getting_started/jupyter/index.md): JupyterHub web-based notebooks and terminals on yen1-yen5
+- [Modules](https://rcpedia.stanford.edu/_getting_started/modules/index.md): software installed on the Yens and loading specific versions with module
+- [Home](https://rcpedia.stanford.edu/_user_guide/index.md): map of the rest of the user guide
+
+## Slurm and Batch Jobs
+
+- [Slurm](https://rcpedia.stanford.edu/_user_guide/slurm/index.md): the yen-slurm scheduler - writing sbatch scripts, submitting jobs, and checking the queue
+- [Migrating From JupyterHub](https://rcpedia.stanford.edu/_user_guide/migrating_from_jupyter/index.md): moving a long-running process off JupyterHub onto yen-slurm
+- [Job Arrays](https://rcpedia.stanford.edu/_user_guide/job_arrays/index.md): running one script over many inputs with Slurm job arrays
+- [GPU Slurm Jobs](https://rcpedia.stanford.edu/_user_guide/using_gpu/index.md): the yen-slurm gpu partition and requesting GPUs in a job script
+
+## Languages and Software
+
+- [Running Python Interactively](https://rcpedia.stanford.edu/_user_guide/python/index.md): running Python interactively on the Yens
+- [Python Virtual Environments](https://rcpedia.stanford.edu/_user_guide/python_envs/index.md): creating Python virtual environments (venv, Virtualenv, Pipenv) and installing packages
+- [Parallel Processing Python](https://rcpedia.stanford.edu/_user_guide/parallel_processing_python/index.md): parallelizing Python and capping how many cores a library takes
+- [Running R Interactively](https://rcpedia.stanford.edu/_user_guide/r/index.md): running R interactively via the module command
+- [RStudio](https://rcpedia.stanford.edu/_user_guide/rstudio/index.md): using RStudio through JupyterHub
+- [Best Practices in R](https://rcpedia.stanford.edu/_user_guide/parallel_processing_r/index.md): parallel processing in R - building clusters without oversubscribing shared nodes
+- [AI Coding Agents](https://rcpedia.stanford.edu/_user_guide/ai_agents/index.md): running AI coding agents (Claude Code, Codex CLI, Gemini) and the Stanford AI API gateway
+- [Matlab](https://rcpedia.stanford.edu/_user_guide/matlab_interactive/index.md): running Matlab interactively
+- [Julia](https://rcpedia.stanford.edu/_user_guide/julia/index.md): running Julia interactively
+- [SAS](https://rcpedia.stanford.edu/_user_guide/sas/index.md): running SAS interactively
+- [Stata](https://rcpedia.stanford.edu/_user_guide/stata/index.md): running Stata interactively
+- [Optimization Software](https://rcpedia.stanford.edu/_user_guide/optimization/index.md): licensed Gurobi, Knitro, and AMPL solvers, interactively and in Slurm
+
+## Interactive Sessions and Resource Use
+
+- [Monitor Resource Usage](https://rcpedia.stanford.edu/_user_guide/monitor_usage/index.md): checking your own CPU and memory usage with htop and related tools
+- [screen](https://rcpedia.stanford.edu/_user_guide/screen/index.md): keeping a job running after you log out, and why Slurm is usually the better answer
+- [GUI](https://rcpedia.stanford.edu/_user_guide/using_gui/index.md): graphical applications via JupyterHub or SSH X-forwarding
+
+## Storage and Data
+
+- [Storage](https://rcpedia.stanford.edu/_user_guide/storage/index.md): where research data lives and the quota on each - home 80 GB, project space 1 TB faculty / 200 GB student, ~100 TB shared scratch
+- [Data Transfer](https://rcpedia.stanford.edu/_user_guide/data_transfer/index.md): moving data to and from the Yens, from small uploads to large transfers
+- [File Management](https://rcpedia.stanford.edu/_user_guide/file_management/index.md): naming conventions and keeping the file count in a directory manageable
+- [Archive](https://rcpedia.stanford.edu/_user_guide/archiving/index.md): cleaning up and archiving data when a project wraps up
+
+## Troubleshooting
+
+- [Status](https://rcpedia.stanford.edu/status/index.md): live cluster status - check here first before debugging anything else
+- [Why isn't JupyterHub Working?](https://rcpedia.stanford.edu/_user_guide/jupyter_does_not_work/index.md): JupyterHub will not start or load - browser, access, and quota causes
+- [Man-in-the-Middle Warning](https://rcpedia.stanford.edu/_user_guide/man_in_middle/index.md): the SSH host key changed warning - what it means and how to clear it
+- [Julia on Jupyter](https://rcpedia.stanford.edu/_user_guide/julia_on_jupyter/index.md): installing a Julia kernel so Julia appears in JupyterHub
+
+## Beyond the Yens
+
+- [Sherlock](https://rcpedia.stanford.edu/_user_guide/sherlock/index.md): Stanford's Sherlock HPC cluster and when to use it instead of the Yens
+- [Redivis](https://rcpedia.stanford.edu/_user_guide/redivis/index.md): Redivis for querying multi-TB datasets, as an alternative to storing them on the Yens
+
+## Policies
+
+- [User Limits](https://rcpedia.stanford.edu/_policies/user_limits/index.md): CPU, memory, and storage limits on the interactive nodes yen1-yen5 and on JupyterHub
+- [Security](https://rcpedia.stanford.edu/_policies/security/index.md): Stanford data risk levels and whether high risk data (PHI, HIPAA, PII) may go on the Yens
+- [Human Subjects Research](https://rcpedia.stanford.edu/_policies/humanSubjectsResearch/index.md): human subjects data and when your study needs IRB approval
+- [Services](https://rcpedia.stanford.edu/_policies/darc/index.md): DARC services and request forms, including requesting a new project space or more quota
+- [Collaborators](https://rcpedia.stanford.edu/_policies/collaborators/index.md): SUNet ID sponsorship and Yen access for collaborators outside the GSB
+- [Workgroups](https://rcpedia.stanford.edu/_policies/workgroups/index.md): Stanford workgroups, which control Yen logins and project space access
+- [Acknowledgements](https://rcpedia.stanford.edu/_policies/acknowledgements/index.md): how to acknowledge or cite the Yens and the DARC team in publications
+- [Leaving GSB](https://rcpedia.stanford.edu/_policies/leavingGSB/index.md): what happens to your SUNet ID, Yen access, and data when you leave GSB
+
+## Optional
+
+- [DARC Blog](https://rcpedia.stanford.edu/blog/index.md): chronological index of DARC blog posts
+- [LLM Benchmarks for Researchers](https://rcpedia.stanford.edu/blog/2026/07/14/llm-benchmarks-for-researchers/index.md): 2026-07-14 - benchmarking LLMs for research use
+- [Self-Hosting LLMs with NVIDIA NIM on the Yens](https://rcpedia.stanford.edu/blog/2026/04/23/self-hosting-llms-with-nvidia-nim-on-the-yens/index.md): 2026-04-23 - self-hosting an LLM endpoint on the Yen GPUs with NVIDIA NIM
+- [SSH Setup for the Yen Servers](https://rcpedia.stanford.edu/blog/2026/03/17/ssh-setup-for-the-yen-servers/index.md): 2026-03-17 - SSH keys and config for faster Yen logins
+- [Stanford's LLM API Tools](https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/index.md): 2026-03-06 - Stanford's AI API Gateway for LLM access
+- [Fine-Tuning Open Source Models](https://rcpedia.stanford.edu/blog/2025/11/07/fine-tuning-open-source-models/index.md): 2025-11-07 - fine-tuning open source models on the Yen GPUs
+- [Running Ollama on Stanford Computing Clusters](https://rcpedia.stanford.edu/blog/2025/05/12/running-ollama-on-stanford-computing-clusters/index.md): 2025-05-12 - running Ollama locally on the Yens and Sherlock
+- [Introduction to Using Redivis](https://rcpedia.stanford.edu/blog/2024/12/06/introduction-to-using-redivis/index.md): 2024-12-06 - getting started with Redivis
+- [Download Files Directly to the Yen Servers](https://rcpedia.stanford.edu/blog/2024/11/21/download-files-directly-to-the-yen-servers/index.md): 2024-11-21 - downloading straight to the Yens with wget
+- [Fine-Tuning BERT for Sentiment Analysis on Financial News](https://rcpedia.stanford.edu/blog/2024/03/28/fine-tuning-bert-for-sentiment-analysis-on-financial-news/index.md): 2024-03-28 - fine-tuning BERT for sentiment analysis on financial news
+- [Train Machine Learning Models on Colab GPU](https://rcpedia.stanford.edu/blog/2024/03/28/train-machine-learning-models-on-colab-gpu/index.md): 2024-03-28 - using Google Colab GPUs (off-cluster), not the Yen GPUs
+- [Reproducible Research Essentials](https://rcpedia.stanford.edu/blog/2024/02/28/reproducible-research-essentials/index.md): 2024-02-28 - documenting inputs, outputs, and READMEs
+- [Editing Files on the Command Line](https://rcpedia.stanford.edu/blog/2023/09/20/editing-files-on-the-command-line/index.md): 2023-09-20 - editing files with Vim from the command line
+- [rclone files from Yens to Google Drive](https://rcpedia.stanford.edu/blog/2023/09/18/rclone-files-from-yens-to-google-drive/index.md): 2023-09-18 - copying files between the Yens and Google Drive with rclone
+- [How Do I Export My R Environment To JupyterHub?](https://rcpedia.stanford.edu/blog/2023/08/23/how-do-i-export-my-r-environment-to-jupyterhub/index.md): 2023-08-23 - exporting an R environment as a JupyterHub kernel
+- [How Do I Extract Compressed Files?](https://rcpedia.stanford.edu/blog/2023/08/18/how-do-i-extract-compressed-files/index.md): 2023-08-18 - extracting large compressed archives on the Yens
+- [Using Twarc Python Package to Scrape Twitter](https://rcpedia.stanford.edu/blog/2023/08/08/using-twarc-python-package-to-scrape-twitter/index.md): 2023-08-08 - scraping Twitter with the twarc Python package
+- [SEC Filings](https://rcpedia.stanford.edu/blog/2023/05/16/sec-filings/index.md): 2023-05-16 - data sources and sample workflows for SEC filings
+- [Merging Big Data Sets with Python Dask](https://rcpedia.stanford.edu/blog/2023/02/09/merging-big-data-sets-with-python-dask/index.md): 2023-02-09 - merging data sets too big for memory with Dask
+- [Installing Software On The Yen Servers](https://rcpedia.stanford.edu/blog/2022/11/14/installing-software-on-the-yen-servers/index.md): 2022-11-14 - installing your own software when no module exists
+- [Working with Large Zip Files in Python](https://rcpedia.stanford.edu/blog/2022/10/10/working-with-large-zip-files-in-python/index.md): 2022-10-10 - reading large zip files in Python without extracting them
+- [Optimizing Performance on the Yens](https://rcpedia.stanford.edu/blog/2021/01/20/optimizing-performance-on-the-yens/index.md): 2021-01-20 - adapting code to the Yens' shared architecture
+- [Word Embeddings](https://rcpedia.stanford.edu/blog/2020/03/04/word-embeddings/index.md): 2020-03-04 - what word embeddings are, with a worked example
+
