@@ -19,6 +19,21 @@ env:
 permissions:
   contents: write
 
+# Serialise per branch. Without this, two pushes in quick succession race on the
+# ghp-import force-push to the deploy branch. One run then fails outright with
+# "cannot lock ref" -- but the worse case is silent: if the OLDER commit's build
+# happens to finish last, its force-push overwrites the newer content and the deploy
+# branch quietly regresses with no failed run to show for it.
+#
+# cancel-in-progress rather than queueing, because only the newest commit is worth
+# publishing. Queueing would publish each intermediate build in turn, and the cPanel
+# cron polls every 5 minutes, so it could pull one of those. Cancelling before the
+# publish step leaves nothing published; force-push is atomic at the ref, so a
+# cancellation cannot leave a half-updated branch.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -122,6 +137,57 @@ jobs:
           }
           EOF
           cat site/build-info.json
+
+      # Served from the docroot by Apache. Written by the build because the deploy
+      # rsyncs with --delete-after, so a hand-placed file on the server gets removed.
+      # Every directive below was verified against the live dev host before landing;
+      # the IfModule guards mean a missing module skips rather than 500s the site.
+      - name: Write .htaccess
+        run: |
+          cat > site/.htaccess <<'EOF'
+          # The llms.txt plugin emits a Markdown twin beside every listed page. Without
+          # this they are served with no Content-Type at all.
+          AddType text/markdown .md
+
+          # Without this the host serves Apache's own bare 404 -- unbranded, no
+          # navigation, no search. overrides/404.html is the real page; Material does
+          # not copy dotfiles from custom_dir, which is why overrides/.htaccess never
+          # took effect and this has to be set here.
+          ErrorDocument 404 /404.html
+
+          <IfModule mod_rewrite.c>
+            RewriteEngine On
+
+            # Serve the Markdown twin to known AI agents, at the same URL. Same content,
+            # ~6x smaller, and no navigation chrome. The -f test means pages without a
+            # twin (blog archive and category pages) fall through to HTML untouched, and
+            # search engine crawlers are deliberately absent from this list so indexed
+            # content always matches what a browser sees.
+            RewriteCond %{HTTP_USER_AGENT} (ClaudeBot|Claude-User|Claude-SearchBot|GPTBot|ChatGPT-User|OAI-SearchBot|PerplexityBot|Perplexity-User|CCBot|meta-externalagent|Bytespider) [NC]
+            RewriteCond %{REQUEST_FILENAME}/index.md -f
+            RewriteRule ^(.*)$ /$1/index.md [L]
+
+            # Flag pages that have a twin, for the Link header below.
+            RewriteCond %{REQUEST_FILENAME}/index.md -f
+            RewriteRule ^ - [E=HAS_MD:1]
+          </IfModule>
+
+          <IfModule mod_headers.c>
+            # Advertise the Markdown twin to anything that reads response headers,
+            # regardless of user-agent. This is what covers the agents that do not
+            # identify themselves -- a Claude Code session arrives as a generic client.
+            Header set Link "<index.md>; rel=\"alternate\"; type=\"text/markdown\"" env=HAS_MD
+
+            # Point every page at the site map for LLMs. Appended so it does not clobber
+            # the per-page Link above.
+            Header append Link "</llms.txt>; rel=\"alternate\"; type=\"text/plain\"; title=\"llms.txt\""
+
+            # Required: responses now differ by user-agent.
+            Header append Vary User-Agent
+          </IfModule>
+          EOF
+          echo "--- site/.htaccess ---"
+          cat site/.htaccess
 
       - name: Generate robots.txt
         run: |
