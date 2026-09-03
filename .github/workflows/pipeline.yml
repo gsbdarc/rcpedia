@@ -134,6 +134,12 @@ jobs:
           # this they are served with no Content-Type at all.
           AddType text/markdown .md
 
+          # Without this the host serves Apache's own bare 404 -- unbranded, no
+          # navigation, no search. overrides/404.html is the real page; Material does
+          # not copy dotfiles from custom_dir, which is why overrides/.htaccess never
+          # took effect and this has to be set here.
+          ErrorDocument 404 /404.html
+
           <IfModule mod_rewrite.c>
             RewriteEngine On
 
