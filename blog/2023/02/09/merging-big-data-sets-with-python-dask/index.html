@@ -1,0 +1,3894 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Merge data sets too large for memory on the Yen servers using Python Dask, which follows pandas syntax with lower memory use.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/blog/2023/02/09/merging-big-data-sets-with-python-dask/">
+      
+      
+        <link rel="prev" href="../../../../2022/11/14/installing-software-on-the-yen-servers/">
+      
+      
+        <link rel="next" href="../../../05/16/sec-filings/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Merging Big Data Sets with Python Dask - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#merging-big-data-sets-with-python-dask" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../../../../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Merging Big Data Sets with Python Dask
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_getting_started/yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_user_guide/" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../_user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dask-python-package" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dask Python Package
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#virtual-environment" class="md-nav__link">
+    <span class="md-ellipsis">
+      Virtual Environment
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#data-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      Data Download
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Memory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#steps-to-profile-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Steps to Profile Memory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#profiling-speed" class="md-nav__link">
+    <span class="md-ellipsis">
+      Profiling Speed
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Profiling Speed">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#example_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://github.com/natalya-patrikeeva.png" alt="Natalya Rapstine">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://github.com/natalya-patrikeeva">Natalya Rapstine</a>
+                        
+                      </strong>
+                      <br>
+                      🦄 Research Computing Specialist @DARC GSB Team
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
+                        <time datetime="2023-02-09 00:00:00" class="md-ellipsis">February 9, 2023</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/python/">Python</a>, 
+                              <a href="../../../../category/dask/">Dask</a>, 
+                              <a href="../../../../category/merging-data-sets/">Merging data sets</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              13 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+
+<h1 id="merging-big-data-sets-with-python-dask">Merging Big Data Sets with Python Dask</h1>
+<p>If you're running out of memory on your desktop for data processing tasks, consider using the Yen servers. Both the interactive Yen servers and the Yen Slurm nodes have at least 1 TB of RAM per node. However, per the <a href="/_policies/user_limits" target="_blank">Yen User Limits</a>, you should limit your memory usage to 192 GB on most interactive Yen servers.</p>
+<!-- more -->
+
+<h2 id="dask-python-package">Dask Python Package</h2>
+<p>The Python package <a href="https://dask.org" target="_blank"><code>dask</code></a> is a powerful tool for parallel data analytics, offering faster and more memory-efficient performance than <code>pandas</code>. It follows <code>pandas</code> syntax and can accelerate common data processing tasks like merging large datasets.  </p>
+<h2 id="virtual-environment">Virtual Environment</h2>
+<p>First, we'll prepare a virtual environment called <code>venv</code> inside a ZFS directory where you have write permissions. 
+Create a virtual environment:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>/usr/bin/python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</code></pre></div>
+<p>Create a file called <code>requirements.txt</code> with Python packages listed for the virtual environment:</p>
+<div class="highlight"><span class="filename">requirements.txt</span><pre><span></span><code>requests
+pandas
+numpy
+dask
+dask[dataframe]
+memory-profiler
+</code></pre></div>
+<p>Install the requirements into the active virtual environment:
+<div class="highlight"><pre><span></span><code>pip install -r requirements.txt
+</code></pre></div></p>
+<h2 id="data-download">Data Download</h2>
+<p>We are going to use public EDGAR data from 2013. We will merge two data sets: EDGAR log files and financial statements. The Edgar log files are downloaded by grabbing a list of URLs for each log file from <a href="https://www.sec.gov/files/edgar_logfiledata_thru_jun2017.html" target="_blank">the SEC website</a>. </p>
+<p>Save the following to a file named <code>download_logs.py</code>.</p>
+<div class="highlight"><span class="filename">download_logs.py</span><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Define the dates for 2013</span>
+<span class="n">dates</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">&#39;20130217&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130225&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130605&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130606&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130712&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130804&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130812&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130907&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20130915&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;20131020&#39;</span>
+<span class="p">]</span>
+
+<span class="c1"># Create the directory to store the downloaded files</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/raw_edgar_logs2013&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Function to download the EDGAR log files</span>
+<span class="k">def</span> <span class="nf">download_logs</span><span class="p">(</span><span class="n">dates</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">date</span> <span class="ow">in</span> <span class="n">dates</span><span class="p">:</span>
+        <span class="n">date</span> <span class="o">=</span> <span class="n">date</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">date</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">8</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">date</span><span class="o">.</span><span class="n">isdigit</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Invalid date format: &quot;</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">&quot;. Skipping.&#39;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Extract the month and calculate the quarter</span>
+        <span class="n">month</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">date</span><span class="p">[</span><span class="mi">4</span><span class="p">:</span><span class="mi">6</span><span class="p">])</span>
+        <span class="n">quarter</span> <span class="o">=</span> <span class="p">(</span><span class="n">month</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">//</span> <span class="mi">3</span> <span class="o">+</span> <span class="mi">1</span>
+
+        <span class="c1"># Construct the URL</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.sec.gov/dera/data/Public-EDGAR-log-file-data/2013/Qtr</span><span class="si">{</span><span class="n">quarter</span><span class="si">}</span><span class="s1">/log</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">.zip&#39;</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;log</span><span class="si">{</span><span class="n">date</span><span class="si">}</span><span class="s1">.zip&#39;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">local_filename</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Downloading </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+
+            <span class="c1"># Include headers to avoid 403 Forbidden errors</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Your Name (your.email@stanford.edu) - For academic research purposes&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Accept-Encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;gzip, deflate&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Host&#39;</span><span class="p">:</span> <span class="s1">&#39;www.sec.gov&#39;</span>
+            <span class="p">}</span>
+
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># Check for HTTP errors</span>
+
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved to </span><span class="si">{</span><span class="n">local_filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+
+                <span class="c1"># Be polite and wait 1 second between requests</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">errh</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;HTTP Error: </span><span class="si">{</span><span class="n">errh</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span> <span class="k">as</span> <span class="n">errc</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error Connecting: </span><span class="si">{</span><span class="n">errc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">errt</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeout Error: </span><span class="si">{</span><span class="n">errt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;An error occurred: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;File </span><span class="si">{</span><span class="n">local_filename</span><span class="si">}</span><span class="s1"> already exists. Skipping download.&#39;</span><span class="p">)</span>
+
+<span class="c1"># Run the download function</span>
+<span class="n">download_logs</span><span class="p">(</span><span class="n">dates</span><span class="p">)</span>
+</code></pre></div>
+<p>Then, run the saved script to download 10 zip log files:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>python download_logs.py
+</code></pre></div>
+<p>Now you should have 10 zip files downloaded in the <code>data/raw_edgar_logs2013</code> directory:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>ls<span class="w"> </span>-ltrh<span class="w"> </span>data/raw_edgar_logs2013/
+</code></pre></div>
+<p>You should see:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">total 1.1G</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins  97M Nov 12 10:44 log20130217.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 106M Nov 12 10:44 log20130225.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 122M Nov 12 10:44 log20130605.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 120M Nov 12 10:44 log20130606.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 143M Nov 12 10:44 log20130712.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins  88M Nov 12 10:44 log20130804.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 136M Nov 12 10:44 log20130812.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins  76M Nov 12 10:44 log20130907.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins  77M Nov 12 10:44 log20130915.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins  79M Nov 12 10:44 log20131020.zip</span>
+</code></pre></div></p>
+<p>Next, we will combine all 10 logs into one big CSV file. Save the following into a new script <code>combine_logs.py</code>.</p>
+<div class="highlight"><span class="filename">combine_logs.py</span><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="k">def</span> <span class="nf">process_your_file</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Helper function to read in zip file and</span>
+<span class="sd">    return a pandas df</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">zip_file</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># Get file name without extension</span>
+    <span class="n">filename</span><span class="p">,</span> <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">zip_file</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+
+    <span class="c1"># read in csv</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">zip_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">filename</span> <span class="o">+</span> <span class="s1">&#39;.csv&#39;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+<span class="c1"># combine all 2013 logs into one df</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/raw_edgar_logs2013/log2013*.zip&#39;</span><span class="p">)</span>
+
+<span class="c1"># make a list of df&#39;s to combine</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[</span> <span class="n">process_your_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="p">]</span>
+
+<span class="c1"># combine all df&#39;s in the list</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+
+<span class="c1"># write out 10 2013 csv files into one csv</span>
+<span class="c1"># results in a 7.8 G df</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/logs2013-10logs.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>The second dataset is financial statments from 2013 that can be downloaded from the <a href="https://www.sec.gov/dera/data/financial-statement-data-sets.html" target="_blank">SEC website</a>. 
+We will also combine them into one CSV file.</p>
+<p>Save the following script, <code>download_financials_2013.py</code>:</p>
+<div class="highlight"><span class="filename">download_financials_2013.py</span><pre><span></span><code><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># Create the directory to store the downloads</span>
+<span class="n">data_dir</span> <span class="o">=</span> <span class="s1">&#39;data/financial2013&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Base URL for the financial statement datasets</span>
+<span class="n">base_url</span> <span class="o">=</span> <span class="s1">&#39;https://www.sec.gov/files/dera/data/financial-statement-data-sets/&#39;</span>
+
+<span class="c1"># Quarters for 2013</span>
+<span class="n">quarters</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;q1&#39;</span><span class="p">,</span> <span class="s1">&#39;q2&#39;</span><span class="p">,</span> <span class="s1">&#39;q3&#39;</span><span class="p">,</span> <span class="s1">&#39;q4&#39;</span><span class="p">]</span>
+
+<span class="c1"># Function to download the datasets</span>
+<span class="k">def</span> <span class="nf">download_financials</span><span class="p">(</span><span class="n">year</span><span class="p">,</span> <span class="n">quarters</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">quarter</span> <span class="ow">in</span> <span class="n">quarters</span><span class="p">:</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">year</span><span class="si">}{</span><span class="n">quarter</span><span class="si">}</span><span class="s1">.zip&#39;</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">base_url</span><span class="si">}{</span><span class="n">filename</span><span class="si">}</span><span class="s1">&#39;</span>
+        <span class="n">local_filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">local_filename</span><span class="p">):</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Downloading </span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s1">...&#39;</span><span class="p">)</span>
+            <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s1">&#39;User-Agent&#39;</span><span class="p">:</span> <span class="s1">&#39;Your Name (your.email@example.com) - For academic research purposes&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Accept-Encoding&#39;</span><span class="p">:</span> <span class="s1">&#39;gzip, deflate&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;Host&#39;</span><span class="p">:</span> <span class="s1">&#39;www.sec.gov&#39;</span>
+            <span class="p">}</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">local_filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+                    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Saved to </span><span class="si">{</span><span class="n">local_filename</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># Wait 1 second between requests</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">HTTPError</span> <span class="k">as</span> <span class="n">errh</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;HTTP Error: </span><span class="si">{</span><span class="n">errh</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">ConnectionError</span> <span class="k">as</span> <span class="n">errc</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Error Connecting: </span><span class="si">{</span><span class="n">errc</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">Timeout</span> <span class="k">as</span> <span class="n">errt</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Timeout Error: </span><span class="si">{</span><span class="n">errt</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;An error occurred: </span><span class="si">{</span><span class="n">err</span><span class="si">}</span><span class="s1">&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;File </span><span class="si">{</span><span class="n">local_filename</span><span class="si">}</span><span class="s1"> already exists. Skipping download.&#39;</span><span class="p">)</span>
+
+<span class="c1"># Run the download function</span>
+<span class="n">download_financials</span><span class="p">(</span><span class="s1">&#39;2013&#39;</span><span class="p">,</span> <span class="n">quarters</span><span class="p">)</span>
+</code></pre></div>
+<p>Then, run the saved script to download 4 zip financial files:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>python download_financials_2013.py
+</code></pre></div>
+<p>Now you should have 4 zip files downloaded in <code>data/financial2013</code> directory:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>ls<span class="w"> </span>-ltrh<span class="w"> </span>data/financial2013
+</code></pre></div>
+<p>You should see:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">total 84M</span>
+<span class="l l-Scalar l-Scalar-Plain">total 196M</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 52M Nov 12 10:56 2013q1.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 50M Nov 12 10:56 2013q2.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 47M Nov 12 10:56 2013q3.zip</span>
+<span class="l l-Scalar l-Scalar-Plain">-rw-rw---- 1 nrapstin gsb-rc_sysadmins 48M Nov 12 10:56 2013q4.zip</span>
+</code></pre></div></p>
+<p>Next, we will combine the 4 zip files into one CSV file. Save the following into a new script <code>combine_financials.py</code>.</p>
+<div class="highlight"><span class="filename">combine_financials.py</span><pre><span></span><code><span class="c1"># Python script to combine EDGAR financial files from 2013 into one csv file</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">zipfile</span> <span class="kn">import</span> <span class="n">ZipFile</span>
+<span class="kn">import</span> <span class="nn">glob</span>
+
+<span class="c1"># combine all 2013 financial statements into one df</span>
+<span class="n">files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;data/financial2013/*.zip&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">process_your_file</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="n">zip_file</span> <span class="o">=</span> <span class="n">ZipFile</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="c1"># read in sub.txt for each quarter</span>
+    <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">zip_file</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;sub.txt&#39;</span><span class="p">),</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">df</span>
+
+
+<span class="c1"># make a list of df&#39;s to combine</span>
+<span class="n">frames</span> <span class="o">=</span> <span class="p">[</span> <span class="n">process_your_file</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span> <span class="p">]</span>
+
+<span class="c1"># combine all df&#39;s in the list</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">frames</span><span class="p">)</span>
+
+<span class="c1"># write out 2013 finanical data</span>
+<span class="n">result</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/finance2013.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p>Now we should have two data sets that we are going to merge using <code>pandas</code> and <code>dask</code> Python packages: <code>logs2013-10logs.csv</code> and <code>finance2013.csv</code> inside <code>data</code> directory.</p>
+<h2 id="profiling-memory">Profiling Memory</h2>
+<p>We will use the <a href="https://pypi.org/project/memory-profiler/" target="_blank"><code>memory_profiler</code></a> Python package to compare the memory usage of <code>pandas</code> versus <code>dask</code> in our code. This tool provides a line-by-line memory consumption report.</p>
+<h3 id="steps-to-profile-memory">Steps to Profile Memory</h3>
+<ol>
+<li>
+<p>Annotate Your Code:</p>
+<p>Add the <code>@profile</code> decorator to the function you want to profile.</p>
+<div class="highlight"><span class="filename">Memory Profile a Function</span><pre><span></span><code><span class="kn">from</span> <span class="nn">memory_profiler</span> <span class="kn">import</span> <span class="n">profile</span>
+
+<span class="nd">@profile</span>
+<span class="k">def</span> <span class="nf">process_data</span><span class="p">():</span>
+    <span class="c1"># Your data processing code using pandas or dask</span>
+    <span class="k">pass</span>
+</code></pre></div>
+</li>
+<li>
+<p>Run the Profiler:</p>
+<p>Execute the profiler by running your script with the <code>memory_profiler</code> module.</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>python<span class="w"> </span>-m<span class="w"> </span>memory_profiler<span class="w"> </span>your_script.py
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to profile the entire script, encapsulate your code within a single function and decorate it with <code>@profile</code>.</p>
+</div>
+</li>
+<li>
+<p>View the Memory Report:</p>
+<p>After running, <code>memory_profiler</code> will output a detailed report showing memory usage for each line within the profiled function. This allows you to identify memory-intensive parts of your code and compare the efficiency between <code>pandas</code> and <code>dask</code>.</p>
+</li>
+</ol>
+<h3 id="example">Example</h3>
+<p>We will compare the memory consumption of merging two datasets using <code>pandas</code> and <code>dask</code>. The profiling will be run on the Yen Slurm servers.</p>
+<ol>
+<li>
+<p>Create Profiling Scripts</p>
+<p><strong>a. Profiling with <code>pandas</code></strong></p>
+<p>Save the following script as <code>pandas_mem_profile.py</code>:</p>
+<div class="highlight"><span class="filename">pandas_mem_profile.py</span><pre><span></span><code><span class="c1">#########################################</span>
+<span class="c1"># Merge example using pandas</span>
+<span class="c1">#########################################</span>
+
+<span class="kn">from</span> <span class="nn">memory_profiler</span> <span class="kn">import</span> <span class="n">profile</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+
+<span class="nd">@profile</span>
+<span class="k">def</span> <span class="nf">profile_func</span><span class="p">():</span>
+    <span class="c1"># Read in two datasets to merge</span>
+    <span class="n">logdata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/logs2013-10logs.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Convert &#39;cik&#39; to int to ensure correct merge</span>
+    <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="n">findata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/finance2013.csv&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Merge using pandas</span>
+    <span class="n">merged</span> <span class="o">=</span> <span class="n">logdata</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">findata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;cik&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Write the merged data out</span>
+    <span class="n">merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/mem-merged_df.csv&#39;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">profile_func</span><span class="p">()</span>
+</code></pre></div>
+<p><strong>b. Profiling with <code>dask</code></strong></p>
+<p>Substitute <a href="https://docs.dask.org/en/latest/dataframe.html" target="_blank">dask dataframes</a> where we previously used <code>pandas</code> dataframes. Save the following script as <code>dask_mem_profile.py</code>:</p>
+<div class="highlight"><span class="filename">dask_mem_profile.py</span><pre><span></span><code><span class="c1">#########################################</span>
+<span class="c1"># Merge example using dask</span>
+<span class="c1">#########################################</span>
+
+<span class="kn">from</span> <span class="nn">memory_profiler</span> <span class="kn">import</span> <span class="n">profile</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+
+<span class="nd">@profile</span>
+<span class="k">def</span> <span class="nf">profile_func</span><span class="p">():</span>
+    <span class="c1"># Read in two datasets to merge</span>
+    <span class="n">logdata</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/logs2013-10logs.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;browser&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">})</span>
+
+    <span class="c1"># Convert &#39;cik&#39; to int to ensure correct merge</span>
+    <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">findata</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/finance2013.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;zipba&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;zipma&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">})</span>
+
+    <span class="c1"># Merge using dask</span>
+    <span class="n">merged_dd</span> <span class="o">=</span> <span class="n">logdata</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">findata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;cik&#39;</span><span class="p">)</span>
+
+    <span class="c1"># Write the merged data out</span>
+    <span class="n">merged_dd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/mem-merged_dd.csv&#39;</span><span class="p">,</span> <span class="n">single_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">profile_func</span><span class="p">()</span>
+</code></pre></div>
+</li>
+<li>
+<p>Create Slurm Submission Script</p>
+<p>Save the following as <code>memory_profile.slurm</code>:
+<div class="highlight"><span class="filename">memory_profile.slurm</span><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH -J mem-profile</span>
+<span class="c1">#SBATCH -o mem-profile-%j.out</span>
+<span class="c1">#SBATCH --time=5:00:00</span>
+<span class="c1">#SBATCH --mem=200G</span>
+<span class="c1">#SBATCH --cpus-per-task=12</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=YOUR_EMAIL@stanford.edu</span>
+
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate<span class="w"> </span>
+
+<span class="c1"># Run memory profiling</span>
+python<span class="w"> </span>-m<span class="w"> </span>memory_profiler<span class="w"> </span>pandas_mem_profile.py
+python<span class="w"> </span>-m<span class="w"> </span>memory_profiler<span class="w"> </span>dask_mem_profile.py
+</code></pre></div></p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Replace <code>YOUR_EMAIL@stanford.edu</code> with your actual email address to receive job notifications.</p>
+</div>
+</li>
+<li>
+<p>Submit the Profiling Job</p>
+<p>Once you have your scripts ready, submit the Slurm job with the following command:
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>sbatch<span class="w"> </span>memory_profile.slurm
+</code></pre></div></p>
+<p><strong>Monitor Your Job</strong></p>
+<p>You can monitor the status of your job using:
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>squeue<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w"> </span>
+</code></pre></div>
+Replace <code>$USER</code> with your actual username on the Yen servers.</p>
+<p>You should see your job running:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)</span>
+<span class="l l-Scalar l-Scalar-Plain">21749    normal mem-prof     user  R       0:07      1 yen11</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The job will take a couple hours to complete.</p>
+</div>
+</li>
+<li>
+<p>Viewing Profiling Results</p>
+<p>Once the job finishes, the output file (<code>mem-profile-&lt;JOBID&gt;.out</code>) will contain the memory profiling results. To view the results: </p>
+<p><div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>cat<span class="w"> </span>mem-profile-&lt;JOBID&gt;.out
+</code></pre></div>
+where <code>&lt;JOBID&gt;</code> is the <code>JOBID</code> of the slurm job that has finished.</p>
+<p>After running the profiling scripts, your output file will include memory usage details for both <code>pandas</code> and <code>dask</code> profiles. Here's an example of what the content of the output might look like:</p>
+<div class="no-copy highlight"><span class="filename">Contents of mem-profile-JOBID.out</span><pre><span></span><code><span class="nt">Filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pandas-mem-profile.py</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Line</span><span class="w"> </span><span class="c1">#    Mem usage    Increment  Occurrences   Line Contents</span>
+<span class="l l-Scalar l-Scalar-Plain">=============================================================</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">7     94.0 MiB     94.0 MiB           1   @profile</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">8                                         def profile_func()</span><span class="p p-Indicator">:</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">9</span><span class="w">                                             </span><span class="c1"># Read in two datasets to merge</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">10  21891.0 MiB  21797.0 MiB           1       logdata = pd.read_csv(&#39;data/logs2013-10logs.csv&#39;)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">11</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w">                                             </span><span class="c1"># Convert &#39;cik&#39; to int to ensure correct merge</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">13  21891.0 MiB      0.0 MiB           1       logdata[&#39;cik&#39;] = logdata[&#39;cik&#39;].astype(int)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">14</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">15  21901.0 MiB     10.0 MiB           1       findata = pd.read_csv(&#39;data/finance2013.csv&#39;)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">16</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">17</span><span class="w">                                             </span><span class="c1"># Merge using pandas</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">18  85372.6 MiB  63471.5 MiB           1       merged = logdata.merge(right=findata, on=&#39;cik&#39;)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">19</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">20</span><span class="w">                                             </span><span class="c1"># Write the merged data out</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">21  85372.6 MiB      0.0 MiB           1       merged.to_csv(&#39;data/mem-merged_df.csv&#39;, index=False)</span>
+
+
+<span class="nt">Filename</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">dask_mem_profile.py</span>
+
+<span class="l l-Scalar l-Scalar-Plain">Line</span><span class="w"> </span><span class="c1">#    Mem usage    Increment  Occurrences   Line Contents</span>
+<span class="l l-Scalar l-Scalar-Plain">=============================================================</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">7    118.0 MiB    118.0 MiB           1   @profile</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">8                                         def profile_func()</span><span class="p p-Indicator">:</span>
+<span class="w">     </span><span class="l l-Scalar l-Scalar-Plain">9</span><span class="w">                                             </span><span class="c1"># Read in two datasets to merge</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">10    124.0 MiB      6.0 MiB           1       logdata = dd.read_csv(&#39;data/logs2013-10logs.csv&#39;, dtype={&#39;browser&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;object&#39;</span><span class="err">}</span><span class="l l-Scalar l-Scalar-Plain">)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">11</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">12</span><span class="w">                                             </span><span class="c1"># Convert &#39;cik&#39; to int to ensure correct merge</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">13    124.0 MiB      0.0 MiB           1       logdata[&#39;cik&#39;] = logdata[&#39;cik&#39;].astype(int)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">14    122.9 MiB     -1.1 MiB           1       findata = dd.read_csv(&#39;data/finance2013.csv&#39;, dtype={&#39;zipba&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;object&#39;</span><span class="err">,</span><span class="w"> </span><span class="s">&#39;zipma&#39;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&#39;object&#39;</span><span class="err">}</span><span class="l l-Scalar l-Scalar-Plain">)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">15</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">16</span><span class="w">                                             </span><span class="c1"># Merge using dask</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">17    124.9 MiB      2.0 MiB           1       merged_dd = logdata.merge(right=findata, on=&#39;cik&#39;)</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">18</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">19</span><span class="w">                                             </span><span class="c1"># Write the merged data out</span>
+<span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">20   5641.3 MiB   5516.4 MiB           1       merged_dd.to_csv(&#39;data/mem-merged_dd.csv&#39;, single_file=True)</span>
+</code></pre></div>
+<p>The memory profiling output includes three columns:</p>
+<ul>
+<li>
+<p><code>Line #</code>: The line number in the Python script.</p>
+</li>
+<li>
+<p><code>Mem usage</code>: Total RAM used up to that line.</p>
+</li>
+<li>
+<p><code>Increment</code>: Additional memory consumed by that specific line.</p>
+</li>
+</ul>
+<p>By comparing the <code>Increment</code> values between the <code>pandas</code> and <code>dask</code> scripts, we can observe that the <code>dask</code> version uses 6% of the memory used by the <code>pandas</code> version. Additionally, <code>dask</code> delays loading datasets into memory until necessary, such as during the <code>to_csv</code> call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code>pandas</code> script consumed nearly 85 GB of RAM, whereas the <code>dask</code> version used under 6 GB for the same dataset merge.</p>
+</div>
+</li>
+</ol>
+<h2 id="profiling-speed">Profiling Speed</h2>
+<p>To measure how long each part of your script takes, we'll use Python's <code>time</code> package to manually time data loading, merging, and writing operations. Additionally, Python offers excellent profiling visualization tools like <a href="https://jiffyclub.github.io/snakeviz" target="_blank">SnakeViz</a>, which allows you to visualize and interact with profiling data in your browser. While we won't use SnakeViz in this example, it's a valuable tool for future projects to identify and optimize slow parts of your code.</p>
+<h3 id="example_1">Example</h3>
+<p><strong>Profiling speed with <code>pandas</code></strong> </p>
+<p>We'll use <code>pandas</code> to handle data loading, merging, and writing. Below is the <code>pandas_speed_profile.py</code> script:</p>
+<div class="highlight"><span class="filename">pandas_speed_profile.py</span><pre><span></span><code><span class="c1">#########################################</span>
+<span class="c1"># Merge example using pandas</span>
+<span class="c1">#########################################</span>
+<span class="c1"># packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># read in two data sets to merge</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loading log data in pandas...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">logdata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/logs2013-10logs.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log data loading took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># need to convert cik to int - otherwise get wrong merged results</span>
+<span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loading finance data in pandas...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">findata</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/finance2013.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;finance data loading took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># merge in pandas</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;merge data sets in pandas...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">merged</span> <span class="o">=</span> <span class="n">logdata</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">findata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;merging datasets took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># write out the merged df</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing data sets in pandas...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">merged</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/merged_df.csv&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;writing merged dataset took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>Profiling speed with <code>dask</code></strong> </p>
+<p>Similarly, we'll use <code>dask</code> to perform the same operations. Save the following script as <code>dask_speed_profile.py</code>:</p>
+<div class="highlight"><span class="filename">dask_speed_profile.py</span><pre><span></span><code><span class="c1">#########################################</span>
+<span class="c1"># Merge example using dask</span>
+<span class="c1">#########################################</span>
+<span class="c1"># packages</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">dask.dataframe</span> <span class="k">as</span> <span class="nn">dd</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="c1"># read in two data sets to merge</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loading log data in dask...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">logdata</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/logs2013-10logs.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;browser&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;log data loading took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># need to convert cik to int - otherwise get wrong merged results</span>
+<span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">logdata</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;int&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;loading finance data in dask...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">findata</span> <span class="o">=</span> <span class="n">dd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data/finance2013.csv&#39;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;zipba&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">,</span> <span class="s1">&#39;zipma&#39;</span><span class="p">:</span> <span class="s1">&#39;object&#39;</span><span class="p">})</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;finance data loading took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># merge in dask</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;merge data sets in dask...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">merged_dd</span> <span class="o">=</span> <span class="n">logdata</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">right</span><span class="o">=</span><span class="n">findata</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;cik&#39;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;merging datasets took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+
+<span class="c1"># write out the merged df</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;writing data sets in dask...&#39;</span><span class="p">)</span>
+<span class="n">tmp</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">merged_dd</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;data/merged_dd.csv&#39;</span><span class="p">,</span> <span class="n">single_file</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;writing merged dataset took: </span><span class="si">{</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">tmp</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2"> seconds&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>We are going to run both speed profile scripts using the same virtual environment and the following
+ slurm submission script (save it to <code>speed_profile.slurm</code>):</p>
+<div class="highlight"><span class="filename">speed_profile.slurm</span><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#SBATCH -J speed-profile</span>
+<span class="c1">#SBATCH -o speed-profile-%j.out</span>
+<span class="c1">#SBATCH --time=5:00:00</span>
+<span class="c1">#SBATCH --mem=200G</span>
+<span class="c1">#SBATCH --cpus-per-task=12</span>
+<span class="c1">#SBATCH --mail-type=ALL</span>
+<span class="c1">#SBATCH --mail-user=YOUR_EMAIL@stanford.edu</span>
+
+<span class="nb">source</span><span class="w"> </span>venv/bin/activate
+
+<span class="c1"># Run speed profiling</span>
+python<span class="w"> </span>pandas_speed_profile.py
+python<span class="w"> </span>dask_speed_profile.py
+</code></pre></div>
+<p>To submit, run:</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>sbatch<span class="w"> </span>speed_profile.slurm
+</code></pre></div>
+<p>Then monitor your job with:</p>
+<p><div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>squeue<span class="w"> </span>-u<span class="w"> </span><span class="nv">$USER</span><span class="w">  </span>
+</code></pre></div>
+Replace <code>$USER</code> with your actual username on the Yen servers.</p>
+<p>You should see your job running:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)</span>
+<span class="l l-Scalar l-Scalar-Plain">24591    normal speed-pr     user  R    1:19:16      1 yen11</span>
+</code></pre></div></p>
+<p>Once the job finishes, display the out file to see the results of profiling. The name of the out file
+will have the <code>JOBID</code> that you saw in the output from the <code>squeue</code> command.</p>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>cat<span class="w"> </span>speed-profile-&lt;JOBID&gt;.out
+</code></pre></div>
+<p>You should see something like:
+<div class="no-copy highlight"><span class="filename">Contents of speed-profile-JOBID.out</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">loading log data in pandas...</span>
+<span class="l l-Scalar l-Scalar-Plain">log data loading took</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">222.10 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">loading finance data in pandas...</span>
+<span class="nt">finance data loading took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.38 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">merge data sets in pandas...</span>
+<span class="nt">merging datasets took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">186.82 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">writing data sets in pandas...</span>
+<span class="nt">writing merged dataset took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4231.74 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">loading log data in dask...</span>
+<span class="nt">log data loading took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.09 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">loading finance data in dask...</span>
+<span class="nt">finance data loading took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.05 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">merge data sets in dask...</span>
+<span class="nt">merging datasets took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.07 seconds</span>
+<span class="l l-Scalar l-Scalar-Plain">writing data sets in dask...</span>
+<span class="nt">writing merged dataset took</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4057.86 seconds</span>
+</code></pre></div></p>
+<p>Finally, we can summarize both output files in a table below which shows the efficiency of <code>dask</code> over <code>pandas</code>
+in both speed and memory utilization:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><code>pandas</code></th>
+<th style="text-align: center;">Memory it took</th>
+<th style="text-align: right;">Time it took</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Loading log data</td>
+<td style="text-align: center;">22 GB</td>
+<td style="text-align: right;">222 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Loading finance data</td>
+<td style="text-align: center;">10 MB</td>
+<td style="text-align: right;">0.28 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Merging data</td>
+<td style="text-align: center;">63 GB</td>
+<td style="text-align: right;">187 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Writing merged data to disk</td>
+<td style="text-align: center;">0 MB</td>
+<td style="text-align: right;">4231 sec</td>
+</tr>
+</tbody>
+</table>
+<p>In comparision:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"><code>dask</code></th>
+<th style="text-align: center;">Memory it took</th>
+<th style="text-align: right;">Time it took</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">Loading log data</td>
+<td style="text-align: center;">6 MB</td>
+<td style="text-align: right;">0.09 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Loading finance data</td>
+<td style="text-align: center;">-1 MB</td>
+<td style="text-align: right;">0.05 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Merginge data</td>
+<td style="text-align: center;">2 MB</td>
+<td style="text-align: right;">0.07 sec</td>
+</tr>
+<tr>
+<td style="text-align: left;">Writing merged data to disk</td>
+<td style="text-align: center;">5.5 GB</td>
+<td style="text-align: right;">4058 sec</td>
+</tr>
+</tbody>
+</table>
+<p>The impressive performance of <code>dask</code> over <code>pandas</code> in both memory efficiency and speed is largely due to its <em>lazy evaluation</em> approach. Unlike <code>pandas</code>, which immediately processes data when an operation is called, <code>dask</code> builds a task graph and delays actual computation until explicitly requested — usually at the last step, such as writing data to disk. This explains why <code>dask</code> uses significantly less memory and time for operations like loading and merging data, only fully utilizing resources during the final write step where computation is triggered. This lazy evaluation strategy allows <code>dask</code> to optimize memory usage and parallelize tasks, leading to more efficient data processing overall.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>We made the <code>pandas</code> and <code>dask</code> scripts save the merged dataset as a single CSV file. That is not optimal for <code>dask</code> performance because <code>dask</code> really excels at working on chunks of the dataset in parallel and it would improve the perfomance for <code>dask</code> to save the dataset in multiple chunks. So, for real projects, <code>dask</code> can be optimized even further to save big on memory and speed.</p>
+</div>
+<p>Finally, we would like to acknowledge Sara Malik and Professor Jung Ho Choi that inspired this <code>dask</code> vs. <code>pandas</code> comparison example.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../../../../js/announcement-banner.js"></script>
+      
+        <script src="../../../../../js/footer.js"></script>
+      
+    
+  </body>
+</html>
