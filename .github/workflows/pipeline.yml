@@ -19,6 +19,21 @@ env:
 permissions:
   contents: write
 
+# Serialise per branch. Without this, two pushes in quick succession race on the
+# ghp-import force-push to the deploy branch. One run then fails outright with
+# "cannot lock ref" -- but the worse case is silent: if the OLDER commit's build
+# happens to finish last, its force-push overwrites the newer content and the deploy
+# branch quietly regresses with no failed run to show for it.
+#
+# cancel-in-progress rather than queueing, because only the newest commit is worth
+# publishing. Queueing would publish each intermediate build in turn, and the cPanel
+# cron polls every 5 minutes, so it could pull one of those. Cancelling before the
+# publish step leaves nothing published; force-push is atomic at the ref, so a
+# cancellation cannot leave a half-updated branch.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
