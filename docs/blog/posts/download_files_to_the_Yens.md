@@ -95,7 +95,7 @@ https://github.com/ultralytics/yolov5/releases/download/v7.0/yolov5m.pt
 https://github.com/ultralytics/yolov5/releases/download/v7.0/yolov5l.pt
 ```
 
-- Use the `wget` command with the `-i` option to download all tthe files listed in the `file_list.txt`:
+- Use the `wget` command with the `-i` option to download all the files listed in the `file_list.txt`:
 ```bash title="Terminal Command"
 wget -i file_list.txt
 ```
