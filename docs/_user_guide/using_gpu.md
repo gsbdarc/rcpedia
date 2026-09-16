@@ -5,7 +5,7 @@ description: "Request NVIDIA GPUs on the yen-slurm gpu partition and run CUDA, P
 # Run Jobs on the GPU Partition
 
 ## GPU Partition Overview
-[Yen Slurm](/_user_guide/slurm/){:target="_blank"} has three GPU nodes: 
+[Yen Slurm](/_user_guide/slurm/){:target="_blank"} has four GPU nodes: 
 
 - `yen-gpu1` has 64 threads, 256 G of RAM and 4 A30 NVIDIA GPU's
 - `yen-gpu2` and `yen-gpu3` each have 64 threads, 256 G of RAM and 4 A40 NVIDIA GPU's
@@ -20,7 +20,7 @@ To work with these GPU nodes on Yen Slurm, you can [submit jobs](/_user_guide/sl
 
 ```{.yaml .no-copy title="Terminal Output"}
 PARTITION AVAIL  TIMELIMIT  NODES  STATE NODELIST
-gpu          up 1-00:00:00      2   idle yen-gpu[1-4]
+gpu          up 1-00:00:00      4   idle yen-gpu[1-4]
 ```
 
 !!! warning "Job Time and GPU Limit"
