@@ -1,0 +1,3722 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Why and how to fine-tune an open source large language model for a specific research task when the base model is not accurate enough.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/blog/2025/11/07/fine-tuning-open-source-models/">
+      
+      
+        <link rel="prev" href="../../../05/12/running-ollama-on-stanford-computing-clusters/">
+      
+      
+        <link rel="next" href="../../../../2026/03/06/stanfords-llm-api-tools/">
+      
+      
+      <link rel="icon" href="../../../../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Fine-Tuning Open Source Models - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fine-tuning-open-source-models" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../../../../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Fine-Tuning Open Source Models
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_getting_started/yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_user_guide/" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../_user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-fine-tune" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why Fine-Tune?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-fine-tuning-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Fine-Tuning Works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#where-to-fine-tune-cloud-vs-local" class="md-nav__link">
+    <span class="md-ellipsis">
+      Where to Fine-Tune: Cloud vs. Local
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-lora" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is LoRA?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-together-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      What is Together AI?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fine-tuning-vs-alternatives" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fine-Tuning vs. Alternatives
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#try-it-yourself" class="md-nav__link">
+    <span class="md-ellipsis">
+      Try It Yourself
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Try It Yourself">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-preparing-the-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Preparing the Data
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Preparing the Data">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-task" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Task
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-upload-training-files-to-together-ai" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Upload Training Files to Together AI
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-configure-and-run-a-fine-tuning-job" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Configure and Run a Fine-Tuning Job
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Configure and Run a Fine-Tuning Job">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rank-costs-and-tradeoffs" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rank, Costs, and Tradeoffs
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-run-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Run Inference
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Run Inference">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#evaluation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#open-source-vs-gpt-fine-tuning" class="md-nav__link">
+    <span class="md-ellipsis">
+      ⚙️ Open-Source vs. GPT Fine-Tuning
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#closed-source-setup-gpt-41-mini" class="md-nav__link">
+    <span class="md-ellipsis">
+      🤖 Closed-source setup (GPT-4.1 mini):
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#random-forest-baseline" class="md-nav__link">
+    <span class="md-ellipsis">
+      🌲 Random Forest Baseline
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://github.com/natalya-patrikeeva.png" alt="Natalya Rapstine">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://github.com/natalya-patrikeeva">Natalya Rapstine</a>
+                        
+                      </strong>
+                      <br>
+                      🦄 Research Computing Specialist @DARC GSB Team
+                    </span>
+                  </div>
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://github.com/alexstorer.png" alt="Alex Storer">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://github.com/alexstorer">Alex Storer</a>
+                        
+                      </strong>
+                      <br>
+                      Director @DARC GSB Team
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
+                        <time datetime="2025-11-07 00:00:00" class="md-ellipsis">November 7, 2025</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/llm/">LLM</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              12 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+
+<h1 id="fine-tuning-open-source-models">Fine-Tuning Open Source Models</h1>
+<p>When large language models (LLMs) first appeared, they felt almost magical — you could ask them anything and they’d reply with surprisingly fluent text. But once you start applying them in research or production, the limitations show up quickly. The base model can sort of do your task, but not reliably enough. That’s where fine-tuning comes in.</p>
+<!-- more -->
+
+<h2 id="why-fine-tune">Why Fine-Tune?</h2>
+<p>Large language models are trained as generalists. They’ve seen a massive variety of internet text, which gives them broad coverage. But when you need them to perform well on a specific research task, the base model often isn’t accurate enough. For example, you might want to:</p>
+<ul>
+<li>
+<p>Classify social media posts </p>
+</li>
+<li>
+<p>Analyze sentiment in financial reports</p>
+</li>
+<li>
+<p>Grade free-text survey responses</p>
+</li>
+</ul>
+<p>In these cases, a fine-tuned model will be much more accurate.</p>
+<p>Fine-tuning is the process of specializing a model. Instead of retraining billions of parameters from scratch (which would be extremely expensive), we use LoRA adapters — small, efficient side modules that learn the patterns specific to your task.</p>
+<p>This makes fine-tuning practical even on research budgets while often yielding big jumps in accuracy. It’s also ideal for research computing environments:</p>
+<ul>
+<li>
+<p><strong>Runs on small clusters</strong>: LoRA fine-tuning can be done on a single GPU or modest HPC setup. You don’t need a commercial-scale GPU farm to train a high-performing specialist model.</p>
+</li>
+<li>
+<p><strong>Reproducible and shareable</strong>:  Fine-tuning open-source models produces small adapter files that can be versioned, archived, and shared. Anyone can load the same base model and adapter to reproduce your exact results.</p>
+</li>
+<li>
+<p><strong>Keeps data local</strong> — When working with restricted or sensitive datasets, fine-tuning locally ensures data never leaves your secure environment — essential for many academic and IRB-approved projects.</p>
+</li>
+</ul>
+<p>Fine-tuning bridges the gap between large-scale, general-purpose models and the highly specific, data-sensitive tasks common in research — giving you control, reproducibility, and performance without requiring industrial-scale infrastructure.</p>
+<p><img alt="Generalist vs Specialist LLM Diagram" src="/assets/images/fine-tune-lora.png" />
+<em>Figure: Fine-tuning adapts a generalist LLM into a task-specific specialist by adding a lightweight LoRA adapter.</em></p>
+<h2 id="how-fine-tuning-works">How Fine-Tuning Works</h2>
+<p>Fine-tuning works because you show the model many examples of the task you want it to learn.
+In each example, you pair a prompt (the input or instruction) with a completion (the desired output).
+Over thousands of examples, the model gradually learns the mapping from one to the other.</p>
+<p>Common fine-tuning task types include:</p>
+<ul>
+<li>
+<p><strong>Classification</strong> — map a prompt to a class label</p>
+</li>
+<li>
+<p><strong>Instruction following</strong> — map a prompt to a short completion</p>
+</li>
+<li>
+<p><strong>Conversation</strong> — multi-turn dialogue with user and assistant roles</p>
+</li>
+<li>
+<p><strong>Preference tuning</strong> — teach the model which of two responses is better</p>
+</li>
+</ul>
+<p>The key principle: your data must clearly connect <em>inputs</em> to <em>outputs</em>.</p>
+<h2 id="where-to-fine-tune-cloud-vs-local">Where to Fine-Tune: Cloud vs. Local</h2>
+<p>There are two main ways to fine-tune:</p>
+<ul>
+<li>
+<p><strong>On your own cluster</strong> (e.g. Yens, Sherlock, Marlowe):</p>
+<ul>
+<li><strong>Pros</strong>: full control of data and environment, required for sensitive datasets.</li>
+<li><strong>Cons</strong>: more setup (Slurm jobs, GPU scheduling, environment management).</li>
+</ul>
+</li>
+<li>
+<p>On managed <strong>cloud platform</strong> (e.g. <a href="https://www.together.ai" target="_blank">Together AI</a>, <a href="https://thinkingmachines.ai/tinker" target="_blank">Tinker</a>):</p>
+<ul>
+<li><strong>Pros</strong>: minimal setup, pay-as-you-go pricing, fast turnaround.</li>
+<li><strong>Cons</strong>: requires sending data to the cloud (not suitable for restricted or sensitive data). </li>
+</ul>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>There is currently no institutional agreement in place with Together AI or Tinker so they are not approved for Stanford data. Please refer to <a href="https://uit.stanford.edu/ai/genai-tool-matrix">GenAI Tool Evaluation Matrix</a> to see what AI tools are approved to use with Stanford data.   </p>
+</div>
+<p>Cloud platforms make experimentation quick and affordable, while local fine-tuning ensures data privacy, compliance, and full reproducibility. </p>
+<h2 id="what-is-lora">What is LoRA?</h2>
+<p>Fine-tuning a large model from scratch would mean adjusting billions of parameters, which is almost always impractical outside of Big Tech. LoRA (Low-Rank Adaptation) solves this problem by adding a small set of trainable weights on top of the frozen base model.</p>
+<p>Think of the base model as a huge library of knowledge. LoRA doesn’t rewrite the entire library — it just slips in a few new index cards that redirect the model’s attention toward your specific task.</p>
+<p>Concretely:</p>
+<ul>
+<li>
+<p>The original model weights stay frozen.</p>
+</li>
+<li>
+<p>LoRA adds lightweight “adapter” layers inside certain parts of the model (usually the attention layers).</p>
+</li>
+<li>
+<p>During fine-tuning, only these adapter weights are trained, while the rest of the model stays fixed.</p>
+</li>
+</ul>
+<p>This approach is far more efficient: instead of needing hundreds of gigabytes of GPU memory, you only need a fraction of that. The adapter weights themselves are small — often just a few hundred megabytes — and can be swapped in and out depending on which task you want the model to specialize on.</p>
+<h2 id="what-is-together-ai">What is Together AI?</h2>
+<p><a href="https://www.together.ai/" target="_blank">Together AI</a> is a managed cloud service for fine-tuning and serving fine-tuned open-source models like Qwen, Mistral, and Llama. You upload your dataset and launch a fine-tuning job through their web interface or CLI.</p>
+<p>When training finishes, Together AI provides a LoRA adapter file (and/or a merged model). </p>
+<p>That adapter is portable: copy it to your cluster and load it into vLLM (a high-performance model serving engine) or Ollama for inference.</p>
+<p>This gives you the best of both worlds:</p>
+<ul>
+<li>
+<p>🚀 Cloud for fast, cheap training</p>
+</li>
+<li>
+<p>🔒 Local clusters for large-scale, private inference</p>
+</li>
+</ul>
+<p>Together AI also lets you easily (one button click) deploy the fine-tuned model on their infrastructure but it will charge per minute and cost varies depending on GPUs necessary to run the model.</p>
+<h2 id="fine-tuning-vs-alternatives">Fine-Tuning vs. Alternatives</h2>
+<ul>
+<li>
+<p>Fine-tuning vs. Prompting</p>
+<p>Few-shot prompting can work, but on specialized tasks, a fine-tuned adapter usually wins in both accuracy and consistency.</p>
+</li>
+<li>
+<p>Together AI vs. OpenAI Fine-tuning</p>
+<ul>
+<li>
+<p>OpenAI fine-tunes proprietary models (like GPT-4.1 mini). You can only use them via API.</p>
+</li>
+<li>
+<p>Together AI fine-tunes open-source models (like Qwen-8B). You can download the adapter and run it anywhere.</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>The important difference is reproducibility and sharing. Together AI fine-tunes open-source base models (e.g., Qwen, Mistral, Llama) and produces an open-source adapter file. That means you can freely share the model and others can reproduce your results. In contrast, OpenAI fine-tuned models are proprietary — you can only access them through their API, and you can’t download or distribute the adapted weights.</p>
+<p>Here’s the fine-tuning workflow at a glance: start with a labeled dataset, fine-tune in the cloud with Together AI, download the LoRA adapter, and run inference locally with vLLM to evaluate results.</p>
+<p><img alt="Fine-tuning Workflow Diagram" src="/assets/images/fine-tune-flowchart.png" />
+<em>Figure: End-to-end fine-tuning workflow combining cloud training with local inference.</em></p>
+<h2 id="try-it-yourself">Try It Yourself</h2>
+<p>If you’d like to reproduce this workflow — from preparing training data to running the base and fine-tuned models with vLLM on Stanford's Yens or Sherlock — we’ve published a hands-on guide in our repository: <a href="https://github.com/gsbdarc/vllm_helper" target="_blank">gsbdarc/vllm_helper</a>. The repo includes example inference scripts, instructions for launching vLLM on a GPU node, and details on the expected <code>test.jsonl</code> format.</p>
+<h3 id="1-preparing-the-data">1. Preparing the Data</h3>
+<p>Our example task was a Reddit post classification problem designed to test how fine-tuned and base models perform on a clear, structured benchmark.
+Each training example asked the model to predict which of ten subreddits a post belongs to, given its title and (optionally) body text.</p>
+<p>The dataset has:</p>
+<ul>
+<li>
+<p>Ten classes (the subreddits)</p>
+</li>
+<li>
+<p>98,000 labeled examples for training and 5,000 held-out examples for testing</p>
+</li>
+</ul>
+<h4 id="the-task">The Task</h4>
+<p>Given:</p>
+<ul>
+<li>
+<p><strong>Input</strong>: the title and body of a Reddit post</p>
+</li>
+<li>
+<p><strong>Output</strong>: one of ten subreddit labels</p>
+</li>
+</ul>
+<p>We framed this as an instruction-following problem:</p>
+<div class="highlight"><span class="filename">LLM Prompt</span><pre><span></span><code>Classify the subreddit for this Reddit post.
+Return just the subreddit name from this list:
+AskReddit, worldnews, explainlikeimfive, funny, todayilearned,
+science, sports, LifeProTips, technology, books.
+
+Title: &quot;&lt;post title&gt;&quot;
+Body: &quot;&lt;post body&gt;&quot;
+Answer:
+</code></pre></div>
+<p>Each record in the training file has:</p>
+<ul>
+<li>
+<p>a <strong>"prompt"</strong> field (the instruction and post text), and</p>
+</li>
+<li>
+<p><strong>a "completion"</strong> field (the correct subreddit name). </p>
+</li>
+</ul>
+<p>By repeating this structure thousands of times across different categories, we teach the model to output the right subreddit name.
+Together AI expects data in this instruction-style JSONL format (one example per line):</p>
+<p><div class="no-copy highlight"><span class="filename">Expected JSONL format</span><pre><span></span><code><span class="p p-Indicator">{</span><span class="s">&quot;prompt&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;Classify</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">subreddit</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">Reddit</span><span class="nv"> </span><span class="s">post.\nReturn</span><span class="nv"> </span><span class="s">just</span><span class="nv"> </span><span class="s">the</span><span class="nv"> </span><span class="s">subreddit</span><span class="nv"> </span><span class="s">name</span><span class="nv"> </span><span class="s">from</span><span class="nv"> </span><span class="s">this</span><span class="nv"> </span><span class="s">list:</span><span class="nv"> </span><span class="s">AskReddit,</span><span class="nv"> </span><span class="s">worldnews,</span><span class="nv"> </span><span class="s">explainlikeimfive,</span><span class="nv"> </span><span class="s">funny,</span><span class="nv"> </span><span class="s">todayilearned,</span><span class="nv"> </span><span class="s">science,</span><span class="nv"> </span><span class="s">sports,</span><span class="nv"> </span><span class="s">LifeProTips,</span><span class="nv"> </span><span class="s">technology,</span><span class="nv"> </span><span class="s">books.\n\nTitle:</span><span class="nv"> </span><span class="s">\&quot;Why</span><span class="nv"> </span><span class="s">men</span><span class="nv"> </span><span class="s">are</span><span class="nv"> </span><span class="s">happier</span><span class="nv"> </span><span class="s">than</span><span class="nv"> </span><span class="s">women\&quot;\nBody:</span><span class="nv"> </span><span class="s">\&quot;\&quot;\nAnswer:&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;completion&quot;</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="s">&quot;todayilearned&quot;</span><span class="p p-Indicator">}</span>
+</code></pre></div>
+This format makes it easy to fine-tune any model on a simple input → output mapping task.
+You can read more about Together AI’s supported data formats in their <a href="https://docs.together.ai/docs/fine-tuning-data-preparation" target="_blank">documentation</a>.</p>
+<h3 id="2-upload-training-files-to-together-ai">2. Upload Training Files to Together AI</h3>
+<p>Once the dataset is prepared, the next step is to make it available to Together AI for fine-tuning. You’ll typically create three files:</p>
+<ul>
+<li>
+<p><code>train.jsonl</code> — examples the model learns from</p>
+</li>
+<li>
+<p><code>val.jsonl</code> — optional validation set to monitor training progress</p>
+</li>
+<li>
+<p><code>test.jsonl</code> — held-out examples for final evaluation (not uploaded)</p>
+</li>
+</ul>
+<p>Together AI supports two ways to upload training data:</p>
+<ul>
+<li>
+<p><a href="https://api.together.xyz/fine-tuning" target="_blank">Web interface</a> — drag and drop your JSONL files directly in the fine-tuning dashboard. This is the fastest way to get started.</p>
+</li>
+<li>
+<p>Command-line interface (CLI) — upload files from the terminal, which is convenient for automation or when working on a cluster.</p>
+</li>
+</ul>
+<p>After uploading, Together AI will check your file format (prompt/completion pairs, conversational data, etc.) and confirm it’s valid for training. Once validated, the files are ready to be used in a fine-tuning job.</p>
+<h3 id="3-configure-and-run-a-fine-tuning-job">3. Configure and Run a Fine-Tuning Job</h3>
+<p>With your dataset uploaded, the next step is to start a fine-tuning job. Together AI lets you do this either from the CLI or through their web interface. The web interface is especially handy because you can pick the base model, adjust parameters, and watch progress in real time.</p>
+<h4 id="rank-costs-and-tradeoffs">Rank, Costs, and Tradeoffs</h4>
+<p>Once you pick the base model, you’ll be prompted to configure training parameters. Here’s what they mean in practice.</p>
+<p>The main design choice in LoRA is <strong>rank</strong>. Rank determines the size of the adapter matrices that the model actually learns during training. </p>
+<ul>
+<li>
+<p>Low rank (e.g. 8, 16): </p>
+<ul>
+<li>Fewer parameters to train </li>
+<li>Faster training, lower GPU memory use </li>
+<li>Risk of underfitting if the task is complex </li>
+</ul>
+</li>
+<li>
+<p>High rank (e.g. 32, 64): </p>
+<ul>
+<li>More parameters to train </li>
+<li>Higher training cost, more GPU hours </li>
+<li>Better ability to capture complex patterns, often higher accuracy </li>
+</ul>
+</li>
+</ul>
+<p>In practice, you can think of LoRA rank as the capacity knob: turning it up allows the adapter to learn more, but you’ll pay more in compute.</p>
+<p>Other factors that affect training cost include:</p>
+<ul>
+<li>
+<p><strong>Model size</strong>: training a smaller model like Qwen-8B (≈8 billion parameters) is much cheaper than a larger one like Qwen-32B (≈32 billion parameters). Larger parameter counts generally improve reasoning and accuracy, but they also increase training time, GPU memory needs, and costs.</p>
+</li>
+<li>
+<p><strong>Dataset size</strong>: the more examples you train on, the longer each epoch takes and the more GPU hours are required. Doubling your dataset size roughly doubles the cost, though it can also improve model generalization.</p>
+</li>
+<li>
+<p><strong>Epochs</strong>: each full pass over your dataset adds cost. One epoch means the model sees every example once. Multiple epochs let the model learn more, but too many can cause overfitting and drive up the cost.</p>
+</li>
+<li>
+<p><strong>Batch size</strong>: larger batches allow GPUs to process more examples in parallel, speeding up training. However, they require more memory, so you may need larger or more expensive GPUs. Small batch sizes are cheaper on memory but train more slowly.</p>
+</li>
+</ul>
+<p>Other parameters that affect learning:</p>
+<ul>
+<li>
+<p><strong>Learning rate &amp; scheduler</strong> – control how quickly the model adjusts its weights. A schedule like cosine decay starts aggressively and then tapers off, helping the model settle into a good solution.</p>
+</li>
+<li>
+<p><strong>Dropout &amp; weight decay</strong> – techniques to prevent overfitting by making the model less likely to “memorize” the training set.</p>
+</li>
+<li>
+<p><strong>Trainable modules</strong> – which parts of the model the LoRA adapters are inserted into (for example, attention projections or feed-forward layers). Choosing more modules gives the model more flexibility to adapt, at the cost of extra compute.</p>
+</li>
+</ul>
+<h3 id="4-run-inference">4. Run Inference</h3>
+<p>Once training is finished, it’s time to put your fine-tuned model to the test. This step is called <em>inference</em> — running the fine-tuned model on new inputs and checking its predictions.</p>
+<p>You have two main options:</p>
+<ul>
+<li>
+<p>Run inference on Together AI</p>
+<ul>
+<li>
+<p>Easiest option: no setup, just call the API.</p>
+</li>
+<li>
+<p>Downside: deployment costs money, so large-scale evaluation can add up.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Run inference locally</p>
+<ul>
+<li>
+<p>You download the LoRA adapter and load it into an inference engine such as <a href="https://docs.vllm.ai/en/latest" target="_blank">vLLM</a> (optimized for serving at scale) or <a href="/blog/2025/05/12/running-ollama-on-stanford-computing-clusters" target="_blank">Ollama</a> (lightweight and simple).</p>
+</li>
+<li>
+<p>This takes more setup (GPU access, environment, and a server process), but once it’s running, you can run inference at scale without extra cost.</p>
+</li>
+</ul>
+</li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">🔒 Security &amp; Data Licenses</p>
+<p>Always confirm that the dataset and outputs you’re working with are approved for the environment you’re using.</p>
+</div>
+<p>If you have data licensing questions, please contact <a href="https://gsbresearchhub.stanford.edu/support-units/data-acquisition-and-governance" target="_blank">DAG Team at the Research Hub</a>.</p>
+<div class="admonition danger">
+<p class="admonition-title">⚠️  Do Not Upload Sensitive Data</p>
+<p>Do not run inference in the cloud or upload data that can’t leave Stanford infrastructure or that falls under restricted data-use agreements.</p>
+</div>
+<p>Local inference is the right path for sensitive or licensed datasets.</p>
+<h4 id="evaluation">Evaluation</h4>
+<p>A key part of inference is evaluation — measuring how the fine-tuned model stacks up against the base model on the same held-out test set. This gives you a clear before-and-after picture.</p>
+<ul>
+<li>
+<p>The base model shows what the pretrained LLM can do out of the box.</p>
+</li>
+<li>
+<p>The fine-tuned model shows how much improvement your LoRA adapter provides.</p>
+</li>
+</ul>
+<h4 id="open-source-vs-gpt-fine-tuning">⚙️  Open-Source vs. GPT Fine-Tuning</h4>
+<p>In our Reddit classification experiment, the goal was to predict which of ten subreddits a post belonged to based on its title and body text.<br />
+We tested both open-source and closed-source fine-tuning approaches using the same training set of 98,000 examples and the same labeled dataset of 5,000 evaluation examples.</p>
+<p><strong>Open-source setup (Together AI + vLLM):</strong><br />
+We fine-tuned Qwen3-8B-Base with LoRA adapter (rank = 32) using Together’s managed training service and then ran inference locally with vLLM.  </p>
+<ul>
+<li>
+<p><strong>Base Qwen3-8B:</strong> 0.41 accuracy  </p>
+</li>
+<li>
+<p><strong>Fine-tuned Qwen3-8B (LoRA):</strong> 0.78 accuracy  </p>
+</li>
+<li>
+<p><strong>Training cost:</strong> under $5  </p>
+</li>
+</ul>
+<p>The fine-tuned LoRA adapter nearly doubled accuracy over the base model, demonstrating how small, task-specific updates can yield large performance gains while remaining fully reproducible and deployable on local clusters.</p>
+<h4 id="closed-source-setup-gpt-41-mini">🤖 Closed-source setup (GPT-4.1 mini):</h4>
+<p>To benchmark a smaller proprietary model, we repeated the experiment with GPT-4.1 mini using OpenAI’s Batches API and structured outputs to enforce consistent label formatting.  </p>
+<ul>
+<li>
+<p><strong>Base GPT-4.1 mini:</strong> 0.79 accuracy</p>
+</li>
+<li>
+<p><strong>Fine-tuned GPT-4.1 mini:</strong> 0.89 accuracy</p>
+</li>
+<li>
+<p><strong>Training + inference cost:</strong> $85</p>
+</li>
+</ul>
+<p>Even with a single-epoch fine-tune on the same dataset, GPT-4.1 mini surpassed both the base and LoRA-tuned open-source models.  </p>
+<p>Together, these results illustrate how both open-source LoRA fine-tuning and closed-source API fine-tuning can substantially enhance task performance at different cost and transparency trade-offs. </p>
+<h4 id="random-forest-baseline">🌲 Random Forest Baseline</h4>
+<p>To ground the fine-tuning results, we also trained a Random Forest model on the same 98,000 training examples and evaluated it on the same 5,000-example test set.</p>
+<p>Each Reddit post’s title and body were converted into TF-IDF features (1–2-gram range), and a 400-tree Random Forest was trained using scikit-learn on CPU.</p>
+<ul>
+<li>
+<p><strong>Train time</strong>: ~3 minutes</p>
+</li>
+<li>
+<p><strong>Evaluation time</strong>: ~1 second for 5,000 examples</p>
+</li>
+<li>
+<p><strong>Test accuracy</strong>: 0.72</p>
+</li>
+</ul>
+<p>A Random Forest performs well on this task because subreddit language is highly distinctive — for example, “NASA” appears frequently in science, while “book” or “author” cues books. TF-IDF captures these lexical signals efficiently, yielding strong accuracy without complex modeling.</p>
+<div class="admonition tip">
+<p class="admonition-title">Key takeaway</p>
+<p>For $0 in compute cost, traditional models like Random Forest can achieve strong baselines on text classification tasks. 
+Fine-tuned LLMs become most valuable when classification boundaries rely on semantic understanding or contextual nuance rather than simple word patterns.</p>
+</div>
+<p>This comparison reminds us that model choice should match task complexity — the simplest model that works well is often the best starting point.</p>
+<p><img alt="Evaluation Results Bar Chart" src="/assets/images/fine-tune-bar-chart-accuracy.png" /></p>
+<p><em>Figure: Comparison of model accuracies across five setups. The base Qwen3-8B achieved 41% accuracy, while a fine-tuned LoRA adapter nearly doubled performance to 78%. GPT-4.1 mini (base) reached 79% using structured outputs, and fine-tuning GPT-4.1 mini pushed accuracy to 89%. A Random Forest baseline reached 72%, showing that traditional models remain competitive on lexically distinct tasks.</em> </p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Fine-tuning turns a general-purpose language model into a specialist. By preparing a labeled dataset, uploading it to Together AI for training, and then running inference with vLLM locally, you can create models that perform dramatically better on your specific task.</p>
+<p>In our example, a simple LoRA fine-tune nearly doubled accuracy on a classification benchmark — from 41% with the base model to 78% with the fine-tuned adapter. The process was fast, affordable, and flexible: cloud training for convenience, local inference for scale.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../../../../js/announcement-banner.js"></script>
+      
+        <script src="../../../../../js/footer.js"></script>
+      
+    
+  </body>
+</html>
