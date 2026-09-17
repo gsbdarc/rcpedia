@@ -1,0 +1,3709 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="How to measure whether a large language model is reliable enough to extract research data from scanned filings, tables, and newspaper pages.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/blog/2026/07/14/llm-benchmarks-for-researchers/">
+      
+      
+        <link rel="prev" href="../../../04/23/self-hosting-llms-with-nvidia-nim-on-the-yens/">
+      
+      
+      
+      <link rel="icon" href="../../../../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>LLM Benchmarks for Researchers - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+  
+
+
+  
+  
+
+<script id="__analytics">function __md_analytics(){function n(){dataLayer.push(arguments)}window.dataLayer=window.dataLayer||[],n("js",new Date),n("config","G-5P4SRX596V"),document.addEventListener("DOMContentLoaded",function(){document.forms.search&&document.forms.search.query.addEventListener("blur",function(){this.value&&n("event","search",{search_term:this.value})}),document$.subscribe(function(){var a=document.forms.feedback;if(void 0!==a)for(var e of a.querySelectorAll("[type=submit]"))e.addEventListener("click",function(e){e.preventDefault();var t=document.location.pathname,e=this.getAttribute("data-md-value");n("event","feedback",{page:t,data:e}),a.firstElementChild.disabled=!0;e=a.querySelector(".md-feedback__note [data-md-value='"+e+"']");e&&(e.hidden=!1)}),a.hidden=!1}),location$.subscribe(function(e){n("config","G-5P4SRX596V",{page_path:e.pathname})})});var e=document.createElement("script");e.async=!0,e.src="https://www.googletagmanager.com/gtag/js?id=G-5P4SRX596V",document.getElementById("__analytics").insertAdjacentElement("afterEnd",e)}</script>
+  
+    <script>"undefined"!=typeof __md_analytics&&__md_analytics()</script>
+  
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#llm-benchmarks-for-researchers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../../../../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              LLM Benchmarks for Researchers
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_getting_started/yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../../../_user_guide/" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../../../" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../../../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_getting_started/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../../_user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../_user_guide/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../../../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#our-data" class="md-nav__link">
+    <span class="md-ellipsis">
+      Our Data
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#designing-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Designing Benchmarks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Designing Benchmarks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-you-need-a-benchmark" class="md-nav__link">
+    <span class="md-ellipsis">
+      Why You Need a Benchmark
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluation-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluation Framework
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#executing-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      Executing at Scale
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-practice-iterating-on-historical-tv-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      In Practice: Iterating on Historical TV Guides
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="In Practice: Iterating on Historical TV Guides">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#selecting-benchmarks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting Benchmarks
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#challenges-with-ground-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      Challenges with "Ground Truth"
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#updating-prompts" class="md-nav__link">
+    <span class="md-ellipsis">
+      Updating Prompts
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-models-behave-when-uncertain" class="md-nav__link">
+    <span class="md-ellipsis">
+      How Models Behave When Uncertain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Results
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temperature-and-reasoning-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temperature and Reasoning Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cost
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#takeaways" class="md-nav__link">
+    <span class="md-ellipsis">
+      Takeaways
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+              <div class="md-post__authors md-typeset">
+                
+                  <div class="md-profile md-post__profile">
+                    <span class="md-author md-author--long">
+                      <img src="https://github.com/lintyfresh.png" alt="Lynn Tong">
+                    </span>
+                    <span class="md-profile__description">
+                      <strong>
+                        
+                          <a href="https://github.com/lintyfresh">Lynn Tong</a>
+                        
+                      </strong>
+                      <br>
+                      Data Science Intern @DARC GSB Team
+                    </span>
+                  </div>
+                
+              </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
+                        <time datetime="2026-07-14 00:00:00" class="md-ellipsis">July 14, 2026</time>
+                      </div>
+                    </li>
+                    
+                    
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 3v15h3V3H9m3 2 4 13 3-1-4-13-3 1M5 5v13h3V5H5M3 19v2h18v-2H3Z"/></svg>
+                          <span class="md-ellipsis">
+                            in
+                            
+                              <a href="../../../../category/llm/">LLM</a></span>
+                        </div>
+                      </li>
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              15 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
+          
+        </div>
+      </div>
+    </div>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+
+<h1 id="llm-benchmarks-for-researchers">LLM Benchmarks for Researchers</h1>
+<p>For social science and business research, the most valuable data is often locked inside dense, scanned documents like financial filings, census tables, and newspaper pages. Digitizing these sources has traditionally meant slow, manual transcription, often handed to students or outsourced labor to copy out cell by cell.</p>
+<p>Large Language Models (LLMs) offer a powerful alternative to manual data extraction, but using them for research raises a more fundamental question: how do you know a model is reliable enough for your specific documents and research question? Strong results on one example aren't enough. You need a structured way to measure whether a model performs consistently before building any analysis on its output.</p>
+<!-- more -->
+
+<div class="admonition note">
+<p class="admonition-title">What this article covers</p>
+<p>This article will focus on how to design LLM benchmarks for research-related data extraction and provide examples from our own implementation. For additional context you can reference our <a href="https://gsbresearchhub.stanford.edu/training-workshops" target="_blank">Hub How-To</a> and our <a href="https://github.com/gsbdarc/LLM_benchmarks" target="_blank">GitHub</a>.</p>
+</div>
+<h2 id="our-data">Our Data</h2>
+<p>Throughout this article we'll use one type of image as an example: historical newspaper pages containing printed <strong>TV Guides</strong>, dense, grid-shaped program schedules. We chose them as a stand-in for other tabular historical documents (census records, financial ledgers, etc.) because they share the hard parts: small fonts, mixed scan quality, and layouts that shift from one paper to the next.</p>
+<figure>
+<p><img alt="A historical newspaper page with a printed TV-listings grid" src="../../../../../assets/images/llm_eval_open_source.jpg" width="700" />
+  </p>
+<figcaption>A historical newspaper page with a printed TV-listings grid.</figcaption>
+</figure>
+<h2 id="designing-benchmarks">Designing Benchmarks</h2>
+<h3 id="why-you-need-a-benchmark">Why You Need a Benchmark</h3>
+<p>A model might perform perfectly on a single document but still fail across your full dataset due to variability in layout, font size, and resolution. You need a benchmark: a standardized measure of how different LLMs perform specific tasks across a representative sample of your data.</p>
+<p>For our LLM evaluation pipeline, one benchmark asked the model a straightforward question with a single verifiable answer: which day of the week does this TV guide cover? A harder benchmark asked for the first program listed in the TV-listings grid, which requires reading small, low-resolution text that varies significantly from one document to the next. Covering a range of difficulty reveals not just whether a model performs well on average, but where it starts to break down.</p>
+<p>By establishing fixed criteria, a benchmark allows researchers to:</p>
+<ul>
+<li><strong>Navigate Tradeoffs</strong>: Systematically balance budget constraints against accuracy requirements.</li>
+<li><strong>Measure Reproducibly</strong>: Get an objective, repeatable measurement of model performance rather than relying on a few lucky outputs.</li>
+<li><strong>Track Progress</strong>: Confidently measure whether a prompt tweak or model switch actually improves performance or causes a regression.</li>
+</ul>
+<h3 id="evaluation-framework">Evaluation Framework</h3>
+<p>Popular LLM benchmarks like <a href="https://arxiv.org/abs/2009.03300" target="_blank">MMLU</a> or <a href="https://arxiv.org/abs/2206.04615" target="_blank">BIG-Bench</a> compare models at a high level, but they don't tell you whether a model can handle your specific documents or research question. For data extraction, you need to design your own.</p>
+<p>The framework we used has four components — <strong>research question</strong>, <strong>task</strong>, <strong>prompt</strong>, and <strong>metric</strong>. In a well-designed benchmark each follows from the last: the research question determines the task, the task shapes the prompt, and the prompt dictates the metric you score the output against.</p>
+<figure>
+<p><img alt="The four-component evaluation framework" src="../../../../../assets/images/llm_eval_rq_workflow.png" width="700" />
+  </p>
+<figcaption>The four-component framework used in our benchmark design.</figcaption>
+</figure>
+<p><strong>Research Question</strong></p>
+<p>The research question anchors the entire framework. Everything downstream (what you extract, how you prompt, how you score) should trace back to it.</p>
+<div style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<p><span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span></p>
+<p>How did historical TV programming vary across channels and time periods?</p>
+</div>
+<p><strong>Task</strong></p>
+<p>A task translates the research question into a concrete extraction operation. One research question may require several tasks; each should be narrow enough to prompt clearly and score objectively.</p>
+<div style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<p><span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span></p>
+<p>We have newspaper TV guides that list historical programming by date, channel, and time. As a first step, we should extract the name of the first channel from each TV guide.</p>
+</div>
+<p><strong>Prompt</strong></p>
+<p>The prompt translates the task into explicit, machine-readable instructions. Precision matters: a vague prompt doesn't just produce inconsistent outputs, it makes it harder to diagnose whether poor results reflect a model limitation or an underspecified instruction.</p>
+<div style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<p><span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span></p>
+<p><code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid from a newspaper. Each row represents one channel. The leftmost or rightmost area of each row contains the channel information. Extract the channel information from ONLY the first data row of the grid (the first row immediately after the time-slot or any other subsection headers).</code></p>
+</div>
+<p><strong>Metric</strong></p>
+<p>The metric defines what counts as a correct answer and measures how close an output is to the ground truth.</p>
+<div style="border-left:.25rem solid #820000;background-color:#8200000a;padding:.25rem 1rem;margin:1.2em 0;border-radius:.1rem;">
+<p><span style="display:block;font-weight:700;color:#820000;font-size:.65rem;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.3rem;">In our pipeline</span></p>
+<p>Word Intersection over Union (IoU): the fraction of words two strings share.</p>
+</div>
+<p>When both the output and the ground truth are short phrases, Word IoU is a good choice for measuring how much they overlap. If the LLM outputs "Food Channel" but the ground truth is "Food Network", the Word IoU score is 0.33: the two strings share one word ("Food") out of three unique words total ("Food", "Channel", "Network").</p>
+<p><strong>The Feedback Loop</strong></p>
+<figure>
+<p><img alt="The four-component evaluation framework" src="../../../../../assets/images/llm_eval_rq_workflow_2.png" width="700" />
+  </p>
+<figcaption>The iterative four-component benchmark design framework.</figcaption>
+</figure>
+<p>In practice, this framework is iterative, not linear. Poor scores are a diagnostic signal, not just a verdict on the model. Trace back through the framework to find where alignment broke down:</p>
+<ul>
+<li>Are your tasks reflective of your research question and the data you have to work with?</li>
+<li>Does your prompt properly explain what you want the LLM to do?</li>
+<li>Is your metric appropriate for what the prompt is actually asking?</li>
+</ul>
+<p>In our pipeline, a one-sentence prompt returned poor results; iterating on it significantly improved performance across models.</p>
+<h3 id="executing-at-scale">Executing at Scale</h3>
+<p>Our initial project pipeline scaled quickly (18 models, 35 images, 6 benchmarks) with nearly 3,800 task combinations per iteration. To handle this volume efficiently, we built the following pipeline:</p>
+<figure>
+<p><img alt="The evaluation pipeline" src="../../../../../assets/images/llm_eval_pipeline.png" width="700" />
+  </p>
+<figcaption>The end-to-end evaluation pipeline used in our project.</figcaption>
+</figure>
+<p>After configuring our inputs (benchmarks, models, and images) and converting PDFs to grayscale PNGs, we accessed models through the <a href="https://rcpedia.stanford.edu/blog/2026/03/06/stanfords-llm-api-tools/" target="_blank">Stanford AI API Gateway</a>. Stanford provides access through a Stanford-managed environment with vendor agreements covering data use, retention, and model training; data is not used to train vendor models. The Stanford AI API Gateway allowed us to get outputs from models without the need for a web interface.</p>
+<div class="admonition note">
+<p class="admonition-title">Stanford AI API Gateway</p>
+<p>Models are continuously deprecated and added to the Gateway. You must reapply for a new key each time the list of available models changes in order to keep your access up to date.</p>
+</div>
+<p>Outputs and benchmark evaluation results were stored in <a href="https://www.mongodb.com" target="_blank">MongoDB</a>, our centralized database with the following schema:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Example</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>_id</code></td>
+<td>string</td>
+<td><code>"3023_2_processed"</code></td>
+<td>Primary key that captures the task ID and run ID of a successful LLM output</td>
+</tr>
+<tr>
+<td><code>benchmark_id</code></td>
+<td>string</td>
+<td><code>"2"</code></td>
+<td>Unique integer identifier for the prompt</td>
+</tr>
+<tr>
+<td><code>benchmark_name</code></td>
+<td>string</td>
+<td><code>"newspaper_date"</code></td>
+<td>Unique name identifier for the prompt</td>
+</tr>
+<tr>
+<td><code>completion_tokens</code></td>
+<td>integer</td>
+<td><code>15</code></td>
+<td>Token usage associated with the LLM output</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>string</td>
+<td><code>null</code></td>
+<td>Error message if the LLM was not able to return an output</td>
+</tr>
+<tr>
+<td><code>image_id</code></td>
+<td>string</td>
+<td><code>"1"</code></td>
+<td>Unique integer identifier for the image used</td>
+</tr>
+<tr>
+<td><code>model_id</code></td>
+<td>string</td>
+<td><code>"1"</code></td>
+<td>Unique integer identifier for the LLM</td>
+</tr>
+<tr>
+<td><code>model_name</code></td>
+<td>string</td>
+<td><code>"Llama-4"</code></td>
+<td>Unique name identifier for the LLM</td>
+</tr>
+<tr>
+<td><code>output</code></td>
+<td>string</td>
+<td><code>"Sun, Nov 16, 1997"</code></td>
+<td>Output from the LLM</td>
+</tr>
+<tr>
+<td><code>run_id</code></td>
+<td>integer</td>
+<td><code>1</code></td>
+<td>The ith iteration of a given task</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>string</td>
+<td><code>"processed"</code></td>
+<td><code>processed</code> if the LLM returned an output without error, otherwise <code>unprocessed</code></td>
+</tr>
+<tr>
+<td><code>task_id</code></td>
+<td>string</td>
+<td><code>"2416"</code></td>
+<td>Unique ID associated with the combination of benchmark, image, and model</td>
+</tr>
+<tr>
+<td><code>total_tokens</code></td>
+<td>integer</td>
+<td><code>4000</code></td>
+<td>Token usage across the input prompt, LLM output, and the model's thinking tokens (reasoning models only)</td>
+</tr>
+<tr>
+<td><code>updated_at</code></td>
+<td>datetime</td>
+<td><code>2026-04-08 15:45:50</code></td>
+<td>Time when the LLM returned an output</td>
+</tr>
+</tbody>
+</table>
+<p>Storing results lets you compare across prompt versions and models: did a new prompt (a new <code>benchmark_id</code>) do better or worse than the last version? Did switching models (<code>model_id</code>) cause a regression on a benchmark that was previously working? Repeated iterations of the same task are tracked separately by <code>run_id</code>, so you can also average over them to smooth out run-to-run variation. Without stored results, answering these questions means re-running everything from scratch.</p>
+<p>We processed all tasks in a few hours using the <a href="https://rcpedia.stanford.edu/_getting_started/how_access_yens/?h=yens" target="_blank">Yen</a> servers for compute and <a href="https://rcpedia.stanford.edu/_user_guide/slurm/?h=slurm" target="_blank">SLURM</a> array jobs to process tasks in parallel.</p>
+<h2 id="in-practice-iterating-on-historical-tv-guides">In Practice: Iterating on Historical TV Guides</h2>
+<p>Here's how we applied this framework in practice.</p>
+<figure>
+<p><img alt="Example newspaper page with TV-listings grids from our dataset" src="../../../../../assets/images/llm_eval_tv_guide_example_os.png" width="700" />
+  </p>
+<figcaption> Example newspaper page with a TV-listings grid.</figcaption>
+</figure>
+<h3 id="selecting-benchmarks">Selecting Benchmarks</h3>
+<p>We selected tasks with clear, verifiable answers and assigned each a difficulty level based on expected extraction challenge. We started with six benchmarks:</p>
+<figure>
+<p><img alt="First example newspaper page from our benchmark dataset" src="../../../../../assets/images/llm_eval_benchmark_easy_os.png" width="700" />
+  </p>
+<figcaption>Sample page from our dataset showing the newspaper header and TV-listings grid. Easy benchmark answers are in green boxes.</figcaption>
+<!-- The next two figures reuse this same page, re-annotated for medium and hard benchmarks. -->
+</figure>
+<p><strong>Easy (Green)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Newspaper Name</td>
+<td>Simple metadata extraction, similar locations across documents, relatively high resolution.</td>
+</tr>
+<tr>
+<td>Newspaper Date</td>
+<td>Simple metadata extraction, similar locations across documents, relatively high resolution.</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<p><img alt="First example newspaper page from our benchmark dataset" src="../../../../../assets/images/llm_eval_benchmark_medium_os.png" width="700" />
+  </p>
+<figcaption>The same page, with medium benchmark answers in yellow boxes. The TV Guide Date is derived: the newspaper is dated Sun, Jan 2, 2000, and the grid lists a Monday schedule, giving a TV Guide Date of Mon, Jan 3, 2000.</figcaption>
+</figure>
+<p><strong>Medium (Yellow)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TV Guide Day of Week</td>
+<td>Varied location, mixed resolution, data found in the TV Guide grid.</td>
+</tr>
+<tr>
+<td>TV Guide Date</td>
+<td>Reasoning: answer is derived by combining both Newspaper Date and TV Guide Day of Week without being explicitly prompted.</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<p><img alt="First example newspaper page from our benchmark dataset" src="../../../../../assets/images/llm_eval_benchmark_hard_os.png" width="700" />
+  </p>
+<figcaption>The same page, with hard benchmark answers in red boxes.</figcaption>
+</figure>
+<p><strong>Hard (Red)</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>First Channel</td>
+<td>Data found within grid, smallest font, lowest resolution, variability (color, placement, size).</td>
+</tr>
+<tr>
+<td>First Program</td>
+<td>Data found within grid, smallest font, lowest resolution, variability (color, placement, size).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="challenges-with-ground-truth">Challenges with "Ground Truth"</h3>
+<p>Defining ground truth (the correct answer you score an LLM output against) is harder than it sounds. In our dataset, what counted as the right answer depended heavily on the specific research question and the variability in the data itself.</p>
+<figure>
+<p><img alt="A row from a TV-listings grid; the first program listed is Baywatch Hawaii" src="../../../../../assets/images/llm_eval_baywatch.png" width="675" />
+  </p>
+<figcaption>A single FOX channel row from a TV-listings grid. Reading left to right across the time slots: <em>Baywatch Hawaii</em>, <em>Earth: Final Conflict</em>, then <em>Animal Rescue</em>. The "first program" is the earliest entry — Baywatch Hawaii.</figcaption>
+</figure>
+<p>To better illustrate this challenge, when asking an LLM to extract the "first program" from the above, what is the correct answer?</p>
+<ul>
+<li><strong>A.</strong> Baywatch Hawaii "Shark Island" (R) (S) (cc)</li>
+<li><strong>B.</strong> Baywatch Hawaii "Shark Island"</li>
+<li><strong>C.</strong> Baywatch Hawaii</li>
+</ul>
+<p>The so-called "right" answer depends on what your prompt is actually asking for — and it can change as your prompt evolves. In our pipeline, we maintained separate ground truth sets for each task and prompt version to ensure our metric always matched what we were asking the model to do.</p>
+<div class="admonition tip">
+<p class="admonition-title">Transcribe a few images by hand first</p>
+<p>Hand transcribing 5 to 10 images yourself can be enormously helpful in understanding the data that is available and how much variability you might be dealing with.</p>
+</div>
+<h3 id="updating-prompts">Updating Prompts</h3>
+<p>With ground truth defined, our scores became the signal for iteration. One benchmark that models initially struggled with was extracting the first program name — the hardest task in the set, with small font, low resolution, and significant variability across guides.</p>
+<p>We adjusted our prompt several times to see if we could get better results. You can see the prompts we used below and how each model performed across all images. The model with the best performance across each prompt is highlighted in red.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">First Program v1</label><label for="__tabbed_1_2">First Program v2</label><label for="__tabbed_1_3">First Program v3</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><strong>Short, one sentence prompt.</strong></p>
+<p><code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Return the name of the program for the first channel listed and for the earliest time slot shown.</code></p>
+<p><figure markdown>
+  <img alt="Average first_program score per model using Prompt v1" src="../../../../../assets/images/llm_eval_first_program.png" width="700" />
+  <figcaption>Average first_program score per model using Prompt v1.</figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><strong>Added explicit grid structure and step-by-step navigation instructions.</strong></p>
+<p><code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Transcribe the text exactly as printed. Include all numbers (e.g., episode numbers, parts, movie years), abbreviations, and characters that appear immediately with the title.</code></p>
+<p><figure markdown>
+  <img alt="Average first_program score per model using Prompt v2" src="../../../../../assets/images/llm_eval_first_program_2.png" width="700" />
+  <figcaption>Average first_program score per model using Prompt v2.</figcaption>
+</figure></p>
+</div>
+<div class="tabbed-block">
+<p><strong>Narrowed the output to the title only, filtering out metadata like captions and codes.</strong></p>
+<p><code style="background:none; padding:0; box-shadow:none; font-size:inherit;">Analyze the provided image of a TV schedule grid. Channels are typically listed vertically (rows) and time slots horizontally (columns). Your task is to extract the program title for the FIRST channel listed at the EARLIEST time slot shown. Follow these steps carefully: 1. Scan the grid to identify the top-most row containing programming data (the row immediately below the time-slot or any other subsection headers). 2. Scan to the left-most time block within that specific row. 3. Identify the text inside this top-leftmost program block. 4. Return only the title, ignore all closed captioning markers, rerun indicators, movie release years, or VCR Plus+ codes (numeric sequences) that appear immediately with the title.</code></p>
+<p><figure markdown>
+  <img alt="Average first_program score per model using Prompt v3" src="../../../../../assets/images/llm_eval_first_program_3.png" width="700" />
+  <figcaption>Average first_program score per model using Prompt v3.</figcaption>
+</figure></p>
+</div>
+</div>
+</div>
+<h3 id="how-models-behave-when-uncertain">How Models Behave When Uncertain</h3>
+<p>All models were given the same system prompt for First Program v2 and First Program v3:</p>
+<p><code style="background:none; padding:0; box-shadow:none; font-size:inherit;">You are a precise OCR assistant specialized in extracting structured data from historical American newspaper TV guide grids. These are dense, low-resolution scans with small fonts, abbreviations, and tightly packed columns. Extract only text that is visibly present. Never guess, infer, or autocomplete. If a specific piece of information is illegible or missing, return null.</code></p>
+<p>Under fuzzy matching (scoring partial overlap rather than requiring an exact match), even a hallucination produces some character overlap and scores above zero — so an exact 0% means the model returned null rather than any answer at all. That is exactly what happened with gpt-5 and gpt-5-mini.</p>
+<p>According to the <a href="https://arxiv.org/html/2601.03267v1" target="_blank">GPT-5 system card</a>, GPT-5 models were tuned to abstain from answering at a higher rate than earlier models when data is missing or hard to read. On this prompt version, gpt-5 and gpt-5-mini consistently abstained when the target text was too small or low-resolution to read confidently — in effect, correctly following the "never guess" instruction. Our scoring, however, penalized that as a flat 0%.</p>
+<p>Some of the other models behaved differently: once they hit the same uncertainty threshold (poor resolution, small font), they guessed anyway rather than abstaining. Those guesses produced hallucinated answers, which is what drove their accuracy down.</p>
+<figure>
+<p><img alt="Example model outputs for image #19 with ground truth &quot;Politically&quot;" src="../../../../../assets/images/llm_eval_example_outputs.png" width="675" />
+  </p>
+<figcaption>Example model outputs for image #19 (first program ground truth: "Politically"). GPT-5 abstains while some other models hallucinated.</figcaption>
+</figure>
+<h3 id="results">Results</h3>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Average Accuracy by Benchmark</label><label for="__tabbed_2_2">Average Accuracy by Model</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><figure markdown>
+  <img alt="Average score by benchmark across all images and models" src="../../../../../assets/images/llm_eval_benchmark_results_1.png" width="700" />
+  <figcaption>Average accuracy by benchmark across all models and images.</figcaption>
+</figure></p>
+<p>Our best performing benchmarks were easy metadata tasks like newspaper name and newspaper date, which scored 99% and 95% respectively.</p>
+<p>The worst performing benchmark was TV Guide Date with an overall score of 42.7%. Low scores were indicative of vague prompting and additional complexity from reasoning compared to other data extraction benchmarks.</p>
+<p>We added benchmarks "all times" and "all channels" to evaluate how well the models did on extracting larger arrays of information.</p>
+</div>
+<div class="tabbed-block">
+<p>Looking across all benchmarks, the model leaderboard for accuracy averaged across all tasks was:</p>
+<p><figure markdown>
+  <img alt="Top-8 and bottom-8 models by overall accuracy and total cost" src="../../../../../assets/images/llm_eval_model_ranking.png" width="700" />
+  <figcaption>Top-8 and bottom-8 models ranked by overall accuracy, with total cost per model.</figcaption>
+</figure></p>
+<p>Gemini-2.5-pro topped the leaderboard at 78.6% overall while claude-3-haiku could only produce accurate results 48% of the time. Notably, our most expensive model was o1, which cost almost 5x more than gemini-2.5-pro but had an accuracy of 58%.</p>
+</div>
+</div>
+</div>
+<h3 id="temperature-and-reasoning-models">Temperature and Reasoning Models</h3>
+<p><strong>Accuracy Rates Across Runs</strong></p>
+<figure>
+<p><img alt="Accuracy rate for benchmarks across runs" src="../../../../../assets/images/llm_eval_variability.png" width="500" />
+  </p>
+<figcaption>Variability across runs for TV Guide Day of Week and TV Guide Date (all models and images).</figcaption>
+</figure>
+<p>Temperature is a setting that controls how much randomness a model introduces when generating its response: higher values produce more varied output, while <code>temperature=0</code> makes it as predictable as the model allows. We set it to 0 for all models so that, in principle, the same prompt on the same image should produce the same output every time. Even after doing so, however, we noticed variation in outputs which was reflected in the accuracy rate per run. To account for this we would recommend running the same task multiple times and taking the average of the metrics.</p>
+<p><strong>Reasoning</strong></p>
+<p>Some models also support a <strong>reasoning effort</strong> parameter that controls how much internal chain-of-thought the model performs before responding; however, this setting is not consistently available across all models in the Stanford AI API Gateway, so we used each model's default.</p>
+<p>One benchmark where reasoning capability genuinely mattered was <strong>TV Guide Date</strong>: unlike the other tasks, the correct date isn't printed explicitly anywhere in the grid. Instead, the model must derive it by combining the newspaper's publication date (from the fixed header) with the day of week label in the TV guide. Tasks like this, which require inference rather than direct transcription, are where tuning reasoning effort (or choosing a reasoning-optimized model) is most likely to pay off.</p>
+<h3 id="cost">Cost</h3>
+<p>One practical question for any researcher considering this approach: how much does it actually cost to run?</p>
+<table>
+<thead>
+<tr>
+<th>Total Cost</th>
+<th>Total Tasks (All Runs)</th>
+<th>Cost / Task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$106.06</td>
+<td>11,138</td>
+<td>$0.0095</td>
+</tr>
+</tbody>
+</table>
+<p>Running the entire evaluation pipeline multiple times (approx. 11,100 tasks) cost $106.06. We noticed that simple metadata extraction tasks tended to be cheaper ($0.006/task) while more complex tasks that required lengthy prompts, larger outputs, and/or more reasoning drove up costs.</p>
+<p><strong>Context Windows</strong></p>
+<p>Context window limits are another factor to watch. A model's context limit bounds both its input (system prompts, user prompts, and images) and its output. Input limits range widely, from 95K (gpt-4.1) to 1M tokens (gemini-2.5-pro). They also depend on how a model is served: our 95K figure for gpt-4.1 reflects its Azure deployment via the Gateway, not the model's native window. And because these limits shift as models update, it's worth checking the latest figures before running your pipeline.</p>
+<p>Some of our original color PNGs exceeded these limits, so we converted them to grayscale to shrink their input size and test more models on each image. Preprocessing like this (adjusting color scale or resolution) helps when you hit context limits, but it can also make inputs harder for models to parse accurately.</p>
+<p>Output limits weren't an issue for us, since our largest outputs were short arrays of strings. If you need models to produce more than that, keep those limits in mind too.</p>
+<h2 id="takeaways">Takeaways</h2>
+<p>Building a benchmark was less about finding the one "right" model and more about setting up a process we could keep refining as our questions, data, and the available models change. A few lessons stood out from our work:</p>
+<ol>
+<li>
+<p><strong>Start with your research question</strong></p>
+<p>Good results depend first on a well-defined research question and a clear understanding of our data's variability. Tasks, prompts, and metrics all follow from there; getting that foundation right is what separates a useful benchmark from one that just produces numbers.</p>
+</li>
+<li>
+<p><strong>Treat it as an iterative process</strong></p>
+<p>A benchmark has many knobs to turn — the prompt, the metric, the ground truth, and the choice of model — and the first setting is rarely the best one. Prompting carried a lot of weight: on our hardest task, rewriting a single-sentence prompt into explicit, step-by-step instructions lifted scores significantly for our best model. Treat early results as a diagnostic signal, not a final verdict, and expect to loop back a few times before things click.</p>
+</li>
+<li>
+<p><strong>Build once, reuse easily</strong></p>
+<p>The pipeline processed nearly 3,800 tasks in a few hours by running jobs in parallel. Because the models, benchmarks, and images are defined in configuration files rather than hard-coded into the pipeline, the cost of change is low. When a new model is released, we add it to the config and point the pipeline at it — there's no pipeline code to rewrite and no need to re-run the models we've already evaluated. We still have to run the evaluations for the new model itself, but everything around it is reused. The same is true for a new prompt, a new task, or a fresh batch of documents.</p>
+</li>
+</ol>
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+
+      
+    </article>
+  </div>
+
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../../../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../../../../js/announcement-banner.js"></script>
+      
+        <script src="../../../../../js/footer.js"></script>
+      
+    
+  </body>
+</html>
