@@ -351,7 +351,7 @@ Valid units:
 - `T` or `TB` = Terabytes (`1T = 1024G`)
 
 !!! warning "Memory and Core Matching"
-    - If you request `--mem=3000G`, you must use **yen10** — the only node with that much RAM and **128 cores**.
+    - If you request `--mem=3000G`, your job can only run on **yen16**, the one node with that much RAM. It has **128 cores**.
     - Jobs with `-c 512` will be placed on large-core nodes, but those only have **up to 1.5 TB of RAM**, so they can't handle 3T RAM jobs.
     - Both requests for either `--mem=3000G` or `-c 512` will require a full node and will wait in the queue until that node is empty which might take a very long time depending on what other jobs are in the queue at the moment. 
 
