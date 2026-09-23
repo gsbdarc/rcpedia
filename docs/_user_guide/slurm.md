@@ -286,7 +286,7 @@ For example, let's say you've created a virtual Python environment using the pro
 
 #SBATCH -J my-job
 #SBATCH -p normal,dev
-#SBATCH -c 1                            # CPU cores (up to 256 on normal partition)
+#SBATCH -c 1                            # CPU cores (up to 512 on normal partition)
 #SBATCH -t 5:00
 #SBATCH -o output-%j.out
 #SBATCH --mail-type=ALL
@@ -394,7 +394,7 @@ MEMORY | CPUS(A/I/O/T)
 ```
 
 where MEMORY outputs the minimum size of memory of the `yen-slurm` cluster node in megabytes (256 GB) and CPUS(A/I/O/T) prints the number of CPU's that are allocated / idle / other / total.
-For example, if you see `2012/868/0/2880` that means 1,012 CPU's are allocated, 868 are idle (free) out of 2,880 CPU's total.
+For example, if you see `2012/868/0/2880` that means 2,012 CPU's are allocated, 868 are idle (free) out of 2,880 CPU's total.
 
 You can also run `checkyens` and look at the last line for summary of all pending and running jobs on `yen-slurm`.
 
