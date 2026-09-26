@@ -1,0 +1,71 @@
+# Running Python Interactively
+
+To use the system Python software on the Yen servers, simply type `python3`.
+
+Yen Terminal Input
+
+```
+python3
+```
+
+This Python can be found at `/usr/bin/python3`
+
+Upon entering `python3`, you should see output similar to the following:
+
+Yen Terminal Output
+
+```
+Python 3.10.12 (main, Sep 11 2024, 15:47:36) [GCC 11.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>>
+```
+
+This will load the system Python version (Python 3.10.12)
+
+To exit the Python interpreter, type `exit()` or press `Ctrl`+`D` .
+
+Use a Virtual Environment to Manage Packages!
+
+If you need a specific version of Python and to install Python packages, we recommend using a [virtual environment](/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv).
+
+### Running Python Scripts
+
+#### 1. Create a Python Script
+
+Let's create the classic "Hello, World!" script. Create a file named `hello.py` with the following content:
+
+hello.py
+
+```
+print("Hello, World!")
+```
+
+Open a Text Editor
+
+- **Using JupyterHub**: If you're logged into JupyterHub, you can create and edit this file using the built-in [text editor](/_getting_started/jupyter/#text-file-editor).
+
+- **Using the Command Line**: If you're using the command line, you can create this file using [`vim hello.py`](/blog/2023/09/20/editing-files-on-the-command-line) or another text editor.
+
+  Terminal Input
+
+  ```
+  vim hello.py
+  ```
+
+#### 2. Run the Python Script
+
+To execute the Python script, run the following command in the terminal:
+
+Terminal Input
+
+```
+python3 hello.py
+```
+
+You should see the following output:
+
+Terminal Output
+
+```
+Hello, World!
+```
