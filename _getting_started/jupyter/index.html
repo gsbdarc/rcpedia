@@ -1,0 +1,3681 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Run Jupyter notebooks, terminals, and RStudio in a web browser on the Yen servers through JupyterHub on yen1 through yen5.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/_getting_started/jupyter/">
+      
+      
+        <link rel="prev" href="../how_access_yens/">
+      
+      
+        <link rel="next" href="../modules/">
+      
+      
+      <link rel="icon" href="../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Jupyter - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#web-based-computing" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Jupyter
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_user_guide/" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-of-jupyterhub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features of JupyterHub
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features of JupyterHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rstudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      RStudio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matlab
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notebooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      R
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sas" class="md-nav__link">
+    <span class="md-ellipsis">
+      SAS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#julia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Julia
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstalling-jupyter-kernels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstalling Jupyter Kernels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consoles-and-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consoles and Terminal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-upload-and-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Upload and Download
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-file-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text File Editor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-access-and-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Access and Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../_user_guide/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/storage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_user_guide/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#getting-started" class="md-nav__link">
+    <span class="md-ellipsis">
+      Getting Started
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#features-of-jupyterhub" class="md-nav__link">
+    <span class="md-ellipsis">
+      Features of JupyterHub
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Features of JupyterHub">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rstudio" class="md-nav__link">
+    <span class="md-ellipsis">
+      RStudio
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#matlab" class="md-nav__link">
+    <span class="md-ellipsis">
+      Matlab
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#notebooks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Notebooks
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Notebooks">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#python" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#r" class="md-nav__link">
+    <span class="md-ellipsis">
+      R
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#sas" class="md-nav__link">
+    <span class="md-ellipsis">
+      SAS
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#julia" class="md-nav__link">
+    <span class="md-ellipsis">
+      Julia
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stata" class="md-nav__link">
+    <span class="md-ellipsis">
+      Stata
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uninstalling-jupyter-kernels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Uninstalling Jupyter Kernels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consoles-and-terminal" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consoles and Terminal
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-upload-and-download" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Upload and Download
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#text-file-editor" class="md-nav__link">
+    <span class="md-ellipsis">
+      Text File Editor
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#technical-details" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Details
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Technical Details">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#file-access-and-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      File Access and Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#installing-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Packages
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#technical-limits" class="md-nav__link">
+    <span class="md-ellipsis">
+      Technical Limits
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="web-based-computing">Web-based Computing</h1>
+<p>Web-based computing is available on the Yen servers with JupyterHub. JupyterHub is a platform designed to allow multiple users to launch their own Jupyter notebook servers on a shared system with minimal user effort. </p>
+<h2 id="getting-started">Getting Started</h2>
+<p>To get started, open a web browser and visit one of the following links for each server:</p>
+<ul>
+<li><a href="https://yen1.stanford.edu" target="_blank"><code>yen1</code> https://yen1.stanford.edu</a></li>
+<li><a href="https://yen2.stanford.edu" target="_blank"><code>yen2</code> https://yen2.stanford.edu</a></li>
+<li><a href="https://yen3.stanford.edu" target="_blank"><code>yen3</code> https://yen3.stanford.edu</a></li>
+<li><a href="https://yen4.stanford.edu" target="_blank"><code>yen4</code> https://yen4.stanford.edu</a></li>
+<li><a href="https://yen5.stanford.edu" target="_blank"><code>yen5</code> https://yen5.stanford.edu</a></li>
+</ul>
+<p>You will need to login with your SUNet credentials, and then click on "Start My Server". From there, you will have access to the web-based computing services available.</p>
+<p>If you are a non-GSB collaborator and don't have a SUNet, you must request full sponsorship to access Jupyter. You can learn more about SUNet ID sponsorship <a href="https://uit.stanford.edu/service/sponsorship" target="_blank">here</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Jupyter Instances are Independent</p>
+<p>JupyterHub instances on each Yen server are independent of each other! If you launch a server on <code>yen2</code>, it will only use resources available on <code>yen2</code>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Do NOT use Safari Browser</p>
+<p>JupyterHub does not work well on Safari - we recommend using a different browser.</p>
+</div>
+<h2 id="features-of-jupyterhub">Features of JupyterHub</h2>
+<p>We recommend taking a look at the <a href="https://jupyter-notebook.readthedocs.io" target="_blank">official documentation</a> for JupyterHub if you have any questions on the features below!</p>
+<h3 id="rstudio">RStudio</h3>
+<p>Launch RStudio by opening the link below. It will bring up a new tab with a web-based RStudio on the Yens.
+<img alt="RStudio" src="/assets/images/jupyter_rstudio.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Launching the GUI Takes Time!</p>
+<p>RStudio currently takes ~1 minute to load.</p>
+</div>
+<p>There is only one version of R usable in RStudio. The current version is <code>R/4.3.0</code>.</p>
+<h3 id="matlab">Matlab</h3>
+<p>Matlab GUI is available. Launch it by clicking on the Open MATLAB icon. It will bring up a new tab with a web-based Matlab on the Yens.</p>
+<div class="admonition warning">
+<p class="admonition-title">Launching the GUI Takes Time!</p>
+<p>Matlab currently takes ~5 minutes to load.</p>
+</div>
+<p><img alt="Matlab GUI icon" src="/assets/images/matlab.png" />
+There is only one version of Matlab available via a GUI. The current version is <code>matlab/R2024a</code>.</p>
+<h3 id="notebooks">Notebooks</h3>
+<p><img alt="row of icons of softwares in Notebooks" src="/assets/images/jupyter_notebooks.png" /></p>
+<p>Notebooks allow you to write code and execute it within a web browser.  Code is written into cells, which can be run in any order, on demand.  You can also include text, images, and plots to make your code read like a lab notebook.  As of December 2024, the above coding languages are supported. Contact the <a href="mailto:gsb_darcresearch@stanford.edu" target="_blank">DARC team</a> if you have a language you would like installed.</p>
+<h4 id="python">Python</h4>
+<p>JupyterHub comes with a default Python 3 kernel. </p>
+<p>In addition, any virtual environment created with <code>venv</code> can be made into a custom Python kernel in your JupyterHub. All the packages you install into the <code>venv</code> will be importable in Jupyter as well.</p>
+<ul>
+<li>
+<p>First, activate your <code>venv</code> from a terminal:
+    <div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>source venv/bin/activate
+</code></pre></div>
+    This command assumes you have <a href="/_user_guide/python_envs/#creating-a-new-virtual-environment-with-venv" target="_blank">already made</a> a <code>venv</code> in your project folder and the name of your virtual environment is <code>venv</code>.</p>
+</li>
+<li>
+<p>Install <code>ipykernel</code> package into the active <code>venv</code>: 
+    <div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>pip install ipykernel
+</code></pre></div></p>
+</li>
+<li>
+<p>Add active <code>venv</code> as a kernel:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>python -m ipykernel install --user --name=venv
+</code></pre></div>
+</li>
+<li>
+<p>Open Jupyter and you should see the new kernel show up under Notebook Launcher. </p>
+</li>
+</ul>
+<h4 id="r">R</h4>
+<p>JupyterHub comes with a default R kernel. </p>
+<p>In addition, an <code>R</code> virtual environment can be added as a custom kernel as well. See <a href="/blog/2023/08/23/how-do-i-export-my-r-environment-to-jupyterhub" target="_blank">this blog</a> for details on how to add a custom R kernel to your Jupyter.</p>
+<h4 id="sas">SAS</h4>
+<p><img alt="SAS" src="/assets/images/sas-jupyter_notebooks.png" /></p>
+<p>There are a few preliminary steps that need to be taken before SAS can be used on the Yens/notebooks.</p>
+<ul>
+<li>Install the <a href="https://github.com/sassoftware/sas_kernel" target="_blank">SAS kernel for Jupyter</a> by running <code>pip3 install sas_kernel</code>.</li>
+<li>Confirm that you see the newly installed SAS kernel by running <code>jupyter kernelspec list</code>. You may need to have a Python virtual environment that already has Jupyter installed.</li>
+<li>Find the location where this new kernel is installed by running <code>pip3 show saspy</code>. It should look something like <code>/home/users/{SUNetID}/.local/lib/python3.10/site-packages/saspy</code>.</li>
+<li>Edit the default SAS path in the <code>sascfg.py</code> file within that directory to be <code>/software/non-free/SAS-langsup/SAS9.4/software/SASFoundation/9.4/sas</code>.</li>
+<li>Restart JupyterHub and start a new notebook with the SAS kernel. After running your first cell, the output should show a successful connection to SAS.</li>
+</ul>
+<h4 id="julia">Julia</h4>
+<p>If you do no see a Julia kernel under Notebooks, follow these steps to add it: </p>
+<ul>
+<li>
+<p>Load Julia module and start Julia REPL:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>module load julia
+julia
+</code></pre></div>
+</li>
+<li>
+<p>Load <code>IJulia</code> for notebooks by running the following Julia commands in the interactive Julia console:</p>
+<div class="highlight"><span class="filename">Julia Commands</span><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">Pkg</span>
+<span class="n">Pkg</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s">&quot;IJulia&quot;</span><span class="p">)</span>
+</code></pre></div>
+</li>
+<li>
+<p>Relaunch JupyterHub server, and you should see Julia listed as a notebook kernel.</p>
+</li>
+</ul>
+<p>The steps above install Julia kernel that will use a single core on JupyterHub on the Yens. </p>
+<div class="admonition tip">
+<p class="admonition-title">Add Multithreaded Julia Kernel to Jupyter</p>
+<p>Optionally, you can also add a multithreaded Julia kernel. You will have two Julia kernels - one single threaded and one multithreaded.</p>
+</div>
+<p>If you want to run multithreaded Julia kernel, you can install it by running the following in the interactive Julia console. Choose the number of threads for the kernel to stay within <a href="/_policies/user_limits/" target="_blank">User Limits</a>.</p>
+<p>For example, let's say we want to use 4 threads. </p>
+<div class="highlight"><span class="filename">Julia Commands to Add Julia Kernel with 4 Threads</span><pre><span></span><code><span class="k">using</span><span class="w"> </span><span class="n">IJulia</span>
+<span class="n">IJulia</span><span class="o">.</span><span class="n">installkernel</span><span class="p">(</span>
+<span class="w">    </span><span class="s">&quot;julia-mp&quot;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">    </span><span class="n">env</span><span class="o">=</span><span class="kt">Dict</span><span class="p">(</span><span class="s">&quot;JULIA_NUM_THREADS&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="s">&quot;4&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Once you launch JupyterHub and the new multithreaded Julia kernel, check that you are using the 
+correct number of threads:</p>
+<div class="highlight"><span class="filename">Example Output</span><pre><span></span><code><span class="n">Threads</span><span class="o">.</span><span class="n">nthreads</span><span class="p">()</span>
+<span class="mi">4</span>
+</code></pre></div>
+<p>The output of <code>Threads.nthreads()</code> should be equal to the number of threads you used to create the kernel.</p>
+<h4 id="stata">Stata</h4>
+<ul>
+<li>
+<p>Install Stata kernel by running this command from a terminal:
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>install_stata_kernel
+</code></pre></div>
+    This command will take a few minutes to run and will do the following:</p>
+<ul>
+<li>
+<p>Create a new Python virtual environment named <code>stata_kernel</code></p>
+</li>
+<li>
+<p>Install the <code>stata_kernel</code> and <code>jupyter</code> Python packages inside the environment</p>
+</li>
+<li>
+<p>Install the Stata kernel in user JupyterHub</p>
+</li>
+<li>
+<p>Generate a <code>.stata_kernel.conf</code> configuration file in your home directory with the correct Stata path and runtime settings</p>
+</li>
+</ul>
+<p>If everything worked, you should see:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">Loading Stata module...</span>
+<span class="l l-Scalar l-Scalar-Plain">Creating Python virtual environment for Stata kernel...</span>
+<span class="l l-Scalar l-Scalar-Plain">Activating virtual environment...</span>
+<span class="l l-Scalar l-Scalar-Plain">Installing Stata kernel and Jupyter...</span>
+<span class="l l-Scalar l-Scalar-Plain">Installing Jupyter kernel spec</span>
+<span class="l l-Scalar l-Scalar-Plain">Configuring Stata kernel...</span>
+<span class="l l-Scalar l-Scalar-Plain">Installation complete!</span>
+<span class="l l-Scalar l-Scalar-Plain">Launch JupyterHub and select Stata notebook</span>
+</code></pre></div>
+The install script adds a Stata/19 kernel to JupyterHub. </p>
+</li>
+<li>
+<p>Start JupyterHub.</p>
+<p>You should now see a Stata kernel under Notebooks:</p>
+<p><img alt="Stata Kernel" src="/assets/images/stata-kernel.png" /></p>
+</li>
+<li>
+<p>Finally, test that Stata works. Open a new Stata notebook and run:</p>
+<p><img alt="Testing Stata kernel" src="/assets/images/test-stata-kernel.png" /></p>
+</li>
+</ul>
+<h3 id="uninstalling-jupyter-kernels">Uninstalling Jupyter Kernels</h3>
+<p>If you need to uninstall a particular Jupyter kernel, you can do so with <code>jupyter kernelspec</code> commands. </p>
+<p>First, list all of your Jupyter kernels:  <br />
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>jupyter kernelspec list 
+</code></pre></div></p>
+<p>Then, to uninstall a kernel called <code>mykernel</code>, run:
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>jupyter kernelspec uninstall mykernel
+</code></pre></div></p>
+<h3 id="consoles-and-terminal">Consoles and Terminal</h3>
+<p>You can also launch interactive consoles from JupyterHub.  These will behave very similar to the versions on the Yen servers.
+<img alt="Consoles" src="/assets/images/jupyter_consoles.png" /></p>
+<p>You can also launch a bash terminal from JupyterHub.  This provides access to commands you would normally run on the Yens, but through the web browser.</p>
+<p><img alt="Terminal" src="/assets/images/jupyter_terminal.png" /></p>
+<div class="admonition warning">
+<p class="admonition-title">Jupyter Terminal vs. Standard <code>ssh</code> Terminal</p>
+<p>You may notice slight differences between the Jupyter terminal and a standard <code>ssh</code> login terminal. Please use a terminal not in Jupyter to build, install and configure software. If you experience any unexpected behavior in the Jupyter terminal, please log in using <code>ssh</code> and try again.</p>
+</div>
+<h3 id="file-upload-and-download">File Upload and Download</h3>
+<p>One very useful feature of JupyterHub is the ability to upload and download files from Yen storage.  First, make sure you are in the proper directory.  Then, to upload, click the up arrow on the top left of your screen to select a file.</p>
+<p><img alt="File Upload" src="/assets/images/jupyter_upload.png" /></p>
+<p>To download, right click the file you would like, and click "Download".</p>
+<p><img alt="File Download" src="/assets/images/jupyter_download.png" /></p>
+<h3 id="text-file-editor">Text File Editor</h3>
+<p><img alt="Editor" src="/assets/images/editor.png" /></p>
+<p>Finally, you can also edit text files like R scripts directly on JupyterHub. Clicking on Text File icon will open a new file that you can edit. Similarly, clicking on Python File will create an empty <code>.py</code> file and clicking on R File will create an empty <code>.r</code> file.
+You can also navigate to a directory that has the scripts you want to edit and double click on the script name to open it up in the Text Editor.</p>
+<h2 id="technical-details">Technical Details</h2>
+<h3 id="file-access-and-storage">File Access and Storage</h3>
+<p>The JupyterHub instances will automatically launch from your home directory on the Yens.  Use the <code>zfs</code> directory in your home directory to navigate to your normal <a href="/_user_guide/storage/#yen-file-system" target="_blank">file systems</a>.</p>
+<h3 id="installing-packages">Installing Packages</h3>
+<p>JupyterHub will load packages found in your <code>~/.local/</code> directory.  For Python, we recommend using environments to install packages.  You can review the <a href="/_user_guide/python_envs/" target="_blank">User Guide</a> for Python packages and the <a href="/_user_guide/r/#installing-r-packages" target="_blank">User Guide</a> for R packages.</p>
+<h3 id="technical-limits">Technical Limits</h3>
+<ul>
+<li>JupyterHub instance will shut down after 3 hours idle (no notebooks actively running code).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Please Save Your Work</p>
+<p>Idle servers shut down will not retain any local packages or variables in the notebooks.  Please save your output.</p>
+</div>
+<ul>
+<li>JupyterHub servers have the same <a href="/_policies/user_limits" target="_blank">User Limits</a> as the interactive Yen nodes.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Learn How to Migrate to Yen-Slurm</p>
+<p>If your notebooks take days to run or you often exceed the resource limits, it might be time to <a href="/_user_guide/migrating_from_jupyter" target="_blank">migrate your Jupyter</a> processes to Yen-Slurm.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/announcement-banner.js"></script>
+      
+        <script src="../../js/footer.js"></script>
+      
+    
+  </body>
+</html>

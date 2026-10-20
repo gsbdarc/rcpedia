@@ -1,0 +1,3854 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Storage options for research data at Stanford GSB: home directories, project space, VAST, and scratch, with quotas and how to check your usage.">
+      
+      
+      
+        <link rel="canonical" href="https://rcpedia.stanford.edu/_user_guide/storage/">
+      
+      
+        <link rel="prev" href="../optimization/">
+      
+      
+        <link rel="next" href="../data_transfer/">
+      
+      
+      <link rel="icon" href="../../assets/images/stanford-favicon.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.27">
+    
+    
+      
+        <title>Storage - Research Computing Resources</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i,700,700i%7CSource+Code+Pro:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Source Sans Pro";--md-code-font:"Source Code Pro"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#storage-solutions" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!-- CUSTOMIZATION -- Custom Announcement Bar -->
+<div class="announcement-banner-container">
+  <div id="announcement-banner" class="md-grid">
+  </div>
+</div>
+
+<!-- CUSTOMIZATION -- Stanford Identity Bar -->
+<div class="identity-bar-container">
+  <div class="identity-bar-fw-background"></div>
+  <div class="identity-bar md-grid">
+    <a id="identity-bar-logo" class="logo hocus:no-underline text-white hocus:text-white text-20 leading-none" href="https://www.stanford.edu">
+      Stanford University
+    </a>
+  </div>
+</div>
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+  
+
+    <!-- Link to home -->
+    <a
+      href="../.."
+      title="Research Computing Resources"
+      class="md-header__button md-logo"
+      aria-label="Research Computing Resources"
+      data-md-component="logo"
+    >
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+
+    <!-- CUSTOMIZATION -- Vertical Line -->
+    <div id="header-vertical-line"></div>
+
+
+    <!-- Site title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <div class="md-ellipsis">
+            Research Computing Resources
+          </div>
+          <!-- CUSTOMIZATION -- Subtitle -->
+          <div class="md-ellipsis-sub">
+            Research Hub
+          </div>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Storage
+            
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color palette toggle -->
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../status/" class="md-tabs__link">
+        
+  
+    
+  
+  Status
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_getting_started/yen-servers/" class="md-tabs__link">
+          
+  
+    
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../_policies/darc/" class="md-tabs__link">
+          
+  
+    
+  
+  Policies
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+    
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../blog/" class="md-tabs__link">
+          
+  
+    
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Research Computing Resources" class="md-nav__button md-logo" aria-label="Research Computing Resources" data-md-component="logo">
+      
+  <img src="../../assets/images/gsb-logo-color.png" alt="logo">
+
+    </a>
+    Research Computing Resources
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../status/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Status
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Getting Started
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/yen-servers/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen Servers
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/how_access_yens/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Access the Yens
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_getting_started/modules/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Modules
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Policies
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Policies
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/darc/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Services
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/user_limits/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    User Limits
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/collaborators/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Collaborators
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/workgroups/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Workgroups
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/security/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Security
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/humanSubjectsResearch/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Human Subjects Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/acknowledgements/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Acknowledgements
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../_policies/leavingGSB/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaving GSB
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    User Guide
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            User Guide
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    General Practices
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
+            <span class="md-nav__icon md-icon"></span>
+            General Practices
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../archiving/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../file_management/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Management
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../monitor_usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Monitor Resource Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_gui/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GUI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../screen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    screen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
+            <span class="md-nav__icon md-icon"></span>
+            Slurm
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../slurm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Slurm
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../migrating_from_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Migrating From JupyterHub
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../job_arrays/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Job Arrays
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../using_gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU Slurm Jobs
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
+            <span class="md-nav__icon md-icon"></span>
+            Python
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running Python Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../python_envs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python Virtual Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parallel_processing_python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallel Processing Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
+            <span class="md-nav__icon md-icon"></span>
+            R
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Running R Interactively
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rstudio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    RStudio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parallel_processing_r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Best Practices in R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ai_agents/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AI Coding Agents
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../matlab_interactive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Matlab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sas/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SAS
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../stata/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Stata
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../optimization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Optimization Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_12" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4_12" id="__nav_4_12_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Data
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_12_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4_12">
+            <span class="md-nav__icon md-icon"></span>
+            Data
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Storage
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#new-storage-system-vast" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Storage System: VAST
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New Storage System: VAST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Home Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporary-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temporary Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Temporary Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node-local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node-Local Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-user-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-User Scratch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-wide-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Wide Scratch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster-Wide Scratch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-shared-scratch-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Using Shared Scratch Safely
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-scratch-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Cleaning Up Scratch Space
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-check-home-and-project-space-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Check Home and Project Space Quota
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Check Home and Project Space Quota">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-interpret-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Interpret This
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-recover-deleted-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Recover Deleted Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-storage-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Storage Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Storage Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redivis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redivis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Drive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oak
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Platforms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-stanford-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy Stanford Platforms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Stanford Platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#afs-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AFS Volumes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../data_transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Data Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_13" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_13" id="__nav_4_13_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Troubleshooting
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_13">
+            <span class="md-nav__icon md-icon"></span>
+            Troubleshooting
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../jupyter_does_not_work/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Why isn't JupyterHub Working?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../man_in_middle/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Man-in-the-Middle Warning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../julia_on_jupyter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Julia on Jupyter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_14" >
+        
+          
+          <label class="md-nav__link" for="__nav_4_14" id="__nav_4_14_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Beyond the Yens
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_14">
+            <span class="md-nav__icon md-icon"></span>
+            Beyond the Yens
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sherlock/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sherlock
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../blog/" class="md-nav__link ">
+              
+  
+  <span class="md-ellipsis">
+    Blog
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Archive
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2026/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2026
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2025/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2025
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2023/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2023
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2022/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2022
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2021/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2021
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/archive/2020/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2020
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Categories
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
+            <span class="md-nav__icon md-icon"></span>
+            Categories
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/bert/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    BERT
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/code-optimization-tips/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Code Optimization Tips
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/colab/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Colab
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/dask/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Dask
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/downloading/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Downloading
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/edgar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    EDGAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/environments/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Environments
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-editing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Editing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transfer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transfer
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/file-transferring/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    File Transferring
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/gpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/google-drive/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Google Drive
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LLM
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/machine-learning/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Machine Learning
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/merging-data-sets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Merging data sets
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/parallelization/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Parallelization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/performant-code/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Performant Code
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/python/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Python
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/r/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    R
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/reproducibility/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Reproducibility
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/research/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Research
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sec-filings/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    SEC Filings
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/scraping/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Scraping
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/sentiment-analysis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Sentiment Analysis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/software/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/twitter/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Twitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/yen/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Yen
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/big-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    big data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/rclone/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rclone
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/redivis/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    redivis
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/text-data/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    text data
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../blog/category/zip/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    zip
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#new-storage-system-vast" class="md-nav__link">
+    <span class="md-ellipsis">
+      New Storage System: VAST
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="New Storage System: VAST">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#home-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Home Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-directory" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project Directory
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#temporary-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Temporary Storage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Temporary Storage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#node-local-storage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Node-Local Storage
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#per-user-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Per-User Scratch
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cluster-wide-scratch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cluster-Wide Scratch
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Cluster-Wide Scratch">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#using-shared-scratch-safely" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔒 Using Shared Scratch Safely
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cleaning-up-scratch-space" class="md-nav__link">
+    <span class="md-ellipsis">
+      🧹 Cleaning Up Scratch Space
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-check-home-and-project-space-quota" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Check Home and Project Space Quota
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="How to Check Home and Project Space Quota">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-to-interpret-this" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Interpret This
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-recover-deleted-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to Recover Deleted Files
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-storage-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other Storage Options
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Other Storage Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#redivis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Redivis
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#google-drive" class="md-nav__link">
+    <span class="md-ellipsis">
+      Google Drive
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oak" class="md-nav__link">
+    <span class="md-ellipsis">
+      Oak
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cloud-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cloud Platforms
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#legacy-stanford-platforms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Legacy Stanford Platforms
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Legacy Stanford Platforms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#afs-volumes" class="md-nav__link">
+    <span class="md-ellipsis">
+      AFS Volumes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="storage-solutions">Storage Solutions</h1>
+<p>GSB researchers work with datasets that often exceed the capacity of personal machines. To support this work, Stanford provides several storage platforms optimized for performance and collaboration. This page summarizes the storage options available and when to use each one.</p>
+<div class="admonition warning">
+<p class="admonition-title">Check Data License and Platform</p>
+<p>Before transferring data to any platform, make sure the data is licensed for your use and that the storage platform meets the <a href="/_policies/security/" target="_blank">security requirements</a> for that data. </p>
+</div>
+<h2 id="new-storage-system-vast">New Storage System: VAST</h2>
+<div class="admonition tip">
+<p class="admonition-title">High-Performance Storage for the Yen Cluster</p>
+<p>The Yen cluster now runs on a new 1 PB all-flash VAST Data storage system, replacing the legacy ZFS backend. This upgrade significantly improves performance, reliability, and scalability for data-intensive research.</p>
+</div>
+<p>Designed for data-intensive research, VAST provides:</p>
+<ul>
+<li>
+<p>All-flash performance for fast reads/writes</p>
+</li>
+<li>
+<p>Scalability for multi-TB and multi-user workloads</p>
+</li>
+<li>
+<p>User-accessible snapshots for self-service file recovery</p>
+</li>
+</ul>
+<div class="admonition danger">
+<p class="admonition-title">Not for High Risk Data</p>
+<p>The Yen servers are <strong>not</strong> approved for high risk data. VAST is mounted <strong>only</strong> from the Yen servers. You cannot access it from Sherlock, FarmShare or any other system.</p>
+</div>
+<p>All home directories and project spaces on the Yens now live on VAST. </p>
+<p>Use VAST when:</p>
+<ul>
+<li>
+<p>You are running analyses or workflows on the Yen cluster</p>
+</li>
+<li>
+<p>You need fast access to large datasets</p>
+</li>
+<li>
+<p>You want a shared project directory for collaboration</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Multiple Mount Paths</p>
+<p>Project directories are now accessible from both:</p>
+<ul>
+<li><code>/zfs/projects/...</code></li>
+<li><code>/yen/projects/...</code></li>
+</ul>
+<p>These paths point to the same underlying VAST storage. You can use either one interchangeably in your workflows.</p>
+</div>
+<h3 id="home-directory">Home Directory</h3>
+<p>Every Yen user receives a personal home directory:
+<div class="no-copy highlight"><span class="filename">Terminal Output for pwd Command</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/home/users/&lt;SUNetID&gt;</span>
+</code></pre></div></p>
+<p>Your home directory is your private working space on the Yens. It’s best used for small scripts and utilities.</p>
+<div class="admonition danger">
+<p class="admonition-title">Do NOT Store Large Files in Home</p>
+<p>Home directories have a strict <strong>80 GB</strong> limit. They are not intended for large datasets, large outputs, or collaborative projects. 
+If your home directory is full, you won't be able to access <a href="/_getting_started/jupyter/" target="_blank">JupyterHub</a>.</p>
+</div>
+<h3 id="project-directory">Project Directory</h3>
+<div class="admonition tip">
+<p class="admonition-title">Requesting New Project Space</p>
+<p>To create a new project directory, submit the <a href="http://darc.stanford.edu/yenstorage" target="_blank">Project Space Request Form</a>. This form allows you to estimate disk usage, and specify any collaborators that should be added to the shared access list. Access to the directory is controlled through Stanford <a href="/_policies/workgroups/" target="_blank">workgroups</a>.</p>
+</div>
+<p>Project directories on the Yens provide shared, scalable storage for research conducted on the Yens.
+Every faculty project space is created by the DARC team in collaboration with the system administrators and mounted at a path:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/zfs/projects/faculty/&lt;your-project-dir&gt;</span>
+</code></pre></div>
+or for a student-lead project:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/zfs/projects/students/&lt;your-project-dir&gt;</span>
+</code></pre></div></p>
+<p>Project directories are ideal for:</p>
+<ul>
+<li>
+<p>Large datasets</p>
+</li>
+<li>
+<p>Analysis outputs and intermediate files</p>
+</li>
+<li>
+<p>Collaborative research with multiple users</p>
+</li>
+<li>
+<p>Long-running or compute-intensive workflows</p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Default Quotas</p>
+<ul>
+<li>Faculty led projects: <strong>1 TB</strong></li>
+<li>Student led projects: <strong>200 GB</strong></li>
+</ul>
+<p>Additional space can be requested if needed.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Help Keep Shared Storage Healthy</p>
+<p>Please <a href="/_user_guide/archiving/#why-should-i-archive" target="_blank">archive</a> inactive data and delete unused intermediate files. Yen storage is a shared resource for the entire research community.</p>
+</div>
+<p>If you would like to discuss specific storage solutions for your project, please email the <a href="mailto:gsb_darcresearch@stanford.edu" target="_blank">DARC</a> team to discuss further.</p>
+<h3 id="temporary-storage">Temporary Storage</h3>
+<p>Some workflows require fast, short-term storage for intermediate results. The Yen cluster provides two options:</p>
+<ul>
+<li>Node-local storage: <code>/tmp</code></li>
+<li>Per-user scratch space: <code>/scratch/users/$SUNET</code></li>
+<li>Shared scratch space: <code>/scratch/shared</code></li>
+</ul>
+<p>These locations are <strong>not intended for permanent data</strong> and are <strong>not backed up</strong>.</p>
+<h4 id="node-local-storage">Node-Local Storage</h4>
+<p>Each compute node provides local disk space at:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/tmp</span>
+</code></pre></div>
+<p>This storage is:</p>
+<ul>
+<li>Very fast (local to the node)</li>
+<li>Typically <strong>~1 TB per node</strong></li>
+<li>Only accessible from the node where your job is running</li>
+</ul>
+<p>Use <code>/tmp</code> when:</p>
+<ul>
+<li>Your job runs on a <strong>single node</strong></li>
+<li>You need maximum I/O performance</li>
+<li>Files are temporary and disposable</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Always move results back to permanent storage</p>
+<ul>
+<li><code>/tmp</code> is cleared when the job is done and when the node reboots. Always copy important results back to your project directory.</li>
+<li>Avoid filling <code>/tmp</code>. Other jobs on the same node depend on it.</li>
+</ul>
+</div>
+<h4 id="per-user-scratch">Per-User Scratch</h4>
+<p>Each user also has a <strong>private, per-user scratch directory</strong> on the shared VAST file system, created automatically at:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/scratch/users/$SUNET</span>
+</code></pre></div>
+<p>This space is:</p>
+<ul>
+<li>Private to you and created automatically</li>
+<li>Large — up to <strong>100 TB</strong> of shared scratch capacity</li>
+<li>Accessible from all Yen nodes</li>
+<li>Slower than <code>/tmp</code></li>
+</ul>
+<p>Unlike <code>/scratch/shared</code>, your per-user scratch is private by default, so you do not need to set permissions manually.</p>
+<p>Check your scratch usage by passing the path to the <code>gsbquota</code> command:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>gsbquota<span class="w"> </span>/scratch/users/<span class="nv">$SUNET</span>
+</code></pre></div>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">/scratch/users/&lt;SUNetID&gt;</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">currently using 22% (22T) of 100T available</span>
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Per-user scratch is cleared periodically</p>
+<p>Per-user scratch is temporary and <strong>not backed up</strong>. At each scheduled downtime (about every two months), files older than <strong>90 days</strong> are automatically deleted. Move anything you want to keep to your <a href="#project-directory" target="_blank">project directory</a>.</p>
+</div>
+<hr />
+<h4 id="cluster-wide-scratch">Cluster-Wide Scratch</h4>
+<p>Shared scratch space is available at:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">/scratch/shared</span>
+</code></pre></div>
+<p>This space is:</p>
+<ul>
+<li>Large (<strong>~100 TB total</strong>)</li>
+<li>Accessible from all Yen nodes</li>
+<li>Slower than <code>/tmp</code></li>
+</ul>
+<p>Use <code>/scratch/shared</code> when:</p>
+<ul>
+<li>Jobs run across multiple nodes</li>
+<li>Intermediate data must be shared between jobs</li>
+<li>You need more space than <code>/tmp</code></li>
+</ul>
+<hr />
+<h5 id="using-shared-scratch-safely">🔒 Using Shared Scratch Safely</h5>
+<div class="admonition note">
+<p class="admonition-title">Per-user scratch needs no setup</p>
+<p>These permission steps apply to <strong><code>/scratch/shared</code> only</strong>. Your per-user scratch (<code>/scratch/users/$SUNET</code>) is private by default, so you can skip this section for it.</p>
+</div>
+<p>By default, files in <code>/scratch/shared</code> may be visible to other users unless you restrict access.</p>
+<p><strong>You are responsible for setting permissions on your scratch directory.</strong></p>
+<p>To safely use scratch, you should:</p>
+<ol>
+<li>Create your own directory</li>
+<li>Restrict access with <code>chmod</code></li>
+<li>Ensure new files are private using <code>umask</code></li>
+</ol>
+<p><strong>Step 1: Create a private scratch directory</strong></p>
+<p>You can create this directory either manually or directly within your job script:
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>mkdir<span class="w"> </span>-p<span class="w"> </span>/scratch/shared/<span class="nv">$USER</span>
+</code></pre></div>
+Using <code>-p</code> ensures the command won’t fail if the directory already exists.</p>
+<p><strong>Step 2: Restrict access to your directory</strong>
+<div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code>chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span>/scratch/shared/<span class="nv">$USER</span>
+</code></pre></div>
+This ensures only you can access the directory.</p>
+<p><strong>Step 3: Ensure new files are private</strong></p>
+<p><div class="highlight"><span class="filename">Terminal Input</span><pre><span></span><code><span class="nb">umask</span><span class="w"> </span><span class="m">077</span>
+</code></pre></div>
+This ensures that any new files or directories you create are private by default.</p>
+<div class="admonition warning">
+<p class="admonition-title"><code>umask</code> is session-based</p>
+<p>The <code>umask</code> setting only applies to the current terminal session or job. It does not persist automatically and is not tied to a specific directory.</p>
+</div>
+<p>The umask setting only applies to the current terminal session or job. It does not persist automatically and is not tied to a specific directory.</p>
+<p>This means:</p>
+<ul>
+<li>You should run <code>umask 077</code> each time you start an interactive job, or</li>
+<li>Include it at the top of every Slurm job script</li>
+</ul>
+<p>💻 <strong>Example: Interactive Session</strong></p>
+<div class="highlight"><span class="filename">Using scratch in an interactive job</span><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/scratch/shared
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$USER</span>
+chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="nv">$USER</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$USER</span>
+
+<span class="nb">umask</span><span class="w"> </span><span class="m">077</span>
+python<span class="w"> </span>script.py
+</code></pre></div>
+<p>💻 <strong>Example: Slurm Job</strong>
+<div class="highlight"><span class="filename">Using scratch in a slurm job</span><pre><span></span><code><span class="ch">#!/bin/bash</span>
+
+<span class="nb">umask</span><span class="w"> </span><span class="m">077</span>
+<span class="nv">SCRATCH_DIR</span><span class="o">=</span>/scratch/shared/<span class="nv">$USER</span>
+
+mkdir<span class="w"> </span>-p<span class="w"> </span><span class="nv">$SCRATCH_DIR</span>
+chmod<span class="w"> </span><span class="m">700</span><span class="w"> </span><span class="nv">$SCRATCH_DIR</span>
+<span class="nb">cd</span><span class="w"> </span><span class="nv">$SCRATCH_DIR</span>
+
+python<span class="w"> </span>script.py
+</code></pre></div></p>
+<hr />
+<h4 id="cleaning-up-scratch-space">🧹 Cleaning Up Scratch Space</h4>
+<p>Scratch is a temporary resource. You are expected to remove your files when your job is complete.</p>
+<p>To clean up your scratch directories:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code><span class="c1"># per-user scratch</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>/scratch/users/<span class="nv">$SUNET</span>/*
+
+<span class="c1"># shared scratch</span>
+rm<span class="w"> </span>-rf<span class="w"> </span>/scratch/shared/<span class="nv">$USER</span>/*
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Scratch is not backed up and will be cleared</p>
+<p>Files on scratch are not backed up and <strong>will</strong> be periodically cleared. <code>/scratch</code> files older than <strong>90 days</strong> are deleted at each scheduled downtime (about every two months). Move any important results to your <a href="#project-directory" target="_blank">project directory</a>.</p>
+</div>
+<h2 id="how-to-check-home-and-project-space-quota">How to Check Home and Project Space Quota</h2>
+<p>To check your storage usage of your home directory, <code>/home/users/&lt;SUNet ID&gt;/</code>, run:</p>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>gsbquota
+</code></pre></div>
+<p>Example output:
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="nt">/home/users/&lt;SUNet ID&gt;</span><span class="p">:</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">using 56% (46GiB) of soft quota 80GiB</span>
+<span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">hard quota</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">300GiB</span>
+<span class="w">  </span><span class="nt">time until lockout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">no block scheduled</span>
+</code></pre></div></p>
+<h3 id="how-to-interpret-this">How to Interpret This</h3>
+<ul>
+<li>Soft quota (80GiB)
+    Your target limit. You should stay below this for normal operation.</li>
+<li>Hard quota (300GiB)
+    Absolute maximum. If you exceed this, writes will fail.</li>
+<li>Time until lockout
+    If you stay above the soft quota too long, you may eventually be locked out of the system.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Stay below soft quota for home</p>
+<p>Stay below the 80GiB soft quota to avoid interruptions to your workflows and access to tools like <a href="/_getting_started/jupyter/" target="_blank">JupyterHub</a>.</p>
+</div>
+<p>You can also check size of your project space by passing in a full path to your project space to <code>gsbquota</code> command:</p>
+<div class="no-copy highlight"><span class="filename">Terminal Output</span><pre><span></span><code><span class="l l-Scalar l-Scalar-Plain">gsbquota /zfs/projects/students/&lt;my-project-dir&gt;/</span>
+<span class="l l-Scalar l-Scalar-Plain">/zfs/projects/students/&lt;my-project-dir&gt;/</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">currently using 39% (78G) of 200G available</span>
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Email Us If You Encounter Issues</p>
+<p>Please report any issues with <code>gsbquota</code> to the <a href="mailto:gsb_darcresearch@stanford.edu" target="_blank">DARC team</a>.</p>
+</div>
+<h2 id="how-to-recover-deleted-files">How to Recover Deleted Files</h2>
+<p>Files on the Yens are backed up in <strong>snapshots</strong>, so if you need to recover something you accidentally deleted, luckily you can still access it!</p>
+<p>Here is an example of something that might happen:</p>
+<ul>
+<li>You are working in the directory <code>/zfs/projects/faculty/hello-world/</code> and have a couple of files named <code>results.csv</code> and <code>results_temp.csv</code> that you made yesterday. The latter file was clearly temporary and so you want to remove it to clean things up:</li>
+</ul>
+<div class="highlight"><span class="filename">Terminal Command</span><pre><span></span><code>rm /zfs/projects/faculty/hello-world/results.csv
+</code></pre></div>
+<ul>
+<li>Oops, you accidentally deleted the file you wanted to keep! Only <code>results_temp.csv</code> remains. Luckily, since you made the files yesterday, there are likely snapshots available.</li>
+</ul>
+<p>Note that snapshots are retained according to specific intervals. The current snapshot retainment policy is as follows:</p>
+<ul>
+<li><u>Hourly</u> --- retain 1 day of hourly snapshots</li>
+<li><u>Daily</u> --- retain 1 week of daily snapshots</li>
+<li><u>Weekly</u> --- retain 2 months of weekly snapshots</li>
+<li><u>Monthly</u> --- retain 1 year of monthly snapshots</li>
+</ul>
+<p>You can find them at the top level of any project folder, so for our example:
+<code>/zfs/projects/faculty/hello-world/.snapshot</code></p>
+<div class="admonition note">
+<p class="admonition-title">Snapshots Are Still Being Populated</p>
+<p>The snapshots are still being populated in the new file system. Eventually we will have a year of snapshots.</p>
+</div>
+<p>We recommend <em>not</em> relying on snapshots since they may not always be available. If you often need snapshots, it may mean you don’t yet have a good backup/versioning workflow in place. Think of the snapshots as "oh thank goodness, I didn't mean to delete that".</p>
+<h2 id="other-storage-options">Other Storage Options</h2>
+<p>In addition to VAST, several other storage platforms support research workflows at Stanford GSB. The best option depends on your dataset size, security requirements, compute needs, and level of collaboration. </p>
+<h3 id="redivis">Redivis</h3>
+<p><a href="https://redivis.com/" target="_blank">Redivis</a> allows users to deploy datasets in a web-based environment (GCP backend) and provides a powerful query GUI for users who don't have a strong background in SQL.</p>
+<h3 id="google-drive">Google Drive</h3>
+<p>Available to all users at Stanford. <a href="https://uit.stanford.edu/service/gsuite/drive" target="_blank">Google Drive</a> is approved for low, medium and high risk data. It supports up to 400,000 files and has a daily upload limit of 750 GB, making it ideal for storing audio, video, PDFs, images, and flat files. Google Drive is great for sharing with external collaborators and is also suitable for <a href="/_user_guide/archiving/" target="_blank">archiving research data</a>.</p>
+<h3 id="oak">Oak</h3>
+<p><a href="https://uit.stanford.edu/service/oak-storage" target="_blank">Oak</a> is a High-Performance Computing (HPC) storage system available to research groups and projects at Stanford for research data.  The monthly cost is approximately $45 per 10 TB. Oak does not provide local or remote data backup by default, and should be considered as a single copy. However, <a href="https://docs.oak.stanford.edu/backups/" target="_blank">backups</a> are available for an additional fee. Oak is the preferred storage location for <a href="/_user_guide/sherlock/" target="_blank">Sherlock</a>, but can be mounted on the Yen cluster by request using an <a href="https://docs.oak.stanford.edu/gateways/nfs/" target="_blank">NFS gateway</a>.</p>
+<h2 id="cloud-platforms">Cloud Platforms</h2>
+<p>Storing data in the cloud is an effective way to inexpensively archive data, serve files publicly, and integrate with cloud-native query and compute tools. With the growing number of cloud storage options and security risks, we advise caution when choosing to store your data on any cloud platform. If you are considering cloud solutions for storage, please contact <a href="mailto:gsb_darcresearch@stanford.edu">DARC</a> to discuss your needs.</p>
+<h2 id="legacy-stanford-platforms">Legacy Stanford Platforms</h2>
+<p>The following storage platforms are currently supported but users are discouraged from relying on them for continuing research:</p>
+<ul>
+<li><strong>AFS:</strong> <a href="https://uit.stanford.edu/service/afs" target="_blank">Andrew File System</a> is a distributed, networked file system that allows users to access and share files. UIT no longer automatically provisions new faculty and staff members with AFS user volumes as the service is being sunsetted by the university.</li>
+<li><strong>Box:</strong> Stanford University <a href="https://uit.stanford.edu/service/box" target="_blank">Box</a> provided basic document management and collaboration through Box.com. As of February 28, 2023, university IT
+ retired the Box service and has taken steps to <a href="https://uit.stanford.edu/project/box-migration" target="_blank">migrate Box content</a> to a new folder on Google Drive or Microsoft OneDrive.</li>
+</ul>
+<h3 id="afs-volumes">AFS Volumes</h3>
+<p>You may have a personal AFS volume that is named according to your SUNet ID. For example If your SUNet ID is johndoe13, then the path to your AFS directory is: <code>/afs/ir/users/j/o/johndoe13</code>. The two individual letters are the first two letters of the SUNet ID.</p>
+<p>You may have access to other AFS volumes set up for specific projects, or other people may give you access to a specific directory in their AFS volume. To access other AFS volumes, you need to know what the path is. For example, the path might be something like <code>/afs/ir/data/gsb/nameofyourdirectory</code>.</p>
+<p><strong>How to access an AFS volume</strong></p>
+<p>You can transfer files to and from AFS using <a href="https://uit.stanford.edu/software/afs" target="_blank">OpenAFS</a> using your desktop, a free download available from Stanford. This software will mount your AFS directory so that you can access it using an Explorer (Windows) or Finder (Mac) window as you do with other files.</p>
+<div class="admonition note">
+<p class="admonition-title">AFS is NOT Mounted on the Yen Servers</p>
+<p>AFS is no longer mounted. If you still wish to access your AFS space (afs-home), you can SSH into SRC's <a href="https://srcc.stanford.edu/farmshare/connecting" target="_blank">rice nodes</a>. These nodes are part of the University's FarmShare system and you can access them with <code>ssh &lt;SUnetID&gt;@rice.stanford.edu</code>.</p>
+<p>WebAFS has been retired and is no longer available to use. For its alternatives, visit this <a href="https://uit.stanford.edu/service/afs" target="_blank">page</a>.</p>
+</div>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <custom-su-local-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the local-footer-inner-html file -->
+</custom-su-local-footer>
+<custom-su-global-footer id="custom-su-local-footer">
+    <!-- the html that goes inside this element is in the global-footer-inner-html file -->
+</custom-su-global-footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.annotate", "content.code.select", "content.code.copy", "content.tabs.link", "navigation.indexes", "navigation.top", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.tracking", "content.code.select", "content.code.copy", "search.highlight", "search.share", "search.suggest"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../js/announcement-banner.js"></script>
+      
+        <script src="../../js/footer.js"></script>
+      
+    
+  </body>
+</html>
