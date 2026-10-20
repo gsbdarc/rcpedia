@@ -403,6 +403,95 @@ document.addEventListener("DOMContentLoaded", function () { // Wait for content 
     statContainer.id = 'stat-container';
     contentDiv.appendChild(statContainer);
 
+    // -------------------------------------------------------
+    // --------------- HACKATHON / EVENT FEATURE -------------
+    // -------------------------------------------------------
+    /* Prominent event card at the top of the content area.
+     * Hides itself on/after `hideAfter`; to retire it early, set `featuredEvent = null`.
+     */
+    const featuredEvent = {
+        eyebrow: "DARC × HAI Hands-on Hackathon",
+        title: "Fine-Tune an LLM: From the Yens to Marlowe",
+        intro: "Fine-tune an open-weight LLM on one GPU on the Yens, then scale it across GPUs and nodes on Marlowe, Stanford’s H100 cluster.",
+        takeaways: "Earn Marlowe GPU-hours as you go, and leave with a working job, Slurm templates, and a GPU-hour estimate for a Marlowe application.",
+        audience: "Open to all GSB researchers, from first-time GPU users to current Marlowe users.",
+        details: [
+            { icon: "📅", text: "Friday, November 13, 2026" },
+            { icon: "🕙", text: "10:00 am to 5:00 pm PT" },
+            { icon: "📍", text: "GSB, in person (room TBA)" },
+            { icon: "😋", text: "Lunch provided" }
+        ],
+        ctaText: "Register by Nov. 6",
+        ctaLink: "https://gsb-research-appointment.stanford.edu/event/17761319",
+        hideAfter: "2026-11-14T00:00:00-08:00"
+    };
+
+    if (featuredEvent && new Date() < new Date(featuredEvent.hideAfter)) {
+        const eventCard = document.createElement('section');
+        eventCard.id = 'eventFeature';
+
+        // Left: heading + description (separate grid areas so the panel can sit between them on mobile)
+        const eventHead = document.createElement('div');
+        eventHead.classList.add('event-text', 'event-head');
+        const eventText = document.createElement('div');
+        eventText.classList.add('event-text', 'event-body');
+
+        const eyebrow = document.createElement('div');
+        eyebrow.classList.add('event-eyebrow');
+        eyebrow.textContent = featuredEvent.eyebrow;
+        eventHead.appendChild(eyebrow);
+
+        const eventTitle = document.createElement('h2');
+        eventTitle.classList.add('event-title');
+        eventTitle.textContent = featuredEvent.title;
+        eventHead.appendChild(eventTitle);
+
+        [featuredEvent.intro, featuredEvent.takeaways, featuredEvent.audience].forEach(text => {
+            const p = document.createElement('p');
+            p.textContent = text;
+            eventText.appendChild(p);
+        });
+
+        // Right: logistics + register button
+        const eventPanel = document.createElement('div');
+        eventPanel.classList.add('event-panel');
+
+        const detailList = document.createElement('ul');
+        detailList.classList.add('event-details');
+        featuredEvent.details.forEach(detail => {
+            const li = document.createElement('li');
+            const icon = document.createElement('span');
+            icon.classList.add('event-icon');
+            icon.setAttribute('aria-hidden', 'true');
+            icon.textContent = detail.icon;
+            const text = document.createElement('span');
+            text.textContent = detail.text;
+            li.appendChild(icon);
+            li.appendChild(text);
+            detailList.appendChild(li);
+        });
+        eventPanel.appendChild(detailList);
+
+        const cta = document.createElement('a');
+        cta.classList.add('event-cta');
+        cta.href = featuredEvent.ctaLink;
+        cta.target = '_blank';
+        cta.rel = 'noopener';
+        const ctaText = document.createElement('span');
+        ctaText.textContent = featuredEvent.ctaText;
+        const ctaIcon = document.createElement('span');
+        ctaIcon.classList.add('inline-icon');
+        ctaIcon.style.mask = "url('/assets/svg/right-chevron.svg') no-repeat center";
+        cta.appendChild(ctaText);
+        cta.appendChild(ctaIcon);
+        eventPanel.appendChild(cta);
+
+        eventCard.appendChild(eventHead);
+        eventCard.appendChild(eventPanel);
+        eventCard.appendChild(eventText);
+        contentDiv.prepend(eventCard);
+    }
+
     // Read from json file
     // Function to load JSON data from a file
     function loadJSON(url) {
