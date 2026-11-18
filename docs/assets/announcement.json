@@ -1,6 +1,6 @@
 {
     "type": "ERROR",
-    "message": "The Yens are currently down due to an issue affecting the data center. We are investigating and will share updates as soon as we have them. Please <a href=\"https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5\" target=\"_blank\">join our Slack Channel</a> for further updates.",
+    "message": "The Yens are currently down due to an issue affecting the data center. We are investigating and will share updates as soon as we have them. Please <a href=\"https://app.slack.com/client/E7SAV7LAD/C01JXJ6U4E5\" target=\"_blank\">join #gsb-yen-users on Slack</a> for further updates.",
     "examples": [
         {
             "type": "ERROR",
