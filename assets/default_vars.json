@@ -1,0 +1,26 @@
+[{
+        "number": "16",
+        "unit": "nodes",
+        "subtitle": "including 10 job scheduler nodes"
+    },
+    {
+        "number": "980",
+        "unit": "TB",
+        "subtitle": "of available storage"
+    },
+    {
+        "number": "15.75",
+        "unit": "TB",
+        "subtitle": "total available RAM"
+    },
+    {
+        "number": "12",
+        "unit": "GPUs",
+        "subtitle": "for intensive AI/ML tasks"
+    },
+    {
+        "number": "3160",
+        "unit": "cores",
+        "subtitle": "distributed across nodes"
+    }
+]
