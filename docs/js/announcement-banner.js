@@ -193,13 +193,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     // ============== READ JSON AND DECIDE WHETHER TO SHOW BANNER ====================
-    fetch('/assets/announcement.json')
+    // Revalidate every load; the server sends no Cache-Control, so browsers
+    // could otherwise keep a stale banner (or miss a new one) for hours.
+    fetch('/assets/announcement.json', { cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
-            const { message, type } = data;
+            const { message, type, expires } = data;
     
             if (!message || message.trim() === "" || !type) {
                 console.warn("⚠️ No current announcement.");
+                removeAnnouncementContainer();
+                return;
+            }
+
+            // Optional "expires": ISO timestamp with offset, e.g. "2026-12-04T00:00:00-08:00".
+            // The banner hides itself from that moment on.
+            if (expires && new Date() >= new Date(expires)) {
+                console.log("Announcement expired");
                 removeAnnouncementContainer();
                 return;
             }
