@@ -196,10 +196,18 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch('/assets/announcement.json')
         .then(response => response.json())
         .then(data => {
-            const { message, type } = data;
+            const { message, type, expires } = data;
     
             if (!message || message.trim() === "" || !type) {
                 console.warn("⚠️ No current announcement.");
+                removeAnnouncementContainer();
+                return;
+            }
+
+            // Optional "expires": ISO timestamp with offset, e.g. "2026-12-04T00:00:00-08:00".
+            // The banner hides itself from that moment on.
+            if (expires && new Date() >= new Date(expires)) {
+                console.log("Announcement expired");
                 removeAnnouncementContainer();
                 return;
             }
