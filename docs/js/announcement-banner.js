@@ -193,7 +193,9 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
     // ============== READ JSON AND DECIDE WHETHER TO SHOW BANNER ====================
-    fetch('/assets/announcement.json')
+    // Revalidate every load; the server sends no Cache-Control, so browsers
+    // could otherwise keep a stale banner (or miss a new one) for hours.
+    fetch('/assets/announcement.json', { cache: 'no-cache' })
         .then(response => response.json())
         .then(data => {
             const { message, type, expires } = data;
